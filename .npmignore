@@ -1,0 +1,7 @@
+.gitignore
+.eslintrc
+.travis.yml
+node_modules/
+npm-debug.log
+/lib/*.es6
+/test/
