@@ -1,4 +1,6 @@
 # PostHTML Minifier
+[![Build Status](https://travis-ci.org/maltsev/posthtml-minifier.svg?branch=master)](https://travis-ci.org/maltsev/posthtml-minifier)
+
 Modular HTML minifier.
 
 
