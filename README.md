@@ -37,6 +37,19 @@ Minified:
 ```
 
 
+### removeEmptyAttributes
+Removes empty [safe-to-remove](https://github.com/maltsev/posthtml-minifier/blob/master/lib/modules/removeEmptyAttributes.es6) attributes.
+
+Source:
+```html
+<img src="foo.jpg" alt="" style="">
+```
+
+Minified:
+```html
+<img src="foo.jpg" alt="">
+```
+
 
 ## Contribute
 
