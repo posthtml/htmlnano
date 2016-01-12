@@ -19,6 +19,25 @@ posthtml([
 ```
 
 
+## Modules
+By default all modules are enabled. You can disable some of them by passing `false`
+in the plugin's arguments (like in the usage example above).
+
+### removeComments
+Removes HTML comments.
+
+Source:
+```html
+<div><!-- test --></div>
+```
+
+Minified:
+```html
+<div></div>
+```
+
+
+
 ## Contribute
 
 Since the minifier is modular, it's very easy to add new modules:
