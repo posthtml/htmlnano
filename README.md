@@ -27,6 +27,8 @@ in the plugin's arguments (like in the usage example above).
 
 ### removeComments
 Removes HTML comments.
+The module does not remove [`<!--noindex--><!--/noindex-->`](https://yandex.com/support/webmaster/controlling-robot/html.xml) comments,
+since they can be used to prohibit indexing of some text fragments.
 
 Source:
 ```html
