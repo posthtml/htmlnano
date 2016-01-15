@@ -55,6 +55,41 @@ Minified:
 ```
 
 
+### custom
+It's possible to pass custom modules in the minifier.
+
+As a function:
+```js
+require('posthtml-minifier')({
+    custom: function (tree, options) {
+        // Some minification
+        return tree;
+    }
+})
+```
+
+As a list of functions:
+```js
+require('posthtml-minifier')({
+    custom: [
+        function (tree, options) {
+            // Some minification
+            return tree;
+        },
+
+        function (tree, options) {
+            // Some other minification
+            return tree;
+        }
+    ]
+})
+```
+
+`options` is an object with all options that were passed to the plugin.
+
+
+
+
 ## Contribute
 
 Since the minifier is modular, it's very easy to add new modules:
