@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "compile": "rm -f lib/*.js && rm -f lib/modules/*.js && node_modules/.bin/babel -d lib/ lib/",
-    "lint": "node_modules/.bin/eslint *.js lib/*.es6 test/",
+    "lint": "node_modules/.bin/eslint *.js lib/*.es6 lib/modules/*.es6 test/",
     "pretest": "npm run lint && npm run compile",
     "test": "node_modules/.bin/_mocha --compilers js:babel-core/register --recursive --check-leaks",
     "prepublish": "npm run compile"
