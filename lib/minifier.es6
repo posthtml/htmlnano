@@ -27,7 +27,8 @@ export default (options = {}) => {
                 throw new Error('Module "' + moduleName + '" is not defined');
             }
 
-            tree = require(path.join(modulesDir, moduleName)).default(tree);
+            let module = require(path.join(modulesDir, moduleName));
+            tree = module.default(tree, options, options[moduleName]);
         }
 
         return tree;
