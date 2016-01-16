@@ -1,18 +1,20 @@
 # PostHTML Minifier
-[![Build Status](https://travis-ci.org/maltsev/posthtml-minifier.svg?branch=master)](https://travis-ci.org/maltsev/posthtml-minifier)
+[![Build Status](https://travis-ci.org/maltsev/htmlnano.svg?branch=master)](https://travis-ci.org/maltsev/htmlnano)
 
-Modular HTML minifier.
+Modular HTML minifier. Inspired by [cssnano](http://cssnano.co/).
+
+
 
 
 ## Usage
-Just add `posthtml-minifier` as the last plugin:
+Just add `htmlnano` as the last plugin:
 ```js
 var posthtml = require('posthtml');
 
 posthtml([
     /* other PostHTML plugins */
 
-    require('posthtml-minifier')({
+    require('htmlnano')({
         removeComments: false // Disable the module "removeComments"
     })
 ]).process(html).then(function (result) {
@@ -42,7 +44,7 @@ Minified:
 
 
 ### removeEmptyAttributes
-Removes empty [safe-to-remove](https://github.com/maltsev/posthtml-minifier/blob/master/lib/modules/removeEmptyAttributes.es6) attributes.
+Removes empty [safe-to-remove](https://github.com/maltsev/htmlnano/blob/master/lib/modules/removeEmptyAttributes.es6) attributes.
 
 Source:
 ```html
@@ -60,7 +62,7 @@ It's possible to pass custom modules in the minifier.
 
 As a function:
 ```js
-require('posthtml-minifier')({
+require('htmlnano')({
     custom: function (tree, options) {
         // Some minification
         return tree;
@@ -70,7 +72,7 @@ require('posthtml-minifier')({
 
 As a list of functions:
 ```js
-require('posthtml-minifier')({
+require('htmlnano')({
     custom: [
         function (tree, options) {
             // Some minification
@@ -91,10 +93,17 @@ require('posthtml-minifier')({
 
 
 ## Contribute
-
 Since the minifier is modular, it's very easy to add new modules:
 
-1. Create a file inside `lib/minifiers/` with a function that does some minification.
-2. Create a file inside `test/minifiers/` with some unit-tests.
-3. Describe your module in the section "[Modules](https://github.com/maltsev/posthtml-minifier/blob/master/README.md#modules)".
-4. Send me a pull request.
+1. Create a ES6-file inside `lib/modules/` with a function that does some minification. For example you can check [`lib/modules/example.es6`](https://github.com/maltsev/htmlnano/blob/master/lib/modules/example.es6).
+
+2. Add the module in the modules array. The modules are applied from top to bottom. So you can choose the order for your module.
+
+3. Create a JS-file inside `test/modules/` with some unit-tests.
+
+4. Describe your module in the section "[Modules](https://github.com/maltsev/htmlnano/blob/master/README.md#modules)".
+
+5. Send me a pull request.
+
+
+Other types of contribution (bug fixes, documentation improves, etc) are also welcome!

@@ -1,7 +1,7 @@
 import expect from 'expect';
 import posthtml from 'posthtml';
 import objectAssign from 'object-assign';
-import minify from '..';
+import htmlnano from '..';
 import { modules } from '../lib/minifier';
 
 
@@ -33,7 +33,7 @@ export function init(html, minifiedHtml, options) {
     });
 
     options = objectAssign({}, defaultOptions, options);
-    return posthtml([minify(options)]).process(html).then((result) => {
+    return posthtml([htmlnano(options)]).process(html).then((result) => {
         expect(result.html).toBe(minifiedHtml);
     });
 }

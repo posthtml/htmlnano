@@ -1,5 +1,5 @@
 {
-  "name": "posthtml-minifier",
+  "name": "htmlnano",
   "version": "0.0.0",
   "description": "PostHTML code minifier",
   "main": "index.js",
@@ -40,10 +40,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/maltsev/posthtml-minifier.git"
+    "url": "git://github.com/maltsev/htmlnano.git"
   },
   "bugs": {
-    "url": "https://github.com/maltsev/posthtml-minifier/issues"
+    "url": "https://github.com/maltsev/htmlnano/issues"
   },
-  "homepage": "https://github.com/maltsev/posthtml-minifier"
+  "homepage": "https://github.com/maltsev/htmlnano"
 }

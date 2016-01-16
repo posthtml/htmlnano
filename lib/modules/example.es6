@@ -2,7 +2,7 @@
  * Example module
  *
  * @param {object} tree - PostHTML tree (https://github.com/posthtml/posthtml/blob/master/README.md)
- * @param {object} options - Options that were passed to posthtml-minifier
+ * @param {object} options - Options that were passed to htmlnano
  * @param moduleOptions — Module options. For most modules this is just "true" (indication that the module was enabled)
  */
 export default function example(tree, options, moduleOptions) {
