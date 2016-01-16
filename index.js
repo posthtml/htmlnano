@@ -1,1 +1,1 @@
-module.exports = require('./lib/minifier').default;
+module.exports = require('./lib/htmlnano').default;

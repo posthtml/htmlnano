@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { init } from '../minifier';
+import { init } from '../htmlnano';
 
 describe('custom', () => {
     it('should apply a custom minifier module', () => {

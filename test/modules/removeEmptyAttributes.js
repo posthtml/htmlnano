@@ -1,4 +1,4 @@
-import { init } from '../minifier';
+import { init } from '../htmlnano';
 
 describe('removeEmptyAttributes', () => {
     it('should remove empty "safe" attributes', () => {

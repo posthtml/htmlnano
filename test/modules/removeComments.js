@@ -1,4 +1,4 @@
-import { init } from '../minifier';
+import { init } from '../htmlnano';
 
 describe('removeComments', () => {
     const options = {removeComments: true};

@@ -25,7 +25,8 @@
     ]
   },
   "dependencies": {
-    "object-assign": "^4.0.1"
+    "object-assign": "^4.0.1",
+    "posthtml": "^0.8.1"
   },
   "devDependencies": {
     "babel-cli": "^6.1.18",
@@ -35,8 +36,7 @@
     "eslint": "^1.9.0",
     "expect": "^1.13.0",
     "lodash": "^3.10.1",
-    "mocha": "^2.3.4",
-    "posthtml": "^0.8.1"
+    "mocha": "^2.3.4"
   },
   "repository": {
     "type": "git",

@@ -2,10 +2,9 @@ import expect from 'expect';
 import posthtml from 'posthtml';
 import objectAssign from 'object-assign';
 import htmlnano from '..';
-import { modules } from '../lib/minifier';
 
 
-describe('Minifier', () => {
+describe('htmlnano', () => {
     it('should do nothing if all modules are disabled', () => {
         return init(
             ' <div> <!-- t --> </div> ',
@@ -28,7 +27,7 @@ describe('Minifier', () => {
 export function init(html, minifiedHtml, options) {
     let defaultOptions = {};
     // Disable all modules by default, so they can be tested isolated from each other
-    modules.forEach(minifierName => {
+    Object.keys(htmlnano.defaultOptions).forEach(minifierName => {
         defaultOptions[minifierName] = false;
     });
 

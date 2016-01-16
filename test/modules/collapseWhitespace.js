@@ -1,4 +1,4 @@
-import { init } from '../minifier';
+import { init } from '../htmlnano';
 
 describe('collapseWhitespace', () => {
     const options = {collapseWhitespace: true};

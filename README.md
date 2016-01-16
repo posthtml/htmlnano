@@ -1,31 +1,50 @@
 # PostHTML Minifier
 [![Build Status](https://travis-ci.org/maltsev/htmlnano.svg?branch=master)](https://travis-ci.org/maltsev/htmlnano)
 
-Modular HTML minifier. Inspired by [cssnano](http://cssnano.co/).
+Modular HTML minifier, built on top of the PostHTML ecosystem. Inspired by [cssnano](http://cssnano.co/).
 
 
 
 
 ## Usage
+
+### Javascript
+```js
+var posthtml = require('htmlnano');
+var options = {
+    removeEmptyAttributes: false // Disable the module "removeEmptyAttributes"
+};
+
+htmlnano.process(html, options).then(function (result) {
+    // result.html is minified
+});
+```
+
+
+### PostHTML
 Just add `htmlnano` as the last plugin:
 ```js
 var posthtml = require('posthtml');
+var options = {
+    removeComments: false // Disable the module "removeComments"
+};
 
 posthtml([
     /* other PostHTML plugins */
 
-    require('htmlnano')({
-        removeComments: false // Disable the module "removeComments"
-    })
+    require('htmlnano')(options)
 ]).process(html).then(function (result) {
     // result.html is minified
 });
 ```
 
 
+
+
 ## Modules
-By default all modules are enabled. You can disable some of them by passing `false`
-in the plugin's arguments (like in the usage example above).
+By default all modules are enabled. You can disable some of them by passing module name with `false`
+in the plugin options (like in the usage example above).
+
 
 ### removeComments
 Removes HTML comments.
@@ -62,17 +81,17 @@ It's possible to pass custom modules in the minifier.
 
 As a function:
 ```js
-require('htmlnano')({
+var options = {
     custom: function (tree, options) {
         // Some minification
         return tree;
     }
-})
+};
 ```
 
 As a list of functions:
 ```js
-require('htmlnano')({
+var options = {
     custom: [
         function (tree, options) {
             // Some minification
@@ -84,7 +103,7 @@ require('htmlnano')({
             return tree;
         }
     ]
-})
+};
 ```
 
 `options` is an object with all options that were passed to the plugin.
