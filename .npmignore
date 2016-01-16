@@ -4,4 +4,5 @@
 node_modules/
 npm-debug.log
 /lib/*.es6
+/lib/modules/example.js
 /test/
