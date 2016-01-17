@@ -46,6 +46,24 @@ By default all modules are enabled. You can disable some of them by passing modu
 in the plugin options (like in the usage example above).
 
 
+### collapseWhitespace
+Collapses redundant white spaces. It doesn’t affect significant white space in the elements `<style>`, `<textarea>`, `<script>`, and `<pre>`.
+
+Source:
+```html
+<div> hello  world! <style>div  { color: red; }  </style> </div>
+```
+
+Minified:
+```html
+<div>hello world!<style>div  { color: red; }  </style></div>
+```
+
+This module can have side effects.
+`<i>hello</i> <i>world</i>` after minification will be rendered as `helloworld`.
+
+
+
 ### removeComments
 Removes HTML comments.
 The module does not remove [`<!--noindex--><!--/noindex-->`](https://yandex.com/support/webmaster/controlling-robot/html.xml) comments,
