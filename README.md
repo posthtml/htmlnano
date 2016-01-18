@@ -12,7 +12,8 @@ Modular HTML minifier, built on top of the PostHTML ecosystem. Inspired by [cssn
 ```js
 var posthtml = require('htmlnano');
 var options = {
-    removeEmptyAttributes: false // Disable the module "removeEmptyAttributes"
+    removeEmptyAttributes: false, // Disable the module "removeEmptyAttributes"
+    collapseWhitespace: 'conservative' // Pass options to the module "collapseWhitespace"
 };
 
 htmlnano.process(html, options).then(function (result) {
@@ -26,7 +27,8 @@ Just add `htmlnano` as the last plugin:
 ```js
 var posthtml = require('posthtml');
 var options = {
-    removeComments: false // Disable the module "removeComments"
+    removeComments: false, // Disable the module "removeComments"
+    collapseWhitespace: 'conservative' // Pass options to the module "collapseWhitespace"
 };
 
 posthtml([
@@ -47,20 +49,33 @@ in the plugin options (like in the usage example above).
 
 
 ### collapseWhitespace
-Collapses redundant white spaces. It doesn’t affect significant white space in the elements `<style>`, `<textarea>`, `<script>`, and `<pre>`.
+Collapses redundant white spaces (including new lines). It doesn’t affect white spaces in the elements `<style>`, `<textarea>`, `<script>`, and `<pre>`.
+
+*Options:*
+- `all` — collapses all redundant white spaces (default)
+- `conservative` — collapses all redundant white spaces to 1 space
 
 Source:
 ```html
-<div> hello  world! <style>div  { color: red; }  </style> </div>
+<div>
+    hello  world!
+    <style>div  { color: red; }  </style>
+</div>
 ```
 
-Minified:
+Minified (with `all`):
 ```html
 <div>hello world!<style>div  { color: red; }  </style></div>
 ```
 
+Minified (with `conservative`):
+```html
+<div> hello world! <style>div  { color: red; }  </style> </div>
+```
+
 This module can have side effects.
 `<i>hello</i> <i>world</i>` after minification will be rendered as `helloworld`.
+To prevent that use `conservative` option.
 
 
 

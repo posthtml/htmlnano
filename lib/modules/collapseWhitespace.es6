@@ -2,15 +2,19 @@ const noWhitespaceCollapseElements = ['script', 'style', 'pre', 'textarea'];
 
 
 /** Collapses redundant whitespaces */
-export default function collapseWhitespace(tree) {
+export default function collapseWhitespace(tree, options, collapseType) {
+    if (collapseType !== 'all' && collapseType !== 'conservative') {
+        collapseType = 'all';
+    }
+
     tree.forEach((node, index) => {
         if (typeof node === 'string') {
-            node = collapseRedundantWhitespaces(node);
+            node = collapseRedundantWhitespaces(node, collapseType);
         }
 
         const isAllowCollapseWhitespace = noWhitespaceCollapseElements.indexOf(node.tag) === -1;
         if (node.content && node.content.length && isAllowCollapseWhitespace) {
-            node.content = collapseWhitespace(node.content);
+            node.content = collapseWhitespace(node.content, options, collapseType);
         }
 
         tree[index] = node;
@@ -20,7 +24,11 @@ export default function collapseWhitespace(tree) {
 }
 
 
-function collapseRedundantWhitespaces(text) {
-    // Find all whitespaces except \r and \n
-    return (text || '').replace(/[^\S\r\n]{2,}/g, ' ').trim();
+function collapseRedundantWhitespaces(text, collapseType) {
+    text = (text || '').replace(/\s+/g, ' ');
+    if (collapseType === 'all') {
+        text = text.trim();
+    }
+
+    return text;
 }
