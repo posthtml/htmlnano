@@ -3,7 +3,7 @@ import posthtml from 'posthtml';
 import htmlnano from '..';
 
 
-describe('Usage', () => {
+describe('[usage]', () => {
     const html = ' <div><!-- foo --></div> ';
     const minifiedHtml = '<div></div>';
 

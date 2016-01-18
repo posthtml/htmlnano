@@ -4,7 +4,7 @@ import objectAssign from 'object-assign';
 import htmlnano from '..';
 
 
-describe('htmlnano', () => {
+describe('[htmlnano]', () => {
     it('should do nothing if all modules are disabled', () => {
         return init(
             ' <div> <!-- t --> </div> ',

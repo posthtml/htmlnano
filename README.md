@@ -1,7 +1,7 @@
 # PostHTML Minifier
 [![Build Status](https://travis-ci.org/maltsev/htmlnano.svg?branch=master)](https://travis-ci.org/maltsev/htmlnano)
 
-Modular HTML minifier, built on top of the PostHTML ecosystem. Inspired by [cssnano](http://cssnano.co/).
+Modular HTML minifier, built on top of the [PostHTML](https://github.com/posthtml/posthtml). Inspired by [cssnano](http://cssnano.co/).
 
 
 
@@ -110,7 +110,7 @@ Minified:
 
 
 ### custom
-It's possible to pass custom modules in the minifier.
+It's also possible to pass custom modules in the minifier.
 
 As a function:
 ```js
@@ -122,7 +122,7 @@ var options = {
 };
 ```
 
-As a list of functions:
+Or as a list of functions:
 ```js
 var options = {
     custom: [
@@ -149,7 +149,7 @@ Since the minifier is modular, it's very easy to add new modules:
 
 1. Create a ES6-file inside `lib/modules/` with a function that does some minification. For example you can check [`lib/modules/example.es6`](https://github.com/maltsev/htmlnano/blob/master/lib/modules/example.es6).
 
-2. Add the module in the modules array. The modules are applied from top to bottom. So you can choose the order for your module.
+2. Add the module in [the modules array](https://github.com/maltsev/htmlnano/blob/master/lib/htmlnano.es6#L5). The modules are applied from top to bottom. So you can choose the order for your module.
 
 3. Create a JS-file inside `test/modules/` with some unit-tests.
 
