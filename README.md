@@ -1,4 +1,5 @@
 # PostHTML Minifier
+[![npm version](https://badge.fury.io/js/htmlnano.svg)](http://badge.fury.io/js/htmlnano)
 [![Build Status](https://travis-ci.org/maltsev/htmlnano.svg?branch=master)](https://travis-ci.org/maltsev/htmlnano)
 
 Modular HTML minifier, built on top of the [PostHTML](https://github.com/posthtml/posthtml). Inspired by [cssnano](http://cssnano.co/).
@@ -51,7 +52,7 @@ in the plugin options (like in the usage example above).
 ### collapseWhitespace
 Collapses redundant white spaces (including new lines). It doesn’t affect white spaces in the elements `<style>`, `<textarea>`, `<script>`, and `<pre>`.
 
-*Options:*
+**Options:**
 - `all` — collapses all redundant white spaces (default)
 - `conservative` — collapses all redundant white spaces to 1 space
 
@@ -80,7 +81,7 @@ To prevent that use `conservative` option.
 
 
 ### removeComments
-*Options:*
+**Options:**
 - `safe` – removes all HTML comments except [`<!--noindex--><!--/noindex-->`](https://yandex.com/support/webmaster/controlling-robot/html.xml) (default)
 - `all` — removes all HTML comments
 
