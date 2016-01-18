@@ -11,7 +11,7 @@ Modular HTML minifier, built on top of the [PostHTML](https://github.com/posthtm
 
 ### Javascript
 ```js
-var posthtml = require('htmlnano');
+var htmlnano = require('htmlnano');
 var options = {
     removeEmptyAttributes: false, // Disable the module "removeEmptyAttributes"
     collapseWhitespace: 'conservative' // Pass options to the module "collapseWhitespace"
