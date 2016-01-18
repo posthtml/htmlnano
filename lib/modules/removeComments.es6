@@ -1,9 +1,13 @@
 /** Removes HTML comments */
-export default function removeComments(tree) {
+export default function removeComments(tree, options, removeType) {
+    if (removeType !== 'all' && removeType !== 'safe') {
+        removeType = 'safe';
+    }
+
     tree.walk(node => {
         if (node.contents && node.contents.length) {
-            node.contents = node.contents.filter(content => ! isCommentToRemove(content));
-        } else if (isCommentToRemove(node)) {
+            node.contents = node.contents.filter(content => ! isCommentToRemove(content, removeType));
+        } else if (isCommentToRemove(node, removeType)) {
             node = '';
         }
 
@@ -14,7 +18,7 @@ export default function removeComments(tree) {
 }
 
 
-function isCommentToRemove(text) {
+function isCommentToRemove(text, removeType) {
     if (typeof text !== 'string') {
         return false;
     }
@@ -24,7 +28,8 @@ function isCommentToRemove(text) {
         return false;
     }
 
-    if (text === '<!--noindex-->' || text === '<!--/noindex-->') {
+    const isNoindex = text === '<!--noindex-->' || text === '<!--/noindex-->';
+    if (removeType === 'safe' && isNoindex) {
         // Don't remove noindex comments.
         // See: https://yandex.com/support/webmaster/controlling-robot/html.xml
         return false;

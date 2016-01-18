@@ -80,9 +80,9 @@ To prevent that use `conservative` option.
 
 
 ### removeComments
-Removes HTML comments.
-The module does not remove [`<!--noindex--><!--/noindex-->`](https://yandex.com/support/webmaster/controlling-robot/html.xml) comments,
-since they can be used to prohibit indexing of some text fragments.
+*Options:*
+- `safe` – removes all HTML comments except [`<!--noindex--><!--/noindex-->`](https://yandex.com/support/webmaster/controlling-robot/html.xml) (default)
+- `all` — removes all HTML comments
 
 Source:
 ```html
