@@ -9,6 +9,27 @@ Modular HTML minifier, built on top of the [PostHTML](https://github.com/posthtm
 
 ## Usage
 
+### Gulp
+```
+npm install --save-dev gulp-htmlnano
+```
+
+```js
+var gulp = require('gulp');
+var htmlnano = require('gulp-htmlnano');
+var options = {
+    removeComments: false
+};
+
+gulp.task('default', function() {
+    return gulp
+        .src('./index.html')
+        .pipe(htmlnano(options))
+        .pipe(gulp.dest('./build'));
+});
+```
+
+
 ### Javascript
 ```js
 var htmlnano = require('htmlnano');
