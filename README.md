@@ -160,3 +160,4 @@ Since the minifier is modular, it's very easy to add new modules:
 
 
 Other types of contribution (bug fixes, documentation improves, etc) are also welcome!
+Would like to contribute, but don't have any ideas what to do? Check out [our issues](https://github.com/maltsev/htmlnano/labels/help%20wanted).
