@@ -27,7 +27,8 @@ export default function removeEmptyAttributes(tree) {
         }
 
         safeToRemoveAttrs.forEach(safeToRemoveAttr => {
-            if (node.attrs[safeToRemoveAttr] === '') {
+            const attrValue = node.attrs[safeToRemoveAttr];
+            if (attrValue === '' || (attrValue || '').match(/^\s+$/)) {
                 delete node.attrs[safeToRemoveAttr];
             }
         });
