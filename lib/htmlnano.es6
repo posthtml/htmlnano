@@ -7,6 +7,7 @@ const defaultOptions = {
     removeComments: true,
     removeEmptyAttributes: true,
     collapseWhitespace: true,
+    minifyCss: {},
     custom: []
 };
 

@@ -131,6 +131,44 @@ Minified:
 ```
 
 
+
+
+### minifyCSS
+Minifies CSS inside `<style>` with [cssnano](http://cssnano.co/).
+
+**Options:**
+See [the documentation of cssnano](http://cssnano.co/optimisations/).
+For example you can [keep outdated vendor prefixes](http://cssnano.co/optimisations/#discard-outdated-vendor-prefixes):
+```js
+htmlnano.process(html, {
+    minifyCss: {
+        autoprefixer: false
+    }
+});
+```
+
+Source:
+```html
+<div>
+    <style>
+        h1 {
+            margin: 10px 10px 10px 10px;
+            color: #ff0000;
+        }
+    </style>
+</div>
+```
+
+Minified:
+```html
+<div>
+    <style>h1{margin:10px;color:red}</style>
+</div>
+```
+
+
+
+
 ### custom
 It's also possible to pass custom modules in the minifier.
 

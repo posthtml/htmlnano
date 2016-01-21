@@ -13,11 +13,11 @@
     "prepublish": "npm run compile"
   },
   "keywords": [
-      "posthtml",
-      "posthtml-plugin",
-      "html",
-      "postproccessor",
-      "minifier"
+    "posthtml",
+    "posthtml-plugin",
+    "html",
+    "postproccessor",
+    "minifier"
   ],
   "babel": {
     "presets": [
@@ -25,6 +25,7 @@
     ]
   },
   "dependencies": {
+    "cssnano": "^3.4.0",
     "object-assign": "^4.0.1",
     "posthtml": "^0.8.1"
   },
