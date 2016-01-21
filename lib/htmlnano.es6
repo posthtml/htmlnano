@@ -14,6 +14,7 @@ const defaultOptions = {
 function htmlnano(options = {}) {
     return function minifier(tree) {
         options = objectAssign({}, defaultOptions, options);
+        let promise = Promise.resolve(tree);
         for (let moduleName of Object.keys(options)) {
             if (! options[moduleName]) {
                 // The module is disabled
@@ -25,10 +26,10 @@ function htmlnano(options = {}) {
             }
 
             let module = require('./modules/' + moduleName);
-            tree = module.default(tree, options, options[moduleName]);
+            promise = promise.then(tree => module.default(tree, options, options[moduleName]));
         }
 
-        return tree;
+        return promise;
     };
 }
 

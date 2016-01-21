@@ -16,4 +16,7 @@ export default function example(tree, options, moduleOptions) {
 
     // At the end you must return the tree
     return tree;
+
+    // Or a promise with the tree
+    return somePromise.then(() => tree);
 }
