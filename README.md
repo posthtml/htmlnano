@@ -134,7 +134,7 @@ Minified:
 
 
 ### minifyCSS
-Minifies CSS inside `<style>` with [cssnano](http://cssnano.co/).
+Minifies CSS with [cssnano](http://cssnano.co/) inside `<style>` tags and `style` attributes.
 
 **Options:**
 See [the documentation of cssnano](http://cssnano.co/optimisations/).
