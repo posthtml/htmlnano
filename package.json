@@ -27,7 +27,8 @@
   "dependencies": {
     "cssnano": "^3.4.0",
     "object-assign": "^4.0.1",
-    "posthtml": "^0.8.1"
+    "posthtml": "^0.8.1",
+    "uglify-js": "^2.6.1"
   },
   "devDependencies": {
     "babel-cli": "^6.1.18",

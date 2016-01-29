@@ -169,6 +169,34 @@ Minified:
 
 
 
+### minifyJs
+Minifies JS with [UglifyJS2](https://github.com/mishoo/UglifyJS2) inside `<script>` tags.
+
+**Options:**
+See [the API documentation of UglifyJS2](https://github.com/mishoo/UglifyJS2#api-reference)
+
+Source:
+```html
+<div>
+    <script>
+        /* comment */
+        var foo = function () {
+
+        };
+    </script>
+</div>
+```
+
+Minified:
+```html
+<div>
+    <script>var foob=function(){};</script>
+</div>
+```
+
+
+
+
 ### custom
 It's also possible to pass custom modules in the minifier.
 

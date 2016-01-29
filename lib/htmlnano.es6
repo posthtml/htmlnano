@@ -8,6 +8,7 @@ const defaultOptions = {
     removeEmptyAttributes: true,
     collapseWhitespace: true,
     minifyCss: {},
+    minifyJs: {},
     custom: []
 };
 
