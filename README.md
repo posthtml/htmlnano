@@ -133,7 +133,7 @@ Minified:
 
 
 
-### minifyCSS
+### minifyCss
 Minifies CSS with [cssnano](http://cssnano.co/) inside `<style>` tags and `style` attributes.
 
 **Options:**
