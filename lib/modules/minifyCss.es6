@@ -25,6 +25,8 @@ function processStyleNode(styleNode, cssnanoOptions) {
 
 
 function processStyleAttr(node, cssnanoOptions) {
+    // CSS "color: red;" is invalid. Therefore it should be wrapped inside some selector:
+    // a{color: red;}
     const wrapperStart = 'a{';
     const wrapperEnd = '}';
     const wrappedStyle = wrapperStart + (node.attrs.style || '') + wrapperEnd;
