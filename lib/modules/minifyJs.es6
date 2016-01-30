@@ -4,16 +4,54 @@ import uglifyJs from 'uglify-js';
 export default function minifyJs(tree, options, uglifyJsOptions) {
     uglifyJsOptions.fromString = true;
 
-    tree.match({tag: 'script'}, scriptNode => {
-        const js = (scriptNode.content || []).join(' ').trim();
-        if (! js) {
-            return scriptNode;
+    tree.walk(node => {
+        if (node.tag === 'script') {
+            return processScriptNode(node, uglifyJsOptions);
+        } else if (node.attrs) {
+            return processNodeWithOnAttrs(node, uglifyJsOptions);
         }
 
-        const result = uglifyJs.minify(js, uglifyJsOptions);
-        scriptNode.content = [result.code];
-        return scriptNode;
+        return node;
     });
 
     return tree;
+}
+
+
+function processScriptNode(scriptNode, uglifyJsOptions) {
+    const js = (scriptNode.content || []).join(' ').trim();
+    if (! js) {
+        return scriptNode;
+    }
+
+    const result = uglifyJs.minify(js, uglifyJsOptions);
+    scriptNode.content = [result.code];
+
+    return scriptNode;
+}
+
+
+function processNodeWithOnAttrs(node, uglifyJsOptions) {
+    const jsWrapperStart = 'function _(){';
+    const jsWrapperEnd = '}';
+
+    for (let attrName of Object.keys(node.attrs || {})) {
+        if (attrName.search('on') !== 0) {
+            continue;
+        }
+
+        // For example onclick="return false" is valid,
+        // but "return false;" is invalid (error: 'return' outside of function)
+        // Therefore the attribute's code should be wrapped inside function:
+        // "function _(){return false;}"
+        let wrappedJs = jsWrapperStart + node.attrs[attrName] + jsWrapperEnd;
+        let wrappedMinifiedJs = uglifyJs.minify(wrappedJs, uglifyJsOptions).code;
+        let minifiedJs = wrappedMinifiedJs.substring(
+            jsWrapperStart.length,
+            wrappedMinifiedJs.length - jsWrapperEnd.length
+        );
+        node.attrs[attrName] = minifiedJs;
+    }
+
+    return node;
 }
