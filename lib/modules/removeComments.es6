@@ -35,5 +35,11 @@ function isCommentToRemove(text, removeType) {
         return false;
     }
 
+    // https://en.wikipedia.org/wiki/Conditional_comment
+    const isConditional = text.startsWith('<!--[if');
+    if (removeType === 'safe' && isConditional) {
+        return false;
+    }
+
     return true;
 }
