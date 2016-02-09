@@ -1,3 +1,6 @@
+import { isComment } from '../helpers';
+
+
 const noWhitespaceCollapseElements = ['script', 'style', 'pre', 'textarea'];
 
 
@@ -8,7 +11,7 @@ export default function collapseWhitespace(tree, options, collapseType) {
     }
 
     tree.forEach((node, index) => {
-        if (typeof node === 'string') {
+        if (typeof node === 'string' && ! isComment(node)) {
             node = collapseRedundantWhitespaces(node, collapseType);
         }
 
