@@ -46,4 +46,13 @@ describe('minifyCss', () => {
             {minifyCss: {autoprefixer: false}}
         );
     });
+
+
+    it('should not minify CSS inside HTML comments', () => {
+        return init(
+            '<div><!-- <style>h1 { color: red; }</style> --></div>',
+            '<div><!-- <style>h1 { color: red; }</style> --></div>',
+            options
+        );
+    });
 });

@@ -18,4 +18,12 @@ describe('minifyJs', () => {
             options
         );
     });
+
+    it('should not minify JS inside HTML comments', () => {
+        return init(
+            '<div><!-- <script> var foob = function () {}; </script> --></div>',
+            '<div><!-- <script> var foob = function () {}; </script> --></div>',
+            options
+        );
+    });
 });
