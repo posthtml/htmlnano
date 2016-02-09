@@ -1,3 +1,6 @@
+import { isComment, isConditionalComment } from '../helpers';
+
+
 /** Removes HTML comments */
 export default function removeComments(tree, options, removeType) {
     if (removeType !== 'all' && removeType !== 'safe') {
@@ -23,7 +26,7 @@ function isCommentToRemove(text, removeType) {
         return false;
     }
 
-    if (text.search('<!--') !== 0) {
+    if (! isComment(text)) {
         // Not HTML comment
         return false;
     }
@@ -36,8 +39,7 @@ function isCommentToRemove(text, removeType) {
     }
 
     // https://en.wikipedia.org/wiki/Conditional_comment
-    const isConditional = text.search(/<!--\[if/) === 0;
-    if (removeType === 'safe' && isConditional) {
+    if (removeType === 'safe' && isConditionalComment(text)) {
         return false;
     }
 
