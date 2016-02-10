@@ -6,6 +6,7 @@ import posthtml from 'posthtml';
 const defaultOptions = {
     removeComments: true,
     removeEmptyAttributes: true,
+    removeRedundantAttributes: true,
     collapseWhitespace: true,
     minifyCss: {},
     minifyJs: {},
