@@ -19,7 +19,8 @@ const redundantAttributes = {
     },
 
     'style': {
-        'media': 'all'
+        'media': 'all',
+        'type': 'text/css'
     },
 
     'link': {

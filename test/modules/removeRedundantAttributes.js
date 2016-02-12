@@ -35,6 +35,14 @@ describe('removeRedundantAttributes', () => {
         );
     });
 
+    it('should remove type="text/css" from <style>', () => {
+        return init(
+            '<style type="text/css"></style>',
+            '<style></style>',
+            options
+        );
+    });
+
     it('should remove media="all" from <style> and <link>', () => {
         return init(
             '<style media="all"></style><link media="all">',
