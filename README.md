@@ -214,7 +214,27 @@ Minified:
 </form>
 ```
 
+### collapseBooleanAttributes
+Collapses boolean attributes (like `disabled`) to the minimized form.
 
+Source:
+```html
+<button disabled="disabled">click</button>
+<script defer=""></script>
+```
+
+Minified:
+```html
+<button disabled>click</button>
+<script defer></script>
+```
+
+This module could break your styles or JS if you use selectors with attributes:
+```CSS
+button[disabled="disabled"] {
+    color: red;
+}
+```
 
 
 ### custom
