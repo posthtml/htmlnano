@@ -198,7 +198,12 @@ Minified:
 
 
 ### removeRedundantAttributes
-Removes [redundant attributes](https://github.com/maltsev/htmlnano/blob/dev/lib/modules/removeRedundantAttributes.es6) from tags.
+Removes redundant attributes from tags if they contain default values:
+- `method="get"` from `<form>`
+- `type="text"` from `<input>`
+- `language="javascript"` and `type="text/javascript"` from `<script>`
+- `charset` from `<script>` if it's an external script
+- `media="all"` from `<style>` and `<link>`
 
 Source:
 ```html
@@ -213,6 +218,15 @@ Minified:
     <input>
 </form>
 ```
+
+This module could break your styles or JS if you use selectors with attributes:
+```CSS
+form[method="get"] {
+    color: red;
+}
+```
+
+
 
 ### collapseBooleanAttributes
 Collapses boolean attributes (like `disabled`) to the minimized form.
