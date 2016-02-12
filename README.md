@@ -197,6 +197,26 @@ Minified:
 
 
 
+### removeRedundantAttributes
+Removes [redundant attributes](https://github.com/maltsev/htmlnano/blob/dev/lib/modules/removeRedundantAttributes.es6) from tags.
+
+Source:
+```html
+<form method="get">
+    <input type="text">
+</form>
+```
+
+Minified:
+```html
+<form>
+    <input>
+</form>
+```
+
+
+
+
 ### custom
 It's also possible to pass custom modules in the minifier.
 
