@@ -9,6 +9,7 @@ const defaultOptions = {
     removeRedundantAttributes: true,
     collapseWhitespace: true,
     collapseBooleanAttributes: true,
+    mergeStyles: true,
     minifyCss: {},
     minifyJs: {},
     custom: []

@@ -270,6 +270,31 @@ Minified:
 ```
 
 
+
+
+### mergeStyles
+Merges multiple `<style>` with the same `media` and `type` into one tag.
+`<style scoped>...</style>` are skipped.
+
+##### Example
+Source:
+```html
+<style>h1 { color: red }</style>
+<style media="print">div { color: blue }</style>
+
+<style type="text/css" media="print">a {}</style>
+<style>div { font-size: 20px }</style>
+```
+
+Minified:
+```html
+<style>h1 { color: red } div { font-size: 20px }</style>
+<style media="print">div { color: blue } a {}</style>
+```
+
+
+
+
 ### custom
 It's also possible to pass custom modules in the minifier.
 
