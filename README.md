@@ -123,6 +123,14 @@ Minified:
 ### removeEmptyAttributes
 Removes empty [safe-to-remove](https://github.com/maltsev/htmlnano/blob/master/lib/modules/removeEmptyAttributes.es6) attributes.
 
+##### Side effects
+This module could break your styles or JS if you use selectors with attributes:
+```CSS
+img[style=""] {
+    margin: 10px;
+}
+```
+
 ##### Example
 Source:
 ```html
