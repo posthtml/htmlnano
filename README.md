@@ -197,7 +197,7 @@ Minified:
 
 
 
-### removeRedundantAttributes
+### removeRedundantAttributes
 Removes [redundant attributes](https://github.com/maltsev/htmlnano/blob/dev/lib/modules/removeRedundantAttributes.es6) from tags.
 
 Source:
