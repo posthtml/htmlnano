@@ -73,10 +73,15 @@ in the plugin options (like in the usage example above).
 ### collapseWhitespace
 Collapses redundant white spaces (including new lines). It doesn’t affect white spaces in the elements `<style>`, `<textarea>`, `<script>`, and `<pre>`.
 
-**Options:**
+##### Options
 - `all` — collapses all redundant white spaces (default)
 - `conservative` — collapses all redundant white spaces to 1 space
 
+##### Side effects
+`<i>hello</i> <i>world</i>` after minification will be rendered as `helloworld`.
+To prevent that use `conservative` option.
+
+##### Example
 Source:
 ```html
 <div>
@@ -95,17 +100,15 @@ Minified (with `conservative`):
 <div> hello world! <style>div  { color: red; }  </style> </div>
 ```
 
-This module can have side effects.
-`<i>hello</i> <i>world</i>` after minification will be rendered as `helloworld`.
-To prevent that use `conservative` option.
 
 
 
 ### removeComments
-**Options:**
+##### Options
 - `safe` – removes all HTML comments except [`<!--noindex--><!--/noindex-->`](https://yandex.com/support/webmaster/controlling-robot/html.xml) (default)
 - `all` — removes all HTML comments
 
+##### Example
 Source:
 ```html
 <div><!-- test --></div>
@@ -120,6 +123,7 @@ Minified:
 ### removeEmptyAttributes
 Removes empty [safe-to-remove](https://github.com/maltsev/htmlnano/blob/master/lib/modules/removeEmptyAttributes.es6) attributes.
 
+##### Example
 Source:
 ```html
 <img src="foo.jpg" alt="" style="">
@@ -136,7 +140,7 @@ Minified:
 ### minifyCss
 Minifies CSS with [cssnano](http://cssnano.co/) inside `<style>` tags and `style` attributes.
 
-**Options:**
+##### Options
 See [the documentation of cssnano](http://cssnano.co/optimisations/).
 For example you can [keep outdated vendor prefixes](http://cssnano.co/optimisations/#discard-outdated-vendor-prefixes):
 ```js
@@ -147,6 +151,7 @@ htmlnano.process(html, {
 });
 ```
 
+##### Example
 Source:
 ```html
 <div>
@@ -172,9 +177,10 @@ Minified:
 ### minifyJs
 Minifies JS with [UglifyJS2](https://github.com/mishoo/UglifyJS2) inside `<script>` tags.
 
-**Options:**
+##### Options
 See [the API documentation of UglifyJS2](https://github.com/mishoo/UglifyJS2#api-reference)
 
+##### Example
 Source:
 ```html
 <div>
@@ -205,6 +211,15 @@ Removes redundant attributes from tags if they contain default values:
 - `charset` from `<script>` if it's an external script
 - `media="all"` from `<style>` and `<link>`
 
+##### Side effects
+This module could break your styles or JS if you use selectors with attributes:
+```CSS
+form[method="get"] {
+    color: red;
+}
+```
+
+##### Example
 Source:
 ```html
 <form method="get">
@@ -219,18 +234,21 @@ Minified:
 </form>
 ```
 
-This module could break your styles or JS if you use selectors with attributes:
-```CSS
-form[method="get"] {
-    color: red;
-}
-```
 
 
 
 ### collapseBooleanAttributes
 Collapses boolean attributes (like `disabled`) to the minimized form.
 
+##### Side effects
+This module could break your styles or JS if you use selectors with attributes:
+```CSS
+button[disabled="disabled"] {
+    color: red;
+}
+```
+
+##### Example
 Source:
 ```html
 <button disabled="disabled">click</button>
@@ -241,13 +259,6 @@ Minified:
 ```html
 <button disabled>click</button>
 <script defer></script>
-```
-
-This module could break your styles or JS if you use selectors with attributes:
-```CSS
-button[disabled="disabled"] {
-    color: red;
-}
 ```
 
 
