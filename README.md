@@ -211,6 +211,27 @@ Minified:
 
 
 
+### minifyJson
+Minifies JSON inside `<script type="application/json"></script>`.
+
+##### Example
+Source:
+```html
+<script type="application/json">
+{
+    "user": "me"
+}
+</script>
+```
+
+Minified:
+```html
+<script type="application/json">{"user":"me"}</script>
+```
+
+
+
+
 ### removeRedundantAttributes
 Removes redundant attributes from tags if they contain default values:
 - `method="get"` from `<form>`

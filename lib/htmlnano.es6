@@ -12,6 +12,7 @@ const defaultOptions = {
     mergeStyles: true,
     minifyCss: {},
     minifyJs: {},
+    minifyJson: {},
     custom: []
 };
 
