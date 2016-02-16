@@ -1,17 +1,22 @@
 import uglifyJs from 'uglify-js';
 
+
 /** Minify JS with UglifyJS */
 export default function minifyJs(tree, options, uglifyJsOptions) {
     uglifyJsOptions.fromString = true;
 
-    tree.walk(node => {
-        if (node.tag === 'script') {
+    tree.match({tag: 'script'}, node => {
+        const nodeAttrs = node.attrs || {};
+        const mimeType = nodeAttrs.type || 'text/javascript';
+        if (mimeType === 'text/javascript' || mimeType === 'application/javascript') {
             return processScriptNode(node, uglifyJsOptions);
-        } else if (node.attrs) {
-            return processNodeWithOnAttrs(node, uglifyJsOptions);
         }
 
         return node;
+    });
+
+    tree.match({attrs: true}, node => {
+        return processNodeWithOnAttrs(node, uglifyJsOptions);
     });
 
     return tree;
