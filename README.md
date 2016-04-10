@@ -247,6 +247,7 @@ Minified:
 Removes redundant attributes from tags if they contain default values:
 - `method="get"` from `<form>`
 - `type="text"` from `<input>`
+- `type="submit"` from `<button>`
 - `language="javascript"` and `type="text/javascript"` from `<script>`
 - `charset` from `<script>` if it's an external script
 - `media="all"` from `<style>` and `<link>`
