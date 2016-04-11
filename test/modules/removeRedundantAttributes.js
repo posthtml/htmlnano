@@ -19,6 +19,14 @@ describe('removeRedundantAttributes', () => {
         );
     });
 
+    it('should remove type="submit" from <button>', () => {
+        return init(
+            '<button type="submit">Button</button>',
+            '<button>Button</button>',
+            options
+        );
+    });
+
     it('should remove language="javascript" and type="text/javascript" from <script>', () => {
         return init(
             '<script language="javascript" type="text/javascript"></script>',

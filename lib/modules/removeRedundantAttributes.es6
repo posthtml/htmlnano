@@ -7,6 +7,10 @@ const redundantAttributes = {
         'type': 'text'
     },
 
+    'button': {
+        'type': 'submit'
+    },
+
     'script': {
         'language': 'javascript',
         'type': 'text/javascript',
