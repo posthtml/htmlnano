@@ -28,6 +28,8 @@
     "cssnano": "^3.4.0",
     "object-assign": "^4.0.1",
     "posthtml": "^0.8.1",
+    "posthtml-render": "^1.0.6",
+    "svgo": "^0.6.4",
     "uglify-js": "^2.6.1"
   },
   "devDependencies": {
