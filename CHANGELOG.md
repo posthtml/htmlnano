@@ -11,7 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.1.4] - 2016-02-16
 ### Added
 - Minify JSON.
-- Merge multiple <style> into one.
+- Merge multiple `<style>` into one.
 - Collapse boolean attributes.
 - Remove redundant attributes.
 - HTML minifiers benchmark [#22].
