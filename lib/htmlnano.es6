@@ -13,6 +13,7 @@ const defaultOptions = {
     minifyCss: {},
     minifyJs: {},
     minifyJson: {},
+    minifySvg: {},
     custom: []
 };
 
