@@ -8,6 +8,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Minify SVG [#28].
 - Merge <script> [#19].
 
+### Changed
+- Remove redundant `type="submit"` from `<button>` [#31].
+
+### Fixed
+- Windows build [#30].
+
 
 ## [0.1.4] - 2016-02-16
 ### Added
@@ -50,6 +56,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.1.1]: https://github.com/maltsev/htmlnano/compare/0.1.0...0.1.1
 
 
+[#31]: https://github.com/maltsev/htmlnano/issues/31
+[#30]: https://github.com/maltsev/htmlnano/issues/30
 [#28]: https://github.com/maltsev/htmlnano/issues/28
 [#22]: https://github.com/maltsev/htmlnano/issues/22
 [#20]: https://github.com/maltsev/htmlnano/issues/20
