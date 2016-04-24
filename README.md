@@ -352,6 +352,35 @@ Minified:
 
 
 
+### mergeScripts
+Merge multiple `<script>` with the same attributes (`id, class, type, async, defer`) into one (last) tag.
+
+##### Side effects
+It could break your code if the tags with different attributes share the same variable scope.
+See the example below.
+
+##### Example
+Source:
+```html
+<script>var foo = 'A:1';</script>
+<script class="test">foo = 'B:1';</script>
+<script type="text/javascript">foo = 'A:2';</script>
+<script defer>foo = 'C:1';</script>
+<script>foo = 'A:3';</script>
+<script defer="defer">foo = 'C:2';</script>
+<script class="test" type="text/javascript">foo = 'B:2';</script>
+```
+
+Minified:
+```html
+<script>var foo = 'A:1'; foo = 'A:2'; foo = 'A:3';</script>
+<script defer="defer">foo = 'C:1'; foo = 'C:2';</script>
+<script class="test" type="text/javascript">foo = 'B:1'; foo = 'B:2';</script>
+```
+
+
+
+
 ### custom
 It's also possible to pass custom modules in the minifier.
 

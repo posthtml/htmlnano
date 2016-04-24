@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - Minify SVG [#28].
+- Merge <script> [#19].
 
 
 ## [0.1.4] - 2016-02-16
@@ -52,5 +53,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [#28]: https://github.com/maltsev/htmlnano/issues/28
 [#22]: https://github.com/maltsev/htmlnano/issues/22
 [#20]: https://github.com/maltsev/htmlnano/issues/20
+[#19]: https://github.com/maltsev/htmlnano/issues/19
 [#17]: https://github.com/maltsev/htmlnano/issues/17
 [#13]: https://github.com/maltsev/htmlnano/issues/13

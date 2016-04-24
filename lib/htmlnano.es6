@@ -10,6 +10,7 @@ const defaultOptions = {
     collapseWhitespace: true,
     collapseBooleanAttributes: true,
     mergeStyles: true,
+    mergeScripts: true,
     minifyCss: {},
     minifyJs: {},
     minifyJson: {},
