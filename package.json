@@ -9,7 +9,8 @@
     "compile": "rimraf lib/*.js && rimraf lib/modules/*.js && babel -d lib/ lib/",
     "lint": "eslint *.js lib/*.es6 lib/modules/*.es6 test/",
     "pretest": "npm run lint && npm run compile",
-    "test": "mocha --compilers js:babel-core/register --recursive --check-leaks",
+    "test": ":",
+    "posttest": "mocha --compilers js:babel-core/register --recursive --check-leaks",
     "prepublish": "npm run compile"
   },
   "keywords": [
