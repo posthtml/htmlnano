@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## [Unreleased]
+## [0.1.5] - 2016-04-24
 ### Added
 - Minify SVG [#28].
 - Merge <script> [#19].
@@ -49,7 +49,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-[Unreleased]: https://github.com/maltsev/htmlnano/compare/0.1.4...HEAD
+[0.1.5]: https://github.com/maltsev/htmlnano/compare/0.1.4...0.1.5
 [0.1.4]: https://github.com/maltsev/htmlnano/compare/0.1.3...0.1.4
 [0.1.3]: https://github.com/maltsev/htmlnano/compare/0.1.2...0.1.3
 [0.1.2]: https://github.com/maltsev/htmlnano/compare/0.1.1...0.1.2
