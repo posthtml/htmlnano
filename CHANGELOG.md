@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.1.5] - 2016-04-24
 ### Added
 - Minify SVG [#28].
-- Merge <script> [#19].
+- Merge `<script>` [#19].
 
 ### Changed
 - Remove redundant `type="submit"` from `<button>` [#31].
