@@ -49,18 +49,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-[0.1.5]: https://github.com/maltsev/htmlnano/compare/0.1.4...0.1.5
-[0.1.4]: https://github.com/maltsev/htmlnano/compare/0.1.3...0.1.4
-[0.1.3]: https://github.com/maltsev/htmlnano/compare/0.1.2...0.1.3
-[0.1.2]: https://github.com/maltsev/htmlnano/compare/0.1.1...0.1.2
-[0.1.1]: https://github.com/maltsev/htmlnano/compare/0.1.0...0.1.1
+[0.1.5]: https://github.com/posthtml/htmlnano/compare/0.1.4...0.1.5
+[0.1.4]: https://github.com/posthtml/htmlnano/compare/0.1.3...0.1.4
+[0.1.3]: https://github.com/posthtml/htmlnano/compare/0.1.2...0.1.3
+[0.1.2]: https://github.com/posthtml/htmlnano/compare/0.1.1...0.1.2
+[0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
 
-[#31]: https://github.com/maltsev/htmlnano/issues/31
-[#30]: https://github.com/maltsev/htmlnano/issues/30
-[#28]: https://github.com/maltsev/htmlnano/issues/28
-[#22]: https://github.com/maltsev/htmlnano/issues/22
-[#20]: https://github.com/maltsev/htmlnano/issues/20
-[#19]: https://github.com/maltsev/htmlnano/issues/19
-[#17]: https://github.com/maltsev/htmlnano/issues/17
-[#13]: https://github.com/maltsev/htmlnano/issues/13
+[#31]: https://github.com/posthtml/htmlnano/issues/31
+[#30]: https://github.com/posthtml/htmlnano/issues/30
+[#28]: https://github.com/posthtml/htmlnano/issues/28
+[#22]: https://github.com/posthtml/htmlnano/issues/22
+[#20]: https://github.com/posthtml/htmlnano/issues/20
+[#19]: https://github.com/posthtml/htmlnano/issues/19
+[#17]: https://github.com/posthtml/htmlnano/issues/17
+[#13]: https://github.com/posthtml/htmlnano/issues/13
