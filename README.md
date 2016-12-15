@@ -71,6 +71,11 @@ posthtml([
 ]).process(html).then(function (result) {
     // result.html is minified
 });
+
+// You can also use htmlnano modules separately:
+posthtml([
+    require('htmlnano/lib/modules/mergeStyles').default
+]).process(html);
 ```
 
 
