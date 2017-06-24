@@ -19,7 +19,7 @@ export default function minifyCss(tree, options, cssnanoOptions) {
 
 function processStyleNode(styleNode, cssnanoOptions) {
     return cssnano
-        .process(styleNode.content.join(' '), cssnanoOptions)
+        .process(Array.isArray(styleNode.content) ? styleNode.content.join(' ') : styleNode.content, cssnanoOptions)
         .then(result => styleNode.content = [result.css]);
 }
 
