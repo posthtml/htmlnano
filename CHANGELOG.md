@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.1.6] - 2017-06-27
+### Fixed
+- "Not a function" error [#42].
+
+
+
 ## [0.1.5] - 2016-04-24
 ### Added
 - Minify SVG [#28].
@@ -49,6 +55,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+[0.1.6]: https://github.com/posthtml/htmlnano/compare/0.1.4...0.1.6
 [0.1.5]: https://github.com/posthtml/htmlnano/compare/0.1.4...0.1.5
 [0.1.4]: https://github.com/posthtml/htmlnano/compare/0.1.3...0.1.4
 [0.1.3]: https://github.com/posthtml/htmlnano/compare/0.1.2...0.1.3
@@ -56,6 +63,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
 
+[#42]: https://github.com/posthtml/htmlnano/issues/42
 [#31]: https://github.com/posthtml/htmlnano/issues/31
 [#30]: https://github.com/posthtml/htmlnano/issues/30
 [#28]: https://github.com/posthtml/htmlnano/issues/28
