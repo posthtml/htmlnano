@@ -220,7 +220,7 @@ Source:
 Minified:
 ```html
 <div>
-    <script>var foob=function(){};</script>
+    <script>var foo=function(){};</script>
 </div>
 ```
 
