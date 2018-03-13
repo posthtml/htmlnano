@@ -11,11 +11,11 @@ Modular HTML minifier, built on top of the [PostHTML](https://github.com/posthtm
 
 | Website | Source (KB) | [html-minifier] | [htmlnano] |
 |---------|------------:|----------------:|-----------:|
-| [stackoverflow.com](http://stackoverflow.com/) | 243 | 193 | 201 |
-| [github.com](http://github.com/) | 24 | 18 | 21 |
-| [en.wikipedia.org](https://en.wikipedia.org/wiki/Main_Page) | 64 | 56 | 60 |
-| [npmjs.com](https://www.npmjs.com/) | 39 | 29 | 27 |
-| **Avg. minify rate** | 0% | **21%** | **17%** |
+| [stackoverflow.com](http://stackoverflow.com/) | 250 | 199 | 208 |
+| [github.com](http://github.com/) | 51 | 43 | 45 |
+| [en.wikipedia.org](https://en.wikipedia.org/wiki/Main_Page) | 71 | 64 | 68 |
+| [npmjs.com](https://www.npmjs.com/features) | 26 | 20 | 21 |
+| **Avg. minify rate** | 0% | **18%** | **14%** |
 
 
 ## Usage
