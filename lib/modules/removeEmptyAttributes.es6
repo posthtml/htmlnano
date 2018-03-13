@@ -26,10 +26,15 @@ export default function removeEmptyAttributes(tree) {
             return node;
         }
 
-        safeToRemoveAttrs.forEach(safeToRemoveAttr => {
-            const attrValue = node.attrs[safeToRemoveAttr];
+        Object.keys(node.attrs).forEach(attrName => {
+            const attrNameLower = attrName.toLowerCase();
+            if (safeToRemoveAttrs.indexOf(attrNameLower) === -1) {
+                return;
+            }
+
+            const attrValue = node.attrs[attrName];
             if (attrValue === '' || (attrValue || '').match(/^\s+$/)) {
-                delete node.attrs[safeToRemoveAttr];
+                delete node.attrs[attrName];
             }
         });
 
