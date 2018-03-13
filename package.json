@@ -31,7 +31,7 @@
     "posthtml": "^0.8.7",
     "posthtml-render": "^1.0.6",
     "svgo": "^0.7.2",
-    "uglify-js": "^2.8.29"
+    "uglify-js": "^3.3.14"
   },
   "devDependencies": {
     "babel-cli": "^6.1.18",

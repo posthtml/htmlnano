@@ -3,7 +3,6 @@ import uglifyJs from 'uglify-js';
 
 /** Minify JS with UglifyJS */
 export default function minifyJs(tree, options, uglifyJsOptions) {
-    uglifyJsOptions.fromString = true;
 
     tree.match({tag: 'script'}, node => {
         const nodeAttrs = node.attrs || {};
