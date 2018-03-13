@@ -10,7 +10,7 @@
     "lint": "eslint *.js lib/*.es6 lib/modules/*.es6 test/",
     "pretest": "npm run lint && npm run compile",
     "test": ":",
-    "posttest": "mocha --compilers js:babel-core/register --recursive --check-leaks --globals addresses",
+    "posttest": "mocha --require babel-core/register --recursive --check-leaks --globals addresses",
     "prepublish": "npm run compile"
   },
   "keywords": [
@@ -40,7 +40,7 @@
     "babel-preset-es2015": "^6.1.18",
     "eslint": "^4.18.2",
     "expect": "^1.13.0",
-    "mocha": "^3.4.0",
+    "mocha": "^5.0.4",
     "rimraf": "^2.5.2"
   },
   "repository": {
