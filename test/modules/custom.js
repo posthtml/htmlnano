@@ -22,7 +22,7 @@ describe('custom', () => {
 
 function getRemoveTagFunction(tag) {
     return (tree, options) => {
-        expect(options.custom).toExist();
+        expect(options.custom).toBeTruthy();
 
         tree.match({ tag }, node => {
             node.tag = false;
