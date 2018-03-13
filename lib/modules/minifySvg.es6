@@ -8,14 +8,10 @@ export default function minifySvg(tree, options, svgoOptions = {}) {
 
     tree.match({tag: 'svg'}, node => {
         let svgStr = posthtmlRender(node);
-        let promise = new Promise((resolve, reject) => {
-            svgo.optimize(svgStr, result => {
-                result ? resolve(result.data) : reject();
-            });
-        }).then(minifiedSvg => {
+        let promise = svgo.optimize(svgStr).then(result => {
             node.tag = false;
             node.attrs = {};
-            node.content = minifiedSvg;
+            node.content = result.data;
         });
         promises.push(promise);
 

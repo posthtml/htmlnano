@@ -30,7 +30,7 @@
     "object-assign": "^4.0.1",
     "posthtml": "^0.8.7",
     "posthtml-render": "^1.0.6",
-    "svgo": "^0.7.2",
+    "svgo": "^1.0.5",
     "uglify-js": "^3.3.14"
   },
   "devDependencies": {
