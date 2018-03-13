@@ -34,14 +34,14 @@
     "uglify-js": "^3.3.14"
   },
   "devDependencies": {
-    "babel-cli": "^6.1.18",
-    "babel-core": "^6.1.21",
-    "babel-eslint": "^6.0.2",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
     "babel-preset-es2015": "^6.1.18",
     "eslint": "^4.18.2",
     "expect": "^22.4.0",
     "mocha": "^5.0.4",
-    "rimraf": "^2.5.2"
+    "rimraf": "^2.6.2"
   },
   "repository": {
     "type": "git",
