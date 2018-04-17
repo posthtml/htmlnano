@@ -1,4 +1,4 @@
-import uglifyJs from 'uglify-js';
+import uglifyJs from 'uglify-es';
 
 
 /** Minify JS with UglifyJS */
