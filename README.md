@@ -49,9 +49,14 @@ var options = {
     collapseWhitespace: 'conservative' // Pass options to the module "collapseWhitespace"
 };
 
-htmlnano.process(html, options).then(function (result) {
-    // result.html is minified
-});
+htmlnano
+    .process(html, options)
+    .then(function (result) {
+        // result.html is minified
+    })
+    .catch(function (err) {
+        console.error(err);
+    });
 ```
 
 
@@ -63,14 +68,20 @@ var options = {
     removeComments: false, // Disable the module "removeComments"
     collapseWhitespace: 'conservative' // Pass options to the module "collapseWhitespace"
 };
-
-posthtml([
+var posthtmlPlugins = [
     /* other PostHTML plugins */
 
     require('htmlnano')(options)
-]).process(html).then(function (result) {
-    // result.html is minified
-});
+];
+
+posthtml(posthtmlPlugins)
+    .process(html)
+    .then(function (result) {
+        // result.html is minified
+    })
+    .catch(function (err) {
+        console.error(err);
+    });
 
 // You can also use htmlnano modules separately:
 posthtml([
