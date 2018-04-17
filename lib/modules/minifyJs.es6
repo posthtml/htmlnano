@@ -29,6 +29,13 @@ function processScriptNode(scriptNode, uglifyJsOptions) {
     }
 
     const result = uglifyJs.minify(js, uglifyJsOptions);
+    if (result.error) {
+        throw new Error(result.error);
+    }
+    if (result.code === undefined) {
+        return scriptNode;
+    }
+
     scriptNode.content = [result.code];
 
     return scriptNode;
