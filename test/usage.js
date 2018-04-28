@@ -5,7 +5,7 @@ import htmlnano from '..';
 
 describe('[usage]', () => {
     const html = ' <div><!-- foo --></div> ';
-    const minifiedHtml = '<div></div>';
+    const minifiedHtml = ' <div></div> ';
 
 
     it('javascript', () => {

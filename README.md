@@ -92,7 +92,7 @@ posthtml([
 ## Modules
 
 By default the modules should only perform safe transforms, see the module documentation below for details.
-You can disable modules by passing `false` as option.
+You can disable modules by passing `false` as option, and enable them by passing `true`.
 
 ### collapseWhitespace
 
