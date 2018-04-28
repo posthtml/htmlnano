@@ -6,8 +6,8 @@ const noWhitespaceCollapseElements = ['script', 'style', 'pre', 'textarea'];
 
 /** Collapses redundant whitespaces */
 export default function collapseWhitespace(tree, options, collapseType) {
-    if (collapseType !== 'all' && collapseType !== 'conservative') {
-        collapseType = 'all';
+    if (collapseType !== 'conservative' && collapseType !== 'all') {
+        collapseType = 'conservative';
     }
 
     tree.forEach((node, index) => {
