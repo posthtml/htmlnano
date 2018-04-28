@@ -1,23 +1,23 @@
 import objectAssign from 'object-assign';
 import posthtml from 'posthtml';
 
-
 // Array of all enabled modules
 const defaultOptions = {
-    removeComments: true,
+    removeComments: 'safe',
     removeEmptyAttributes: true,
-    removeRedundantAttributes: true,
-    collapseWhitespace: true,
+    removeRedundantAttributes: false,
+    collapseWhitespace: 'conservative',
     collapseBooleanAttributes: true,
     mergeStyles: true,
     mergeScripts: true,
-    minifyCss: {},
+    minifyCss: {
+        safe: true
+    },
     minifyJs: {},
     minifyJson: {},
     minifySvg: {},
     custom: []
 };
-
 
 function htmlnano(options = {}) {
     return function minifier(tree) {
