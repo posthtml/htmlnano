@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.8] - 2018-04-17
+### Fixed
+- ES6+ minification [#48]
+
+
+
 ## [0.1.7] - 2018-03-13
 ### Fixed
 - Update dependencies which also fixes the SVG minification bug [#47].
@@ -58,7 +64,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Remove attributes that contains only white spaces.
 
 
-
+[0.1.8]: https://github.com/posthtml/htmlnano/compare/0.1.7...0.1.8
 [0.1.7]: https://github.com/posthtml/htmlnano/compare/0.1.6...0.1.7
 [0.1.6]: https://github.com/posthtml/htmlnano/compare/0.1.5...0.1.6
 [0.1.5]: https://github.com/posthtml/htmlnano/compare/0.1.4...0.1.5
@@ -68,7 +74,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
 
-[#47]: https://github.com/posthtml/htmlnano/issues/42
+[#48]: https://github.com/posthtml/htmlnano/issues/48
+[#47]: https://github.com/posthtml/htmlnano/issues/47
 [#42]: https://github.com/posthtml/htmlnano/issues/42
 [#31]: https://github.com/posthtml/htmlnano/issues/31
 [#30]: https://github.com/posthtml/htmlnano/issues/30
