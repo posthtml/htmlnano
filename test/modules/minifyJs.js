@@ -21,6 +21,17 @@ describe('minifyJs', () => {
         );
     });
 
+    it('should minify ES6 inside <script>', () => {
+        return init(
+            `<script>
+                const f  =  5 + 10;
+                let a = (b) => { return b * 5; };
+            </script>`,
+            '<script>const f=15;let a=t=>5*t;</script>',
+            options,
+        );
+    });
+
     it('should minify JS inside on* attributes', () => {
         return init(
             '<a href="#" onclick="return function () {};">click</a>',
