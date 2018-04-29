@@ -4,7 +4,6 @@
 
 Modular HTML minifier, built on top of the [PostHTML](https://github.com/posthtml/posthtml). Inspired by [cssnano](http://cssnano.co/).
 
-
 ## [Benchmark](https://github.com/maltsev/html-minifiers-benchmark/blob/master/README.md)
 [html-minifier]: https://www.npmjs.com/package/html-minifier
 [htmlnano]: https://www.npmjs.com/package/htmlnano
@@ -17,11 +16,11 @@ Modular HTML minifier, built on top of the [PostHTML](https://github.com/posthtm
 | [npmjs.com](https://www.npmjs.com/features) | 26 | 20 | 21 |
 | **Avg. minify rate** | 0% | **18%** | **14%** |
 
-
 ## Usage
 
 ### Gulp
-```
+
+```bash
 npm install --save-dev gulp-htmlnano
 ```
 
@@ -40,8 +39,8 @@ gulp.task('default', function() {
 });
 ```
 
-
 ### Javascript
+
 ```js
 var htmlnano = require('htmlnano');
 var options = {
@@ -59,9 +58,10 @@ htmlnano
     });
 ```
 
-
 ### PostHTML
+
 Just add `htmlnano` as the last plugin:
+
 ```js
 var posthtml = require('posthtml');
 var options = {
@@ -89,27 +89,29 @@ posthtml([
 ]).process(html);
 ```
 
-
-
-
 ## Modules
-By default all modules are enabled. You can disable some of them by passing module name with `false`
-in the plugin options (like in the usage example above).
 
+By default the modules should only perform safe transforms, see the module documentation below for details.
+You can disable modules by passing `false` as option, and enable them by passing `true`.
 
 ### collapseWhitespace
-Collapses redundant white spaces (including new lines). It doesn’t affect white spaces in the elements `<style>`, `<textarea>`, `<script>`, and `<pre>`.
+
+Collapses redundant white spaces (including new lines). It doesn’t affect white spaces in the elements `<style>`, `<textarea>`, `<script>` and `<pre>`.
 
 ##### Options
-- `all` — collapses all redundant white spaces (default)
-- `conservative` — collapses all redundant white spaces to 1 space
+
+- `conservative` — collapses all redundant white spaces to 1 space (default)
+- `all` — collapses all redundant white spaces
 
 ##### Side effects
+
 `<i>hello</i> <i>world</i>` after minification will be rendered as `helloworld`.
-To prevent that use `conservative` option.
+To prevent that use `conservative` option (this is the default option).
 
 ##### Example
+
 Source:
+
 ```html
 <div>
     hello  world!
@@ -118,40 +120,46 @@ Source:
 ```
 
 Minified (with `all`):
+
 ```html
 <div>hello world!<style>div  { color: red; }  </style></div>
 ```
 
 Minified (with `conservative`):
+
 ```html
 <div> hello world! <style>div  { color: red; }  </style> </div>
 ```
 
-
-
-
 ### removeComments
+
 ##### Options
+
 - `safe` – removes all HTML comments except the conditional comments and  [`<!--noindex--><!--/noindex-->`](https://yandex.com/support/webmaster/controlling-robot/html.xml) (default)
 - `all` — removes all HTML comments
 
 ##### Example
+
 Source:
+
 ```html
 <div><!-- test --></div>
 ```
 
 Minified:
+
 ```html
 <div></div>
 ```
 
-
 ### removeEmptyAttributes
+
 Removes empty [safe-to-remove](https://github.com/posthtml/htmlnano/blob/master/lib/modules/removeEmptyAttributes.es6) attributes.
 
 ##### Side effects
+
 This module could break your styles or JS if you use selectors with attributes:
+
 ```CSS
 img[style=""] {
     margin: 10px;
@@ -159,25 +167,36 @@ img[style=""] {
 ```
 
 ##### Example
+
 Source:
+
 ```html
 <img src="foo.jpg" alt="" style="">
 ```
 
 Minified:
+
 ```html
 <img src="foo.jpg" alt="">
 ```
 
-
-
-
 ### minifyCss
+
 Minifies CSS with [cssnano](http://cssnano.co/) inside `<style>` tags and `style` attributes.
 
 ##### Options
+
+Css transforms are set to the `safe` option as a default (this should have very little side-effects):
+
+```Json
+"minifyCss": {
+    "safe": true
+}
+```
+
 See [the documentation of cssnano](http://cssnano.co/optimisations/).
 For example you can [keep outdated vendor prefixes](http://cssnano.co/optimisations/#discard-outdated-vendor-prefixes):
+
 ```js
 htmlnano.process(html, {
     minifyCss: {
@@ -187,7 +206,9 @@ htmlnano.process(html, {
 ```
 
 ##### Example
+
 Source:
+
 ```html
 <div>
     <style>
@@ -200,23 +221,25 @@ Source:
 ```
 
 Minified:
+
 ```html
 <div>
     <style>h1{margin:10px;color:red}</style>
 </div>
 ```
 
-
-
-
 ### minifyJs
-Minifies JS with [UglifyJS2](https://github.com/mishoo/UglifyJS2) inside `<script>` tags.
+
+Minifies JS with [UglifyES](https://github.com/mishoo/UglifyJS2/tree/harmony) inside `<script>` tags.
 
 ##### Options
-See [the API documentation of UglifyJS2](https://github.com/mishoo/UglifyJS2#api-reference)
+
+See [the API documentation of UglifyES](https://github.com/mishoo/UglifyJS2/tree/harmony#api-reference)
 
 ##### Example
+
 Source:
+
 ```html
 <div>
     <script>
@@ -229,20 +252,21 @@ Source:
 ```
 
 Minified:
+
 ```html
 <div>
     <script>var foo=function(){};</script>
 </div>
 ```
 
-
-
-
 ### minifyJson
+
 Minifies JSON inside `<script type="application/json"></script>`.
 
 ##### Example
+
 Source:
+
 ```html
 <script type="application/json">
 {
@@ -252,19 +276,23 @@ Source:
 ```
 
 Minified:
+
 ```html
 <script type="application/json">{"user":"me"}</script>
 ```
 
-
 ### minifySvg
+
 Minifies SVG inside `<svg>` tags with [SVGO](https://github.com/svg/svgo/).
 
 ##### Options
+
 See [the documentation of SVGO](https://github.com/svg/svgo/blob/master/README.md)
 
 ##### Example
+
 Source:
+
 ```html
 <svg version="1.1" baseProfile="full" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
     <rect width="100%" height="100%" fill="red" />
@@ -276,15 +304,15 @@ Source:
 ```
 
 Minified:
+
 ```html
 <svg baseProfile="full" width="300" height="200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="red"/><circle cx="150" cy="100" r="80" fill="green"/><text x="150" y="125" font-size="60" text-anchor="middle" fill="#fff">SVG</text></svg>
 ```
 
-
-
-
 ### removeRedundantAttributes
+
 Removes redundant attributes from tags if they contain default values:
+
 - `method="get"` from `<form>`
 - `type="text"` from `<input>`
 - `type="submit"` from `<button>`
@@ -292,8 +320,14 @@ Removes redundant attributes from tags if they contain default values:
 - `charset` from `<script>` if it's an external script
 - `media="all"` from `<style>` and `<link>`
 
+##### Options
+
+This module is disabled by default, change option to true to enable this module.
+
 ##### Side effects
+
 This module could break your styles or JS if you use selectors with attributes:
+
 ```CSS
 form[method="get"] {
     color: red;
@@ -301,7 +335,9 @@ form[method="get"] {
 ```
 
 ##### Example
+
 Source:
+
 ```html
 <form method="get">
     <input type="text">
@@ -309,20 +345,21 @@ Source:
 ```
 
 Minified:
+
 ```html
 <form>
     <input>
 </form>
 ```
 
-
-
-
 ### collapseBooleanAttributes
+
 Collapses boolean attributes (like `disabled`) to the minimized form.
 
 ##### Side effects
+
 This module could break your styles or JS if you use selectors with attributes:
+
 ```CSS
 button[disabled="disabled"] {
     color: red;
@@ -330,27 +367,30 @@ button[disabled="disabled"] {
 ```
 
 ##### Example
+
 Source:
+
 ```html
 <button disabled="disabled">click</button>
 <script defer=""></script>
 ```
 
 Minified:
+
 ```html
 <button disabled>click</button>
 <script defer></script>
 ```
 
-
-
-
 ### mergeStyles
+
 Merges multiple `<style>` with the same `media` and `type` into one tag.
 `<style scoped>...</style>` are skipped.
 
 ##### Example
+
 Source:
+
 ```html
 <style>h1 { color: red }</style>
 <style media="print">div { color: blue }</style>
@@ -360,23 +400,25 @@ Source:
 ```
 
 Minified:
+
 ```html
 <style>h1 { color: red } div { font-size: 20px }</style>
 <style media="print">div { color: blue } a {}</style>
 ```
 
-
-
-
 ### mergeScripts
+
 Merge multiple `<script>` with the same attributes (`id, class, type, async, defer`) into one (last) tag.
 
 ##### Side effects
+
 It could break your code if the tags with different attributes share the same variable scope.
 See the example below.
 
 ##### Example
+
 Source:
+
 ```html
 <script>var foo = 'A:1';</script>
 <script class="test">foo = 'B:1';</script>
@@ -388,19 +430,19 @@ Source:
 ```
 
 Minified:
+
 ```html
 <script>var foo = 'A:1'; foo = 'A:2'; foo = 'A:3';</script>
 <script defer="defer">foo = 'C:1'; foo = 'C:2';</script>
 <script class="test" type="text/javascript">foo = 'B:1'; foo = 'B:2';</script>
 ```
 
-
-
-
 ### custom
+
 It's also possible to pass custom modules in the minifier.
 
 As a function:
+
 ```js
 var options = {
     custom: function (tree, options) {
@@ -411,6 +453,7 @@ var options = {
 ```
 
 Or as a list of functions:
+
 ```js
 var options = {
     custom: [
@@ -429,10 +472,8 @@ var options = {
 
 `options` is an object with all options that were passed to the plugin.
 
-
-
-
 ## Contribute
+
 Since the minifier is modular, it's very easy to add new modules:
 
 1. Create a ES6-file inside `lib/modules/` with a function that does some minification. For example you can check [`lib/modules/example.es6`](https://github.com/posthtml/htmlnano/blob/master/lib/modules/example.es6).
@@ -444,7 +485,6 @@ Since the minifier is modular, it's very easy to add new modules:
 4. Describe your module in the section "[Modules](https://github.com/posthtml/htmlnano/blob/master/README.md#modules)".
 
 5. Send me a pull request.
-
 
 Other types of contribution (bug fixes, documentation improves, etc) are also welcome!
 Would like to contribute, but don't have any ideas what to do? Check out [our issues](https://github.com/posthtml/htmlnano/labels/help%20wanted).

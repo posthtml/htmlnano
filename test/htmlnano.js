@@ -7,8 +7,8 @@ import htmlnano from '..';
 describe('[htmlnano]', () => {
     it('should do nothing if all modules are disabled', () => {
         return init(
-            ' <div> <!-- t --> </div> ',
-            ' <div> <!-- t --> </div> '
+            ' <div>      <!-- t --> </div> ',
+            ' <div>      <!-- t --> </div> '
         );
     });
 
