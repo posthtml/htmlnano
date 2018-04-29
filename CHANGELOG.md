@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [0.1.9] - 2018-04-29
+### Fixed
+- Default minification options safety [#50]
+
+
 ## [0.1.8] - 2018-04-17
 ### Fixed
 - ES6+ minification [#48]
@@ -64,6 +70,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Remove attributes that contains only white spaces.
 
 
+[0.1.9]: https://github.com/posthtml/htmlnano/compare/0.1.8...0.1.9
 [0.1.8]: https://github.com/posthtml/htmlnano/compare/0.1.7...0.1.8
 [0.1.7]: https://github.com/posthtml/htmlnano/compare/0.1.6...0.1.7
 [0.1.6]: https://github.com/posthtml/htmlnano/compare/0.1.5...0.1.6
@@ -74,6 +81,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
 
+[#50]: https://github.com/posthtml/htmlnano/issues/50
 [#48]: https://github.com/posthtml/htmlnano/issues/48
 [#47]: https://github.com/posthtml/htmlnano/issues/47
 [#42]: https://github.com/posthtml/htmlnano/issues/42
