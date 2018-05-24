@@ -1,34 +1,34 @@
-import uglifyJs from 'uglify-es';
+import terser from 'terser';
 
 
-/** Minify JS with UglifyJS */
-export default function minifyJs(tree, options, uglifyJsOptions) {
+/** Minify JS with Terser */
+export default function minifyJs(tree, options, terserOptions) {
 
     tree.match({tag: 'script'}, node => {
         const nodeAttrs = node.attrs || {};
         const mimeType = nodeAttrs.type || 'text/javascript';
         if (mimeType === 'text/javascript' || mimeType === 'application/javascript') {
-            return processScriptNode(node, uglifyJsOptions);
+            return processScriptNode(node, terserOptions);
         }
 
         return node;
     });
 
     tree.match({attrs: true}, node => {
-        return processNodeWithOnAttrs(node, uglifyJsOptions);
+        return processNodeWithOnAttrs(node, terserOptions);
     });
 
     return tree;
 }
 
 
-function processScriptNode(scriptNode, uglifyJsOptions) {
+function processScriptNode(scriptNode, terserOptions) {
     const js = (scriptNode.content || []).join(' ').trim();
     if (! js) {
         return scriptNode;
     }
 
-    const result = uglifyJs.minify(js, uglifyJsOptions);
+    const result = terser.minify(js, terserOptions);
     if (result.error) {
         throw new Error(result.error);
     }
@@ -42,7 +42,7 @@ function processScriptNode(scriptNode, uglifyJsOptions) {
 }
 
 
-function processNodeWithOnAttrs(node, uglifyJsOptions) {
+function processNodeWithOnAttrs(node, terserOptions) {
     const jsWrapperStart = 'function _(){';
     const jsWrapperEnd = '}';
 
@@ -56,7 +56,7 @@ function processNodeWithOnAttrs(node, uglifyJsOptions) {
         // Therefore the attribute's code should be wrapped inside function:
         // "function _(){return false;}"
         let wrappedJs = jsWrapperStart + node.attrs[attrName] + jsWrapperEnd;
-        let wrappedMinifiedJs = uglifyJs.minify(wrappedJs, uglifyJsOptions).code;
+        let wrappedMinifiedJs = terser.minify(wrappedJs, terserOptions).code;
         let minifiedJs = wrappedMinifiedJs.substring(
             jsWrapperStart.length,
             wrappedMinifiedJs.length - jsWrapperEnd.length

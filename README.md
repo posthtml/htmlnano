@@ -230,11 +230,11 @@ Minified:
 
 ### minifyJs
 
-Minifies JS with [UglifyES](https://github.com/mishoo/UglifyJS2/tree/harmony) inside `<script>` tags.
+Minifies JS with [Terser](https://github.com/fabiosantoscode/terser) inside `<script>` tags.
 
 ##### Options
 
-See [the API documentation of UglifyES](https://github.com/mishoo/UglifyJS2/tree/harmony#api-reference)
+See [the API documentation of Terser](https://github.com/fabiosantoscode/terser#api-reference)
 
 ##### Example
 
