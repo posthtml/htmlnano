@@ -33,7 +33,12 @@ export default function mergeScripts(tree) {
         let lastScriptNode = scriptNodes.pop();
         scriptNodes.reverse().forEach(scriptNode => {
             let scriptContent = (scriptNode.content || []).join(' ');
-            lastScriptNode.content.unshift(scriptContent + ' ');
+            scriptContent = scriptContent.trim();
+            if (scriptContent.slice(-1) !== ';') {
+                scriptContent += ';';
+            }
+
+            lastScriptNode.content.unshift(scriptContent);
 
             scriptNode.tag = false;
             scriptNode.content = [];
