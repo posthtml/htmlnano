@@ -55,4 +55,14 @@ describe('minifyCss', () => {
             options
         );
     });
+
+
+    it('should ignore AMP boilerplate', () => {
+        const amphtml = '<style amp-boilerplate="">\nh1{color:red}</style>';
+        return init(
+            amphtml,
+            amphtml,
+            options
+        );
+    });
 });

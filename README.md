@@ -356,6 +356,17 @@ Minified:
 
 Collapses boolean attributes (like `disabled`) to the minimized form.
 
+##### Options
+
+If your document uses [AMP](https://www.ampproject.org/), set the `amphtml` flag
+to collapse additonal, AMP-specific boolean attributes:
+
+```Json
+"collapseBooleanAttributes": {
+    "amphtml": true
+}
+```
+
 ##### Side effects
 
 This module could break your styles or JS if you use selectors with attributes:

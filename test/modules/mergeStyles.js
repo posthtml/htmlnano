@@ -29,4 +29,28 @@ describe('mergeStyles', () => {
             html, html, options
         );
     });
+
+
+    it('should preserve amp-custom', () => {
+        return init(
+            '<style amp-custom>h1 { color: red }</style>' +
+            '<div>hello</div>' +
+            '<style amp-custom>div { color: blue }</style>',
+
+            '<style amp-custom="">h1 { color: red } div { color: blue }</style>' +
+            '<div>hello</div>',
+
+            options
+        );
+    });
+
+
+    it('should ignore AMP boilerplate', () => {
+        const html = `<style>h1 { color: red }</style>
+                      <div></div>
+                      <style amp-boilerplate="">div { color: blue }</style>`;
+        return init(
+            html, html, options
+        );
+    });
 });

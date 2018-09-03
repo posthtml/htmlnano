@@ -7,7 +7,9 @@ const defaultOptions = {
     removeEmptyAttributes: true,
     removeRedundantAttributes: false,
     collapseWhitespace: 'conservative',
-    collapseBooleanAttributes: true,
+    collapseBooleanAttributes: {
+        amphtml: false,
+    },
     mergeStyles: true,
     mergeScripts: true,
     minifyCss: {

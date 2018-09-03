@@ -1,10 +1,11 @@
+import { isAmpBoilerplate } from '../helpers';
 import cssnano from 'cssnano';
 
 /** Minify CSS with cssnano */
 export default function minifyCss(tree, options, cssnanoOptions) {
     let promises = [];
     tree.walk(node => {
-        if (node.tag === 'style' && node.content && node.content.length) {
+        if (isStyleNode(node)) {
             promises.push(processStyleNode(node, cssnanoOptions));
         } else if (node.attrs && node.attrs.style) {
             promises.push(processStyleAttr(node, cssnanoOptions));
@@ -14,6 +15,11 @@ export default function minifyCss(tree, options, cssnanoOptions) {
     });
 
     return Promise.all(promises).then(() => tree);
+}
+
+
+function isStyleNode(node) {
+    return node.tag === 'style' && !isAmpBoilerplate(node) && node.content && node.content.length;
 }
 
 
