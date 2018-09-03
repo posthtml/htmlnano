@@ -1,5 +1,5 @@
 // Source: https://www.w3.org/TR/html4/sgml/dtd.html#events (Generic Attributes)
-const safeToRemoveAttrs = [
+const safeToRemoveAttrs = new Set([
     'id',
     'class',
     'style',
@@ -16,7 +16,7 @@ const safeToRemoveAttrs = [
     'onkeypress',
     'onkeydown',
     'onkeyup'
-];
+]);
 
 
 /** Removes empty attributes */
@@ -28,7 +28,7 @@ export default function removeEmptyAttributes(tree) {
 
         Object.keys(node.attrs).forEach(attrName => {
             const attrNameLower = attrName.toLowerCase();
-            if (safeToRemoveAttrs.indexOf(attrNameLower) === -1) {
+            if (!safeToRemoveAttrs.has(attrNameLower)) {
                 return;
             }
 

@@ -1,5 +1,5 @@
 // Source: https://github.com/kangax/html-minifier/issues/63
-const booleanAttributes = [
+const booleanAttributes = new Set([
     'allowfullscreen',
     'async',
     'autofocus',
@@ -41,16 +41,13 @@ const booleanAttributes = [
     'truespeed',
     'typemustmatch',
     'visible'
-];
+]);
 
-
-let booleanAttributesIndex = {};
-booleanAttributes.forEach(attributeName => booleanAttributesIndex[attributeName] = true);
 
 export default function collapseBooleanAttributes(tree) {
     tree.match({attrs: true}, node => {
         for (let attrName of Object.keys(node.attrs)) {
-            if (booleanAttributesIndex[attrName]) {
+            if (booleanAttributes.has(attrName)) {
                 node.attrs[attrName] = true;
             }
         }

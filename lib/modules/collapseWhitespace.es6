@@ -1,19 +1,24 @@
 import { isComment } from '../helpers';
 
-const noWhitespaceCollapseElements = ['script', 'style', 'pre', 'textarea'];
+const noWhitespaceCollapseElements = new Set([
+    'script',
+    'style',
+    'pre',
+    'textarea'
+]);
 
 /** Collapses redundant whitespaces */
 export default function collapseWhitespace(tree, options, collapseType) {
     if (collapseType !== 'conservative' && collapseType !== 'all') {
         collapseType = 'conservative';
     }
-    
+
     tree.forEach((node, index) => {
         if (typeof node === 'string' && !isComment(node)) {
             node = collapseRedundantWhitespaces(node, collapseType, tree.walk !== undefined);
         }
 
-        const isAllowCollapseWhitespace = noWhitespaceCollapseElements.indexOf(node.tag) === -1;
+        const isAllowCollapseWhitespace = !noWhitespaceCollapseElements.has(node.tag);
         if (node.content && node.content.length && isAllowCollapseWhitespace) {
             node.content = collapseWhitespace(node.content, options, collapseType);
         }
