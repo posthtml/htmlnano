@@ -10,7 +10,7 @@
     "lint": "eslint *.js lib/*.es6 lib/modules/*.es6 test/",
     "pretest": "npm run lint && npm run compile",
     "test": ":",
-    "posttest": "mocha --require babel-core/register --recursive --check-leaks --globals addresses",
+    "posttest": "mocha --require babel-core/register --recursive --globals addresses",
     "prepublish": "npm run compile"
   },
   "keywords": [
