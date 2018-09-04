@@ -1,3 +1,5 @@
+import { isAmpBoilerplate } from '../helpers';
+
 /* Merge multiple <style> into one */
 export default function mergeStyles(tree) {
     const styleNodes = {};
@@ -7,6 +9,10 @@ export default function mergeStyles(tree) {
         // Skip <style scoped></style>
         // https://developer.mozilla.org/en/docs/Web/HTML/Element/style
         if (nodeAttrs.scoped !== undefined) {
+            return node;
+        }
+
+        if (isAmpBoilerplate(node)) {
             return node;
         }
 

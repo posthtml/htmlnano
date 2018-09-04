@@ -2,7 +2,8 @@ import { init } from '../htmlnano';
 
 
 describe('collapseBooleanAttributes', () => {
-    const options = {collapseBooleanAttributes: true};
+    const options = {collapseBooleanAttributes: {}};
+    const optionsWithAmp = {collapseBooleanAttributes: { amphtml: true }};
 
     it('should collapse a boolean attribute with value', () => {
         return init(
@@ -27,6 +28,21 @@ describe('collapseBooleanAttributes', () => {
             '<a href="">link</a>',
             '<a href="">link</a>',
             options
+        );
+    });
+
+
+    it('should collapse AMP boolean attributes with empty value', () => {
+        return init(
+            '<script defer=""></script>' +
+            '<style amp-custom=""></style>' +
+            '<amp-video preload="metadata"></amp-video>',
+
+            '<script defer></script>' +
+            '<style amp-custom></style>' +
+            '<amp-video preload="metadata"></amp-video>',
+
+            optionsWithAmp
         );
     });
 });
