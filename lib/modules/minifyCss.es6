@@ -1,6 +1,13 @@
 import { isAmpBoilerplate } from '../helpers';
 import cssnano from 'cssnano';
 
+const postcssOptions = {
+    // Prevent the following warning from being shown:
+    // > Without `from` option PostCSS could generate wrong source map and will not find Browserslist config.
+    // > Set it to CSS file path or to `undefined` to prevent this warning.
+    from: undefined,
+};
+
 /** Minify CSS with cssnano */
 export default function minifyCss(tree, options, cssnanoOptions) {
     let promises = [];
@@ -24,8 +31,9 @@ function isStyleNode(node) {
 
 
 function processStyleNode(styleNode, cssnanoOptions) {
+    const css = Array.isArray(styleNode.content) ? styleNode.content.join(' ') : styleNode.content;
     return cssnano
-        .process(Array.isArray(styleNode.content) ? styleNode.content.join(' ') : styleNode.content, cssnanoOptions)
+        .process(css, postcssOptions, cssnanoOptions)
         .then(result => styleNode.content = [result.css]);
 }
 
@@ -38,7 +46,7 @@ function processStyleAttr(node, cssnanoOptions) {
     const wrappedStyle = wrapperStart + (node.attrs.style || '') + wrapperEnd;
 
     return cssnano
-        .process(wrappedStyle, cssnanoOptions)
+        .process(wrappedStyle, postcssOptions, cssnanoOptions)
         .then(result => {
             const minifiedCss = result.css;
             // Remove wrapperStart at the start and wrapperEnd at the end of minifiedCss

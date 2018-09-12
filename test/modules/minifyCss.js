@@ -1,6 +1,8 @@
 import { init } from '../htmlnano';
 
-describe('minifyCss', () => {
+describe('minifyCss', function () {
+    this.timeout(3000);
+
     const options = {minifyCss: {}};
     const html = `<div><style>
         h1 {
@@ -15,7 +17,7 @@ describe('minifyCss', () => {
     it('should minify CSS inside <style>', () => {
         return init(
             html,
-            '<div><style>h1{margin:10px;color:red;border-radius:10px}</style></div>',
+            '<div><style>h1{-moz-border-radius:10px;border-radius:10px;color:red;margin:10px}</style></div>',
             options
         );
     });
@@ -42,8 +44,14 @@ describe('minifyCss', () => {
     it('should pass options to cssnano', () => {
         return init(
             html,
-            '<div><style>h1{margin:10px;color:red;-moz-border-radius:10px;border-radius:10px}</style></div>',
-            {minifyCss: {autoprefixer: false}}
+            '<div><style>h1{-moz-border-radius:10px;border-radius:10px;color:#ff0000;margin:10px}</style></div>',
+            {
+                minifyCss: {
+                    preset: ['default', {
+                        colormin: false,
+                    }],
+                }
+            }
         );
     });
 
