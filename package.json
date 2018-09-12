@@ -11,7 +11,7 @@
     "pretest": "npm run lint && npm run compile",
     "test": ":",
     "posttest": "mocha --require babel-core/register --recursive --globals addresses",
-    "prepublish": "npm run compile"
+    "prepare": "npm run compile"
   },
   "keywords": [
     "posthtml",
