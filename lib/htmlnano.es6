@@ -6,6 +6,7 @@ const defaultOptions = {
     removeComments: 'safe',
     removeEmptyAttributes: true,
     removeRedundantAttributes: false,
+    collapseAttributeWhitespace: true,
     collapseWhitespace: 'conservative',
     collapseBooleanAttributes: {
         amphtml: false,

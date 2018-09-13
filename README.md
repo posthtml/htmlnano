@@ -97,6 +97,22 @@ By default the modules should only perform safe transforms, see the module docum
 You can disable modules by passing `false` as option, and enable them by passing `true`.
 
 
+### collapseAttributeWhitespace
+Collapse redundant white spaces in list-like attributes (`class`, `rel`).
+
+##### Example
+Source:
+```html
+<div class=" content  page  "></div>
+```
+
+Minified:
+```html
+<div class="content page"></div>
+```
+
+
+
 ### collapseWhitespace
 Collapses redundant white spaces (including new lines). It doesn’t affect white spaces in the elements `<style>`, `<textarea>`, `<script>` and `<pre>`.
 
