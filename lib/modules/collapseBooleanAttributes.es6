@@ -106,6 +106,10 @@ const amphtmlBooleanAttributes = new Set([
 export default function collapseBooleanAttributes(tree, options, moduleOptions) {
     tree.match({attrs: true}, node => {
         for (let attrName of Object.keys(node.attrs)) {
+            if (node.tag.search('a-') === 0 && attrName === 'visible') {
+                continue;
+            }
+
             if (htmlBooleanAttributes.has(attrName)) {
                 node.attrs[attrName] = true;
             }

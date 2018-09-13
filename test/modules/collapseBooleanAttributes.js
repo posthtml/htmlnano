@@ -45,4 +45,13 @@ describe('collapseBooleanAttributes', () => {
             optionsWithAmp
         );
     });
+
+
+    it('should not collapse A-Frame visible attribute', () => {
+        return init(
+            '<a-entity visible="false"></a-entity>',
+            '<a-entity visible="false"></a-entity>',
+            options
+        );
+    });
 });
