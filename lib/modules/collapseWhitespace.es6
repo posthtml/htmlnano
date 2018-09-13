@@ -1,3 +1,4 @@
+import normalizeWhitespace from 'normalize-html-whitespace';
 import { isComment } from '../helpers';
 
 const noWhitespaceCollapseElements = new Set([
@@ -31,7 +32,7 @@ export default function collapseWhitespace(tree, options, collapseType) {
 
 
 function collapseRedundantWhitespaces(text, collapseType, isTopLevel = false) {
-    text = text && text.length > 0 ? text.replace(/\s+/g, ' ') : '';
+    text = text && text.length > 0 ? normalizeWhitespace(text) : '';
     if (collapseType === 'all' || isTopLevel) {
         text = text.trim();
     }

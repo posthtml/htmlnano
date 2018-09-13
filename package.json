@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "cssnano": "^4.1.0",
+    "normalize-html-whitespace": "^0.2.0",
     "object-assign": "^4.0.1",
     "posthtml": "^0.11.3",
     "posthtml-render": "^1.1.4",
