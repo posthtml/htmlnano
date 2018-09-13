@@ -1,7 +1,7 @@
 import { init } from '../htmlnano';
 
 
-describe.only('collapseAttributeWhitespace', () => {
+describe('collapseAttributeWhitespace', () => {
     const options = {collapseAttributeWhitespace: {}};
 
     it('it should collapse whitespaces inside list-like attributes', () => {
