@@ -1,23 +1,6 @@
 const attributesWithLists = new Set([
     'class',
     'rel',
-
-    // 'id',
-    // 'class',
-    // 'style',
-    // 'title',
-    // 'lang',
-    // 'dir',
-    // 'onclick',
-    // 'ondblclick',
-    // 'onmousedown',
-    // 'onmouseup',
-    // 'onmouseover',
-    // 'onmousemove',
-    // 'onmouseout',
-    // 'onkeypress',
-    // 'onkeydown',
-    // 'onkeyup'
 ]);
 
 
