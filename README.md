@@ -93,6 +93,10 @@ posthtml([
 
 
 ## Modules
+
+**This documentation describes coming version htmlnano@0.2.0 which would have a bit different API and more modules.
+The documentation for the actual version (0.1.10) you can find [here](https://github.com/posthtml/htmlnano/blob/eac9e039d7f5072f297cfbc59575b86bdeb2c212/README.md).**
+
 By default the modules should only perform safe transforms, see the module documentation below for details.
 You can disable modules by passing `false` as option, and enable them by passing `true`.
 
