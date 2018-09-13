@@ -31,11 +31,28 @@ describe('collapseWhitespace', () => {
 
 
     context('conservative (default)', () => {
+        const options = {collapseWhitespace: 'conservative'};
+
         it('should collapse to 1 space', () => {
             return init(
                 html,
                 '<div> <b> hello world! </b> </div>',
-                {collapseWhitespace: 'conservative'}
+                options
+            );
+        });
+
+        it('should collapse whitespaces between top-level tags (html, head, body)', () => {
+            return init(
+                ` <html>
+                    <head>
+                        <title> Test </title>
+                        <script> </script>
+                    </head>
+                    <body>
+                    </body>
+                </html> `,
+                '<html><head><title> Test </title><script> </script></head><body> </body></html>',
+                options
             );
         });
     });

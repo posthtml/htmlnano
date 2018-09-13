@@ -9,19 +9,20 @@ const noWhitespaceCollapseElements = new Set([
 ]);
 
 /** Collapses redundant whitespaces */
-export default function collapseWhitespace(tree, options, collapseType) {
-    if (collapseType !== 'conservative' && collapseType !== 'all') {
+export default function collapseWhitespace(tree, options, collapseType, tag) {
+    if (collapseType !== 'all') {
         collapseType = 'conservative';
     }
 
     tree.forEach((node, index) => {
         if (typeof node === 'string' && !isComment(node)) {
-            node = collapseRedundantWhitespaces(node, collapseType, tree.walk !== undefined);
+            const isTopLevel = ! tag || tag === 'html' || tag === 'head';
+            node = collapseRedundantWhitespaces(node, collapseType, isTopLevel);
         }
 
         const isAllowCollapseWhitespace = !noWhitespaceCollapseElements.has(node.tag);
         if (node.content && node.content.length && isAllowCollapseWhitespace) {
-            node.content = collapseWhitespace(node.content, options, collapseType);
+            node.content = collapseWhitespace(node.content, options, collapseType, node.tag);
         }
 
         tree[index] = node;
