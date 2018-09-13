@@ -188,19 +188,18 @@ Minified:
 Minifies CSS with [cssnano](http://cssnano.co/) inside `<style>` tags and `style` attributes.
 
 ##### Options
-Css transforms are set to the `safe` option as a default (this should have very little side-effects):
-```Json
-"minifyCss": {
-    "safe": true
-}
-```
+See [the documentation of cssnano](http://cssnano.co/optimisations/) for all supported optimizations.
+By default CSS is minified with preset `default`, which shouldn't have any side-effects.
 
-See [the documentation of cssnano](http://cssnano.co/optimisations/).
-For example you can [keep outdated vendor prefixes](http://cssnano.co/optimisations/#discard-outdated-vendor-prefixes):
+To use another preset or disabled some optimizations pass options to `minifyCss` module:
 ```js
 htmlnano.process(html, {
     minifyCss: {
-        autoprefixer: false
+        preset: ['default', {
+            discardComments: {
+                removeAll: true,
+            },
+        }]
     }
 });
 ```
