@@ -102,7 +102,7 @@ You can disable modules by passing `false` as option, and enable them by passing
 
 
 ### collapseAttributeWhitespace
-Collapse redundant white spaces in list-like attributes (`class`, `rel`).
+Collapse redundant white spaces in list-like attributes (`class`, `rel`, `ping`).
 
 ##### Example
 Source:

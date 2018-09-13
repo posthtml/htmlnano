@@ -1,6 +1,7 @@
 const attributesWithLists = new Set([
     'class',
     'rel',
+    'ping',
 ]);
 
 
