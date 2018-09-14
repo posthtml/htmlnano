@@ -27,9 +27,9 @@ npm install --save-dev gulp-htmlnano
 ```
 
 ```js
-var gulp = require('gulp');
-var htmlnano = require('gulp-htmlnano');
-var options = {
+const gulp = require('gulp');
+const htmlnano = require('gulp-htmlnano');
+const options = {
     removeComments: false
 };
 
@@ -44,8 +44,8 @@ gulp.task('default', function() {
 
 ### Javascript
 ```js
-var htmlnano = require('htmlnano');
-var options = {
+const htmlnano = require('htmlnano');
+const options = {
     removeEmptyAttributes: false, // Disable the module "removeEmptyAttributes"
     collapseWhitespace: 'conservative' // Pass options to the module "collapseWhitespace"
 };
@@ -64,12 +64,12 @@ htmlnano
 ### PostHTML
 Just add `htmlnano` as the last plugin:
 ```js
-var posthtml = require('posthtml');
-var options = {
+const posthtml = require('posthtml');
+const options = {
     removeComments: false, // Disable the module "removeComments"
     collapseWhitespace: 'conservative' // Pass options to the module "collapseWhitespace"
 };
-var posthtmlPlugins = [
+const posthtmlPlugins = [
     /* other PostHTML plugins */
 
     require('htmlnano')(options)
@@ -256,7 +256,7 @@ Source:
 <div>
     <script>
         /* comment */
-        var foo = function () {
+        const foo = function () {
 
         };
     </script>
@@ -266,7 +266,7 @@ Source:
 Minified:
 ```html
 <div>
-    <script>var foo=function(){};</script>
+    <script>const foo=function(){};</script>
 </div>
 ```
 
@@ -415,7 +415,7 @@ See the example below.
 ##### Example
 Source:
 ```html
-<script>var foo = 'A:1';</script>
+<script>const foo = 'A:1';</script>
 <script class="test">foo = 'B:1';</script>
 <script type="text/javascript">foo = 'A:2';</script>
 <script defer>foo = 'C:1';</script>
@@ -426,7 +426,7 @@ Source:
 
 Minified:
 ```html
-<script>var foo = 'A:1'; foo = 'A:2'; foo = 'A:3';</script>
+<script>const foo = 'A:1'; foo = 'A:2'; foo = 'A:3';</script>
 <script defer="defer">foo = 'C:1'; foo = 'C:2';</script>
 <script class="test" type="text/javascript">foo = 'B:1'; foo = 'B:2';</script>
 ```
@@ -436,7 +436,7 @@ Minified:
 It's also possible to pass custom modules in the minifier.
 As a function:
 ```js
-var options = {
+const options = {
     custom: function (tree, options) {
         // Some minification
         return tree;
@@ -446,7 +446,7 @@ var options = {
 
 Or as a list of functions:
 ```js
-var options = {
+const options = {
     custom: [
         function (tree, options) {
             // Some minification
