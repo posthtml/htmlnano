@@ -3,6 +3,28 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.2.0] - 2018-09-14
+## Breaking changes
+- The API of `minifyCss` module has been changed since `cssnano` has been updated to version 4, which has a different API. Check the following resources for more info:
+  * [htmlnano docs](https://github.com/posthtml/htmlnano#minifycss)
+  * [cssnano docs](https://cssnano.co/guides/presets)
+  * Diff of commit [979f2c](https://github.com/posthtml/htmlnano/commit/979f2c821892c9e979e8b85f74ed0394330fceaf) with the changes of related docs.
+
+## Added
+- Add presets [#64].
+- Add `collapseAttributeWhitespace` module for collapsing spaces in list-like attributes [#25].
+- Add `deduplicateAttributeValues` module for de-duplicating values in list-like attributes [#39].
+- Better support for AMP pages [#59].
+- Collapse whitespaces between top-level tags [#24].
+
+## Changed
+- Improve whitespace normalization using `normalize-html-whitespace` [#21].
+
+## Fixed
+- Don't collapse `visible="false"` attributes in A-Frame pages [#62].
+
+
+
 ## [0.1.10] - 2018-08-03
 ### Fixed
 - Merging `<script>` tags without leading `;` [#55].
@@ -76,6 +98,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+[0.2.0]: https://github.com/posthtml/htmlnano/compare/0.1.10...0.2.0
 [0.1.10]: https://github.com/posthtml/htmlnano/compare/0.1.9...0.1.10
 [0.1.9]: https://github.com/posthtml/htmlnano/compare/0.1.8...0.1.9
 [0.1.8]: https://github.com/posthtml/htmlnano/compare/0.1.7...0.1.8
@@ -88,15 +111,22 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
 
+[#64]: https://github.com/posthtml/htmlnano/issues/64
+[#62]: https://github.com/posthtml/htmlnano/issues/62
+[#59]: https://github.com/posthtml/htmlnano/issues/59
 [#55]: https://github.com/posthtml/htmlnano/issues/55
 [#50]: https://github.com/posthtml/htmlnano/issues/50
 [#48]: https://github.com/posthtml/htmlnano/issues/48
 [#47]: https://github.com/posthtml/htmlnano/issues/47
 [#42]: https://github.com/posthtml/htmlnano/issues/42
+[#39]: https://github.com/posthtml/htmlnano/issues/39
 [#31]: https://github.com/posthtml/htmlnano/issues/31
 [#30]: https://github.com/posthtml/htmlnano/issues/30
 [#28]: https://github.com/posthtml/htmlnano/issues/28
+[#25]: https://github.com/posthtml/htmlnano/issues/25
+[#24]: https://github.com/posthtml/htmlnano/issues/24
 [#22]: https://github.com/posthtml/htmlnano/issues/22
+[#21]: https://github.com/posthtml/htmlnano/issues/21
 [#20]: https://github.com/posthtml/htmlnano/issues/20
 [#19]: https://github.com/posthtml/htmlnano/issues/19
 [#17]: https://github.com/posthtml/htmlnano/issues/17
