@@ -1,8 +1,11 @@
 import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
 
 
 describe('collapseAttributeWhitespace', () => {
-    const options = {collapseAttributeWhitespace: {}};
+    const options = {
+        collapseAttributeWhitespace: safePreset.collapseAttributeWhitespace,
+    };
 
     it('it should collapse whitespaces inside list-like attributes', () => {
         return init(

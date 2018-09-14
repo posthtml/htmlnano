@@ -1,7 +1,11 @@
 import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
+
 
 describe('minifyJs', () => {
-    const options = {minifyJs: {}};
+    const options = {
+        minifyJs: safePreset.minifyJs,
+    };
 
     it('should minify JS inside <script>', () => {
         return init(

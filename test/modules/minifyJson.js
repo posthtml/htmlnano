@@ -1,8 +1,11 @@
 import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
 
 
 describe('minifyJson', () => {
-    const options = {minifyJson: true};
+    const options = {
+        minifyJson: safePreset.minifyJson,
+    };
 
     it('should minify JSON inside <script> tags with JSON mime type', () => {
         return init(

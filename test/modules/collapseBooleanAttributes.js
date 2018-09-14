@@ -1,9 +1,12 @@
 import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
+import ampSafePreset from '../../lib/presets/ampSafe';
 
 
 describe('collapseBooleanAttributes', () => {
-    const options = {collapseBooleanAttributes: {}};
-    const optionsWithAmp = {collapseBooleanAttributes: { amphtml: true }};
+    const options = {
+        collapseBooleanAttributes: safePreset.collapseBooleanAttributes,
+    };
 
     it('should collapse a boolean attribute with value', () => {
         return init(
@@ -33,6 +36,10 @@ describe('collapseBooleanAttributes', () => {
 
 
     it('should collapse AMP boolean attributes with empty value', () => {
+        const optionsWithAmp = {
+            collapseBooleanAttributes: ampSafePreset.collapseBooleanAttributes,
+        };
+
         return init(
             '<script defer=""></script>' +
             '<style amp-custom=""></style>' +

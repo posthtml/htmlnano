@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "compile": "rimraf lib/*.js && rimraf lib/modules/*.js && babel -d lib/ lib/",
-    "lint": "eslint *.js lib/*.es6 lib/modules/*.es6 test/",
+    "lint": "eslint *.js lib/*.es6 lib/modules/*.es6 lib/presets/*.es6 test/",
     "pretest": "npm run lint && npm run compile",
     "test": ":",
     "posttest": "mocha --require babel-core/register --recursive --check-leaks --globals addresses",

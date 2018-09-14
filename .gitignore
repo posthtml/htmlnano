@@ -41,3 +41,4 @@ yarn.lock
 # Custom
 /lib/*.js
 /lib/modules/*.js
+/lib/presets/*.js

@@ -1,31 +1,13 @@
 import objectAssign from 'object-assign';
 import posthtml from 'posthtml';
+import safePreset from './presets/safe';
+import ampSafePreset from './presets/ampSafe';
+import maxPreset from './presets/max';
 
-// Array of all enabled modules
-const defaultOptions = {
-    removeComments: 'safe',
-    removeEmptyAttributes: true,
-    removeRedundantAttributes: false,
-    collapseAttributeWhitespace: true,
-    collapseWhitespace: 'conservative',
-    collapseBooleanAttributes: {
-        amphtml: false,
-    },
-    deduplicateAttributeValues: true,
-    mergeStyles: true,
-    mergeScripts: true,
-    minifyCss: {
-        safe: true
-    },
-    minifyJs: {},
-    minifyJson: {},
-    minifySvg: {},
-    custom: []
-};
 
-function htmlnano(options = {}) {
+function htmlnano(options = {}, preset = safePreset) {
     return function minifier(tree) {
-        options = objectAssign({}, defaultOptions, options);
+        options = objectAssign({}, preset, options);
         let promise = Promise.resolve(tree);
         for (let moduleName of Object.keys(options)) {
             if (! options[moduleName]) {
@@ -33,7 +15,7 @@ function htmlnano(options = {}) {
                 continue;
             }
 
-            if (defaultOptions[moduleName] === undefined) {
+            if (safePreset[moduleName] === undefined) {
                 throw new Error('Module "' + moduleName + '" is not defined');
             }
 
@@ -46,10 +28,14 @@ function htmlnano(options = {}) {
 }
 
 
-htmlnano.process = function (html, options) {
-    return posthtml([htmlnano(options)]).process(html);
+htmlnano.process = function (html, options, preset) {
+    return posthtml([htmlnano(options, preset)]).process(html);
 };
 
-htmlnano.defaultOptions = defaultOptions;
+htmlnano.presets = {
+    safe: safePreset,
+    ampSafe: ampSafePreset,
+    max: maxPreset,
+};
 
 export default htmlnano;

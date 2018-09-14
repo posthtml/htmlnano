@@ -1,4 +1,7 @@
 import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
+import maxPreset from '../../lib/presets/max';
+
 
 describe('collapseWhitespace', () => {
     const html = ` <div>
@@ -7,7 +10,9 @@ describe('collapseWhitespace', () => {
 
 
     context('all', () => {
-        const options = {collapseWhitespace: 'all'};
+        const options = {
+            collapseWhitespace: maxPreset.collapseWhitespace,
+        };
 
         it('should collapse redundant whitespaces', () => {
             return init(
@@ -31,7 +36,9 @@ describe('collapseWhitespace', () => {
 
 
     context('conservative (default)', () => {
-        const options = {collapseWhitespace: 'conservative'};
+        const options = {
+            collapseWhitespace: safePreset.collapseWhitespace,
+        };
 
         it('should collapse to 1 space', () => {
             return init(

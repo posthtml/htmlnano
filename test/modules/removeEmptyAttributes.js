@@ -1,7 +1,11 @@
 import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
+
 
 describe('removeEmptyAttributes', () => {
-    const options = {removeEmptyAttributes: true};
+    const options = {
+        removeEmptyAttributes: safePreset.removeEmptyAttributes,
+    };
 
     it('should remove empty attributes', () => {
         return init(

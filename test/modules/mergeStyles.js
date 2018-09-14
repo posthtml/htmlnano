@@ -1,8 +1,11 @@
 import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
 
 
 describe('mergeStyles', () => {
-    const options = {mergeStyles: true};
+    const options = {
+        mergeStyles: safePreset.mergeStyles,
+    };
 
     it('should merge multiple <style> with the same "type" and "media" into one', () => {
         return init(

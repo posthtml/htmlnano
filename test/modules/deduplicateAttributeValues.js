@@ -1,8 +1,11 @@
 import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
 
 
 describe('deduplicateAttributeValues', () => {
-    const options = {deduplicateAttributeValues: {}};
+    const options = {
+        deduplicateAttributeValues: safePreset.deduplicateAttributeValues,
+    };
 
     it('it remove duplicate values from list-like attributes', () => {
         return init(

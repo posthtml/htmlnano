@@ -1,8 +1,11 @@
 import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
 
 
 describe('mergeScripts', () => {
-    const options = {mergeScripts: true};
+    const options = {
+        mergeScripts: safePreset.mergeScripts,
+    };
 
     it('should merge <script> with the same attributes', () => {
         return init(

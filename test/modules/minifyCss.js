@@ -1,9 +1,13 @@
 import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
+
 
 describe('minifyCss', function () {
     this.timeout(3000);
 
-    const options = {minifyCss: {}};
+    const options = {
+        minifyCss: safePreset.minifyCss,
+    };
     const html = `<div><style>
         h1 {
             margin: 10px 10px 10px 10px;

@@ -1,8 +1,13 @@
 import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
+import maxPreset from '../../lib/presets/max';
+
 
 describe('removeComments', () => {
     context('safe (default)', () => {
-        const options = {removeComments: true};
+        const options = {
+            removeComments: safePreset.removeComments,
+        };
 
         it('should remove HTML comments', () => {
             return init(
@@ -31,7 +36,9 @@ describe('removeComments', () => {
 
 
     context('all', () => {
-        const options = {removeComments: 'all'};
+        const options = {
+            removeComments: maxPreset.removeComments,
+        };
 
         it('should remove <!--noindex--> and <!--/noindex-->', () => {
             return init(
