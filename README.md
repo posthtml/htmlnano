@@ -63,7 +63,7 @@ htmlnano
 
 
 ### PostHTML
-Just add `htmlnano` as the last plugin:
+Just add `htmlnano` as a final plugin:
 ```js
 const posthtml = require('posthtml');
 const options = {
