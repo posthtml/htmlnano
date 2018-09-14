@@ -11,6 +11,7 @@ const defaultOptions = {
     collapseBooleanAttributes: {
         amphtml: false,
     },
+    deduplicateAttributeValues: true,
     mergeStyles: true,
     mergeScripts: true,
     minifyCss: {

@@ -148,6 +148,21 @@ Minified (with `conservative`):
 ```
 
 
+### deduplicateAttributeValues
+Remove duplicate values from list-like attributes (`class`, `rel`, `ping`).
+
+##### Example
+Source:
+```html
+<div class="sidebar left sidebar"></div>
+```
+
+Minified:
+```html
+<div class="sidebar left"></div>
+```
+
+
 ### removeComments
 ##### Options
 - `safe` – removes all HTML comments except the conditional comments and  [`<!--noindex--><!--/noindex-->`](https://yandex.com/support/webmaster/controlling-robot/html.xml) (default)

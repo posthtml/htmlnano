@@ -1,9 +1,8 @@
-const attributesWithLists = new Set([
+export const attributesWithLists = new Set([
     'class',
     'rel',
     'ping',
 ]);
-
 
 /** Collapse whitespaces inside list-like attributes (e.g. class, rel) */
 export default function collapseAttributeWhitespace(tree) {
