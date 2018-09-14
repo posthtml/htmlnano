@@ -12,7 +12,7 @@ describe('collapseAttributeWhitespace', () => {
         );
     });
 
-    it('should not collapse whitespaces inside non-list-like attributes', () => {
+    it('should not alter non-list-like attributes', () => {
         return init(
             '<a id=" foo  bar " href=" baz  bar ">click</a>',
             '<a id=" foo  bar " href=" baz  bar ">click</a>',
