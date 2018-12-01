@@ -8,4 +8,5 @@ export default objectAssign({}, safePreset, {
     collapseBooleanAttributes: {
         amphtml: true,
     },
+    minifyJs: false,
 });
