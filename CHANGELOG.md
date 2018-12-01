@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.2.1] - 2018-12-01
+## Fixed
+- Disable JS minifying on AMP pages [#65].
+
 ## [0.2.0] - 2018-09-14
 ## Breaking changes
 - The API of `minifyCss` module has been changed since `cssnano` has been updated to version 4, which has a different API. Check the following resources for more info:
@@ -98,6 +102,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+[0.2.1]: https://github.com/posthtml/htmlnano/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/posthtml/htmlnano/compare/0.1.10...0.2.0
 [0.1.10]: https://github.com/posthtml/htmlnano/compare/0.1.9...0.1.10
 [0.1.9]: https://github.com/posthtml/htmlnano/compare/0.1.8...0.1.9
@@ -111,6 +116,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
 
+[#65]: https://github.com/posthtml/htmlnano/issues/65
 [#64]: https://github.com/posthtml/htmlnano/issues/64
 [#62]: https://github.com/posthtml/htmlnano/issues/62
 [#59]: https://github.com/posthtml/htmlnano/issues/59
