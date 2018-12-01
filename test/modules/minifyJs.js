@@ -1,5 +1,6 @@
 import { init } from '../htmlnano';
 import safePreset from '../../lib/presets/safe';
+import ampSafePreset from '../../lib/presets/ampSafe';
 
 
 describe('minifyJs', () => {
@@ -57,6 +58,14 @@ describe('minifyJs', () => {
             '<script type="application/json">var foob = function () {};</script>',
             '<script type="application/json">var foob = function () {};</script>',
             options
+        );
+    });
+
+    it('should not minify inline JS on AMP pages', () => {
+        return init(
+            '<button on="tap:something">Click</button>',
+            '<button on="tap:something">Click</button>',
+            {minifyJs: ampSafePreset.minifyJs}
         );
     });
 });
