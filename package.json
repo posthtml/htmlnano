@@ -26,13 +26,13 @@
     ]
   },
   "dependencies": {
-    "cssnano": "^4.1.0",
+    "cssnano": "^4.1.8",
     "normalize-html-whitespace": "^0.2.0",
     "object-assign": "^4.0.1",
     "posthtml": "^0.11.3",
     "posthtml-render": "^1.1.4",
     "svgo": "^1.0.5",
-    "terser": "^3.8.2",
+    "terser": "^3.14.0",
     "uncss": "^0.16.2"
   },
   "devDependencies": {
@@ -40,10 +40,10 @@
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.0",
     "babel-preset-env": "^1.7.0",
-    "eslint": "^5.5.0",
+    "eslint": "^5.11.1",
     "expect": "^23.6.0",
     "mocha": "^5.2.0",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.3"
   },
   "repository": {
     "type": "git",
