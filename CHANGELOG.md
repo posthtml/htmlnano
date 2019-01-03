@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.2.2] - 2019-01-03
+## Added
+- `removeUnusedCss` module [#36].
+
+## Fixed
+- Bug when tag === false [#66].
+- Add `crossorigin` to boolean attributes [#67].
+
+
 ## [0.2.1] - 2018-12-01
 ## Fixed
 - Disable JS minifying on AMP pages [#65].
@@ -102,6 +111,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+[0.2.2]: https://github.com/posthtml/htmlnano/compare/0.2.1...0.2.2
 [0.2.1]: https://github.com/posthtml/htmlnano/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/posthtml/htmlnano/compare/0.1.10...0.2.0
 [0.1.10]: https://github.com/posthtml/htmlnano/compare/0.1.9...0.1.10
@@ -116,6 +126,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
 
+[#67]: https://github.com/posthtml/htmlnano/issues/67
+[#66]: https://github.com/posthtml/htmlnano/issues/66
 [#65]: https://github.com/posthtml/htmlnano/issues/65
 [#64]: https://github.com/posthtml/htmlnano/issues/64
 [#62]: https://github.com/posthtml/htmlnano/issues/62
@@ -126,6 +138,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [#47]: https://github.com/posthtml/htmlnano/issues/47
 [#42]: https://github.com/posthtml/htmlnano/issues/42
 [#39]: https://github.com/posthtml/htmlnano/issues/39
+[#36]: https://github.com/posthtml/htmlnano/issues/36
 [#31]: https://github.com/posthtml/htmlnano/issues/31
 [#30]: https://github.com/posthtml/htmlnano/issues/30
 [#28]: https://github.com/posthtml/htmlnano/issues/28
