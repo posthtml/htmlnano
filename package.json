@@ -11,7 +11,13 @@
     "pretest": "npm run lint && npm run compile",
     "test": ":",
     "posttest": "mocha --require babel-core/register --recursive --check-leaks --globals addresses",
-    "prepare": "npm run compile"
+    "prepare": "npm run compile",
+    "release:patch": "release-it patch -n"
+  },
+  "release-it": {
+    "scripts": {
+      "beforeStart": "npm test"
+    }
   },
   "keywords": [
     "posthtml",
@@ -43,6 +49,7 @@
     "eslint": "^5.11.1",
     "expect": "^23.6.0",
     "mocha": "^5.2.0",
+    "release-it": "^9.4.4",
     "rimraf": "^2.6.3"
   },
   "repository": {
