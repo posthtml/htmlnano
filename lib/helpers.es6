@@ -23,3 +23,11 @@ export function isComment(content) {
 export function isConditionalComment(content) {
     return (content || '').trim().search(/<!--\[if/) === 0;
 }
+
+export function isStyleNode(node) {
+    return node.tag === 'style' && !isAmpBoilerplate(node) && 'content' in node && node.content.length > 0;
+}
+
+export function extractCssFromStyleNode(node) {
+    return Array.isArray(node.content) ? node.content.join(' ') : node.content;
+}

@@ -8,4 +8,8 @@ export default objectAssign({}, safePreset, {
     collapseWhitespace: 'all',
     removeComments: 'all',
     removeRedundantAttributes: true,
+    removeUnusedCss: {},
+    minifyCss: {
+        preset: 'default',
+    }
 });
