@@ -1,4 +1,4 @@
-import { isAmpBoilerplate } from '../helpers';
+import { isStyleNode, extractCssFromStyleNode } from '../helpers';
 import cssnano from 'cssnano';
 
 const postcssOptions = {
@@ -25,13 +25,8 @@ export default function minifyCss(tree, options, cssnanoOptions) {
 }
 
 
-function isStyleNode(node) {
-    return node.tag === 'style' && !isAmpBoilerplate(node) && node.content && node.content.length;
-}
-
-
 function processStyleNode(styleNode, cssnanoOptions) {
-    const css = Array.isArray(styleNode.content) ? styleNode.content.join(' ') : styleNode.content;
+    const css = extractCssFromStyleNode(styleNode);
     return cssnano
         .process(css, postcssOptions, cssnanoOptions)
         .then(result => styleNode.content = [result.css]);

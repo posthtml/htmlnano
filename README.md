@@ -271,6 +271,53 @@ Minified:
 <img src="foo.jpg" alt="">
 ```
 
+### removeUnusedCss
+Removes unused CSS with [uncss](https://github.com/uncss/uncss) inside `<style>` tags.
+
+##### Options
+See [the documentation of uncss](https://github.com/uncss/uncss) for all supported options.
+
+uncss options can be passed directly to the `removeUnusedCss` module:
+```js
+htmlnano.process(html, {
+    removeUnusedCss: {
+        ignore: ['.do-not-remove']
+    }
+});
+```
+
+The following uncss options are ignored if passed to the module:
+
+-   `stylesheets`
+-   `ignoreSheets`
+-   `raw`
+
+##### Example
+Source:
+```html
+<div class="b">
+    <style>
+        .a {
+            margin: 10px 10px 10px 10px;
+        }
+        .b {
+            color: #ff0000;
+        }
+    </style>
+</div>
+```
+
+Optimized:
+```html
+<div class="b">
+    <style>
+        .b {
+            color: #ff0000;
+        }
+    </style>
+</div>
+```
+
 
 ### minifyCss
 Minifies CSS with [cssnano](http://cssnano.co/) inside `<style>` tags and `style` attributes.

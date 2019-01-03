@@ -11,6 +11,7 @@ export default {
     deduplicateAttributeValues: true,
     mergeScripts: true,
     mergeStyles: true,
+    removeUnusedCss: false,
     minifyCss: {
         preset: 'default',
     },
