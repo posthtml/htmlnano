@@ -76,6 +76,19 @@ describe('minifyJs', () => {
         );
     });
 
+    // This test fails.
+    // For more info see https://github.com/posthtml/htmlnano/issues/41
+    it.skip('should not break quotes inside on* attributes code', () => {
+        return init(
+            `<a href="#" onclick="myFunc('my string')"></a>
+            <a href="#" onclick='myFunc("my string")'></a>`,
+
+            `<a href="#" onclick="myFunc('my string')"></a>
+            <a href="#" onclick='myFunc("my string")'></a>`,
+            options
+        );
+    });
+
 
     it('should not minify inline JS on AMP pages', () => {
         return init(
