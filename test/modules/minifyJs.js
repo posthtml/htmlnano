@@ -1,3 +1,4 @@
+import objectAssign from 'object-assign';
 import { init } from '../htmlnano';
 import safePreset from '../../lib/presets/safe';
 import ampSafePreset from '../../lib/presets/ampSafe';
@@ -60,6 +61,21 @@ describe('minifyJs', () => {
             options
         );
     });
+
+    it('should pass minifyJs options to Terser', () => {
+        return init(
+            '<script>foo["bar"] = 5;</script>',
+            '<script>foo["bar"]=5;</script>',
+            objectAssign({}, options, {
+                minifyJs: {
+                    compress: {
+                        properties: false,
+                    },
+                }
+            })
+        );
+    });
+
 
     it('should not minify inline JS on AMP pages', () => {
         return init(
