@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `removeUnusedCss` module [#36].
 
 ## Fixed
-- Bug when tag === false [#66].
+- Bug when `tag === false` [#66].
 - Add `crossorigin` to boolean attributes [#67].
 
 
