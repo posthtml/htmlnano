@@ -361,10 +361,20 @@ Minified:
 
 
 ### minifyJs
-Minifies JS with [Terser](https://github.com/fabiosantoscode/terser) inside `<script>` tags.
+Minifies JS using [Terser](https://github.com/fabiosantoscode/terser) inside `<script>` tags.
 
 ##### Options
-See [the API documentation of Terser](https://github.com/fabiosantoscode/terser#api-reference)
+See [the documentation of Terser](https://github.com/fabiosantoscode/terser#api-reference) for all supported options.
+Terser options can be passed directly to the `minifyJs` module:
+```js
+htmlnano.process(html, {
+    minifyJs: {
+        output: { quote_style: 1 },
+    },
+});
+```
+
+
 
 ##### Example
 Source:
