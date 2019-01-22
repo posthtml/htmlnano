@@ -407,10 +407,20 @@ Minified:
 
 
 ### minifySvg
-Minifies SVG inside `<svg>` tags with [SVGO](https://github.com/svg/svgo/).
+Minifies SVG inside `<svg>` tags using [SVGO](https://github.com/svg/svgo/).
 
 ##### Options
-See [the documentation of SVGO](https://github.com/svg/svgo/blob/master/README.md)
+Refer to [the SVGO documentation](https://github.com/svg/svgo/blob/master/README.md) for all available minification options.
+You can configure them by passing `minifySvg` object:
+```js
+htmlnano.process(html, {
+    minifySvg: {
+        plugins: [
+            { collapseGroups: false },
+        ],
+    },
+});
+```
 
 ##### Example
 Source:
