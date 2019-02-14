@@ -42,3 +42,4 @@ yarn.lock
 /lib/*.js
 /lib/modules/*.js
 /lib/presets/*.js
+/test.js
