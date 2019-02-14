@@ -11,5 +11,6 @@ export default objectAssign({}, safePreset, {
     removeUnusedCss: {},
     minifyCss: {
         preset: 'default',
-    }
+    },
+    minifySvg: {},
 });

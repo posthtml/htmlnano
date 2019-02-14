@@ -17,7 +17,11 @@ export default {
     },
     minifyJs: {},
     minifyJson: {},
-    minifySvg: {},
+    minifySvg: {
+        plugins: [
+            { collapseGroups: false },
+        ],
+    },
     removeEmptyAttributes: true,
     removeRedundantAttributes: false,
     removeComments: 'safe',
