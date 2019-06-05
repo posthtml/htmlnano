@@ -32,24 +32,24 @@
     ]
   },
   "dependencies": {
-    "cssnano": "^4.1.9",
-    "normalize-html-whitespace": "^0.2.0",
+    "cssnano": "^4.1.10",
+    "normalize-html-whitespace": "^1.0.0",
     "object-assign": "^4.0.1",
-    "posthtml": "^0.11.3",
-    "posthtml-render": "^1.1.4",
-    "svgo": "^1.0.5",
-    "terser": "^3.16.1",
-    "uncss": "^0.16.2"
+    "posthtml": "^0.11.4",
+    "posthtml-render": "^1.1.5",
+    "svgo": "^1.2.2",
+    "terser": "^4.0.0",
+    "uncss": "^0.17.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.0",
     "babel-preset-env": "^1.7.0",
-    "eslint": "^5.13.0",
-    "expect": "^24.0.0",
-    "mocha": "^5.2.0",
-    "release-it": "^10.0.0",
+    "eslint": "^5.16.0",
+    "expect": "^24.8.0",
+    "mocha": "^6.1.0",
+    "release-it": "^12.2.0",
     "rimraf": "^2.6.3"
   },
   "repository": {
