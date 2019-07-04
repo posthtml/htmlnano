@@ -20,6 +20,7 @@ export default {
     minifySvg: {
         plugins: [
             { collapseGroups: false },
+            { convertShapeToPath: false },
         ],
     },
     removeEmptyAttributes: true,
