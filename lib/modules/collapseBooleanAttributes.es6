@@ -9,7 +9,6 @@ const htmlBooleanAttributes = new Set([
     'checked',
     'compact',
     'controls',
-    'crossorigin',
     'declare',
     'default',
     'defaultchecked',
