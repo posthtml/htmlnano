@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.2.4] - 2019-07-11
+## Fixed
+- Remove crossorigin from boolean attribute [#78], [#79].
+- Disable SVGO plugin convertShapeToPath in safe preset [#76].
+
+
 ## [0.2.3] - 2019-02-14
 ## Fixed
 - Keep `<g>` in SVG by default [#71].
@@ -116,7 +122,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-[0.2.3]: https://github.com/posthtml/htmlnano/compare/0.2.3...0.2.4
+[0.2.4]: https://github.com/posthtml/htmlnano/compare/0.2.3...0.2.4
 [0.2.3]: https://github.com/posthtml/htmlnano/compare/0.2.2...0.2.3
 [0.2.2]: https://github.com/posthtml/htmlnano/compare/0.2.1...0.2.2
 [0.2.1]: https://github.com/posthtml/htmlnano/compare/0.2.0...0.2.1
@@ -133,6 +139,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
 
+[#79]: https://github.com/posthtml/htmlnano/issues/79
+[#78]: https://github.com/posthtml/htmlnano/issues/78
+[#76]: https://github.com/posthtml/htmlnano/issues/76
 [#71]: https://github.com/posthtml/htmlnano/issues/71
 [#67]: https://github.com/posthtml/htmlnano/issues/67
 [#66]: https://github.com/posthtml/htmlnano/issues/66
