@@ -116,7 +116,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
-[0.2.3]: https://github.com/posthtml/htmlnano/compare/0.2.1...0.2.3
+[0.2.3]: https://github.com/posthtml/htmlnano/compare/0.2.3...0.2.4
+[0.2.3]: https://github.com/posthtml/htmlnano/compare/0.2.2...0.2.3
 [0.2.2]: https://github.com/posthtml/htmlnano/compare/0.2.1...0.2.2
 [0.2.1]: https://github.com/posthtml/htmlnano/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/posthtml/htmlnano/compare/0.1.10...0.2.0
@@ -132,7 +133,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
 
-[#71]: https://github.com/posthtml/htmlnano/issues/67
+[#71]: https://github.com/posthtml/htmlnano/issues/71
 [#67]: https://github.com/posthtml/htmlnano/issues/67
 [#66]: https://github.com/posthtml/htmlnano/issues/66
 [#65]: https://github.com/posthtml/htmlnano/issues/65
