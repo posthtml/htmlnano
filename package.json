@@ -15,8 +15,8 @@
     "release:patch": "release-it patch -n"
   },
   "release-it": {
-    "scripts": {
-      "beforeStart": "npm test"
+    "hooks": {
+      "before:init": "npm test"
     }
   },
   "keywords": [
