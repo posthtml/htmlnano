@@ -57,4 +57,18 @@ describe('mergeScripts', () => {
             options
         );
     });
+
+
+    it('should not change order of JS code', () => {
+        return init(
+            `<script>window.foo1 = 'foo'</script><script>window.foo2 = 'foo'</script>
+            <script src="./script-need-foo-variable.js"></script>
+            <script>window.bar1 = 'foo'</script><script>window.bar2 = 'bar'</script>`,
+
+            `<script>window.foo1 = 'foo';window.foo2 = 'foo'</script>
+            <script src="./script-need-foo-variable.js"></script>
+            <script>window.bar1 = 'foo';window.bar2 = 'bar'</script>`,
+            options
+        );
+    });
 });
