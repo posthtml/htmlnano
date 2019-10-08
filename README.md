@@ -76,8 +76,7 @@ const posthtmlPlugins = [
     require('htmlnano')(options)
 ];
 
-// "preset" arg might be skipped (see "Presets" section below for more info)
-posthtml(posthtmlPlugins, preset)
+posthtml(posthtmlPlugins)
     .process(html)
     .then(function (result) {
         // result.html is minified
