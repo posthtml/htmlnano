@@ -1,4 +1,3 @@
-import objectAssign from 'object-assign';
 import { init } from '../htmlnano';
 import safePreset from '../../lib/presets/safe';
 import ampSafePreset from '../../lib/presets/ampSafe';
@@ -66,7 +65,7 @@ describe('minifyJs', () => {
         return init(
             '<script>foo["bar"] = 5;</script>',
             '<script>foo["bar"]=5;</script>',
-            objectAssign({}, options, {
+            Object.assign({}, options, {
                 minifyJs: {
                     compress: {
                         properties: false,
