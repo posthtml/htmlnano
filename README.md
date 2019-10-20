@@ -273,25 +273,25 @@ Minified:
 ```
 
 ### removeUnusedCss
-Removes unused CSS with [uncss](https://github.com/uncss/uncss) inside `<style>` tags.
+Removes unused CSS with [PurgeCSS](https://github.com/FullHuman/purgecss) inside `<style>` tags.
 
 ##### Options
-See [the documentation of uncss](https://github.com/uncss/uncss) for all supported options.
+See [the documentation of PurgeCSS](https://www.purgecss.com) for all supported options.
 
-uncss options can be passed directly to the `removeUnusedCss` module:
+PurgeCSS options can be passed directly to the `removeUnusedCss` module:
 ```js
 htmlnano.process(html, {
     removeUnusedCss: {
-        ignore: ['.do-not-remove']
+        whitelist: ['.do-not-remove']
     }
 });
 ```
 
 The following uncss options are ignored if passed to the module:
 
--   `stylesheets`
--   `ignoreSheets`
--   `raw`
+-   `content`
+-   `css`
+-   `extractors`
 
 ##### Example
 Source:

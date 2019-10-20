@@ -9,7 +9,7 @@ describe('removeUnusedCss', function () {
         removeUnusedCss: maxPreset.removeUnusedCss,
     };
     const html = `<div><style>
-        div.b {
+        div.r {
             padding: 10px;
             border-radius: 10px;
         }
@@ -35,7 +35,7 @@ describe('removeUnusedCss', function () {
     });
 
 
-    it('should pass options to uncss', () => {
+    it('should pass options to purgeCSS', () => {
         return init(
             html,
             `<div><style>
@@ -48,7 +48,7 @@ describe('removeUnusedCss', function () {
     </style></div><p class="b">hello</p>`,
             {
                 removeUnusedCss: {
-                    ignore: ['.c']
+                    whitelist: ['c']
                 }
             }
         );

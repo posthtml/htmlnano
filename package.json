@@ -36,7 +36,7 @@
     "normalize-html-whitespace": "^1.0.0",
     "object-assign": "^4.0.1",
     "posthtml": "^0.11.4",
-    "posthtml-render": "^1.1.5",
+    "purgecss": "^1.4.0",
     "svgo": "^1.2.2",
     "terser": "^4.1.2",
     "uncss": "^0.17.0"
