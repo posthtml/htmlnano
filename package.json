@@ -34,7 +34,6 @@
   "dependencies": {
     "cssnano": "^4.1.10",
     "normalize-html-whitespace": "^1.0.0",
-    "object-assign": "^4.0.1",
     "posthtml": "^0.11.4",
     "posthtml-render": "^1.1.5",
     "svgo": "^1.2.2",
