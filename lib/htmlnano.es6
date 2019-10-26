@@ -1,4 +1,3 @@
-import objectAssign from 'object-assign';
 import posthtml from 'posthtml';
 import safePreset from './presets/safe';
 import ampSafePreset from './presets/ampSafe';
@@ -7,7 +6,7 @@ import maxPreset from './presets/max';
 
 function htmlnano(options = {}, preset = safePreset) {
     return function minifier(tree) {
-        options = objectAssign({}, preset, options);
+        options = Object.assign({}, preset, options);
         let promise = Promise.resolve(tree);
         for (let moduleName of Object.keys(options)) {
             if (! options[moduleName]) {
