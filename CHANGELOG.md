@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.2.5] - 2019-11-09
+### Added
+- Add option to remove unused CSS using PurgeCSS [#84].
+
+### Fixed
+- Keep order of inline and external JS [#80].
+
 
 ## [0.2.4] - 2019-07-11
 ### Fixed
@@ -122,6 +129,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+[0.2.5]: https://github.com/posthtml/htmlnano/compare/0.2.4...0.2.5
 [0.2.4]: https://github.com/posthtml/htmlnano/compare/0.2.3...0.2.4
 [0.2.3]: https://github.com/posthtml/htmlnano/compare/0.2.2...0.2.3
 [0.2.2]: https://github.com/posthtml/htmlnano/compare/0.2.1...0.2.2
@@ -139,6 +147,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
 
+[#84]: https://github.com/posthtml/htmlnano/issues/84
+[#80]: https://github.com/posthtml/htmlnano/issues/80
 [#79]: https://github.com/posthtml/htmlnano/issues/79
 [#78]: https://github.com/posthtml/htmlnano/issues/78
 [#76]: https://github.com/posthtml/htmlnano/issues/76
