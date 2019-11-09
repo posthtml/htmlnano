@@ -4,10 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.2.5] - 2019-11-09
 ### Added
-- Add option to remove unused CSS using PurgeCSS [#84].
+- Option to remove unused CSS using PurgeCSS [#84].
 
 ### Fixed
-- Keep order of inline and external JS [#80].
+- Keep the order of inline and external JS [#80].
 
 
 ## [0.2.4] - 2019-07-11
