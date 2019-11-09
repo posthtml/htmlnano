@@ -4,47 +4,47 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## [0.2.4] - 2019-07-11
-## Fixed
+### Fixed
 - Remove crossorigin from boolean attribute [#78], [#79].
 - Disable SVGO plugin convertShapeToPath in safe preset [#76].
 
 
 ## [0.2.3] - 2019-02-14
-## Fixed
+### Fixed
 - Keep `<g>` in SVG by default [#71].
 
 
 ## [0.2.2] - 2019-01-03
-## Added
+### Added
 - `removeUnusedCss` module [#36].
 
-## Fixed
+### Fixed
 - Bug when `tag === false` [#66].
 - Add `crossorigin` to boolean attributes [#67].
 
 
 ## [0.2.1] - 2018-12-01
-## Fixed
+### Fixed
 - Disable JS minifying on AMP pages [#65].
 
 ## [0.2.0] - 2018-09-14
-## Breaking changes
+### Breaking changes
 - The API of `minifyCss` module has been changed since `cssnano` has been updated to version 4, which has a different API. Check the following resources for more info:
   * [htmlnano docs](https://github.com/posthtml/htmlnano#minifycss)
   * [cssnano docs](https://cssnano.co/guides/presets)
   * Diff of commit [979f2c](https://github.com/posthtml/htmlnano/commit/979f2c821892c9e979e8b85f74ed0394330fceaf) with the changes of related docs.
 
-## Added
+### Added
 - Add presets [#64].
 - Add `collapseAttributeWhitespace` module for collapsing spaces in list-like attributes [#25].
 - Add `deduplicateAttributeValues` module for de-duplicating values in list-like attributes [#39].
 - Better support for AMP pages [#59].
 - Collapse whitespaces between top-level tags [#24].
 
-## Changed
+### Changed
 - Improve whitespace normalization using `normalize-html-whitespace` [#21].
 
-## Fixed
+### Fixed
 - Don't collapse `visible="false"` attributes in A-Frame pages [#62].
 
 
