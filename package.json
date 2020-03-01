@@ -10,7 +10,7 @@
     "lint": "eslint *.js lib/*.es6 lib/modules/*.es6 lib/presets/*.es6 test/",
     "pretest": "npm run lint && npm run compile",
     "test": ":",
-    "posttest": "mocha --require babel-core/register --recursive --check-leaks --globals addresses",
+    "posttest": "mocha --require @babel/register --recursive --check-leaks --globals addresses",
     "prepare": "npm run compile",
     "release:patch": "release-it patch -n"
   },
@@ -28,7 +28,7 @@
   ],
   "babel": {
     "presets": [
-      "env"
+      "@babel/env"
     ]
   },
   "dependencies": {
@@ -42,10 +42,11 @@
     "uncss": "^0.17.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.6",
+    "@babel/preset-env": "^7.8.6",
+    "@babel/register": "^7.8.6",
     "babel-eslint": "^10.1.0",
-    "babel-preset-env": "^1.7.0",
     "eslint": "^6.8.0",
     "expect": "^25.1.0",
     "mocha": "^7.1.0",
