@@ -27,8 +27,9 @@ function htmlnano(options = {}, preset = safePreset) {
 }
 
 
-htmlnano.process = function (html, options, preset) {
-    return posthtml([htmlnano(options, preset)]).process(html);
+htmlnano.process = function (html, options, preset, postHtmlOptions) {
+    return posthtml([htmlnano(options, preset)])
+        .process(html, postHtmlOptions);
 };
 
 htmlnano.presets = {

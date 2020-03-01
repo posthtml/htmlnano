@@ -14,6 +14,14 @@ describe('[usage]', () => {
         });
     });
 
+    it('javascript - pass render options', () => {
+        return htmlnano.process('<DIV class="foo"><!-- bar --></DIV>', {}, undefined, {
+            lowerCaseTags: true, // posthtml-parser option
+            quoteAllAttributes: false, // posthtml-render option
+        }).then((result) => {
+            expect(result.html).toBe('<div class=foo></div>');
+        });
+    });
 
     it('PostHTML plugin', () => {
         return posthtml([htmlnano()]).process(html).then((result) => {

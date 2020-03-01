@@ -49,10 +49,17 @@ const options = {
     removeEmptyAttributes: false, // Disable the module "removeEmptyAttributes"
     collapseWhitespace: 'conservative' // Pass options to the module "collapseWhitespace"
 };
+// posthtml, posthtml-render, and posthtml-parse options
+const postHtmlOptions = {
+    sync: true, // https://github.com/posthtml/posthtml#usage
+    lowerCaseTags: true, // https://github.com/posthtml/posthtml-parser#options
+    quoteAllAttributes: false, // https://github.com/posthtml/posthtml-render#options
+};
 
 htmlnano
     // "preset" arg might be skipped (see "Presets" section below for more info)
-    .process(html, options, preset)
+    // "postHtmlOptions" arg might be skipped
+    .process(html, options, preset, postHtmlOptions)
     .then(function (result) {
         // result.html is minified
     })
@@ -76,8 +83,12 @@ const posthtmlPlugins = [
     require('htmlnano')(options)
 ];
 
+const postHtmlOptions = {
+    // See PostHTML docs
+};
+
 posthtml(posthtmlPlugins)
-    .process(html)
+    .process(html, posthtmlOptions)
     .then(function (result) {
         // result.html is minified
     })
