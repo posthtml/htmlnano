@@ -8,16 +8,16 @@ Modular HTML minifier, built on top of the [PostHTML](https://github.com/posthtm
 
 
 ## [Benchmark](https://github.com/maltsev/html-minifiers-benchmark/blob/master/README.md)
-[html-minifier@3.5.20]: https://www.npmjs.com/package/html-minifier
-[htmlnano@0.2.0]: https://www.npmjs.com/package/htmlnano
+[html-minifier@4.0.0]: https://www.npmjs.com/package/html-minifier
+[htmlnano@0.2.6]: https://www.npmjs.com/package/htmlnano
 
-| Website | Source (KB) | [html-minifier@3.5.20] | [htmlnano@0.2.0] |
+| Website | Source (KB) | [html-minifier@4.0.0] | [htmlnano@0.2.6] |
 |---------|------------:|----------------:|-----------:|
-| [stackoverflow.com](http://stackoverflow.com/) | 258 | 205 | 218 |
-| [github.com](http://github.com/) | 63 | 51 | 56 |
-| [en.wikipedia.org](https://en.wikipedia.org/wiki/Main_Page) | 77 | 69 | 74 |
-| [npmjs.com](https://www.npmjs.com/features) | 32 | 29 | 30 |
-| **Avg. minify rate** | 0% | **15%** | **9%** |
+| [stackoverflow.blog](https://stackoverflow.blog/) | 76 | 67 | 66 |
+| [github.com](https://github.com/) | 131 | 70 | 117 |
+| [en.wikipedia.org](https://en.wikipedia.org/wiki/Main_Page) | 80 | 71 | 76 |
+| [npmjs.com](https://www.npmjs.com/features) | 31 | 25 | 28 |
+| **Avg. minify rate** | 0% | **22%** | **10%** |
 
 
 ## Usage
