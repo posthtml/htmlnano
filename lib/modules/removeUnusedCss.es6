@@ -90,15 +90,11 @@ function runPurgecss(tree, css, userOptions) {
         }]
     });
 
-    return new Promise((resolve, reject) => {
-        try {
-            const purgeCss = new Purgecss(options);
-            const purgecssResult = purgeCss.purge()[0];
-            resolve(purgecssResult.css);
-        } catch (err) {
-            reject(err);
-        }
-    });
+    return new Purgecss()
+        .purge(options)
+        .then((result) => {
+            return result[0].css;
+        });
 }
 
 /** Remove unused CSS */
