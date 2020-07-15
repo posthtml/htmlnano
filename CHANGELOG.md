@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.2.6] - 2020-07-15
+### Added
+- Let PostHTML options to be passed.
+
+### Fixed
+- `<script>` tags merging without content.
+
+
 ## [0.2.5] - 2019-11-09
 ### Added
 - Option to remove unused CSS using PurgeCSS [#84].
@@ -129,6 +137,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+[0.2.5]: https://github.com/posthtml/htmlnano/compare/0.2.5...0.2.6
 [0.2.5]: https://github.com/posthtml/htmlnano/compare/0.2.4...0.2.5
 [0.2.4]: https://github.com/posthtml/htmlnano/compare/0.2.3...0.2.4
 [0.2.3]: https://github.com/posthtml/htmlnano/compare/0.2.2...0.2.3
