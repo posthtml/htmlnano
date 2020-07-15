@@ -41,6 +41,7 @@ export default function mergeScripts(tree) {
                 scriptContent += ';';
             }
 
+            lastScriptNode.content = lastScriptNode.content || [];
             lastScriptNode.content.unshift(scriptContent);
 
             scriptNode.tag = false;

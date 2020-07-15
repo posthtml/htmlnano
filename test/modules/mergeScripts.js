@@ -14,10 +14,11 @@ describe('mergeScripts', () => {
             <script type="text/javascript">foo = 3;</script>
             <script defer>foo = 4;</script>
             <script>foo = 5;</script>
+            <script></script>
             <script defer="defer">foo = 6;</script>
             <script class="test" type="text/javascript">foo = 7;</script>`,
 
-            '\n            \n            \n            \n            ' +
+            '\n            \n            \n            \n            \n            ' +
             `<script>var foo = 1;foo = 3;foo = 5;</script>
             <script defer="defer">foo = 4;foo = 6;</script>
             <script class="test" type="text/javascript">foo = 2;foo = 7;</script>`,
