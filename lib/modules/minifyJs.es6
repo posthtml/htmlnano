@@ -22,11 +22,26 @@ export default function minifyJs(tree, options, terserOptions) {
 }
 
 
+function stripCdata(js) {
+    const leftStrippedJs = js.replace(/\/\/\s*<!\[CDATA\[/, '');
+    if (leftStrippedJs === js) {
+        return js;
+    }
+
+    const strippedJs = leftStrippedJs.replace(/\/\/\s*\]\]>/, '');
+    return leftStrippedJs === strippedJs ? js : strippedJs;
+}
+
+
 function processScriptNode(scriptNode, terserOptions) {
-    const js = (scriptNode.content || []).join(' ').trim();
+    let js = (scriptNode.content || []).join(' ').trim();
     if (! js) {
         return scriptNode;
     }
+
+    const strippedJs = stripCdata(js);
+    const isCdataWrapped = js !== strippedJs;
+    js = strippedJs;
 
     const result = terser.minify(js, terserOptions);
     if (result.error) {
@@ -36,7 +51,12 @@ function processScriptNode(scriptNode, terserOptions) {
         return scriptNode;
     }
 
-    scriptNode.content = [result.code];
+    let content = result.code;
+    if (isCdataWrapped) {
+        content = '//<![CDATA[' + content + '//]]>';
+    }
+
+    scriptNode.content = [content];
 
     return scriptNode;
 }
