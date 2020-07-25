@@ -34,7 +34,7 @@ function stripCdata(js) {
 
 
 function processScriptNode(scriptNode, terserOptions) {
-    let js = (scriptNode.content || []).join(' ').trim();
+    let js = (scriptNode.content || []).join('').trim();
     if (! js) {
         return scriptNode;
     }
