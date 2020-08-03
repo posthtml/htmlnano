@@ -28,7 +28,7 @@ function runUncss(html, css, userOptions) {
         userOptions = {};
     }
 
-    const options = Object.assign({}, userOptions, uncssOptions);
+    const options = { ...userOptions, ...uncssOptions };
     return new Promise((resolve, reject) => {
         options.raw = css;
         uncss(html, options, (error, output) => {
@@ -75,7 +75,8 @@ function runPurgecss(tree, css, userOptions) {
         userOptions = {};
     }
 
-    const options = Object.assign({}, userOptions, {
+    const options = {
+        ...userOptions,
         content: [{
             raw: tree,
             extension: 'html'
@@ -88,7 +89,7 @@ function runPurgecss(tree, css, userOptions) {
             extractor: purgeFromHtml(tree),
             extensions: ['html']
         }]
-    });
+    };
 
     return new Purgecss()
         .purge(options)
