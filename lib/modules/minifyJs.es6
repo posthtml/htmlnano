@@ -66,7 +66,7 @@ function processNodeWithOnAttrs(node, terserOptions) {
     const jsWrapperStart = 'function _(){';
     const jsWrapperEnd = '}';
 
-    for (let attrName of Object.keys(node.attrs || {})) {
+    for (const attrName of Object.keys(node.attrs || {})) {
         if (attrName.search('on') !== 0) {
             continue;
         }
