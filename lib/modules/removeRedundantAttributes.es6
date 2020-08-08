@@ -40,7 +40,7 @@ export default function removeRedundantAttributes(tree) {
     tree.match({tag: tagMatchRegExp}, node => {
         const tagRedundantAttributes = redundantAttributes[node.tag];
         node.attrs = node.attrs || {};
-        for (let redundantAttributeName of Object.keys(tagRedundantAttributes)) {
+        for (const redundantAttributeName of Object.keys(tagRedundantAttributes)) {
             let tagRedundantAttributeValue = tagRedundantAttributes[redundantAttributeName];
             let isRemove = false;
             if (typeof tagRedundantAttributeValue === 'function') {

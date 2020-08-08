@@ -3,7 +3,7 @@ import safePreset from './safe';
 /**
  * Maximal minification (might break some pages)
  */
-export default Object.assign({}, safePreset, {
+export default { ...safePreset,
     collapseWhitespace: 'all',
     removeComments: 'all',
     removeRedundantAttributes: true,
@@ -12,4 +12,4 @@ export default Object.assign({}, safePreset, {
         preset: 'default',
     },
     minifySvg: {},
-});
+};

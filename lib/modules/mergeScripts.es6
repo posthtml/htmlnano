@@ -31,7 +31,7 @@ export default function mergeScripts(tree) {
         return node;
     });
 
-    for (let scriptKey of Object.keys(scriptNodesIndex)) {
+    for (const scriptKey of Object.keys(scriptNodesIndex)) {
         let scriptNodes = scriptNodesIndex[scriptKey];
         let lastScriptNode = scriptNodes.pop();
         scriptNodes.reverse().forEach(scriptNode => {

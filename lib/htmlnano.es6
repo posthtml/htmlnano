@@ -6,9 +6,9 @@ import maxPreset from './presets/max';
 
 function htmlnano(options = {}, preset = safePreset) {
     return function minifier(tree) {
-        options = Object.assign({}, preset, options);
+        options = { ...preset, ...options };
         let promise = Promise.resolve(tree);
-        for (let moduleName of Object.keys(options)) {
+        for (const moduleName of Object.keys(options)) {
             if (! options[moduleName]) {
                 // The module is disabled
                 continue;

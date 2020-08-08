@@ -8,7 +8,7 @@ export function isAmpBoilerplate(node) {
     if (!node.attrs) {
         return false;
     }
-    for (let attr of ampBoilerplateAttributes) {
+    for (const attr of ampBoilerplateAttributes) {
         if (attr in node.attrs) {
             return true;
         }
