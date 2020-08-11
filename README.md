@@ -206,13 +206,12 @@ Collapses redundant white spaces (including new lines). It doesn’t affect whit
 - `all` — collapses all redundant white spaces
 
 ##### Side effects
-*aggressive*
-
+*aggressive*  
 `<i>hello</i>
 <i>world</i>` after minification will be rendered as `helloworld`.
 To prevent this include at least one real space character between the tags.
 
-*all*
+*all*  
 `<i>hello</i> <i>world</i>` after minification will be rendered as `helloworld`.
 To prevent that use either the default `conservative` option, or the `aggressive` option.
 
