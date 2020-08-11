@@ -202,29 +202,44 @@ Collapses redundant white spaces (including new lines). It doesn’t affect whit
 
 ##### Options
 - `conservative` — collapses all redundant white spaces to 1 space (default)
+- `aggressive` — removes newlines and tabs, collapses remaining whitespaces to 1 space.
 - `all` — collapses all redundant white spaces
 
 ##### Side effects
+*aggressive*
+
+`<i>hello</i>
+<i>world</i>` after minification will be rendered as `helloworld`.
+To prevent this include at least one real space character between the tags.
+
+*all*
 `<i>hello</i> <i>world</i>` after minification will be rendered as `helloworld`.
-To prevent that use `conservative` option (this is the default option).
+To prevent that use either the default `conservative` option, or the `aggressive` option.
 
 ##### Example
 Source:
 ```html
 <div>
     hello  world!
+    \t<a href="#">answer</a>
     <style>div  { color: red; }  </style>
+\t\t<main></main>
 </div>
 ```
 
 Minified (with `all`):
 ```html
-<div>hello world!<style>div  { color: red; }  </style></div>
+<div>hello world!<a href="#">answer</a><style>div  { color: red; }  </style><main></main></div>
+```
+
+Minified (with `aggressive`):
+```html
+<div> hello world! <a href="#">answer</a> <style>div  { color: red; }  </style><main></main></div>
 ```
 
 Minified (with `conservative`):
 ```html
-<div> hello world! <style>div  { color: red; }  </style> </div>
+<div> hello world! <a href="#">answer</a> <style>div  { color: red; }  </style> <main></main> </div>
 ```
 
 
