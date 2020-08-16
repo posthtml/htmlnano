@@ -15,7 +15,7 @@ const validOptions = ['all', 'aggressive', 'conservative'];
 
 /** Collapses redundant whitespaces */
 export default function collapseWhitespace(tree, options, collapseType, tag) {
-    collapseType = (collapseType && validOptions.some(o=>o === collapseType)) ? collapseType : 'conservative';
+    collapseType = validOptions.includes(collapseType) ? collapseType : 'conservative';
 
     tree.forEach((node, index) => {
         if (typeof node === 'string' && !isComment(node)) {
