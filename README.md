@@ -207,8 +207,8 @@ Collapses redundant white spaces (including new lines). It doesn’t affect whit
 
 ##### Side effects
 *aggressive*  
-`<i>hello</i>
-<i>world</i>` after minification will be rendered as `helloworld`.
+`<i>hello</i>`<br />`<i>world</i>`
+ after minification will be rendered as `helloworld`.
 To prevent this include at least one real space character between the tags.
 
 *all*  
