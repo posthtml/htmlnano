@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "cssnano": "^4.1.10",
-    "normalize-html-whitespace": "^1.0.0",
     "posthtml": "^0.13.1",
     "posthtml-render": "^1.2.2",
     "purgecss": "^2.3.0",

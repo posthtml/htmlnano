@@ -1,4 +1,3 @@
-import normalizeWhitespace from 'normalize-html-whitespace';
 import { isComment } from '../helpers';
 
 const noWhitespaceCollapseElements = new Set([
@@ -8,11 +7,15 @@ const noWhitespaceCollapseElements = new Set([
     'textarea'
 ]);
 
+const indentPattern = /[\f\n\r\t\v]{1,}/g;
+const whitespacePattern = /[\f\n\r\t\v ]{1,}/g;
+const NONE = '';
+const SINGLE_SPACE = ' ';
+const validOptions = ['all', 'aggressive', 'conservative'];
+
 /** Collapses redundant whitespaces */
 export default function collapseWhitespace(tree, options, collapseType, tag) {
-    if (collapseType !== 'all') {
-        collapseType = 'conservative';
-    }
+    collapseType = (collapseType && validOptions.some(o=>o === collapseType)) ? collapseType : 'conservative';
 
     tree.forEach((node, index) => {
         if (typeof node === 'string' && !isComment(node)) {
@@ -33,7 +36,16 @@ export default function collapseWhitespace(tree, options, collapseType, tag) {
 
 
 function collapseRedundantWhitespaces(text, collapseType, isTopLevel = false) {
-    text = text && text.length > 0 ? normalizeWhitespace(text) : '';
+    if (!text || text.length === 0) {
+        return NONE;
+    }
+
+    if (collapseType === 'aggressive') {
+        text = text.replace(indentPattern, NONE);
+    }
+
+    text = text.replace(whitespacePattern, SINGLE_SPACE);
+
     if (collapseType === 'all' || isTopLevel) {
         text = text.trim();
     }
