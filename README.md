@@ -597,6 +597,8 @@ Minified:
 ### mergeScripts
 Merge multiple `<script>` with the same attributes (`id, class, type, async, defer`) into one (last) tag.
 
+Optionally, include a `data-html-nano="skip"` attribute to skip individual `<script>` blocks.
+
 ##### Side effects
 It could break your code if the tags with different attributes share the same variable scope.
 See the example below.
