@@ -72,4 +72,18 @@ describe('mergeScripts', () => {
             options
         );
     });
+
+
+    it('should skip JS code block', () => {
+        return init(
+            `<script data-html-nano="skip">window.foo1 = 'foo'</script><script>window.foo2 = 'foo'</script>
+            <script src="./script-need-foo-variable.js"></script>
+            <script>window.bar1 = 'foo'</script><script>window.bar2 = 'bar'</script>`,
+
+            `<script>window.foo1 = 'foo'</script><script>window.foo2 = 'foo'</script>
+            <script src="./script-need-foo-variable.js"></script>
+            <script>window.bar1 = 'foo';window.bar2 = 'bar'</script>`,
+            options
+        );
+    });
 });

@@ -14,6 +14,12 @@ export default function mergeScripts(tree) {
         if (scriptType !== 'text/javascript' && scriptType !== 'application/javascript') {
             return node;
         }
+        
+        const scriptData = nodeAttrs['data-html-nano'];
+        if (scriptData === 'skip') {
+            delete node.attrs['data-html-nano']; 
+            return node;
+        }
 
         const scriptKey = JSON.stringify({
             id: nodeAttrs.id,
