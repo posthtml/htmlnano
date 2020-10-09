@@ -31,16 +31,25 @@ function isCommentToRemove(text, removeType) {
         return false;
     }
 
-    const isNoindex = text === '<!--noindex-->' || text === '<!--/noindex-->';
-    if (removeType === 'safe' && isNoindex) {
+    if (removeType === 'safe') {
+        const isNoindex = text === '<!--noindex-->' || text === '<!--/noindex-->';
         // Don't remove noindex comments.
         // See: https://yandex.com/support/webmaster/controlling-robot/html.xml
-        return false;
-    }
+        if (isNoindex) {
+            return false;
+        }
 
-    // https://en.wikipedia.org/wiki/Conditional_comment
-    if (removeType === 'safe' && isConditionalComment(text)) {
-        return false;
+        const isServerSideExclude = text === '<!--sse-->' || text === '<!--/sse-->';
+        // Don't remove sse comments.
+        // See: https://support.cloudflare.com/hc/en-us/articles/200170036-What-does-Server-Side-Excludes-SSE-do-
+        if (isServerSideExclude) {
+            return false;
+        }
+
+        // https://en.wikipedia.org/wiki/Conditional_comment
+        if (isConditionalComment(text)) {
+            return false;
+        }
     }
 
     return true;

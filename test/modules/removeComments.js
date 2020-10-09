@@ -25,6 +25,14 @@ describe('removeComments', () => {
             );
         });
 
+        it('should not remove <!--sse--> and <!--/sse-->', () => {
+            return init(
+                '<!--sse-->Bad visitors won\'t see my phone number, 555-555-5555<!--/sse-->',
+                '<!--sse-->Bad visitors won\'t see my phone number, 555-555-5555<!--/sse-->',
+                options
+            );
+        });
+
         it('should not remove conditional comments <!--[if expression]>..<![endif]-->', () => {
             return init(
                 '<!--[if IE 8]><link href="ie8only.css" rel="stylesheet"><![endif]-->',
@@ -44,6 +52,14 @@ describe('removeComments', () => {
             return init(
                 '<!--noindex-->this text will not be indexed<!--/noindex-->',
                 'this text will not be indexed',
+                options
+            );
+        });
+
+        it('should remove <!--sse--> and <!--/sse-->', () => {
+            return init(
+                '<!--sse-->Bad visitors won\'t see my phone number, 555-555-5555<!--/sse-->',
+                'Bad visitors won\'t see my phone number, 555-555-5555',
                 options
             );
         });
