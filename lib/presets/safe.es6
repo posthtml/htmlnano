@@ -26,4 +26,5 @@ export default {
     removeEmptyAttributes: true,
     removeRedundantAttributes: false,
     removeComments: 'safe',
+    sortAttributesWithLists: true,
 };
