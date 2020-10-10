@@ -1,4 +1,4 @@
-import relateUrl from 'relateurl';
+import RelateUrl from 'relateurl';
 
 // Adopts from https://github.com/kangax/html-minifier/blob/51ce10f4daedb1de483ffbcccecc41be1c873da2/src/htmlminifier.js#L209-L221
 const tagsHaveUriValuesForAttributes = new Set([
@@ -56,9 +56,8 @@ const processModuleOptions = options => {
     // FIXME!
     // relateurl@1.0.0-alpha only supports URL while stable version (0.2.7) only supports string
     // should convert input into URL instance after relateurl@1 is stable
-    if (options instanceof URL) return options.toString();
-
     if (typeof options === 'string') return options;
+    if (options instanceof URL) return options.toString();
 
     return false;
 };
@@ -74,12 +73,26 @@ const isLinkRelCanonical = ({ tag, attrs }) => {
     return false;
 };
 
+let relateUrlInstance;
+let STORED_URL_BASE;
+
 /** Convert absolute url into relative url */
 export default function minifyUrls(tree, options, moduleOptions) {
     const urlBase = processModuleOptions(moduleOptions);
 
     // Invalid configuration, return tree directly
     if (!urlBase) return tree;
+
+    /** Bring up a reusable RelateUrl instances (only once)
+     *
+     * STORED_URL_BASE is used to invalidate RelateUrl instances,
+     * avoiding require.cache acrossing multiple htmlnano instance with different configuration,
+     * e.g. unit tests cases.
+     */
+    if (!relateUrlInstance || STORED_URL_BASE !== urlBase) {
+        relateUrlInstance = new RelateUrl(urlBase);
+        STORED_URL_BASE = urlBase;
+    }
 
     tree.walk(node => {
         if (!node.attrs) return node;
@@ -100,7 +113,7 @@ export default function minifyUrls(tree, options, moduleOptions) {
             // relateurl@1.0.0-alpha only supports URL while stable version (0.2.7) only supports string
             // the WHATWG URL API is very strict while attrValue might not be a valid URL
             // new URL should be used, and relateUrl#relate should be wrapped in try...catch after relateurl@1 is stable
-            node.attrs[attrName] = relateUrl.relate(urlBase, attrValue);
+            node.attrs[attrName] = relateUrlInstance.relate(attrValue);
         }
 
         return node;
