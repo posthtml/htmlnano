@@ -32,12 +32,11 @@ const redundantAttributes = {
     }
 };
 
+const TAG_MATCH_REGEXP = new RegExp('^(' + Object.keys(redundantAttributes).join('|') + ')$');
 
 /** Removes redundant attributes */
 export default function removeRedundantAttributes(tree) {
-    const tags = Object.keys(redundantAttributes);
-    const tagMatchRegExp = new RegExp('^(' + tags.join('|') + ')$');
-    tree.match({tag: tagMatchRegExp}, node => {
+    tree.match({tag: TAG_MATCH_REGEXP}, node => {
         const tagRedundantAttributes = redundantAttributes[node.tag];
         node.attrs = node.attrs || {};
         for (const redundantAttributeName of Object.keys(tagRedundantAttributes)) {

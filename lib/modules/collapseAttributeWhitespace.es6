@@ -11,14 +11,14 @@ export default function collapseAttributeWhitespace(tree) {
             return node;
         }
 
-        Object.keys(node.attrs).forEach(attrName => {
+        Object.entries(node.attrs).forEach(([attrName, attrValue]) => {
             const attrNameLower = attrName.toLowerCase();
             if (! attributesWithLists.has(attrNameLower)) {
                 return;
             }
 
-            let attrValue = node.attrs[attrName].replace(/\s+/g, ' ').trim();
-            node.attrs[attrName] = attrValue;
+            const newAttrValue = attrValue.replace(/\s+/g, ' ').trim();
+            node.attrs[attrName] = newAttrValue;
         });
 
         return node;
