@@ -668,6 +668,83 @@ Processed:
 <div class="bar baz foo">click</div>
 ```
 
+### minifyUrls
+Convert absolute URL to relative URL using [relateurl](https://www.npmjs.com/package/relateurl).
+
+##### Options
+
+The base URL to resolve against. Support `String` & `URL`.
+
+```js
+htmlnano.process(html, {
+    minifyUrls: 'https://example.com' // Valid configuration
+});
+```
+
+```js
+htmlnano.process(html, {
+    minifyUrls: new URL('https://example.com') // Valid configuration
+});
+```
+
+```js
+htmlnano.process(html, {
+    minifyUrls: false // The module will be disabled
+});
+```
+
+```js
+htmlnano.process(html, {
+    minifyUrls: true // Invalid configuration, the module will be disabled
+});
+```
+
+##### Example
+
+**Basic Usage**
+
+Configuration:
+
+```js
+htmlnano.process(html, {
+    minifyUrls: 'https://example.com'
+});
+```
+
+Source:
+
+```html
+<a href="https://example.com/foo/bar/baz">bar</a>
+```
+
+Minified:
+
+```html
+<a href="foo/bar/baz">bar</a>
+```
+
+**With sub-directory**
+
+Configuration:
+
+```js
+htmlnano.process(html, {
+    minifyUrls: 'https://example.com/foo/baz/'
+});
+```
+
+Source:
+
+```html
+<a href="https://example.com/foo/bar">bar</a>
+```
+
+Minified:
+
+```html
+<a href="../bar">bar</a>
+```
+
 ## Contribute
 Since the minifier is modular, it's very easy to add new modules:
 
