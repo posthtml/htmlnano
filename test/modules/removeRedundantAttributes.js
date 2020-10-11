@@ -62,4 +62,20 @@ describe('removeRedundantAttributes', () => {
             options
         );
     });
+
+    it('should remove type="text/css" from link[rel=stylesheet]', () => {
+        return init(
+            '<link rel="stylesheet" type="text/css" href="style.css">',
+            '<link rel="stylesheet" href="style.css">',
+            options
+        );
+    });
+
+    it('shouldn\'t remove new type from link[rel=stylesheet]', () => {
+        return init(
+            '<link rel="stylesheet" type="text/example" href="style.css">',
+            '<link rel="stylesheet" type="text/example" href="style.css">',
+            options
+        );
+    });
 });

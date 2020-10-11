@@ -511,6 +511,7 @@ Removes redundant attributes from tags if they contain default values:
 - `language="javascript"` and `type="text/javascript"` from `<script>`
 - `charset` from `<script>` if it's an external script
 - `media="all"` from `<style>` and `<link>`
+- `type="text/css"` from `<link rel="stylesheet">`
 
 ##### Options
 This module is disabled by default, change option to true to enable this module.

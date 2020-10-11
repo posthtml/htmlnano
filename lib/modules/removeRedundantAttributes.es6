@@ -28,7 +28,26 @@ const redundantAttributes = {
     },
 
     'link': {
-        'media': 'all'
+        'media': 'all',
+        'type': node => {
+            // https://html.spec.whatwg.org/multipage/links.html#link-type-stylesheet
+            let isRelStyleSheet = false;
+            let isTypeTextCSS = false;
+
+            if (node.attrs) {
+                for (const [attrName, attrValue] of Object.entries(node.attrs)) {
+                    if (attrName.toLowerCase() === 'rel' && attrValue === 'stylesheet') {
+                        isRelStyleSheet = true;
+                    }
+                    if (attrName.toLowerCase() === 'type' && attrValue === 'text/css') {
+                        isTypeTextCSS = true;
+                    }
+                }
+            }
+
+            // Only "text/css" is redudant for link[rel=stylesheet]. Otherwise "type" shouldn't be removed
+            return isRelStyleSheet && isTypeTextCSS;
+        }
     }
 };
 
