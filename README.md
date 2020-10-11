@@ -652,6 +652,21 @@ const options = {
 
 `options` is an object with all options that were passed to the plugin.
 
+### sortAttributesWithLists
+Sort values in list-like attributes (`class`, `rel`, `ping`).
+
+The module won't impact the plain-text size of the output. However it will improve the compression ratio of gzip/brotli used in HTTP compression.
+
+##### Example
+Source:
+```html
+<div class="foo baz bar">click</div>
+```
+
+Processed:
+```html
+<div class="bar baz foo">click</div>
+```
 
 ## Contribute
 Since the minifier is modular, it's very easy to add new modules:
