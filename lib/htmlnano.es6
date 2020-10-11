@@ -8,8 +8,9 @@ function htmlnano(options = {}, preset = safePreset) {
     return function minifier(tree) {
         options = { ...preset, ...options };
         let promise = Promise.resolve(tree);
-        for (const moduleName of Object.keys(options)) {
-            if (! options[moduleName]) {
+
+        for (const [moduleName, moduleOptions] of Object.entries(options)) {
+            if (! moduleOptions) {
                 // The module is disabled
                 continue;
             }
@@ -19,7 +20,7 @@ function htmlnano(options = {}, preset = safePreset) {
             }
 
             let module = require('./modules/' + moduleName);
-            promise = promise.then(tree => module.default(tree, options, options[moduleName]));
+            promise = promise.then(tree => module.default(tree, options, moduleOptions));
         }
 
         return promise;
