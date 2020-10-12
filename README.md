@@ -296,6 +296,37 @@ Minified:
 <img src="foo.jpg" alt="">
 ```
 
+### removeAttributeQuotes
+Remove quotes around attributes when possible, see [HTML Standard - 12.1.2.3 Attributes - Unquoted attribute value syntax](https://html.spec.whatwg.org/multipage/syntax.html#attributes-2).
+
+##### Example
+Source:
+```html
+<div class="foo" title="hello world"></div>
+```
+
+Minified:
+```html
+<div class=foo title="hello world"></div>
+```
+
+##### Notice
+The feature is implemented by [posthtml-render's `quoteAllAttributes`](https://github.com/posthtml/posthtml-render#options), which is one of the PostHTML's option. So `removeAttributeQuotes` could be overriden by other PostHTML's plugins and PostHTML's configuration.
+
+For example:
+
+```js
+posthtml([
+    htmlnano({
+        removeAttributeQuotes: true
+    })
+]).process(html, {
+    quoteAllAttributes: true
+})
+```
+
+`removeAttributeQuotes` will not work because PostHTML's `quoteAllAttributes` takes the priority.
+
 ### removeUnusedCss
 
 Removes unused CSS inside `<style>` tags with either [uncss](https://github.com/uncss/uncss)
