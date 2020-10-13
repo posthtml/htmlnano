@@ -6,6 +6,7 @@ import safePreset from './safe';
 export default { ...safePreset,
     collapseWhitespace: 'all',
     removeComments: 'all',
+    removeAttributeQuotes: true,
     removeRedundantAttributes: true,
     removeUnusedCss: {},
     minifyCss: {
