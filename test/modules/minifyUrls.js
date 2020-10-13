@@ -11,7 +11,7 @@ describe('minifyUrls', () => {
 
     it('shouldn\'t be enabled with max preset', () => {
         const html = '<a href="https://example.com/foo/bar/baz">bar</a>';
-        init(html, html, maxPreset);
+        init(html, '<a href=https://example.com/foo/bar/baz>bar</a>', maxPreset);
     });
 
     it('shouldn\'t be enabled with ampSafe preset', () => {
@@ -24,7 +24,7 @@ describe('minifyUrls', () => {
         init(html, html, { ...safePreset, minifyUrls: 1000 });
 
         // "true" is not allowed since relateurl requires a URL instance for base
-        init(html, html, { minifyUrls: true, ...safePreset });
+        init(html, html, { ...safePreset, minifyUrls: true });
     });
 
     it('should work with URL', () => {
