@@ -120,6 +120,17 @@ export default function collapseBooleanAttributes(tree, options, moduleOptions) 
             if (moduleOptions.amphtml && node.attrs[attrName] === '' && amphtmlBooleanAttributes.has(attrName)) {
                 node.attrs[attrName] = true;
             }
+
+            // collapse crossorigin attributes
+            // Specification: https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attributes
+            if (
+                attrName.toLowerCase() === 'crossorigin' && (
+                    node.attrs[attrName] === 'anonymous' ||
+                    node.attrs[attrName] === ''
+                )
+            ) {
+                node.attrs[attrName] = true;
+            }
         }
 
         return node;
