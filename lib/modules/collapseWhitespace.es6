@@ -19,7 +19,6 @@ const noTrimWhitespacesInsideElements = new Set([
     'a', 'abbr', 'acronym', 'b', 'big', 'del', 'em', 'font', 'i', 'ins', 'kbd', 'mark', 'nobr', 'rp', 's', 'samp', 'small', 'span', 'strike', 'strong', 'sub', 'sup', 'time', 'tt', 'u', 'var'
 ]);
 
-const indentPattern = /[\f\n\r\t\v]{1,}/g;
 const whitespacePattern = /[\f\n\r\t\v ]{1,}/g;
 const onlyWhitespacePattern = /^[\f\n\r\t\v ]+$/;
 const NONE = '';
@@ -70,10 +69,6 @@ export default function collapseWhitespace(tree, options, collapseType, tag) {
 function collapseRedundantWhitespaces(text, collapseType, shouldTrim = false, currentTag, prevNodeTag, nextNodeTag) {
     if (!text || text.length === 0) {
         return NONE;
-    }
-
-    if (collapseType === 'aggressive') {
-        text = text.replace(indentPattern, SINGLE_SPACE);
     }
 
     text = text.replace(whitespacePattern, SINGLE_SPACE);
