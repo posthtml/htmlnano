@@ -202,17 +202,13 @@ Collapses redundant white spaces (including new lines). It doesn’t affect whit
 
 ##### Options
 - `conservative` — collapses all redundant white spaces to 1 space (default)
-- `aggressive` — removes newlines and tabs, collapses remaining whitespaces to 1 space.
+- `aggressive` — collapses all whitespaces that are redundant and safe to remove
 - `all` — collapses all redundant white spaces
 
 ##### Side effects
-*aggressive*  
-`<i>hello</i>`<br />`<i>world</i>`
- after minification will be rendered as `helloworld`.
-To prevent this include at least one real space character between the tags.
 
 *all*  
-`<i>hello</i> <i>world</i>` after minification will be rendered as `helloworld`.
+`<i>hello</i> <i>world</i>` or `<i>hello</i><br><i>world</i>` after minification will be rendered as `helloworld`.
 To prevent that use either the default `conservative` option, or the `aggressive` option.
 
 ##### Example
