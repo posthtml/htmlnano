@@ -5,9 +5,12 @@ import maxPreset from '../../lib/presets/max';
 
 describe('collapseWhitespace', () => {
     const html = ` <div>
-            <b> hello  world! </b><a>other link
-	</a>
-	  </div>  `;
+    <p>      Hello world	</p>
+    <pre>   <code>	posthtml    htmlnano     </code>	</pre>
+    <code>	posthtml    htmlnano     </code>
+            <b> hello  world! </b>  <a>other link
+    </a>
+	Example   </div>  `;
 
     const documentationHtml = `<div>
     hello  world!
@@ -24,7 +27,7 @@ describe('collapseWhitespace', () => {
     const topLevelTags = 'top-level tags (html, head, body)';
     const topLevelTagsHtml = ` <html>
                     <head>
-                        <title> Test </title>
+                        <title> Test   Test  </title>
                         <script> </script>
                     </head>
                     <body>
@@ -39,7 +42,7 @@ describe('collapseWhitespace', () => {
         it('should collapse redundant whitespaces', () => {
             return init(
                 html,
-                '<div><b>hello world!</b><a>other link</a></div>',
+                '<div><p>Hello world</p><pre>   <code>	posthtml    htmlnano     </code>	</pre><code>posthtml htmlnano</code><b>hello world!</b><a>other link</a>Example</div>',
                 options
             );
         });
@@ -56,7 +59,7 @@ describe('collapseWhitespace', () => {
         it('should collapse whitespaces between ' + topLevelTags, () => {
             return init(
                 topLevelTagsHtml,
-                '<html><head><title>Test</title><script> </script></head><body></body></html>',
+                '<html><head><title>Test Test</title><script> </script></head><body></body></html>',
                 options
             );
         });
@@ -79,7 +82,7 @@ describe('collapseWhitespace', () => {
         it('should collapse redundant whitespaces and eliminate indentation (tabs, newlines, etc)', () => {
             return init(
                 html,
-                '<div> <b> hello world! </b><a>other link</a> </div>',
+                '<div><p>Hello world</p><pre>   <code>	posthtml    htmlnano     </code>	</pre> <code>posthtml htmlnano</code> <b> hello world! </b> <a>other link </a> Example</div>',
                 options
             );
         });
@@ -88,7 +91,7 @@ describe('collapseWhitespace', () => {
             return init(
                 inviolateTagsHtml,
                 '<script> alert() </script><style>.foo  {}</style><pre> hello <b> , </b> </pre>' +
-                '<div> <!--  hello   world  --> </div><textarea> world! </textarea>',
+                '<div><!--  hello   world  --></div> <textarea> world! </textarea>',
                 options
             );
         });
@@ -96,7 +99,7 @@ describe('collapseWhitespace', () => {
         it('should collapse whitespaces between ' + topLevelTags, () => {
             return init(
                 topLevelTagsHtml,
-                '<html><head><title> Test </title><script> </script></head><body> </body></html>',
+                '<html><head><title>Test Test</title><script> </script></head><body></body></html>',
                 options
             );
         });
@@ -104,7 +107,7 @@ describe('collapseWhitespace', () => {
         it('renders the documentation example correctly', () => {
             return init(
                 documentationHtml,
-                '<div> hello world! <a href="#">answer</a> <style>div  { color: red; }  </style><main></main></div>',
+                '<div>hello world! <a href="#">answer</a> <style>div  { color: red; }  </style><main></main></div>',
                 options
             );
         });
@@ -119,7 +122,7 @@ describe('collapseWhitespace', () => {
         it('should collapse to 1 space', () => {
             return init(
                 html,
-                '<div> <b> hello world! </b><a>other link </a> </div>',
+                '<div> <p> Hello world </p> <pre>   <code>	posthtml    htmlnano     </code>	</pre> <code> posthtml htmlnano </code> <b> hello world! </b> <a>other link </a> Example </div>',
                 options
             );
         });
@@ -127,7 +130,7 @@ describe('collapseWhitespace', () => {
         it('should collapse whitespaces between ' + topLevelTags, () => {
             return init(
                 topLevelTagsHtml,
-                '<html><head><title> Test </title><script> </script></head><body> </body></html>',
+                '<html><head><title> Test Test </title><script> </script></head><body> </body></html>',
                 options
             );
         });
