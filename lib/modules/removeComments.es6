@@ -1,5 +1,6 @@
 import { isComment, isConditionalComment } from '../helpers';
 
+const MATCH_EXCERPT_REGEXP = /<!-- ?more ?-->/i;
 
 /** Removes HTML comments */
 export default function removeComments(tree, options, removeType) {
@@ -48,6 +49,15 @@ function isCommentToRemove(text, removeType) {
 
         // https://en.wikipedia.org/wiki/Conditional_comment
         if (isConditionalComment(text)) {
+            return false;
+        }
+
+        // Hexo: https://hexo.io/docs/tag-plugins#Post-Excerpt
+        // Hugo: https://gohugo.io/content-management/summaries/#manual-summary-splitting
+        // WordPress: https://wordpress.com/support/wordpress-editor/blocks/more-block/2/
+        // Jekyll: https://jekyllrb.com/docs/posts/#post-excerpts
+        const isCMSExcerptComment = MATCH_EXCERPT_REGEXP.test(text);
+        if (isCMSExcerptComment) {
             return false;
         }
     }
