@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "cssnano": "^4.1.10",
-    "posthtml": "^0.13.1",
+    "posthtml": "^0.13.4",
     "posthtml-render": "^1.2.2",
     "purgecss": "^2.3.0",
     "relateurl": "^0.2.7",
@@ -42,15 +42,15 @@
     "uncss": "^0.17.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.10.5",
-    "@babel/preset-env": "^7.10.4",
-    "@babel/register": "^7.10.5",
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/register": "^7.12.1",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.4.0",
     "expect": "^26.1.0",
-    "mocha": "^8.0.1",
-    "release-it": "^13.6.5",
+    "mocha": "^8.2.0",
+    "release-it": "^14.1.0",
     "rimraf": "^3.0.2"
   },
   "repository": {
