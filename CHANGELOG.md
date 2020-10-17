@@ -2,6 +2,22 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [0.2.7] - 2020-10-17
+### Added
+- More aggressive whitespace removal option [#90].
+- Cloudflare SSE support to `removeComments` [#94].
+- Improve compression ratio by sorting attribute values [#95].
+- New `minifyUrls` module [#98].
+- New `removeAttributeQuotes` module [#104].
+- Remove `type=text/css` for `link[rel=stylesheet]` [#102].
+- Collapse `crossorigin` attributes [#107].
+- Exclude excerpt comment for common CMS [#108].
+
+### Fixed
+- Keep JS inside SVG wrapped in `//<![CDATA[ //]]` [#88].
+
+
 ## [0.2.6] - 2020-07-15
 ### Added
 - Let PostHTML options to be passed.
@@ -136,8 +152,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Remove attributes that contains only white spaces.
 
 
-
-[0.2.5]: https://github.com/posthtml/htmlnano/compare/0.2.5...0.2.6
+[0.2.7]: https://github.com/posthtml/htmlnano/compare/0.2.6...0.2.7
+[0.2.6]: https://github.com/posthtml/htmlnano/compare/0.2.5...0.2.6
 [0.2.5]: https://github.com/posthtml/htmlnano/compare/0.2.4...0.2.5
 [0.2.4]: https://github.com/posthtml/htmlnano/compare/0.2.3...0.2.4
 [0.2.3]: https://github.com/posthtml/htmlnano/compare/0.2.2...0.2.3
@@ -156,6 +172,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
 
+[#107]: https://github.com/posthtml/htmlnano/issues/107
+[#108]: https://github.com/posthtml/htmlnano/issues/108
+[#102]: https://github.com/posthtml/htmlnano/issues/102
+[#104]: https://github.com/posthtml/htmlnano/issues/104
+[#98]: https://github.com/posthtml/htmlnano/issues/98
+[#95]: https://github.com/posthtml/htmlnano/issues/95
+[#94]: https://github.com/posthtml/htmlnano/issues/94
+[#90]: https://github.com/posthtml/htmlnano/issues/90
+[#88]: https://github.com/posthtml/htmlnano/issues/88
 [#84]: https://github.com/posthtml/htmlnano/issues/84
 [#80]: https://github.com/posthtml/htmlnano/issues/80
 [#79]: https://github.com/posthtml/htmlnano/issues/79
