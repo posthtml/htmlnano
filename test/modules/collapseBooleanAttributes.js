@@ -61,4 +61,28 @@ describe('collapseBooleanAttributes', () => {
             options
         );
     });
+
+    it('should collapse crossorigin=anonymous attribute', () => {
+        return init(
+            '<script src="example-framework.js" crossorigin="anonymous"></script>',
+            '<script src="example-framework.js" crossorigin></script>',
+            options
+        );
+    });
+
+    it('should collapse crossorigin="" attribute', () => {
+        return init(
+            '<script src="example-framework.js" crossorigin=""></script>',
+            '<script src="example-framework.js" crossorigin></script>',
+            options
+        );
+    });
+
+    it('should not collapse crossorigin="use-credentials" attribute', () => {
+        return init(
+            '<script src="example-framework.js" crossorigin="use-credentials"></script>',
+            '<script src="example-framework.js" crossorigin="use-credentials"></script>',
+            options
+        );
+    });
 });
