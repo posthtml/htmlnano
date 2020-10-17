@@ -40,6 +40,14 @@ describe('removeComments', () => {
                 options
             );
         });
+
+        it('should not remove excerpt comments <!-- more -->', () => {
+            return init(
+                'Lorem ipsum dolor sit amet <!-- more --> consectetur adipiscing elit',
+                'Lorem ipsum dolor sit amet <!-- more --> consectetur adipiscing elit',
+                options
+            );
+        });
     });
 
 
@@ -68,6 +76,14 @@ describe('removeComments', () => {
             return init(
                 '<!--[if IE 8]><link href="ie8only.css" rel="stylesheet"><![endif]-->',
                 '',
+                options
+            );
+        });
+
+        it('should remove excerpt comments <!-- more -->', () => {
+            return init(
+                'Lorem ipsum dolor sit amet <!-- more --> consectetur adipiscing elit',
+                'Lorem ipsum dolor sit amet  consectetur adipiscing elit',
                 options
             );
         });
