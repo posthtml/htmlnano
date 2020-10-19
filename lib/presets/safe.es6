@@ -29,4 +29,5 @@ export default {
     removeAttributeQuotes: false,
     sortAttributesWithLists: true,
     minifyUrls: false,
+    removeOptionalTags: false,
 };

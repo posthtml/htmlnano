@@ -773,6 +773,31 @@ Minified:
 <a href="../bar">bar</a>
 ```
 
+## removeOptionalTags
+Remove certain tags that can be omitted, see [HTML Standard - 13.1.2.4 Optional tags](https://html.spec.whatwg.org/multipage/syntax.html#optional-tags).
+
+##### Example
+
+Source:
+
+```html
+<html><head><title>Title</title></head><body><p>Hi</p></body></html>
+```
+
+Minified:
+
+```html
+<title>Title</title><p>Hi</p>
+```
+##### Notice
+Due to [the limitation of PostHTML](https://github.com/posthtml/htmlnano/issues/99), htmlnano can't remove only the start tag or the end tag of an element. Currently, htmlnano only supports removing the following optional tags, as htmlnano can remove their start tag and end tag at the same time:
+
+- `html`
+- `head`
+- `body`
+- `colgroup`
+- `tbody`
+
 ## Contribute
 Since the minifier is modular, it's very easy to add new modules:
 

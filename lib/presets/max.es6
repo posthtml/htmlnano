@@ -13,4 +13,5 @@ export default { ...safePreset,
         preset: 'default',
     },
     minifySvg: {},
+    removeOptionalTags: true,
 };
