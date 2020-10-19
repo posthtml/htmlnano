@@ -13,8 +13,8 @@ describe('sortAttributesWithLists', () => {
 
     it('frequency', () => {
         return init(
-            '<a class="foo baz bar">click</a><a class="foo bar">click</a>',
-            '<a class="foo bar baz">click</a><a class="foo bar">click</a>',
+            '<div class="foo baz bar"></div><div class="bar foo"></div>',
+            '<div class="foo bar baz"></div><div class="foo bar"></div>',
             {
                 sortAttributesWithLists: 'frequency',
             }
