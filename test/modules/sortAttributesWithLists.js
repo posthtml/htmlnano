@@ -1,16 +1,33 @@
 import { init } from '../htmlnano';
-import safePreset from '../../lib/presets/safe';
 
 describe('sortAttributesWithLists', () => {
-    const options = {
-        sortAttributesWithLists: safePreset.sortAttributesWithLists,
-    };
-
-    it('it sort values from list-like attributes', () => {
+    it('alphabetical', () => {
         return init(
-            '<a class="foo baz bar">click</a>',
-            '<a class="bar baz foo">click</a>',
-            options
+            '<a class="foo baz bar">click</a><a class="foo bar">click</a>',
+            '<a class="bar baz foo">click</a><a class="bar foo">click</a>',
+            {
+                sortAttributesWithLists: 'alphabetical',
+            }
+        );
+    });
+
+    it('frequency', () => {
+        return init(
+            '<a class="foo baz bar">click</a><a class="foo bar">click</a>',
+            '<a class="foo bar baz">click</a><a class="foo bar">click</a>',
+            {
+                sortAttributesWithLists: 'frequency',
+            }
+        );
+    });
+
+    it('true (alphabetical)', () => {
+        return init(
+            '<a class="foo baz bar">click</a><a class="foo bar">click</a>',
+            '<a class="bar baz foo">click</a><a class="bar foo">click</a>',
+            {
+                sortAttributesWithLists: true,
+            }
         );
     });
 });
