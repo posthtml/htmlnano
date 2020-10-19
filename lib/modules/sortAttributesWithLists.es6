@@ -5,7 +5,7 @@ const validOptions = new Set(['frequency', 'alphabetical']);
 const processModuleOptions = options => {
     if (options === true) return 'alphabetical';
 
-    return validOptions.has(options) ? options : 'alphabetical';
+    return validOptions.has(options) ? options : false;
 };
 
 class AttributeTokenChain {
@@ -61,6 +61,7 @@ export default function collapseAttributeWhitespace(tree, options, moduleOptions
         return sortAttributesWithListsByFrequency(tree);
     }
 
+    // Invalid configuration
     return tree;
 }
 

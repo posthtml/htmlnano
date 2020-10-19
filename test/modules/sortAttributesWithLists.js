@@ -30,4 +30,15 @@ describe('sortAttributesWithLists', () => {
             }
         );
     });
+
+    it('invalid configuration', () => {
+        const input = '<a class="foo baz bar">click</a><a class="foo bar">click</a>';
+        return init(
+            input,
+            input,
+            {
+                sortAttributesWithLists: 100,
+            }
+        );
+    });
 });
