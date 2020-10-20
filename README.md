@@ -685,7 +685,15 @@ Sort values in list-like attributes (`class`, `rel`, `ping`).
 
 The module won't impact the plain-text size of the output. However it will improve the compression ratio of gzip/brotli used in HTTP compression.
 
+##### Options
+
+- `alphabetical`: Default option. Sort attribute values in alphabetical order.
+- `frequency`: Sort attribute values by frequency.
+
 ##### Example
+
+**alphabetical**
+
 Source:
 ```html
 <div class="foo baz bar">click</div>
@@ -694,6 +702,18 @@ Source:
 Processed:
 ```html
 <div class="bar baz foo">click</div>
+```
+
+**frequency**
+
+Source:
+```html
+<div class="foo baz bar"></div><div class="bar foo"></div>
+```
+
+Processed:
+```html
+<div class="foo bar baz"></div><div class="foo bar"></div>
 ```
 
 ### minifyUrls
