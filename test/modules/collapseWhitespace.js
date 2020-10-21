@@ -10,7 +10,17 @@ describe('collapseWhitespace', () => {
     <code>	posthtml    htmlnano     </code>
             <b> hello  world! </b>  <a>other link
     </a>
-	Example   </div>  `;
+    Example   </div>  `;
+
+    const spaceInsideTextNodeHtml = `
+<div>
+    <span> lorem
+        <span>
+            iorem
+        </span>
+    </span>
+</div>
+`;
 
     const documentationHtml = `<div>
     hello  world!
@@ -46,7 +56,7 @@ describe('collapseWhitespace', () => {
                 options
             );
         });
-		
+
         it('should not collapse whitespaces inside ' + inviolateTags, () => {
             return init(
                 inviolateTagsHtml,
@@ -64,6 +74,14 @@ describe('collapseWhitespace', () => {
             );
         });
 
+        it('should collapse whitespaces inside text node', () => {
+            return init(
+                spaceInsideTextNodeHtml,
+                '<div><span>lorem<span>iorem</span></span></div>',
+                options
+            );
+        });
+
         it('renders the documentation example correctly', () => {
             return init(
                 documentationHtml,
@@ -72,8 +90,8 @@ describe('collapseWhitespace', () => {
             );
         });
     });
-	
-	
+
+
     context('aggressive', () => {
         const options = {
             collapseWhitespace: 'aggressive',
@@ -104,10 +122,36 @@ describe('collapseWhitespace', () => {
             );
         });
 
+        it('should collapse whitespaces inside text node', () => {
+            return init(
+                spaceInsideTextNodeHtml,
+                '<div><span> lorem <span> iorem </span> </span></div>',
+                options
+            );
+        });
+
         it('renders the documentation example correctly', () => {
             return init(
                 documentationHtml,
                 '<div>hello world! <a href="#">answer</a> <style>div  { color: red; }  </style><main></main></div>',
+                options
+            );
+        });
+
+        it('test', () => {
+            const html = `
+<div class="post-meta">
+            <time datetime="2020-10-13T09:25:00.000Z">2020-10-13</time>
+                    <span class="dot">
+                     <span> </span>
+                    </span>
+        </div>`;
+
+            const expected = '<div class="post-meta"><time datetime="2020-10-13T09:25:00.000Z">2020-10-13</time> <span class="dot"> <span> </span> </span></div>';
+
+            return init(
+                html,
+                expected,
                 options
             );
         });
@@ -140,6 +184,14 @@ describe('collapseWhitespace', () => {
                 inviolateTagsHtml,
                 '<script> alert() </script><style>.foo  {}</style><pre> hello <b> , </b> </pre>' +
                 '<div> <!--  hello   world  --> </div><textarea> world! </textarea>',
+                options
+            );
+        });
+
+        it('should collapse whitespaces inside text node', () => {
+            return init(
+                spaceInsideTextNodeHtml,
+                '<div> <span> lorem <span> iorem </span> </span> </div>',
                 options
             );
         });
