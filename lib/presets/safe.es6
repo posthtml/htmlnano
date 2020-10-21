@@ -2,6 +2,7 @@
  * Minify HTML in a safe way without breaking anything.
  */
 export default {
+    sortAttributes: false,
     collapseAttributeWhitespace: true,
     collapseBooleanAttributes: {
         amphtml: false,
