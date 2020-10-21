@@ -10,7 +10,23 @@ describe('collapseWhitespace', () => {
     <code>	posthtml    htmlnano     </code>
             <b> hello  world! </b>  <a>other link
     </a>
-	Example   </div>  `;
+    Example   </div>  `;
+
+    const spaceInsideTextNodeHtml = `
+<div>
+    <span> lorem
+        <span>
+            iorem
+        </span>
+    </span>
+</div>
+<div>
+    lorem
+    <span>
+        opren
+    </span>
+</div>
+`;
 
     const documentationHtml = `<div>
     hello  world!
@@ -46,7 +62,7 @@ describe('collapseWhitespace', () => {
                 options
             );
         });
-		
+
         it('should not collapse whitespaces inside ' + inviolateTags, () => {
             return init(
                 inviolateTagsHtml,
@@ -64,6 +80,14 @@ describe('collapseWhitespace', () => {
             );
         });
 
+        it('should collapse whitespaces inside text node', () => {
+            return init(
+                spaceInsideTextNodeHtml,
+                '<div><span>lorem<span>iorem</span></span></div><div>lorem<span>opren</span></div>',
+                options
+            );
+        });
+
         it('renders the documentation example correctly', () => {
             return init(
                 documentationHtml,
@@ -72,8 +96,8 @@ describe('collapseWhitespace', () => {
             );
         });
     });
-	
-	
+
+
     context('aggressive', () => {
         const options = {
             collapseWhitespace: 'aggressive',
@@ -100,6 +124,14 @@ describe('collapseWhitespace', () => {
             return init(
                 topLevelTagsHtml,
                 '<html><head><title>Test Test</title><script> </script></head><body></body></html>',
+                options
+            );
+        });
+
+        it('should collapse whitespaces inside text node', () => {
+            return init(
+                spaceInsideTextNodeHtml,
+                '<div><span> lorem <span> iorem </span> </span></div><div>lorem <span> opren </span></div>',
                 options
             );
         });
@@ -140,6 +172,14 @@ describe('collapseWhitespace', () => {
                 inviolateTagsHtml,
                 '<script> alert() </script><style>.foo  {}</style><pre> hello <b> , </b> </pre>' +
                 '<div> <!--  hello   world  --> </div><textarea> world! </textarea>',
+                options
+            );
+        });
+
+        it('should collapse whitespaces inside text node', () => {
+            return init(
+                spaceInsideTextNodeHtml,
+                '<div> <span> lorem <span> iorem </span> </span> </div><div> lorem <span> opren </span> </div>',
                 options
             );
         });
