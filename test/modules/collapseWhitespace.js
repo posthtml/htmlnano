@@ -20,6 +20,12 @@ describe('collapseWhitespace', () => {
         </span>
     </span>
 </div>
+<div>
+    lorem
+    <span>
+        opren
+    </span>
+</div>
 `;
 
     const documentationHtml = `<div>
@@ -77,7 +83,7 @@ describe('collapseWhitespace', () => {
         it('should collapse whitespaces inside text node', () => {
             return init(
                 spaceInsideTextNodeHtml,
-                '<div><span>lorem<span>iorem</span></span></div>',
+                '<div><span>lorem<span>iorem</span></span></div><div>lorem<span>opren</span></div>',
                 options
             );
         });
@@ -125,7 +131,7 @@ describe('collapseWhitespace', () => {
         it('should collapse whitespaces inside text node', () => {
             return init(
                 spaceInsideTextNodeHtml,
-                '<div><span> lorem <span> iorem </span> </span></div>',
+                '<div><span> lorem <span> iorem </span> </span></div><div>lorem <span> opren </span></div>',
                 options
             );
         });
@@ -134,24 +140,6 @@ describe('collapseWhitespace', () => {
             return init(
                 documentationHtml,
                 '<div>hello world! <a href="#">answer</a> <style>div  { color: red; }  </style><main></main></div>',
-                options
-            );
-        });
-
-        it('test', () => {
-            const html = `
-<div class="post-meta">
-            <time datetime="2020-10-13T09:25:00.000Z">2020-10-13</time>
-                    <span class="dot">
-                     <span> </span>
-                    </span>
-        </div>`;
-
-            const expected = '<div class="post-meta"><time datetime="2020-10-13T09:25:00.000Z">2020-10-13</time> <span class="dot"> <span> </span> </span></div>';
-
-            return init(
-                html,
-                expected,
                 options
             );
         });
@@ -191,7 +179,7 @@ describe('collapseWhitespace', () => {
         it('should collapse whitespaces inside text node', () => {
             return init(
                 spaceInsideTextNodeHtml,
-                '<div> <span> lorem <span> iorem </span> </span> </div>',
+                '<div> <span> lorem <span> iorem </span> </span> </div><div> lorem <span> opren </span> </div>',
                 options
             );
         });
