@@ -1,4 +1,5 @@
 // class, rel, ping
+import { sort as timSort } from 'timsort';
 import { attributesWithLists } from './collapseAttributeWhitespace';
 
 const validOptions = new Set(['frequency', 'alphabetical']);
@@ -29,7 +30,9 @@ class AttributeTokenChain {
             _sortOrder.push(item);
         }
 
-        this.sortOrder = _sortOrder.sort((a, b) => b[1] - a[1]).map(i => i[0]);
+        timSort(_sortOrder, (a, b) => b[1] - a[1]);
+
+        this.sortOrder = _sortOrder.map(i => i[0]);
     }
 
     sortFromNodeAttrsArray(attrValuesArray) {
