@@ -716,6 +716,46 @@ Processed:
 <div class="foo bar baz"></div><div class="foo bar"></div>
 ```
 
+### sortAttributes
+Sort attributes inside elements.
+
+The module won't impact the plain-text size of the output. However it will improve the compression ratio of gzip/brotli used in HTTP compression.
+
+##### Options
+
+- `alphabetical`: Default option. Sort attributes in alphabetical order.
+- `frequency`: Sort attributes by frequency.
+
+##### Example
+
+**alphabetical**
+
+Source:
+```html
+<input type="text" class="form-control" name="testInput" autofocus="" autocomplete="off" id="testId">
+```
+
+Processed:
+```html
+<input autocomplete="off" autofocus="" class="form-control" id="testId" name="testInput" type="text">
+```
+
+**frequency**
+
+Source:
+```html
+<input type="text" class="form-control" name="testInput" id="testId">
+<a id="testId" href="#" class="testClass"></a>
+<img width="20" src="../images/image.png" height="40" alt="image" class="cls" id="id2">
+```
+
+Processed:
+```html
+<input class="form-control" id="testId" type="text" name="testInput">
+<a class="testClass" id="testId" href="#"></a>
+<img class="cls" id="id2" width="20" src="../images/image.png" height="40" alt="image">
+```
+
 ### minifyUrls
 Convert absolute URL to relative URL using [relateurl](https://www.npmjs.com/package/relateurl).
 
