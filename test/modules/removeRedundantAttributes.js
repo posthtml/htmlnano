@@ -39,6 +39,22 @@ describe('removeRedundantAttributes', () => {
         );
     });
 
+    it('should remove redundant type from <script>', () => {
+        return init(
+            '<script type="text/jscript"></script><script type="application/javascript"></script><script type="application/ecmascript"></script>',
+            '<script></script><script></script><script></script>',
+            options
+        );
+    });
+
+    it('shouldn\'t remove type=module from <script>', () => {
+        return init(
+            '<script type="module"></script>',
+            '<script type="module"></script>',
+            options
+        );
+    });
+
     it('should remove "charset" from <script> if it is an external script', () => {
         return init(
             '<script charset="UTF-8">alert();</script><script src="foo.js" charset="UTF-8"></script>',

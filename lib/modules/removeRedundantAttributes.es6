@@ -1,3 +1,23 @@
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#JavaScript_types
+const redundantScriptTypes = new Set([
+    'application/javascript',
+    'application/ecmascript',
+    'application/x-ecmascript',
+    'application/x-javascript',
+    'text/javascript',
+    'text/ecmascript',
+    'text/javascript1.0',
+    'text/javascript1.1',
+    'text/javascript1.2',
+    'text/javascript1.3',
+    'text/javascript1.4',
+    'text/javascript1.5',
+    'text/jscript',
+    'text/livescript',
+    'text/x-ecmascript',
+    'text/x-javascript'
+]);
+
 const redundantAttributes = {
     'form': {
         'method': 'get'
@@ -13,7 +33,17 @@ const redundantAttributes = {
 
     'script': {
         'language': 'javascript',
-        'type': 'text/javascript',
+        'type': node => {
+            for (const [attrName, attrValue] of Object.entries(node.attrs)) {
+                if (attrName.toLowerCase() !== 'type') {
+                    continue;
+                }
+
+                return redundantScriptTypes.has(attrValue);
+            }
+
+            return false;
+        },
         // Remove attribute if the function returns false
         'charset': node => {
             // The charset attribute only really makes sense on “external” SCRIPT elements:
