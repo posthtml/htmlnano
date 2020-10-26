@@ -78,4 +78,20 @@ describe('removeRedundantAttributes', () => {
             options
         );
     });
+
+    it('should remove loading="eager" from <img> & <iframe>', () => {
+        return init(
+            '<img src="example.com" loading="eager"><iframe src="example.com" loading="eager"></iframe>',
+            '<img src="example.com"><iframe src="example.com"></iframe>',
+            options
+        );
+    });
+
+    it('shouldn\'t remove loading="lazy" from <img> & <iframe>', () => {
+        return init(
+            '<img src="example.com" loading="lazy"><iframe src="example.com" loading="lazy"></iframe>',
+            '<img src="example.com" loading="lazy"><iframe src="example.com" loading="lazy"></iframe>',
+            options
+        );
+    });
 });

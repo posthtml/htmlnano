@@ -48,6 +48,14 @@ const redundantAttributes = {
             // Only "text/css" is redudant for link[rel=stylesheet]. Otherwise "type" shouldn't be removed
             return isRelStyleSheet && isTypeTextCSS;
         }
+    },
+
+    // See: https://html.spec.whatwg.org/#lazy-loading-attributes
+    'img': {
+        'loading': 'eager'
+    },
+    'iframe': {
+        'loading': 'eager'
     }
 };
 
