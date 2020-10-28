@@ -28,7 +28,14 @@
   ],
   "babel": {
     "presets": [
-      "@babel/env"
+      [
+        "@babel/env",
+        {
+          "targets": {
+            "node": 10
+          }
+        }
+      ]
     ]
   },
   "dependencies": {
