@@ -39,6 +39,22 @@ describe('removeRedundantAttributes', () => {
         );
     });
 
+    it('should remove redundant type from <script>', () => {
+        return init(
+            '<script type="text/jscript"></script><script type="application/javascript"></script><script type="application/ecmascript"></script>',
+            '<script></script><script></script><script></script>',
+            options
+        );
+    });
+
+    it('shouldn\'t remove type=module from <script>', () => {
+        return init(
+            '<script type="module"></script>',
+            '<script type="module"></script>',
+            options
+        );
+    });
+
     it('should remove "charset" from <script> if it is an external script', () => {
         return init(
             '<script charset="UTF-8">alert();</script><script src="foo.js" charset="UTF-8"></script>',
@@ -75,6 +91,22 @@ describe('removeRedundantAttributes', () => {
         return init(
             '<link rel="stylesheet" type="text/example" href="style.css">',
             '<link rel="stylesheet" type="text/example" href="style.css">',
+            options
+        );
+    });
+
+    it('should remove loading="eager" from <img> & <iframe>', () => {
+        return init(
+            '<img src="example.com" loading="eager"><iframe src="example.com" loading="eager"></iframe>',
+            '<img src="example.com"><iframe src="example.com"></iframe>',
+            options
+        );
+    });
+
+    it('shouldn\'t remove loading="lazy" from <img> & <iframe>', () => {
+        return init(
+            '<img src="example.com" loading="lazy"><iframe src="example.com" loading="lazy"></iframe>',
+            '<img src="example.com" loading="lazy"><iframe src="example.com" loading="lazy"></iframe>',
             options
         );
     });
