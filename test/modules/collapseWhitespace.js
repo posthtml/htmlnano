@@ -106,7 +106,7 @@ describe('collapseWhitespace', () => {
         it('should collapse redundant whitespaces and eliminate indentation (tabs, newlines, etc)', () => {
             return init(
                 html,
-                '<div><p>Hello world</p><pre>   <code>	posthtml    htmlnano     </code>	</pre> <code>posthtml htmlnano</code> <b> hello world! </b> <a>other link </a> Example</div>',
+                '<div><p>Hello world</p><pre>   <code>	posthtml    htmlnano     </code>	</pre><code>posthtml htmlnano</code> <b> hello world! </b> <a>other link </a> Example</div>',
                 options
             );
         });
@@ -115,7 +115,7 @@ describe('collapseWhitespace', () => {
             return init(
                 inviolateTagsHtml,
                 '<script> alert() </script><style>.foo  {}</style><pre> hello <b> , </b> </pre>' +
-                '<div><!--  hello   world  --></div> <textarea> world! </textarea>',
+                '<div><!--  hello   world  --></div><textarea> world! </textarea>',
                 options
             );
         });
@@ -139,7 +139,7 @@ describe('collapseWhitespace', () => {
         it('renders the documentation example correctly', () => {
             return init(
                 documentationHtml,
-                '<div>hello world! <a href="#">answer</a> <style>div  { color: red; }  </style><main></main></div>',
+                '<div>hello world! <a href="#">answer</a><style>div  { color: red; }  </style><main></main></div>',
                 options
             );
         });

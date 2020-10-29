@@ -76,21 +76,10 @@ function collapseRedundantWhitespaces(text, collapseType, shouldTrim = false, cu
     if (shouldTrim) {
         if (collapseType === 'aggressive') {
             if (onlyWhitespacePattern.test(text)) {
-                if (!noTrimWhitespacesArroundElements.has(currentTag)) {
-                    // Remove very first and very end spaces inside text node
-                    if (typeof prevNodeTag === 'undefined') {
-                        text = text.trimStart();
-                    }
-
-                    if (typeof nextNodeTag === 'undefined') {
-                        text = text.trimEnd();
-                    }
-                }
-
                 // "text" only contains whitespaces. Only trim when both prevNodeTag & nextNodeTag are not "noTrimWhitespacesArroundElement"
                 // Otherwise the required ONE whitespace will be trimmed
                 if (
-                    !noTrimWhitespacesArroundElements.has(prevNodeTag) &&
+                    !noTrimWhitespacesArroundElements.has(prevNodeTag) ||
                     !noTrimWhitespacesArroundElements.has(nextNodeTag)
                 ) {
                     text = text.trim();
