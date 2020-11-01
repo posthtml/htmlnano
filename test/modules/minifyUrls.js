@@ -80,4 +80,22 @@ describe('minifyUrls', () => {
 
         init(html, html, { ...safePreset, minifyUrls: 'https://example.com/' });
     });
+
+    it('should process srcset', () => {
+        init(
+            '<img srcset="https://example.com/foo/bar/image.png 1x, https://example.com/foo/bar/image2.png.png 2x">',
+            '<img srcset="../bar/image.png 1x, ../bar/image2.png.png 2x">',
+            { ...safePreset, minifyUrls: 'https://example.com/foo/baz/' }
+        );
+    });
+
+    it('shouldn\'t process "invalid" srcset', () => {
+        const html = '<img srcset="https://example.com/foo/bar/image.png 1x,https://example.com/foo/bar/image2.png.png 2x">';
+
+        init(
+            html,
+            html,
+            { ...safePreset, minifyUrls: 'https://example.com/foo/baz/' }
+        );
+    });
 });
