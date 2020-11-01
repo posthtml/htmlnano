@@ -50,7 +50,14 @@ const isUriTypeAttribute = (tag, attr) => {
         tag === 'form' && attr === 'action' ||
         tag === 'input' && (attr === 'src' || attr === 'usemap') ||
         tag === 'head' && attr === 'profile' ||
-        tag === 'script' && (attr === 'src' || attr === 'for')
+        tag === 'script' && (attr === 'src' || attr === 'for') ||
+        /**
+         * https://html.spec.whatwg.org/#attr-source-src
+         *
+         * Although most of browsers recommend not to use "src" in <source>,
+         * but technically it does comply with HTML Standard.
+         */
+        tag === 'source' && attr === 'src'
     );
 };
 
