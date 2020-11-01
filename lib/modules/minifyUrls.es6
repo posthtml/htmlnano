@@ -1,4 +1,5 @@
 import RelateUrl from 'relateurl';
+import srcset from 'srcset';
 
 // Adopts from https://github.com/kangax/html-minifier/blob/51ce10f4daedb1de483ffbcccecc41be1c873da2/src/htmlminifier.js#L209-L221
 const tagsHaveUriValuesForAttributes = new Set([
@@ -50,7 +51,22 @@ const isUriTypeAttribute = (tag, attr) => {
         tag === 'form' && attr === 'action' ||
         tag === 'input' && (attr === 'src' || attr === 'usemap') ||
         tag === 'head' && attr === 'profile' ||
-        tag === 'script' && (attr === 'src' || attr === 'for')
+        tag === 'script' && (attr === 'src' || attr === 'for') ||
+        /**
+         * https://html.spec.whatwg.org/#attr-source-src
+         *
+         * Although most of browsers recommend not to use "src" in <source>,
+         * but technically it does comply with HTML Standard.
+         */
+        tag === 'source' && attr === 'src'
+    );
+};
+
+const isSrcsetAttribute = (tag, attr) => {
+    return (
+        tag === 'source' && attr === 'srcset' ||
+        tag === 'img' && attr === 'srcset' ||
+        tag === 'link' && attr === 'imagesrcset'
     );
 };
 
@@ -106,13 +122,32 @@ export default function minifyUrls(tree, options, moduleOptions) {
         for (const [attrName, attrValue] of Object.entries(node.attrs)) {
             const attrNameLower = attrName.toLowerCase();
 
-            if (!isUriTypeAttribute(node.tag, attrNameLower)) continue;
+            if (isUriTypeAttribute(node.tag, attrNameLower)) {
+                // FIXME!
+                // relateurl@1.0.0-alpha only supports URL while stable version (0.2.7) only supports string
+                // the WHATWG URL API is very strict while attrValue might not be a valid URL
+                // new URL should be used, and relateUrl#relate should be wrapped in try...catch after relateurl@1 is stable
+                node.attrs[attrName] = relateUrlInstance.relate(attrValue);
 
-            // FIXME!
-            // relateurl@1.0.0-alpha only supports URL while stable version (0.2.7) only supports string
-            // the WHATWG URL API is very strict while attrValue might not be a valid URL
-            // new URL should be used, and relateUrl#relate should be wrapped in try...catch after relateurl@1 is stable
-            node.attrs[attrName] = relateUrlInstance.relate(attrValue);
+                continue;
+            }
+
+            if (isSrcsetAttribute(node.tag, attrNameLower)) {
+                try {
+                    const parsedSrcset = srcset.parse(attrValue);
+
+                    node.attrs[attrName] = srcset.stringify(parsedSrcset.map(srcset => {
+                        srcset.url = relateUrlInstance.relate(srcset.url);
+
+                        return srcset;
+                    }));
+                } catch (e) {
+                    // srcset will throw an Error for invalid srcset.
+                }
+
+
+                continue;
+            }
         }
 
         return node;
