@@ -13,5 +13,6 @@ export default { ...safePreset,
         preset: 'default',
     },
     minifySvg: {},
+    minifyConditionalComments: true,
     removeOptionalTags: true,
 };
