@@ -28,6 +28,8 @@ async function minifycontentInsideConditionalComments(text, htmlnanoOptions) {
     let match;
     const matches = [];
 
+    // FIXME!
+    // String#matchAll is supported since Node.js 12
     while ((match = CONDITIONAL_COMMENT_REGEXP.exec(text)) !== null) {
         matches.push([match[1], match[2], match[3]]);
     }
