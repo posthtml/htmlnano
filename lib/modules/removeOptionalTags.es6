@@ -1,6 +1,6 @@
 import { isComment } from '../helpers';
 
-const startWithWhitespacePattern = /^[\f\n\r\t\v ]+/;
+const startWithWhitespacePattern = /^\s+/;
 
 const bodyStartTagCantBeOmittedWithFirstChildTags = new Set(['meta', 'link', 'script', 'style']);
 const tbodyStartTagCantBeOmittedWithPrecededTags = new Set(['tbody', 'thead', 'tfoot']);
