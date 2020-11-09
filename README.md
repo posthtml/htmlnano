@@ -553,6 +553,26 @@ Minified:
 <!--[if lte IE 7]><style>.title {color:red}</style><![endif]-->
 ```
 
+##### Notice
+
+Due to [the limitation of PostHTML](https://github.com/posthtml/posthtml-parser/issues/9) (which is actually a issue from upstream [htmlparser2](https://github.com/fb55/htmlparser2/pull/146)), following html snippet is not supported:
+
+```html
+<!--[if lt IE 7]><html class="no-js ie6"><![endif]-->
+<!--[if IE 7]><html class="no-js ie7"><![endif]-->
+<!--[if IE 8]><html class="no-js ie8"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
+```
+
+Which will result in:
+
+```html
+<!--[if lt IE 7]><html class="no-js ie6"></html><![endif]-->
+<!--[if IE 7]><html class="no-js ie7"></html><![endif]-->
+<!--[if IE 8]><html class="no-js ie8"></html><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"></html><!--<![endif]-->
+```
+
 ### removeRedundantAttributes
 Removes redundant attributes from tags if they contain default values:
 - `method="get"` from `<form>`
