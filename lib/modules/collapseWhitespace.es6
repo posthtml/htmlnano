@@ -19,8 +19,8 @@ const noTrimWhitespacesInsideElements = new Set([
     'a', 'abbr', 'acronym', 'b', 'big', 'del', 'em', 'font', 'i', 'ins', 'kbd', 'mark', 'nobr', 'rp', 's', 'samp', 'small', 'span', 'strike', 'strong', 'sub', 'sup', 'time', 'tt', 'u', 'var'
 ]);
 
-const whitespacePattern = /[\f\n\r\t\v ]{1,}/g;
-const onlyWhitespacePattern = /^[\f\n\r\t\v ]+$/;
+const whitespacePattern = /\s{1,}/g;
+const onlyWhitespacePattern = /^\s+$/;
 const NONE = '';
 const SINGLE_SPACE = ' ';
 const validOptions = ['all', 'aggressive', 'conservative'];
