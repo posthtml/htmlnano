@@ -2,9 +2,7 @@ import htmlnano from '../htmlnano';
 import { isConditionalComment } from '../helpers';
 
 // Spec: https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/ms537512(v=vs.85)
-// FIXME: the eslint rule should be removed after ESLint fix the issue: https://github.com/eslint/eslint/issues/13826
-// eslint-disable-next-line no-useless-escape
-const CONDITIONAL_COMMENT_REGEXP = /(<!--\[if\s+?[^<>\[\]]+?]>)([\s\S]+?)(<!\[endif\]-->)/gm;
+const CONDITIONAL_COMMENT_REGEXP = /(<!--\[if\s+?[^<>[\]]+?]>)([\s\S]+?)(<!\[endif\]-->)/gm;
 
 /** Minify content inside conditional comments */
 export default async function minifyConditionalComments(tree, htmlnanoOptions) {
