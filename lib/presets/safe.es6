@@ -24,6 +24,7 @@ export default {
             { convertShapeToPath: false },
         ],
     },
+    minifyConditionalComments: false,
     removeEmptyAttributes: true,
     removeRedundantAttributes: false,
     removeComments: 'safe',
