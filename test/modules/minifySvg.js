@@ -19,6 +19,21 @@ describe('minifySvg', () => {
         </g>
     </svg>`;
 
+    const svgContainsCDATA = `<svg xmlns='http://www.w3.org/2000/svg'>
+        <style><![CDATA[
+            .label {
+                color: red
+            }
+        ]]></style>
+        <text class="label">example</text>
+        <text class="label">example</text>
+    </svg>
+    <svg xmlns='http://www.w3.org/2000/svg'>
+        <script>//<![CDATA[
+            const x = '<>';
+        //]]></script>
+    </svg>`;
+
     it('should minify SVG inside <svg>', () => {
         return init(
             svg,
@@ -52,6 +67,23 @@ describe('minifySvg', () => {
             '<svg baseProfile="full" width="300" height="200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="red"/><circle cx="150" cy="100" r="80" fill="green"/><text id="a" x="150" y="125" font-size="60" text-anchor="middle" fill="#fff">SVG</text><use href="#a" x="2" y="2"/></svg>',
 
             {minifySvg: maxPreset.minifySvg}
+        );
+    });
+
+    // https://github.com/posthtml/htmlnano/issues/88
+    it('should work with <svg> with <script> inside (issue #88)', () => {
+        return init(
+            svgContainsCDATA,
+            // The CDATA inside <style> has been stripped by SVGO, because SVGO determines that there is no CSS that needs to be escaped, thus no CDATA is required.
+            '<svg xmlns="http://www.w3.org/2000/svg"><style>.label{color:red}</style><text class="label">example</text><text class="label">example</text></svg>\n    <svg xmlns="http://www.w3.org/2000/svg"><script>/*<![CDATA[*/const x="<>";/*]]>*/</script></svg>',
+
+            {
+                minifyCss: {
+                    preset: 'default',
+                },
+                minifyJs: {},
+                minifySvg: maxPreset.minifySvg
+            }
         );
     });
 });
