@@ -9,15 +9,15 @@ Modular HTML minifier, built on top of the [PostHTML](https://github.com/posthtm
 
 ## [Benchmark](https://github.com/maltsev/html-minifiers-benchmark/blob/master/README.md)
 [html-minifier@4.0.0]: https://www.npmjs.com/package/html-minifier
-[htmlnano@0.2.6]: https://www.npmjs.com/package/htmlnano
+[htmlnano@0.2.8]: https://www.npmjs.com/package/htmlnano
 
-| Website | Source (KB) | [html-minifier@4.0.0] | [htmlnano@0.2.6] |
+| Website | Source (KB) | [html-minifier@4.0.0] | [htmlnano@0.2.8] |
 |---------|------------:|----------------:|-----------:|
-| [stackoverflow.blog](https://stackoverflow.blog/) | 76 | 67 | 66 |
-| [github.com](https://github.com/) | 131 | 70 | 117 |
-| [en.wikipedia.org](https://en.wikipedia.org/wiki/Main_Page) | 80 | 71 | 76 |
-| [npmjs.com](https://www.npmjs.com/features) | 31 | 25 | 28 |
-| **Avg. minify rate** | 0% | **22%** | **10%** |
+| [stackoverflow.blog](https://stackoverflow.blog/) | 78 | 72 | 66 |
+| [github.com](https://github.com/) | 215 | 187 | 177 |
+| [en.wikipedia.org](https://en.wikipedia.org/wiki/Main_Page) | 78 | 73 | 72 |
+| [npmjs.com](https://www.npmjs.com/features) | 29 | 25 | 25 |
+| **Avg. minify rate** | 0% | **10%** | **13%** |
 
 
 ## Usage
@@ -207,7 +207,7 @@ Collapses redundant white spaces (including new lines). It doesn’t affect whit
 
 ##### Side effects
 
-*all*  
+*all*
 `<i>hello</i> <i>world</i>` or `<i>hello</i><br><i>world</i>` after minification will be rendered as `helloworld`.
 To prevent that use either the default `conservative` option, or the `aggressive` option.
 
