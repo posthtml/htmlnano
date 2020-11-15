@@ -3,6 +3,22 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.2.8] - 2020-11-15
+### Added
+- [`removeOptionalTags`](https://github.com/posthtml/htmlnano#removeoptionaltags) [#110].
+- [`sortAttributes`](https://github.com/posthtml/htmlnano#removeoptionaltags) [#113].
+- `source[src]` and `srcset` support to `minifyUrls` [#117].
+- [`minifyConditionalComments`](https://github.com/posthtml/htmlnano#minifyconditionalcomments) [#119].
+
+## Changed
+- Sort by frequency `sortAttributesWithLists` [#111].
+- Strip more spaces in `collapseWhitespace` [#112].
+- Remove `loading="eager"` from `<img>` and `<iframe>` [#114].
+- Remove redundant `type` from `<script>` [#114].
+- Strip whitespaces between textnode and element [#116].
+
+
+
 ## [0.2.7] - 2020-10-17
 ### Added
 - More aggressive whitespace removal option [#90].
@@ -152,6 +168,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Remove attributes that contains only white spaces.
 
 
+[0.2.8]: https://github.com/posthtml/htmlnano/compare/0.2.7...0.2.8
 [0.2.7]: https://github.com/posthtml/htmlnano/compare/0.2.6...0.2.7
 [0.2.6]: https://github.com/posthtml/htmlnano/compare/0.2.5...0.2.6
 [0.2.5]: https://github.com/posthtml/htmlnano/compare/0.2.4...0.2.5
@@ -172,6 +189,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
 
+[#119]: https://github.com/posthtml/htmlnano/issues/119
+[#117]: https://github.com/posthtml/htmlnano/issues/117
+[#116]: https://github.com/posthtml/htmlnano/issues/116
+[#114]: https://github.com/posthtml/htmlnano/issues/114
+[#113]: https://github.com/posthtml/htmlnano/issues/113
+[#112]: https://github.com/posthtml/htmlnano/issues/112
+[#111]: https://github.com/posthtml/htmlnano/issues/111
+[#110]: https://github.com/posthtml/htmlnano/issues/110
 [#107]: https://github.com/posthtml/htmlnano/issues/107
 [#108]: https://github.com/posthtml/htmlnano/issues/108
 [#102]: https://github.com/posthtml/htmlnano/issues/102
