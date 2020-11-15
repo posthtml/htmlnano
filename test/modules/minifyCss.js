@@ -16,6 +16,16 @@ describe('minifyCss', function () {
             border-radius: 10px;
         }
     </style></div>`;
+    const svg = `<svg><style>
+        <![CDATA[
+            h1 {
+                margin: 10px 10px 10px 10px;
+                color: #ff0000;
+                -moz-border-radius: 10px;
+                border-radius: 10px;
+            }
+        ]]>
+    </style></svg>`;
 
 
     it('should minify CSS inside <style>', () => {
@@ -74,6 +84,14 @@ describe('minifyCss', function () {
         return init(
             amphtml,
             amphtml,
+            options
+        );
+    });
+
+    it('should keep CSS inside SVG wrapped in CDATA', () => {
+        return init(
+            svg,
+            '<svg><style><![CDATA[h1{margin:10px;color:red;-moz-border-radius:10px;border-radius:10px}]]></style></svg>',
             options
         );
     });
