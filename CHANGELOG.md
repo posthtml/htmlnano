@@ -10,7 +10,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `source[src]` and `srcset` support to `minifyUrls` [#117].
 - [`minifyConditionalComments`](https://github.com/posthtml/htmlnano#minifyconditionalcomments) [#119].
 
-## Changed
+### Changed
 - Sort by frequency `sortAttributesWithLists` [#111].
 - Strip more spaces in `collapseWhitespace` [#112].
 - Remove `loading="eager"` from `<img>` and `<iframe>` [#114].
