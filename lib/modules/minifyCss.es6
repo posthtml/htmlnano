@@ -26,10 +26,20 @@ export default function minifyCss(tree, options, cssnanoOptions) {
 
 
 function processStyleNode(styleNode, cssnanoOptions) {
-    const css = extractCssFromStyleNode(styleNode);
+    let css = extractCssFromStyleNode(styleNode);
+
+    const strippedCss = stripCdata(css);
+    const isCdataWrapped = css !== strippedCss;
+    css = strippedCss;
+
     return cssnano
         .process(css, postcssOptions, cssnanoOptions)
-        .then(result => styleNode.content = [result.css]);
+        .then(result => {
+            if (isCdataWrapped) {
+                return styleNode.content = ['<![CDATA[' + result + ']]>'];
+            }
+            return styleNode.content = [result.css];
+        });
 }
 
 
@@ -50,4 +60,14 @@ function processStyleAttr(node, cssnanoOptions) {
                 minifiedCss.length - wrapperEnd.length
             );
         });
+}
+
+function stripCdata(css) {
+    const leftStrippedCss = css.replace('<![CDATA[', '');
+    if (leftStrippedCss === css) {
+        return css;
+    }
+
+    const strippedCss = leftStrippedCss.replace(']]>', '');
+    return leftStrippedCss === strippedCss ? css : strippedCss;
 }

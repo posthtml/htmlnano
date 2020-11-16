@@ -99,8 +99,18 @@ describe('minifyJs', () => {
 
     it('should keep JS inside SVG wrapped in CDATA', () => {
         return init(
-            '<svg><script>// <![CDATA[ const x = "test" + "2"; // ]]></script></svg>',
-            '<svg><script>//<![CDATA[const x="test2";//]]></script></svg>',
+            `<svg><script>
+                // <![CDATA[
+                const x = "test" + "2";
+                //  ]]>
+            </script></svg>
+            <svg><script>
+                /* <![CDATA[  */
+                const x = "test" + "2";
+                /* ]]>*/
+            </script></svg>`,
+            `<svg><script>/*<![CDATA[*/const x="test2";/*]]>*/</script></svg>
+            <svg><script>/*<![CDATA[*/const x="test2";/*]]>*/</script></svg>`,
             options
         );
     });
