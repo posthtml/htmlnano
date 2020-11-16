@@ -20,7 +20,6 @@ const noTrimWhitespacesInsideElements = new Set([
 ]);
 
 const whitespacePattern = /\s{1,}/g;
-const onlyWhitespacePattern = /^\s+$/;
 const NONE = '';
 const SINGLE_SPACE = ' ';
 const validOptions = ['all', 'aggressive', 'conservative'];
@@ -76,24 +75,12 @@ function collapseRedundantWhitespaces(text, collapseType, shouldTrim = false, cu
 
     if (shouldTrim) {
         if (collapseType === 'aggressive') {
-            if (onlyWhitespacePattern.test(text)) {
-                // "text" only contains whitespaces. Only trim when both prevNodeTag & nextNodeTag are not "noTrimWhitespacesArroundElement"
-                // Otherwise the required ONE whitespace will be trimmed
-                if (
-                    !noTrimWhitespacesArroundElements.has(prevNodeTag) ||
-                    !noTrimWhitespacesArroundElements.has(nextNodeTag)
-                ) {
-                    text = text.trim();
-                }
-            } else {
-                // text contains whitespaces & non-whitespaces
-                if (!noTrimWhitespacesArroundElements.has(prevNodeTag)) {
-                    text = text.trimStart();
-                }
+            if (!noTrimWhitespacesArroundElements.has(prevNodeTag)) {
+                text = text.trimStart();
+            }
 
-                if (!noTrimWhitespacesArroundElements.has(nextNodeTag)) {
-                    text = text.trimEnd();
-                }
+            if (!noTrimWhitespacesArroundElements.has(nextNodeTag)) {
+                text = text.trimEnd();
             }
         } else {
             // collapseType is 'all', trim spaces
