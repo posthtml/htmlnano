@@ -30,14 +30,13 @@ export default function collapseWhitespace(tree, options, collapseType, tag) {
     collapseType = validOptions.includes(collapseType) ? collapseType : 'conservative';
 
     tree.forEach((node, index) => {
-        if (typeof node === 'string' && !isComment(node)) {
+        if (typeof node === 'string') {
             const prevNode = tree[index - 1];
             const nextNode = tree[index + 1];
             const prevNodeTag = prevNode && prevNode.tag;
             const nextNodeTag = nextNode && nextNode.tag;
 
             const isTopLevel = !tag || tag === 'html' || tag === 'head';
-
             const shouldTrim = (
                 collapseType === 'all' ||
                 isTopLevel ||
@@ -71,7 +70,9 @@ function collapseRedundantWhitespaces(text, collapseType, shouldTrim = false, cu
         return NONE;
     }
 
-    text = text.replace(whitespacePattern, SINGLE_SPACE);
+    if (!isComment(text)) {
+        text = text.replace(whitespacePattern, SINGLE_SPACE);
+    }
 
     if (shouldTrim) {
         if (collapseType === 'aggressive') {
