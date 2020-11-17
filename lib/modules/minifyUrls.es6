@@ -18,8 +18,6 @@ const tagsHaveUriValuesForAttributes = new Set([
     'script'
 ]);
 
-const REGEXP_TAGS_HAVE_URI_VSLUES_FOR_ATTRIBUTES = new RegExp('^(' + [...tagsHaveUriValuesForAttributes].join('|') + ')$');
-
 const tagsHasHrefAttributes = new Set([
     'a',
     'area',
@@ -112,8 +110,12 @@ export default function minifyUrls(tree, options, moduleOptions) {
         STORED_URL_BASE = urlBase;
     }
 
-    tree.match({ tag: REGEXP_TAGS_HAVE_URI_VSLUES_FOR_ATTRIBUTES }, node => {
+    tree.walk(node => {
         if (!node.attrs) return node;
+
+        if (!node.tag) return node;
+
+        if (!tagsHaveUriValuesForAttributes.has(node.tag)) return node;
 
         // Prevent link[rel=canonical] being processed
         // Can't be excluded by isUriTypeAttribute()

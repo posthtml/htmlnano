@@ -17,11 +17,11 @@ export function isAmpBoilerplate(node) {
 }
 
 export function isComment(content) {
-    return (content || '').trim().search('<!--') === 0;
+    return (content || '').trim().startsWith('<!--');
 }
 
 export function isConditionalComment(content) {
-    return (content || '').trim().search(/<!--\[if/) === 0;
+    return (content || '').trim().startsWith('<!--[if');
 }
 
 export function isStyleNode(node) {

@@ -15,7 +15,7 @@ export default function collapseAttributeWhitespace(tree) {
 
             const attrValues = node.attrs[attrName].split(/\s/);
             const uniqeAttrValues = new Set();
-            let deduplicatedAttrValues = [];
+            const deduplicatedAttrValues = [];
             attrValues.forEach((attrValue) => {
                 if (! attrValue) {
                     // Keep whitespaces

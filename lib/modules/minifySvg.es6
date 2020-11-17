@@ -4,7 +4,8 @@ import posthtmlRender from 'posthtml-render';
 /** Minify SVG with SVGO */
 export default function minifySvg(tree, options, svgoOptions = {}) {
     let promises = [];
-    let svgo = new SVGO(svgoOptions);
+
+    const svgo = new SVGO(svgoOptions);
 
     tree.match({tag: 'svg'}, node => {
         let svgStr = posthtmlRender(node);

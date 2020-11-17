@@ -104,20 +104,24 @@ const amphtmlBooleanAttributes = new Set([
 
 
 export default function collapseBooleanAttributes(tree, options, moduleOptions) {
-    tree.match({attrs: true}, node => {
-        for (const attrName of Object.keys(node.attrs)) {
-            if (!node.tag) {
-                continue;
-            }
+    tree.walk(node => {
+        if (! node.attrs) {
+            return node;
+        }
 
-            if (node.tag.search('a-') === 0 && attrName === 'visible') {
+        if (! node.tag) {
+            return node;
+        }
+
+        for (const attrName of Object.keys(node.attrs)) {
+            if (attrName === 'visible' && node.tag.startsWith('a-')) {
                 continue;
             }
 
             if (htmlBooleanAttributes.has(attrName)) {
                 node.attrs[attrName] = true;
             }
-            if (moduleOptions.amphtml && node.attrs[attrName] === '' && amphtmlBooleanAttributes.has(attrName)) {
+            if (moduleOptions.amphtml && amphtmlBooleanAttributes.has(attrName) && node.attrs[attrName] === '') {
                 node.attrs[attrName] = true;
             }
 
