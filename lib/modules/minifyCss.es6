@@ -28,9 +28,13 @@ export default function minifyCss(tree, options, cssnanoOptions) {
 function processStyleNode(styleNode, cssnanoOptions) {
     let css = extractCssFromStyleNode(styleNode);
 
-    const strippedCss = stripCdata(css);
-    const isCdataWrapped = css !== strippedCss;
-    css = strippedCss;
+    // Improve performance by avoiding calling stripCdata again and again
+    let isCdataWrapped = false;
+    if (css.includes('CDATA')) {
+        const strippedCss = stripCdata(css);
+        isCdataWrapped = css !== strippedCss;
+        css = strippedCss;
+    }
 
     return cssnano
         .process(css, postcssOptions, cssnanoOptions)

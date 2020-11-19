@@ -39,9 +39,13 @@ function processScriptNode(scriptNode, terserOptions) {
         return scriptNode;
     }
 
-    const strippedJs = stripCdata(js);
-    const isCdataWrapped = js !== strippedJs;
-    js = strippedJs;
+    // Improve performance by avoiding calling stripCdata again and again
+    let isCdataWrapped = false;
+    if (js.includes('CDATA')) {
+        const strippedJs = stripCdata(js);
+        isCdataWrapped = js !== strippedJs;
+        js = strippedJs;
+    }
 
     const result = terser.minify(js, terserOptions);
     if (result.error) {

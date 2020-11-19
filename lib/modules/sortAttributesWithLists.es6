@@ -25,11 +25,7 @@ class AttributeTokenChain {
     }
 
     createSortOrder() {
-        let _sortOrder = [];
-        for (const item of this.freqData.entries()) {
-            _sortOrder.push(item);
-        }
-
+        let _sortOrder = [...this.freqData.entries()];
         timSort(_sortOrder, (a, b) => b[1] - a[1]);
 
         this.sortOrder = _sortOrder.map(i => i[0]);
