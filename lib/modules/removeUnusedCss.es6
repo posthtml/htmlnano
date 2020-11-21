@@ -1,7 +1,6 @@
 import { isStyleNode, extractCssFromStyleNode } from '../helpers';
 import uncss from 'uncss';
 import Purgecss from 'purgecss';
-import render from 'posthtml-render';
 
 // These options must be set and shouldn't be overriden to ensure uncss doesn't look at linked stylesheets.
 const uncssOptions = {
@@ -101,7 +100,7 @@ function runPurgecss(tree, css, userOptions) {
 /** Remove unused CSS */
 export default function removeUnusedCss(tree, options, userOptions) {
     const promises = [];
-    const html = userOptions.tool !== 'purgeCSS' && render(tree);
+    const html = userOptions.tool !== 'purgeCSS' && tree.render(tree);
 
     tree.walk(node => {
         if (isStyleNode(node)) {
