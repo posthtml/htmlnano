@@ -44,6 +44,16 @@ describe('minifyConditionalComments', () => {
         multipleConditionalCommentMinified: '<!--[if lt IE 7 ]><div class="ie6"> </div><![endif]--><!--[if IE 7 ]><div class="ie7"> </div><![endif]--><!--[if IE 8 ]><div class="ie8"> </div><![endif]--><!--[if IE 9 ]><div class="ie9"> </div><![endif]--><!--[if (gt IE 9)|!(IE)]><!--><div class="w3c"> </div>',
         singleLineMultipleConditionalComment: `
 <!--[if lt IE 7 ]><div class="ie6"></div><![endif]--><!--[if IE 7 ]><div class="ie7"></div><![endif]--><!--[if IE 8 ]><div class="ie8"></div><![endif]--><!--[if IE 9 ]><div class="ie9"></div><![endif]--><!--[if (gt IE 9)|!(IE)]><!--><div class="w3c"></div><!--<![endif]-->`,
+        htmlTagIncludedConditionalComment: `
+        <!--[if lt IE 7]><html class="no-js ie6"><![endif]-->
+        <!--[if IE 7]><html class="no-js ie7"><![endif]-->
+        <!--[if IE 8]><html class="no-js ie8"><![endif]-->
+        <!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->`,
+        htmlTagIncludedConditionalCommentMinified: `
+        <!--[if lt IE 7]><html class="no-js ie6"><![endif]-->
+        <!--[if IE 7]><html class="no-js ie7"><![endif]-->
+        <!--[if IE 8]><html class="no-js ie8"><![endif]-->
+        <!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]--></html>`
     };
 
     it('common html', () => {
@@ -72,6 +82,16 @@ describe('minifyConditionalComments', () => {
         return init(
             fixture.singleLineMultipleConditionalComment,
             fixture.singleLineMultipleConditionalComment,
+            {
+                minifyConditionalComments: true
+            }
+        );
+    });
+
+    it('<html> in conditional comment', () => {
+        return init(
+            fixture.htmlTagIncludedConditionalComment,
+            fixture.htmlTagIncludedConditionalCommentMinified,
             {
                 minifyConditionalComments: true
             }

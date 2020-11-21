@@ -38,7 +38,12 @@ async function minifycontentInsideConditionalComments(text, htmlnanoOptions) {
 
     return Promise.all(matches.map(async match => {
         const result = await htmlnano.process(match[1], htmlnanoOptions, {}, {});
+        let minified = result.html;
 
-        return match[0] + result.html + match[2];
+        if (match[1].includes('<html') && minified.includes('</html>')) {
+            minified = minified.replace('</html>', '');
+        }
+
+        return match[0] + minified + match[2];
     }));
 }
