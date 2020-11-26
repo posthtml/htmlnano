@@ -1,21 +1,23 @@
 import terser from 'terser';
+import { redundantScriptTypes } from './removeRedundantAttributes';
 
 
 /** Minify JS with Terser */
 export default function minifyJs(tree, options, terserOptions) {
+    tree.walk(node => {
+        if (node.tag && node.tag === 'script') {
+            const nodeAttrs = node.attrs || {};
+            const mimeType = nodeAttrs.type || 'text/javascript';
+            if (redundantScriptTypes.has(mimeType)) {
+                node = processScriptNode(node, terserOptions);
+            }
+        }
 
-    tree.match({tag: 'script'}, node => {
-        const nodeAttrs = node.attrs || {};
-        const mimeType = nodeAttrs.type || 'text/javascript';
-        if (mimeType === 'text/javascript' || mimeType === 'application/javascript') {
-            return processScriptNode(node, terserOptions);
+        if (node.attrs) {
+            node = processNodeWithOnAttrs(node, terserOptions);
         }
 
         return node;
-    });
-
-    tree.match({attrs: true}, node => {
-        return processNodeWithOnAttrs(node, terserOptions);
     });
 
     return tree;
@@ -35,7 +37,7 @@ function stripCdata(js) {
 
 function processScriptNode(scriptNode, terserOptions) {
     let js = (scriptNode.content || []).join('').trim();
-    if (! js) {
+    if (!js) {
         return scriptNode;
     }
 
@@ -71,7 +73,7 @@ function processNodeWithOnAttrs(node, terserOptions) {
     const jsWrapperEnd = '}';
 
     for (const attrName of Object.keys(node.attrs || {})) {
-        if (attrName.search('on') !== 0) {
+        if (!attrName.startsWith('on')) {
             continue;
         }
 

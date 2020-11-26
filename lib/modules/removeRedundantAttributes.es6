@@ -1,5 +1,5 @@
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#JavaScript_types
-const redundantScriptTypes = new Set([
+export const redundantScriptTypes = new Set([
     'application/javascript',
     'application/ecmascript',
     'application/x-ecmascript',
