@@ -7,7 +7,7 @@ export default function minifySvg(tree, options, svgoOptions = {}) {
     const svgo = new SVGO(svgoOptions);
 
     tree.match({tag: 'svg'}, node => {
-        let svgStr = tree.render(node);
+        let svgStr = tree.render(node, { closingSingleTag: 'slash', quoteAllAttributes: true });
         let promise = svgo.optimize(svgStr).then(result => {
             node.tag = false;
             node.attrs = {};

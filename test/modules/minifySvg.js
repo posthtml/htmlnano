@@ -34,6 +34,13 @@ describe('minifySvg', () => {
         //]]></script>
     </svg>`;
 
+    const svgContainsForeignObject = `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256">
+    <foreignObject width="256" height="256">
+        <input/>
+    </foreignObject>
+  </svg>`;
+    const minifiedSvgContainsForeignObject = '<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><foreignObject width="256" height="256"><input/></foreignObject></svg>';
+
     it('should minify SVG inside <svg>', () => {
         return init(
             svg,
@@ -84,6 +91,16 @@ describe('minifySvg', () => {
                 minifyJs: {},
                 minifySvg: maxPreset.minifySvg
             }
+        );
+    });
+
+
+    // https://github.com/posthtml/htmlnano/issues/129
+    it('should work with <foreignObject>', () => {
+        return init(
+            svgContainsForeignObject,
+            minifiedSvgContainsForeignObject,
+            options
         );
     });
 });
