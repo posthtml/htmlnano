@@ -216,9 +216,9 @@ Source:
 ```html
 <div>
     hello  world!
-    \t<a href="#">answer</a>
+    <a href="#">answer</a>
     <style>div  { color: red; }  </style>
-\t\t<main></main>
+    <main></main>
 </div>
 ```
 
