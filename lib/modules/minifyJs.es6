@@ -4,9 +4,7 @@ import { redundantScriptTypes } from './removeRedundantAttributes';
 
 /** Minify JS with Terser */
 export default async function minifyJs(tree, options, terserOptions) {
-    for (let i = 0, len = tree.length; i < len; i++) {
-        const node = tree[i];
-
+    const promises = tree.map(async function(node, i) {
         if (node.tag && node.tag === 'script') {
             const nodeAttrs = node.attrs || {};
             const mimeType = nodeAttrs.type || 'text/javascript';
@@ -22,9 +20,9 @@ export default async function minifyJs(tree, options, terserOptions) {
         if (node.content && node.content.length) {
             tree[i].content = await minifyJs(node.content, options, terserOptions);
         }
-    }
+    });
 
-    return tree;
+    return Promise.all(promises).then(() => tree);
 }
 
 
