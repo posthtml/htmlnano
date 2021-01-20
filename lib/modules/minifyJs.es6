@@ -3,23 +3,38 @@ import { redundantScriptTypes } from './removeRedundantAttributes';
 
 
 /** Minify JS with Terser */
-export default async function minifyJs(tree, options, terserOptions) {
-    const promises = tree.map(async function(node, i) {
-        if (node.tag && node.tag === 'script') {
-            const nodeAttrs = node.attrs || {};
-            const mimeType = nodeAttrs.type || 'text/javascript';
-            if (redundantScriptTypes.has(mimeType)) {
-                tree[i] = await processScriptNode(node, terserOptions);
-            }
-        }
-
-        if (node.attrs) {
-            tree[i] = await processNodeWithOnAttrs(node, terserOptions);
-        }
-
-        if (node.content && node.content.length) {
-            tree[i].content = await minifyJs(node.content, options, terserOptions);
-        }
+export default function minifyJs(tree, options, terserOptions) {
+    const promises = tree.map(function(node, i) {
+        return Promise.resolve(node)
+            .then(function() {
+                if (node.tag && node.tag === 'script') {
+                    const nodeAttrs = node.attrs || {};
+                    const mimeType = nodeAttrs.type || 'text/javascript';
+                    if (redundantScriptTypes.has(mimeType)) {
+                        return processScriptNode(tree[i], terserOptions);
+                    }
+                }
+                return node;
+            })
+            .then(function(node) {
+                if (node.attrs) {
+                    return processNodeWithOnAttrs(tree[i], terserOptions);
+                }
+                return node;
+            })
+            .then(function(node) {
+                if (node.content && node.content.length) {
+                    return minifyJs(tree[i].content, options, terserOptions)
+                        .then(content => {
+                            node.content = content;
+                            return node;
+                        });
+                }
+                return node;
+            })
+            .then(function(node) {
+                tree[i] = node;
+            });
     });
 
     return Promise.all(promises).then(() => tree);
@@ -37,7 +52,7 @@ function stripCdata(js) {
 }
 
 
-async function processScriptNode(scriptNode, terserOptions) {
+function processScriptNode(scriptNode, terserOptions) {
     let js = (scriptNode.content || []).join('').trim();
     if (!js) {
         return scriptNode;
@@ -51,32 +66,34 @@ async function processScriptNode(scriptNode, terserOptions) {
         js = strippedJs;
     }
 
-    const result = await terser.minify(js, terserOptions);
-    if (result.error) {
-        throw new Error(result.error);
-    }
-    if (result.code === undefined) {
-        return scriptNode;
-    }
+    return terser.minify(js, terserOptions)
+        .then(result => {
+            if (result.error) {
+                throw new Error(result.error);
+            }
+            if (result.code === undefined) {
+                return scriptNode;
+            }
 
-    let content = result.code;
-    if (isCdataWrapped) {
-        content = '/*<![CDATA[*/' + content + '/*]]>*/';
-    }
+            let content = result.code;
+            if (isCdataWrapped) {
+                content = '/*<![CDATA[*/' + content + '/*]]>*/';
+            }
 
-    scriptNode.content = [content];
+            scriptNode.content = [content];
 
-    return scriptNode;
+            return scriptNode;
+        });
 }
 
 
-async function processNodeWithOnAttrs(node, terserOptions) {
+function processNodeWithOnAttrs(node, terserOptions) {
     const jsWrapperStart = 'function _(){';
     const jsWrapperEnd = '}';
 
-    for (const attrName of Object.keys(node.attrs || {})) {
+    const promises = Object.keys(node.attrs || {}).map(attrName => {
         if (!attrName.startsWith('on')) {
-            continue;
+            return;
         }
 
         // For example onclick="return false" is valid,
@@ -84,13 +101,15 @@ async function processNodeWithOnAttrs(node, terserOptions) {
         // Therefore the attribute's code should be wrapped inside function:
         // "function _(){return false;}"
         let wrappedJs = jsWrapperStart + node.attrs[attrName] + jsWrapperEnd;
-        let { code: wrappedMinifiedJs } = await terser.minify(wrappedJs, terserOptions);
-        let minifiedJs = wrappedMinifiedJs.substring(
-            jsWrapperStart.length,
-            wrappedMinifiedJs.length - jsWrapperEnd.length
-        );
-        node.attrs[attrName] = minifiedJs;
-    }
+        return terser.minify(wrappedJs, terserOptions)
+            .then(function({ code: wrappedMinifiedJs }) {
+                let minifiedJs = wrappedMinifiedJs.substring(
+                    jsWrapperStart.length,
+                    wrappedMinifiedJs.length - jsWrapperEnd.length
+                );
+                node.attrs[attrName] = minifiedJs;
+            });
+    });
 
-    return node;
+    return Promise.all(promises).then(() => node);
 }
