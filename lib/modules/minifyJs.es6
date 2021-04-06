@@ -8,7 +8,7 @@ export default function minifyJs(tree, options, terserOptions) {
         if (node.tag && node.tag === 'script') {
             const nodeAttrs = node.attrs || {};
             const mimeType = nodeAttrs.type || 'text/javascript';
-            if (redundantScriptTypes.has(mimeType)) {
+            if (redundantScriptTypes.has(mimeType) || mimeType === 'module') {
                 node = processScriptNode(node, terserOptions);
             }
         }
