@@ -12,12 +12,14 @@ describe('minifyJs', () => {
         return init(
             `<div>
                 <script> /* test */ var foob = function () {}; </script>
+                <script type="module"> /* test */ var foob = function () {}; </script>
                 <script type="text/javascript"> /* test */ var foob = function () {}; </script>
                 <script type="application/javascript"> /* test */ var foob = function () {}; </script>
              </div>`,
 
             `<div>
                 <script>var foob=function(){};</script>
+                <script type="module">var foob=function(){};</script>
                 <script type="text/javascript">var foob=function(){};</script>
                 <script type="application/javascript">var foob=function(){};</script>
              </div>`,
