@@ -4,23 +4,24 @@ import { redundantScriptTypes } from './removeRedundantAttributes';
 
 /** Minify JS with Terser */
 export default function minifyJs(tree, options, terserOptions) {
+    let promises = [];
     tree.walk(node => {
         if (node.tag && node.tag === 'script') {
             const nodeAttrs = node.attrs || {};
             const mimeType = nodeAttrs.type || 'text/javascript';
             if (redundantScriptTypes.has(mimeType) || mimeType === 'module') {
-                node = processScriptNode(node, terserOptions);
+                promises.push(processScriptNode(node, terserOptions));
             }
         }
 
         if (node.attrs) {
-            node = processNodeWithOnAttrs(node, terserOptions);
+            promises = promises.concat(processNodeWithOnAttrs(node, terserOptions));
         }
 
         return node;
     });
 
-    return tree;
+    return Promise.all(promises).then(() => tree);
 }
 
 
@@ -49,22 +50,23 @@ function processScriptNode(scriptNode, terserOptions) {
         js = strippedJs;
     }
 
-    const result = terser.minify(js, terserOptions);
-    if (result.error) {
-        throw new Error(result.error);
-    }
-    if (result.code === undefined) {
-        return scriptNode;
-    }
+    return terser
+        .minify(js, terserOptions)
+        .then(result => {
+            if (result.error) {
+                throw new Error(result.error);
+            }
+            if (result.code === undefined) {
+                return;
+            }
 
-    let content = result.code;
-    if (isCdataWrapped) {
-        content = '/*<![CDATA[*/' + content + '/*]]>*/';
-    }
+            let content = result.code;
+            if (isCdataWrapped) {
+                content = '/*<![CDATA[*/' + content + '/*]]>*/';
+            }
 
-    scriptNode.content = [content];
-
-    return scriptNode;
+            scriptNode.content = [content];
+        });
 }
 
 
@@ -72,6 +74,7 @@ function processNodeWithOnAttrs(node, terserOptions) {
     const jsWrapperStart = 'function _(){';
     const jsWrapperEnd = '}';
 
+    const promises = [];
     for (const attrName of Object.keys(node.attrs || {})) {
         if (!attrName.startsWith('on')) {
             continue;
@@ -82,13 +85,17 @@ function processNodeWithOnAttrs(node, terserOptions) {
         // Therefore the attribute's code should be wrapped inside function:
         // "function _(){return false;}"
         let wrappedJs = jsWrapperStart + node.attrs[attrName] + jsWrapperEnd;
-        let wrappedMinifiedJs = terser.minify(wrappedJs, terserOptions).code;
-        let minifiedJs = wrappedMinifiedJs.substring(
-            jsWrapperStart.length,
-            wrappedMinifiedJs.length - jsWrapperEnd.length
-        );
-        node.attrs[attrName] = minifiedJs;
+        let promise = terser
+            .minify(wrappedJs, terserOptions)
+            .then(({ code }) => {
+                let minifiedJs = code.substring(
+                    jsWrapperStart.length,
+                    code.length - jsWrapperEnd.length
+                );
+                node.attrs[attrName] = minifiedJs;
+            });
+        promises.push(promise);
     }
 
-    return node;
+    return promises;
 }
