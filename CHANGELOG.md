@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.2.9] - 2021-04-11
+### Added
+- `minifyConditionalComment` support `<html>` [#125].
+- Minify JS within `<script type="module">` [#135].
+
+### Fixed
+- `collapseWhitespaces` around comment [#120].
+- handle `CDATA` inside script correctly [#122].
+- Minify SVG correctly [#129].
+
+### Changed
+- Upgrade to terser@5 (JS minification).
+
+
+
 ## [0.2.8] - 2020-11-15
 ### Added
 - [`removeOptionalTags`](https://github.com/posthtml/htmlnano#removeoptionaltags) [#110].
@@ -168,6 +183,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Remove attributes that contains only white spaces.
 
 
+[0.2.9]: https://github.com/posthtml/htmlnano/compare/0.2.8...0.2.9
 [0.2.8]: https://github.com/posthtml/htmlnano/compare/0.2.7...0.2.8
 [0.2.7]: https://github.com/posthtml/htmlnano/compare/0.2.6...0.2.7
 [0.2.6]: https://github.com/posthtml/htmlnano/compare/0.2.5...0.2.6
@@ -188,7 +204,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.1.2]: https://github.com/posthtml/htmlnano/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
-
+[#135]: https://github.com/posthtml/htmlnano/issues/135
+[#129]: https://github.com/posthtml/htmlnano/issues/129
+[#125]: https://github.com/posthtml/htmlnano/issues/125
+[#122]: https://github.com/posthtml/htmlnano/issues/122
+[#120]: https://github.com/posthtml/htmlnano/issues/120
 [#119]: https://github.com/posthtml/htmlnano/issues/119
 [#117]: https://github.com/posthtml/htmlnano/issues/117
 [#116]: https://github.com/posthtml/htmlnano/issues/116
