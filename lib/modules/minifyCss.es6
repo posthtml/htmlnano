@@ -1,4 +1,5 @@
 import { isStyleNode, extractCssFromStyleNode } from '../helpers';
+import postcss from 'postcss';
 import cssnano from 'cssnano';
 
 const postcssOptions = {
@@ -36,8 +37,8 @@ function processStyleNode(styleNode, cssnanoOptions) {
         css = strippedCss;
     }
 
-    return cssnano
-        .process(css, postcssOptions, cssnanoOptions)
+    return postcss([cssnano(cssnanoOptions)])
+        .process(css, postcssOptions)
         .then(result => {
             if (isCdataWrapped) {
                 return styleNode.content = ['<![CDATA[' + result + ']]>'];
@@ -54,8 +55,8 @@ function processStyleAttr(node, cssnanoOptions) {
     const wrapperEnd = '}';
     const wrappedStyle = wrapperStart + (node.attrs.style || '') + wrapperEnd;
 
-    return cssnano
-        .process(wrappedStyle, postcssOptions, cssnanoOptions)
+    return postcss([cssnano(cssnanoOptions)])
+        .process(wrappedStyle, postcssOptions)
         .then(result => {
             const minifiedCss = result.css;
             // Remove wrapperStart at the start and wrapperEnd at the end of minifiedCss
