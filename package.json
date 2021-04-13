@@ -39,7 +39,8 @@
     ]
   },
   "dependencies": {
-    "cssnano": "^4.1.11",
+    "cssnano": "^5.0.0",
+    "postcss": "^8.2.9",
     "posthtml": "^0.15.1",
     "purgecss": "^4.0.0",
     "relateurl": "^0.2.7",
