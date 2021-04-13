@@ -114,7 +114,7 @@ describe('removeUnusedCss (purgeCSS)', function () {
             {
                 removeUnusedCss: {
                     tool: 'purgeCSS',
-                    whitelist: ['c']
+                    safelist: ['c']
                 }
             }
         );
