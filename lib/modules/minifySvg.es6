@@ -1,22 +1,15 @@
-import SVGO from 'svgo';
+import { optimize } from 'svgo';
 
 /** Minify SVG with SVGO */
 export default function minifySvg(tree, options, svgoOptions = {}) {
-    let promises = [];
-
-    const svgo = new SVGO(svgoOptions);
-
     tree.match({tag: 'svg'}, node => {
         let svgStr = tree.render(node, { closingSingleTag: 'slash', quoteAllAttributes: true });
-        let promise = svgo.optimize(svgStr).then(result => {
-            node.tag = false;
-            node.attrs = {};
-            node.content = result.data;
-        });
-        promises.push(promise);
-
+        const result = optimize(svgStr, svgoOptions);
+        node.tag = false;
+        node.attrs = {};
+        node.content = result.data;
         return node;
     });
 
-    return Promise.all(promises).then(() => tree);
+    return tree;
 }
