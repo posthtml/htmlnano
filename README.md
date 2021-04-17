@@ -361,7 +361,7 @@ PurgeCSS options can be passed directly to the `removeUnusedCss` module:
 htmlnano.process(html, {
     removeUnusedCss: {
         tool: 'purgeCSS',
-        whitelist: ['.do-not-remove']
+        safelist: ['.do-not-remove']
     }
 });
 ```
