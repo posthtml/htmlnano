@@ -505,10 +505,15 @@ SVGO options can be passed directly to the `minifySvg` module:
 ```js
 htmlnano.process(html, {
     minifySvg: {
-        plugins: [
-            { collapseGroups: false },
-        ],
-    },
+        plugins: extendDefaultPlugins([
+            {
+                name: 'builtinPluginName',
+                params: {
+                    optionName: 'optionValue'
+                }
+            }
+        ])
+    }
 });
 ```
 
