@@ -4,9 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## [1.0.0] - 2021-04-17
-After more than 4 years of development, it's time to release a stable [1.0.0] version 🎉
+After more than 4 years of development, it's time to release a stable [1.0.0](https://github.com/posthtml/htmlnano/releases/tag/1.0.0) version 🎉
 
-It doesn't contain anything new from the previous [0.2.9] release.
+It doesn't contain anything new from the previous [0.2.9](https://github.com/posthtml/htmlnano/releases/tag/0.2.9) release.
 We just did a major upgrade of two dependencies: [PurgeCSS](https://purgecss.com/) and [SVGO](https://github.com/svg/svgo),
 which changed their config format.
 Thus we have to do a major release of `htmlnano`.
