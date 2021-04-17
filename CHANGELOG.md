@@ -3,6 +3,19 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.0.0] - 2021-04-17
+After more than 4 years of development, it's time to release a stable [1.0.0] version 🎉
+
+It doesn't contain anything new from the previous [0.2.9] release.
+We just did a major upgrade of two dependencies: [PurgeCSS](https://purgecss.com/) and [SVGO](https://github.com/svg/svgo),
+which changed their config format.
+Thus we have to do a major release of `htmlnano`.
+
+You can safely upgrade to `htmlnano@1.0.0` if you don't pass any config to `minifySvg` or `removeUnusedCss` (while used with PurgeCSS) modules.
+Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https://github.com/FullHuman/purgecss/releases/tag/v3.0.0) and [SVGO@2](https://github.com/svg/svgo/releases/tag/v2.0.0) config format.
+
+
+
 ## [0.2.9] - 2021-04-11
 ### Added
 - `minifyConditionalComment` support `<html>` [#125].
@@ -183,6 +196,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Remove attributes that contains only white spaces.
 
 
+[1.0.0]: https://github.com/posthtml/htmlnano/compare/0.2.9...1.0.0
 [0.2.9]: https://github.com/posthtml/htmlnano/compare/0.2.8...0.2.9
 [0.2.8]: https://github.com/posthtml/htmlnano/compare/0.2.7...0.2.8
 [0.2.7]: https://github.com/posthtml/htmlnano/compare/0.2.6...0.2.7
