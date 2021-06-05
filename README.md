@@ -83,7 +83,7 @@ const posthtmlPlugins = [
     require('htmlnano')(options)
 ];
 
-const postHtmlOptions = {
+const posthtmlOptions = {
     // See PostHTML docs
 };
 
