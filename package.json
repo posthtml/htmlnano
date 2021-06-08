@@ -41,7 +41,7 @@
   "dependencies": {
     "cssnano": "^5.0.5",
     "postcss": "^8.3.0",
-    "posthtml": "^0.16.0",
+    "posthtml": "^0.16.2",
     "purgecss": "^4.0.0",
     "relateurl": "^0.2.7",
     "srcset": "^4.0.0",
