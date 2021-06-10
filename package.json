@@ -10,7 +10,7 @@
     "lint": "eslint *.js lib/*.es6 lib/modules/*.es6 lib/presets/*.es6 test/",
     "pretest": "npm run lint && npm run compile",
     "test": ":",
-    "posttest": "mocha --require @babel/register --recursive --check-leaks --globals addresses",
+    "posttest": "mocha --timeout 5000 --require @babel/register --recursive --check-leaks --globals addresses",
     "prepare": "npm run compile",
     "release:patch": "release-it patch -n"
   },
@@ -41,7 +41,7 @@
   "dependencies": {
     "cssnano": "^5.0.5",
     "postcss": "^8.3.0",
-    "posthtml": "^0.16.2",
+    "posthtml": "^0.16.3",
     "purgecss": "^4.0.0",
     "relateurl": "^0.2.7",
     "srcset": "^4.0.0",
