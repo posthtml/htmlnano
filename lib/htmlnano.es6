@@ -1,10 +1,43 @@
 import posthtml from 'posthtml';
+import { cosmiconfigSync } from 'cosmiconfig';
 import safePreset from './presets/safe';
 import ampSafePreset from './presets/ampSafe';
 import maxPreset from './presets/max';
+import packageJson from '../package.json';
 
+const presets = {
+    safe: safePreset,
+    ampSafe: ampSafePreset,
+    max: maxPreset,
+};
 
-function htmlnano(options = {}, preset = safePreset) {
+export function loadConfig(options, preset, configPath) {
+    const explorer = cosmiconfigSync(packageJson.name);
+    const rc = configPath ? explorer.load(configPath) : explorer.search();
+    if (rc) {
+        const { preset: presetName } = rc.config;
+        if (presetName) {
+            if (! preset && presets[presetName]) {
+                preset = presets[presetName];
+            }
+
+            delete rc.config.preset;
+        }
+
+        if (! options) {
+            options = rc.config;
+        }
+    }
+
+    return [
+        options || {},
+        preset || safePreset,
+    ];
+}
+
+function htmlnano(optionsRun, presetRun) {
+    let [options, preset] = loadConfig(optionsRun, presetRun);
+
     return function minifier(tree) {
         options = { ...preset, ...options };
         let promise = Promise.resolve(tree);
@@ -33,10 +66,6 @@ htmlnano.process = function (html, options, preset, postHtmlOptions) {
         .process(html, postHtmlOptions);
 };
 
-htmlnano.presets = {
-    safe: safePreset,
-    ampSafe: ampSafePreset,
-    max: maxPreset,
-};
+htmlnano.presets = presets;
 
 export default htmlnano;

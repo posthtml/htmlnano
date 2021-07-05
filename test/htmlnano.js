@@ -1,6 +1,10 @@
 import expect from 'expect';
 import posthtml from 'posthtml';
 import htmlnano from '..';
+import safePreset from '../lib/presets/safe';
+import ampSafePreset from '../lib/presets/ampSafe';
+import maxPreset from '../lib/presets/max';
+import { loadConfig } from '../lib/htmlnano';
 
 
 describe('[htmlnano]', () => {
@@ -19,6 +23,30 @@ describe('[htmlnano]', () => {
         ).catch(error => {
             expect(error.message).toBe('Module "notDefinedModule" is not defined');
         });
+    });
+});
+
+
+describe('loadConfig()', () => {
+    it('should return empty options and safe preset if nothing set', () => {
+        expect(loadConfig()).toEqual([
+            {},
+            safePreset
+        ]);
+    });
+
+    it('should not override the run options or preset', () => {
+        expect(loadConfig({ foo: 'bar' }, ampSafePreset, './test/testrc.json')).toEqual([
+            { foo: 'bar' },
+            ampSafePreset
+        ]);
+    });
+
+    it('should load options and preset from RC files', () => {
+        expect(loadConfig(undefined, undefined, './test/testrc.json')).toEqual([
+            { foo: 'baz' },
+            maxPreset
+        ]);
     });
 });
 
