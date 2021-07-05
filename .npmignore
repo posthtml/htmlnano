@@ -1,6 +1,5 @@
 .gitignore
 .eslintrc
-.travis.yml
 node_modules/
 npm-debug.log
 /lib/*.es6
@@ -8,3 +7,4 @@ npm-debug.log
 /lib/modules/example.js
 /lib/presets/*.es6
 /test/
+/.github/

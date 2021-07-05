@@ -1,6 +1,6 @@
 # htmlnano
 [![npm version](https://badge.fury.io/js/htmlnano.svg)](http://badge.fury.io/js/htmlnano)
-[![Build Status](https://travis-ci.org/posthtml/htmlnano.svg?branch=master)](https://travis-ci.org/posthtml/htmlnano)
+![CI](https://github.com/posthtml/htmlnano/actions/workflows/ci.yml/badge.svg)
 
 Modular HTML minifier, built on top of the [PostHTML](https://github.com/posthtml/posthtml). Inspired by [cssnano](http://cssnano.co/).
 
