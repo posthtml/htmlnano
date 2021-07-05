@@ -4,7 +4,6 @@
 
 Modular HTML minifier, built on top of the [PostHTML](https://github.com/posthtml/posthtml). Inspired by [cssnano](http://cssnano.co/).
 
-> The author of htmlnano is available for hire as a full stack web developer:  https://kirillmaltsev.net/services
 
 
 ## [Benchmark](https://github.com/maltsev/html-minifiers-benchmark/blob/master/README.md)
