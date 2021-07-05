@@ -5,6 +5,8 @@
 Modular HTML minifier, built on top of the [PostHTML](https://github.com/posthtml/posthtml). Inspired by [cssnano](http://cssnano.co/).
 
 
+**This is the documentation of the dev version. It might differ from [the latest published version](https://github.com/posthtml/htmlnano/blob/1.0.0/README.md).**
+
 
 ## [Benchmark](https://github.com/maltsev/html-minifiers-benchmark/blob/master/README.md)
 [html-minifier-terser@5.1.1]: https://www.npmjs.com/package/html-minifier-terser
