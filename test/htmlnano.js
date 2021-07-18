@@ -48,6 +48,13 @@ describe('loadConfig()', () => {
             maxPreset
         ]);
     });
+
+    it('should not load options and preset from RC files if skipConfigLoading is true', () => {
+        expect(loadConfig({ skipConfigLoading: true }, undefined, './test/testrc.json')).toEqual([
+            { skipConfigLoading: true },
+            safePreset
+        ]);
+    });
 });
 
 

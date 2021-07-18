@@ -12,20 +12,22 @@ const presets = {
 };
 
 export function loadConfig(options, preset, configPath) {
-    const explorer = cosmiconfigSync(packageJson.name);
-    const rc = configPath ? explorer.load(configPath) : explorer.search();
-    if (rc) {
-        const { preset: presetName } = rc.config;
-        if (presetName) {
-            if (! preset && presets[presetName]) {
-                preset = presets[presetName];
+    if (! options?.skipConfigLoading) {
+        const explorer = cosmiconfigSync(packageJson.name);
+        const rc = configPath ? explorer.load(configPath) : explorer.search();
+        if (rc) {
+            const { preset: presetName } = rc.config;
+            if (presetName) {
+                if (! preset && presets[presetName]) {
+                    preset = presets[presetName];
+                }
+    
+                delete rc.config.preset;
             }
-
-            delete rc.config.preset;
-        }
-
-        if (! options) {
-            options = rc.config;
+    
+            if (! options) {
+                options = rc.config;
+            }
         }
     }
 
