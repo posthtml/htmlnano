@@ -43,3 +43,7 @@ yarn.lock
 /lib/modules/*.js
 /lib/presets/*.js
 /test.js
+
+# Docs
+/docs/build/
+/docs/.docusaurus/
