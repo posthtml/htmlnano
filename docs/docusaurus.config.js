@@ -46,3 +46,15 @@ module.exports = {
         ],
     ],
 };
+
+
+const algoliaConfig = {
+    apiKey: process.env.ALGOLIA_API_KEY,
+    appId: process.env.ALGOLIA_APP_ID,
+    indexName: 'htmlnano',
+    contextualSearch: true,
+};
+
+if (algoliaConfig.apiKey && algoliaConfig.appId) {
+    module.exports.themeConfig.algolia = algoliaConfig;
+}
