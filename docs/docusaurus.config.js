@@ -6,6 +6,7 @@ module.exports = {
     title: 'htmlnano',
     tagline: 'Modular HTML minifier',
     url: 'https://htmlnano.netlify.app',
+    favicon: 'favicon.ico',
     baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
