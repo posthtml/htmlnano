@@ -46,7 +46,7 @@
     "purgecss": "^4.0.0",
     "relateurl": "^0.2.7",
     "srcset": "^4.0.0",
-    "svgo": "^2.3.0",
+    "svgo": "^2.4.0",
     "terser": "^5.7.0",
     "timsort": "^0.3.0",
     "uncss": "^0.17.3"
