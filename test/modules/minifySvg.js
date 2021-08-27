@@ -1,4 +1,3 @@
-import { extendDefaultPlugins } from 'svgo';
 import { init } from '../htmlnano';
 import safePreset from '../../lib/presets/safe';
 import maxPreset from '../../lib/presets/max';
@@ -60,9 +59,16 @@ describe('minifySvg', () => {
 
             {
                 minifySvg: {
-                    plugins: extendDefaultPlugins([
-                        { name: 'convertColors', active: false }
-                    ])
+                    plugins: [
+                        {
+                            name: 'preset-default',
+                            params: {
+                                overrides: {
+                                    convertColors: false,
+                                },
+                            },
+                        },
+                    ]
                 }
             }
         );

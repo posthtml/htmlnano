@@ -1,5 +1,3 @@
-import { extendDefaultPlugins } from 'svgo';
-
 /**
  * Minify HTML in a safe way without breaking anything.
  */
@@ -21,10 +19,17 @@ export default {
     minifyJs: {},
     minifyJson: {},
     minifySvg: {
-        plugins: extendDefaultPlugins([
-            { name: 'collapseGroups', active: false },
-            { name: 'convertShapeToPath', convertShapeToPath: false },
-        ]),
+        plugins: [
+            {
+                name: 'preset-default',
+                params: {
+                    overrides: {
+                        collapseGroups: false,
+                        convertShapeToPath: false,
+                    },
+                },
+            },
+        ]
     },
     minifyConditionalComments: false,
     removeEmptyAttributes: true,
