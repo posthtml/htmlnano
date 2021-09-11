@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.0.1] - 2021-09-11
+### Added
+- Support of [@novaatwarren/uncss](https://github.com/novaatwarren/uncss) fork [#154]
+
+### Changed
+- SVGO plugins configuration [#153]
+
+
+
 ## [1.0.0] - 2021-04-17
 After more than 4 years of development, it's time to release a stable [1.0.0](https://github.com/posthtml/htmlnano/releases/tag/1.0.0) version 🎉
 
@@ -196,6 +205,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 - Remove attributes that contains only white spaces.
 
 
+[1.0.1]: https://github.com/posthtml/htmlnano/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/posthtml/htmlnano/compare/0.2.9...1.0.0
 [0.2.9]: https://github.com/posthtml/htmlnano/compare/0.2.8...0.2.9
 [0.2.8]: https://github.com/posthtml/htmlnano/compare/0.2.7...0.2.8
@@ -218,6 +228,8 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 [0.1.2]: https://github.com/posthtml/htmlnano/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
+[#154]: https://github.com/posthtml/htmlnano/issues/154
+[#153]: https://github.com/posthtml/htmlnano/issues/153
 [#135]: https://github.com/posthtml/htmlnano/issues/135
 [#129]: https://github.com/posthtml/htmlnano/issues/129
 [#125]: https://github.com/posthtml/htmlnano/issues/125

@@ -328,14 +328,18 @@ SVGO options can be passed directly to the `minifySvg` module:
 ```js
 htmlnano.process(html, {
     minifySvg: {
-        plugins: extendDefaultPlugins([
+        plugins: [
             {
-                name: 'builtinPluginName',
+                name: 'preset-default',
                 params: {
-                    optionName: 'optionValue'
-                }
+                    overrides: {
+                        builtinPluginName: {
+                            optionName: 'optionValue'
+                        },
+                    },
+                },
             }
-        ])
+        ]
     }
 });
 ```
