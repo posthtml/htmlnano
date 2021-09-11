@@ -8,3 +8,6 @@ npm-debug.log
 /lib/presets/*.es6
 /test/
 /.github/
+/docs/.docusaurus
+/docs/build
+/docs/node_modules
