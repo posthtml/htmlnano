@@ -4,7 +4,7 @@ const MATCH_EXCERPT_REGEXP = /<!-- ?more ?-->/i;
 
 /** Removes HTML comments */
 export default function removeComments(tree, options, removeType) {
-    if (removeType !== 'all' && removeType !== 'safe') {
+    if (removeType !== 'all' && removeType !== 'safe' && !isMatcher(removeType)) {
         removeType = 'safe';
     }
 
@@ -62,5 +62,29 @@ function isCommentToRemove(text, removeType) {
         }
     }
 
+    if (isMatcher(removeType)) {
+        return isMatch(text, removeType);
+    }
+
     return true;
+}
+
+function isMatch(input, matcher) {
+    if (matcher instanceof RegExp) {
+        return matcher.test(input);
+    }
+
+    if (typeof matcher === 'function') {
+        return Boolean(matcher(input));
+    }
+
+    return false;
+}
+
+function isMatcher(matcher) {
+    if (matcher instanceof RegExp || typeof matcher === 'function') {
+        return true;
+    }
+
+    return false;
 }

@@ -80,16 +80,66 @@ Minified:
 #### Options
 - `safe` – removes all HTML comments except the conditional comments and  [`<!--noindex--><!--/noindex-->`](https://yandex.com/support/webmaster/controlling-robot/html.xml) (default)
 - `all` — removes all HTML comments
+- A `RegExp` — only HTML comments matching the given regexp will be removed.
+- A `Function` that returns boolean — removes HTML comments that can make the given callback function returns truthy value.
 
 #### Example
+
 Source:
+
+```js
+{
+    removeComments: 'all'
+}
+```
+
 ```html
 <div><!-- test --></div>
 ```
 
 Minified:
+
 ```html
 <div></div>
+```
+
+Source:
+
+```js
+{
+    removeComments: /<!--(\/)?noindex-->/
+}
+```
+
+```html
+<div><!--noindex-->this text will not be indexed<!--/noindex-->Lorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet</div>
+```
+
+Minified:
+
+```html
+<div>this text will not be indexedLorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet</div>
+```
+
+Source:
+
+```js
+{
+    removeComments: (comments) => {
+        if (comments.includes('noindex')) return true;
+        return false;
+    }
+}
+```
+
+```html
+<div><!--noindex-->this text will not be indexed<!--/noindex-->Lorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet</div>
+```
+
+Minified:
+
+```html
+<div>this text will not be indexedLorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet</div>
 ```
 
 
