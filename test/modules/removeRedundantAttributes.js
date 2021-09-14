@@ -110,4 +110,20 @@ describe('removeRedundantAttributes', () => {
             options
         );
     });
+
+    it('should remove preload="auto" from <audio> & <video>', () => {
+        return init(
+            '<audio src="example.com" preload="auto"></audio><video src="example.com" preload="auto"></video>',
+            '<audio src="example.com" preload=""></audio><video src="example.com" preload=""></video>',
+            options
+        );
+    });
+
+    it('should remove preload="metadata" from <audio> & <video>', () => {
+        return init(
+            '<audio src="example.com" preload="metadata"></audio><video src="example.com" preload="metadata"></video>',
+            '<audio src="example.com" preload="metadata"></audio><video src="example.com" preload="metadata"></video>',
+            options
+        );
+    });
 });
