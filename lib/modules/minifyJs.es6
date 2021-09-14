@@ -71,8 +71,8 @@ function processScriptNode(scriptNode, terserOptions) {
 
 
 function processNodeWithOnAttrs(node, terserOptions) {
-    const jsWrapperStart = 'function _(){';
-    const jsWrapperEnd = '}';
+    const jsWrapperStart = 'function a(){';
+    const jsWrapperEnd = '}a();';
 
     const promises = [];
     for (const attrName of Object.keys(node.attrs || {})) {
