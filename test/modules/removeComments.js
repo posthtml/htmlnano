@@ -88,4 +88,29 @@ describe('removeComments', () => {
             );
         });
     });
+
+    context('custom matcher', () => {
+        it('RegExp', () => {
+            return init(
+                '<!--noindex-->this text will not be indexed<!--/noindex-->Lorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet',
+                'this text will not be indexedLorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet',
+                {
+                    removeComments: /<!--(\/)?noindex-->/,
+                }
+            );
+        });
+
+        it('Function', () => {
+            return init(
+                '<!--noindex-->this text will not be indexed<!--/noindex-->Lorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet',
+                'this text will not be indexedLorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet',
+                {
+                    removeComments: (comments) => {
+                        if (comments.includes('noindex')) return true;
+                        return false;
+                    },
+                }
+            );
+        });
+    });
 });
