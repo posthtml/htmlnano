@@ -10,12 +10,12 @@ Collapse redundant white spaces in list-like attributes (`class`, `rel`, `ping`)
 #### Example
 Source:
 ```html
-<div class=" content  page  "></div>
+<a class=" content  page  " style="  display: block;    " href="   https://example.com"></a>
 ```
 
 Minified:
 ```html
-<div class="content page"></div>
+<a class="content page" style="display: block;" href="https://example.com"></a>
 ```
 
 

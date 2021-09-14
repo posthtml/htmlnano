@@ -31,3 +31,7 @@ export function isStyleNode(node) {
 export function extractCssFromStyleNode(node) {
     return Array.isArray(node.content) ? node.content.join(' ') : node.content;
 }
+
+export function isEventHandler(attributeName) {
+    return attributeName && attributeName.slice && attributeName.slice(0, 2).toLowerCase() === 'on' && attributeName.length >= 5;
+}
