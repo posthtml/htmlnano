@@ -81,12 +81,15 @@ function collapseRedundantWhitespaces(text, collapseType, shouldTrim = false, pa
                 if (!noTrimWhitespacesArroundElements.has(prevNode && prevNode.tag)) {
                     text = text.trimStart();
                 } else {
+                    // previous node is a "no trim whitespaces arround element"
                     if (
+                        // but previous node ends with a whitespace
                         prevNode && prevNode.content && prevNode.content.length
                         && endsWithWhitespacePattern.test(prevNode.content[prevNode.content.length - 1])
                         && (
-                            !nextNode
+                            !nextNode // either the current node is the last child of the parent
                             || (
+                                // or the next node starts with a white space
                                 nextNode && nextNode.content && nextNode.content.length
                                 && !startsWithWhitespacePattern.test(nextNode.content[0])
                             )
