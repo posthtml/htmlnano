@@ -98,4 +98,12 @@ describe('minifyUrls', () => {
             { ...safePreset, minifyUrls: 'https://example.com/foo/baz/' }
         );
     });
+
+    it('should minify javascript url', () => {
+        init(
+            '<img src="javascript:alert(true)">',
+            '<img src="javascript:alert(!0)">',
+            { ...safePreset, minifyUrls: 'https://example.com/foo/baz/' }
+        );
+    });
 });

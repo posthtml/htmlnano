@@ -32,9 +32,9 @@ export default {
         ]
     },
     minifyConditionalComments: false,
-    removeEmptyAttributes: true,
     removeRedundantAttributes: false,
     normalizeAttributeValues: true,
+    removeEmptyAttributes: true,
     removeComments: 'safe',
     removeAttributeQuotes: false,
     sortAttributesWithLists: 'alphabetical',

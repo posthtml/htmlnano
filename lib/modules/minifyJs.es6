@@ -1,4 +1,5 @@
 import terser from 'terser';
+import { isEventHandler } from '../helpers.es6';
 import { redundantScriptTypes } from './removeRedundantAttributes';
 
 
@@ -71,12 +72,12 @@ function processScriptNode(scriptNode, terserOptions) {
 
 
 function processNodeWithOnAttrs(node, terserOptions) {
-    const jsWrapperStart = 'function _(){';
-    const jsWrapperEnd = '}';
+    const jsWrapperStart = 'function a(){';
+    const jsWrapperEnd = '}a();';
 
     const promises = [];
     for (const attrName of Object.keys(node.attrs || {})) {
-        if (!attrName.startsWith('on')) {
+        if (!isEventHandler(attrName)) {
             continue;
         }
 

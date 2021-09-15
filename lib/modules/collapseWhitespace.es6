@@ -19,23 +19,24 @@ const noTrimWhitespacesInsideElements = new Set([
     'a', 'abbr', 'acronym', 'b', 'big', 'del', 'em', 'font', 'i', 'ins', 'kbd', 'mark', 'nobr', 'rp', 's', 'samp', 'small', 'span', 'strike', 'strong', 'sub', 'sup', 'time', 'tt', 'u', 'var'
 ]);
 
-const whitespacePattern = /\s+/g;
+const startsWithWhitespacePattern = /^\s/;
+const endsWithWhitespacePattern = /\s$/;
+const multipleWhitespacePattern = /\s+/g;
 const NONE = '';
 const SINGLE_SPACE = ' ';
 const validOptions = ['all', 'aggressive', 'conservative'];
 
 /** Collapses redundant whitespaces */
-export default function collapseWhitespace(tree, options, collapseType, tag) {
+export default function collapseWhitespace(tree, options, collapseType, parent) {
     collapseType = validOptions.includes(collapseType) ? collapseType : 'conservative';
 
     tree.forEach((node, index) => {
-        if (typeof node === 'string') {
-            const prevNode = tree[index - 1];
-            const nextNode = tree[index + 1];
-            const prevNodeTag = prevNode && prevNode.tag;
-            const nextNodeTag = nextNode && nextNode.tag;
+        const prevNode = tree[index - 1];
+        const nextNode = tree[index + 1];
 
-            const isTopLevel = !tag || tag === 'html' || tag === 'head';
+        if (typeof node === 'string') {
+            const parentNodeTag = parent && parent.node && parent.node.tag;
+            const isTopLevel = !parentNodeTag || parentNodeTag === 'html' || parentNodeTag === 'head';
             const shouldTrim = (
                 collapseType === 'all' ||
                 isTopLevel ||
@@ -43,18 +44,19 @@ export default function collapseWhitespace(tree, options, collapseType, tag) {
                  * When collapseType is set to 'aggressive', and the tag is not inside 'noTrimWhitespacesInsideElements'.
                  * the first & last space inside the tag will be trimmed
                  */
-                (
-                    collapseType === 'aggressive' &&
-                    !noTrimWhitespacesInsideElements.has(tag)
-                )
+                collapseType === 'aggressive'
             );
 
-            node = collapseRedundantWhitespaces(node, collapseType, shouldTrim, tag, prevNodeTag, nextNodeTag);
+            node = collapseRedundantWhitespaces(node, collapseType, shouldTrim, parent, prevNode, nextNode);
         }
 
         const isAllowCollapseWhitespace = !noWhitespaceCollapseElements.has(node.tag);
         if (node.content && node.content.length && isAllowCollapseWhitespace) {
-            node.content = collapseWhitespace(node.content, options, collapseType, node.tag);
+            node.content = collapseWhitespace(node.content, options, collapseType, {
+                node,
+                prevNode,
+                nextNode
+            });
         }
 
         tree[index] = node;
@@ -64,23 +66,52 @@ export default function collapseWhitespace(tree, options, collapseType, tag) {
 }
 
 
-function collapseRedundantWhitespaces(text, collapseType, shouldTrim = false, currentTag, prevNodeTag, nextNodeTag) {
+function collapseRedundantWhitespaces(text, collapseType, shouldTrim = false, parent, prevNode, nextNode) {
     if (!text || text.length === 0) {
         return NONE;
     }
 
     if (!isComment(text)) {
-        text = text.replace(whitespacePattern, SINGLE_SPACE);
+        text = text.replace(multipleWhitespacePattern, SINGLE_SPACE);
     }
 
     if (shouldTrim) {
         if (collapseType === 'aggressive') {
-            if (!noTrimWhitespacesArroundElements.has(prevNodeTag)) {
-                text = text.trimStart();
-            }
+            if (!noTrimWhitespacesInsideElements.has(parent && parent.node && parent.node.tag)) {
+                if (!noTrimWhitespacesArroundElements.has(prevNode && prevNode.tag)) {
+                    text = text.trimStart();
+                } else {
+                    // previous node is a "no trim whitespaces arround element"
+                    if (
+                        // but previous node ends with a whitespace
+                        prevNode && prevNode.content && prevNode.content.length
+                        && endsWithWhitespacePattern.test(prevNode.content[prevNode.content.length - 1])
+                        && (
+                            !nextNode // either the current node is the last child of the parent
+                            || (
+                                // or the next node starts with a white space
+                                nextNode && nextNode.content && nextNode.content.length
+                                && !startsWithWhitespacePattern.test(nextNode.content[0])
+                            )
+                        )
+                    ) {
+                        text = text.trimStart();
+                    }
+                }
 
-            if (!noTrimWhitespacesArroundElements.has(nextNodeTag)) {
-                text = text.trimEnd();
+                if (!noTrimWhitespacesArroundElements.has(nextNode && nextNode.tag)) {
+                    text = text.trimEnd();
+                }
+            } else {
+                // now it is a textNode inside a "no trim whitespaces inside elements" node
+                if (
+                    !prevNode // it the textnode is the first child of the node
+                    && startsWithWhitespacePattern.test(text[0]) // it starts with white space
+                    && typeof parent.prevNode === 'string' // the prev of the node is a textNode as well
+                    && endsWithWhitespacePattern.test(parent.prevNode[parent.prevNode.length - 1]) // that prev is ends with a white
+                ) {
+                    text = text.trimStart();
+                }
             }
         } else {
             // collapseType is 'all', trim spaces
