@@ -34,6 +34,7 @@ export default {
     minifyConditionalComments: false,
     removeEmptyAttributes: true,
     removeRedundantAttributes: false,
+    normalizeAttributeValues: true,
     removeComments: 'safe',
     removeAttributeQuotes: false,
     sortAttributesWithLists: 'alphabetical',
