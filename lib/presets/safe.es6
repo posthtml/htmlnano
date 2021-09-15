@@ -32,8 +32,8 @@ export default {
         ]
     },
     minifyConditionalComments: false,
-    removeEmptyAttributes: true,
     removeRedundantAttributes: false,
+    removeEmptyAttributes: true,
     removeComments: 'safe',
     removeAttributeQuotes: false,
     sortAttributesWithLists: 'alphabetical',
