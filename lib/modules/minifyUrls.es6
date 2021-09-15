@@ -1,5 +1,6 @@
 import RelateUrl from 'relateurl';
 import srcset from 'srcset';
+import terser from 'terser';
 
 // Adopts from https://github.com/kangax/html-minifier/blob/51ce10f4daedb1de483ffbcccecc41be1c873da2/src/htmlminifier.js#L209-L221
 const tagsHaveUriValuesForAttributes = new Set([
@@ -7,15 +8,21 @@ const tagsHaveUriValuesForAttributes = new Set([
     'area',
     'link',
     'base',
-    'img',
     'object',
-    'q',
     'blockquote',
+    'q',
+    'del',
     'ins',
     'form',
     'input',
     'head',
-    'script'
+    'audio',
+    'embed',
+    'iframe',
+    'img',
+    'script',
+    'track',
+    'video',
 ]);
 
 const tagsHasHrefAttributes = new Set([
@@ -38,25 +45,42 @@ const attributesOfObjectTagHasUriValues = new Set([
     'usemap'
 ]);
 
+const tagsHasCiteAttributes = new Set([
+    'blockquote',
+    'q',
+    'ins',
+    'del'
+]);
+
+const tagsHasSrcAttributes = new Set([
+    'audio',
+    'embed',
+    'iframe',
+    'img',
+    'input',
+    'script',
+    'track',
+    'video',
+    /**
+     * https://html.spec.whatwg.org/#attr-source-src
+     *
+     * Although most of browsers recommend not to use "src" in <source>,
+     * but technically it does comply with HTML Standard.
+     */
+    'source'
+]);
+
 const isUriTypeAttribute = (tag, attr) => {
     return (
         tagsHasHrefAttributes.has(tag) && attr === 'href' ||
         tag === 'img' && attributesOfImgTagHasUriValues.has(attr) ||
         tag === 'object' && attributesOfObjectTagHasUriValues.has(attr) ||
-        tag === 'q' && attr === 'cite' ||
-        tag === 'blockquote' && attr === 'cite' ||
-        (tag === 'ins' || tag === 'del') && attr === 'cite' ||
+        tagsHasCiteAttributes.has(tag) && attr === 'cite' ||
         tag === 'form' && attr === 'action' ||
-        tag === 'input' && (attr === 'src' || attr === 'usemap') ||
+        tag === 'input' && attr === 'usemap' ||
         tag === 'head' && attr === 'profile' ||
-        tag === 'script' && (attr === 'src' || attr === 'for') ||
-        /**
-         * https://html.spec.whatwg.org/#attr-source-src
-         *
-         * Although most of browsers recommend not to use "src" in <source>,
-         * but technically it does comply with HTML Standard.
-         */
-        tag === 'source' && attr === 'src'
+        tag === 'script' && attr === 'for' ||
+        tagsHasSrcAttributes.has(tag) && attr === 'src'
     );
 };
 
@@ -89,11 +113,15 @@ const isLinkRelCanonical = ({ tag, attrs }) => {
     return false;
 };
 
+const JAVASCRIPT_URL_PROTOCOL = 'javascript:';
+
 let relateUrlInstance;
 let STORED_URL_BASE;
 
 /** Convert absolute url into relative url */
 export default function minifyUrls(tree, options, moduleOptions) {
+    let promises = [];
+
     const urlBase = processModuleOptions(moduleOptions);
 
     // Invalid configuration, return tree directly
@@ -125,11 +153,15 @@ export default function minifyUrls(tree, options, moduleOptions) {
             const attrNameLower = attrName.toLowerCase();
 
             if (isUriTypeAttribute(node.tag, attrNameLower)) {
-                // FIXME!
-                // relateurl@1.0.0-alpha only supports URL while stable version (0.2.7) only supports string
-                // the WHATWG URL API is very strict while attrValue might not be a valid URL
-                // new URL should be used, and relateUrl#relate should be wrapped in try...catch after relateurl@1 is stable
-                node.attrs[attrName] = relateUrlInstance.relate(attrValue);
+                if (isJavaScriptUrl(attrValue)) {
+                    promises.push(minifyJavaScriptUrl(node, attrName));
+                } else {
+                    // FIXME!
+                    // relateurl@1.0.0-alpha only supports URL while stable version (0.2.7) only supports string
+                    // the WHATWG URL API is very strict while attrValue might not be a valid URL
+                    // new URL should be used, and relateUrl#relate should be wrapped in try...catch after relateurl@1 is stable
+                    node.attrs[attrName] = relateUrlInstance.relate(attrValue);
+                }
 
                 continue;
             }
@@ -155,5 +187,33 @@ export default function minifyUrls(tree, options, moduleOptions) {
         return node;
     });
 
-    return tree;
+    if (promises.length > 0) return Promise.all(promises).then(() => tree);
+    return Promise.resolve(tree);
+}
+
+function isJavaScriptUrl(url) {
+    return typeof url === 'string' && url.toLowerCase().startsWith(JAVASCRIPT_URL_PROTOCOL);
+}
+
+function minifyJavaScriptUrl(node, attrName) {
+    const jsWrapperStart = 'function a(){';
+    const jsWrapperEnd = '}a();';
+
+    let result = node.attrs[attrName];
+
+    if (result) {
+        result = result.slice(JAVASCRIPT_URL_PROTOCOL.length);
+
+        return terser
+            .minify(result, {}) // Default Option is good enough
+            .then(({ code }) => {
+                const minifiedJs = code.substring(
+                    jsWrapperStart.length,
+                    code.length - jsWrapperEnd.length
+                );
+                node.attrs[attrName] = minifiedJs;
+            });
+    }
+
+    return Promise.resolve();
 }
