@@ -106,7 +106,7 @@ describe('collapseWhitespace', () => {
         it('should collapse redundant whitespaces and eliminate indentation (tabs, newlines, etc)', () => {
             return init(
                 html,
-                '<div><p>Hello world</p><pre>   <code>	posthtml    htmlnano     </code>	</pre><code>posthtml htmlnano</code> <b> hello world! </b> <a>other link </a> Example</div>',
+                '<div><p>Hello world</p><pre>   <code>	posthtml    htmlnano     </code>	</pre><code>posthtml htmlnano</code> <b>hello world! </b><a>other link </a>Example</div>',
                 options
             );
         });
@@ -131,7 +131,16 @@ describe('collapseWhitespace', () => {
         it('should collapse whitespaces inside text node', () => {
             return init(
                 spaceInsideTextNodeHtml,
-                '<div><span> lorem <span> iorem </span> </span></div><div>lorem <span> opren </span></div>',
+                '<div><span> lorem <span>iorem </span> </span></div><div>lorem <span>opren </span></div>',
+                options
+            );
+        });
+
+        // https://github.com/posthtml/htmlnano/issues/145
+        it('issue #145', () => {
+            return init(
+                'before <a href="#link"> <i>after</i> </a> end',
+                'before <a href="#link"><i>after</i> </a>end',
                 options
             );
         });
