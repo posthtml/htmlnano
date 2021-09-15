@@ -2,8 +2,12 @@ import { isEventHandler } from '../helpers.es6';
 
 export const attributesWithLists = new Set([
     'class',
-    'rel',
-    'ping',
+    'dropzone',
+    'rel', // a, area, link
+    'ping', // a, area
+    'sandbox', // iframe
+    'sizes', // link
+    'headers' // td, th
 ]);
 
 /** @type Record<string, string[] | null> */
