@@ -119,7 +119,7 @@ describe('removeRedundantAttributes', () => {
         );
     });
 
-    it('should remove preload="metadata" from <audio> & <video>', () => {
+    it('should not remove preload="metadata" from <audio> & <video>', () => {
         return init(
             '<audio src="example.com" preload="metadata"></audio><video src="example.com" preload="metadata"></video>',
             '<audio src="example.com" preload="metadata"></audio><video src="example.com" preload="metadata"></video>',
