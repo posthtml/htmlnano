@@ -1,7 +1,11 @@
 export const attributesWithLists = new Set([
     'class',
-    'rel',
-    'ping',
+    'dropzone',
+    'rel', // a, area, link
+    'ping', // a, area
+    'sandbox', // iframe
+    'sizes', // link
+    'headers' // td, th
 ]);
 
 /** Collapse whitespaces inside list-like attributes (e.g. class, rel) */
