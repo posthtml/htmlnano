@@ -48,7 +48,7 @@ const redundantAttributes = {
         'charset': node => {
             // The charset attribute only really makes sense on “external” SCRIPT elements:
             // http://perfectionkills.com/optimizing-html/#8_script_charset
-            return node.attrs && ! node.attrs.src;
+            return node.attrs && !node.attrs.src;
         }
     },
 
@@ -89,7 +89,54 @@ const redundantAttributes = {
     }
 };
 
+// See: https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#missing-value-default
+const canBeReplacedWithEmptyStringAttributes = {
+    audio: {
+        // https://html.spec.whatwg.org/#attr-media-preload
+        preload: 'auto'
+    },
+    video: {
+        preload: 'auto'
+    },
+
+    form: {
+        // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
+        autocomplete: 'on'
+    },
+
+    img: {
+        // https://html.spec.whatwg.org/multipage/embedded-content.html#dom-img-decoding
+        decoding: 'auto'
+    },
+
+    track: {
+        // https://html.spec.whatwg.org/multipage/media.html#htmltrackelement
+        kind: 'subtitles'
+    },
+
+    textarea: {
+        // https://html.spec.whatwg.org/multipage/form-elements.html#dom-textarea-wrap
+        wrap: 'soft'
+    },
+
+    area: {
+        // https://html.spec.whatwg.org/multipage/image-maps.html#attr-area-shape
+        shape: 'rect'
+    },
+
+    button: {
+        // https://html.spec.whatwg.org/multipage/form-elements.html#attr-button-type
+        type: 'submit'
+    },
+
+    input: {
+        // https://html.spec.whatwg.org/multipage/input.html#states-of-the-type-attribute
+        type: 'text'
+    }
+};
+
 const tagsHaveRedundantAttributes = new Set(Object.keys(redundantAttributes));
+const tagsHaveMissingValueDefaultAttributes = new Set(Object.keys(canBeReplacedWithEmptyStringAttributes));
 
 /** Removes redundant attributes */
 export default function removeRedundantAttributes(tree) {
@@ -98,23 +145,41 @@ export default function removeRedundantAttributes(tree) {
             return node;
         }
 
-        if (!tagsHaveRedundantAttributes.has(node.tag)) {
-            return node;
+        node.attrs = node.attrs || {};
+
+        if (tagsHaveRedundantAttributes.has(node.tag)) {
+            const tagRedundantAttributes = redundantAttributes[node.tag];
+
+            for (const redundantAttributeName of Object.keys(tagRedundantAttributes)) {
+                let tagRedundantAttributeValue = tagRedundantAttributes[redundantAttributeName];
+                let isRemove = false;
+
+                if (typeof tagRedundantAttributeValue === 'function') {
+                    isRemove = tagRedundantAttributeValue(node);
+                } else if (node.attrs[redundantAttributeName] === tagRedundantAttributeValue) {
+                    isRemove = true;
+                }
+
+                if (isRemove) {
+                    delete node.attrs[redundantAttributeName];
+                }
+            }
         }
 
-        const tagRedundantAttributes = redundantAttributes[node.tag];
-        node.attrs = node.attrs || {};
-        for (const redundantAttributeName of Object.keys(tagRedundantAttributes)) {
-            let tagRedundantAttributeValue = tagRedundantAttributes[redundantAttributeName];
-            let isRemove = false;
-            if (typeof tagRedundantAttributeValue === 'function') {
-                isRemove = tagRedundantAttributeValue(node);
-            } else if (node.attrs[redundantAttributeName] === tagRedundantAttributeValue) {
-                isRemove = true;
-            }
+        if (tagsHaveMissingValueDefaultAttributes.has(node.tag)) {
+            const tagMissingValueDefaultAttributes = canBeReplacedWithEmptyStringAttributes[node.tag];
 
-            if (isRemove) {
-                delete node.attrs[redundantAttributeName];
+            for (const canBeReplacedWithEmptyStringAttributeName of Object.keys(tagMissingValueDefaultAttributes)) {
+                let tagMissingValueDefaultAttribute = tagMissingValueDefaultAttributes[canBeReplacedWithEmptyStringAttributeName];
+                let isReplace = false;
+
+                if (node.attrs[canBeReplacedWithEmptyStringAttributeName] === tagMissingValueDefaultAttribute) {
+                    isReplace = true;
+                }
+
+                if (isReplace) {
+                    node.attrs[canBeReplacedWithEmptyStringAttributeName] = '';
+                }
             }
         }
 
