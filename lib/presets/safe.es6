@@ -33,6 +33,7 @@ export default {
     },
     minifyConditionalComments: false,
     removeRedundantAttributes: false,
+    normalizeAttributeValues: true,
     removeEmptyAttributes: true,
     removeComments: 'safe',
     removeAttributeQuotes: false,

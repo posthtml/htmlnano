@@ -763,3 +763,24 @@ Due to [the limitation of PostHTML](https://github.com/posthtml/htmlnano/issues/
 - `body`
 - `colgroup`
 - `tbody`
+
+### normalizeAttributeValues
+
+Normalize casing of attribute values.
+
+The module won't impact the plain-text size of the output. However it will improve the compression ratio of gzip/brotli used in HTTP compression.
+
+#### Example
+
+Source:
+
+```html
+<form method="GET"></form>
+```
+
+Minified:
+
+```html
+<form method="get"></form>
+```
+
