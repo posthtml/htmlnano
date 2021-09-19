@@ -50,7 +50,7 @@ export default function normalizeAttributeValues(tree) {
                     || caseInsensitiveAttributes[attrNameLower].includes(node.tag)
                 )
             ) {
-                node.attrs[attrName] = attrValue.toLowerCase();
+                node.attrs[attrName] = attrValue.toLowerCase ? attrValue.toLowerCase() : attrValue;
             }
         });
 
