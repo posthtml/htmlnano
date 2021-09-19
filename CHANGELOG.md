@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.1.0] - 2021-09-19
+### Added
+- Collapse missing value default attribute in `removeRedundantAttributes` [#158].
+- New `normalizeAttributeValues` module to normalize casing of attribute values [#163].
+- Custom matcher for `removeComments` [#156].
+
+### Changed
+- Remove more empty attributes in `removeEmptyAttributes` [#161].
+- Enhance collapse whitespace in `collapseWhitespace` [#145].
+- `minifyJs` and `minifyUrls` enhancement [#159].
+- Enhance attribute collapse whitespace in `collapseAttributeWhitespace` [#157].
+
+
+
 ## [1.0.1] - 2021-09-11
 ### Added
 - Support of [@novaatwarren/uncss](https://github.com/novaatwarren/uncss) fork [#154]
@@ -205,6 +219,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 - Remove attributes that contains only white spaces.
 
 
+[1.1.0]: https://github.com/posthtml/htmlnano/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/posthtml/htmlnano/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/posthtml/htmlnano/compare/0.2.9...1.0.0
 [0.2.9]: https://github.com/posthtml/htmlnano/compare/0.2.8...0.2.9
@@ -228,8 +243,15 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 [0.1.2]: https://github.com/posthtml/htmlnano/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
+[#163]: https://github.com/posthtml/htmlnano/issues/163
+[#161]: https://github.com/posthtml/htmlnano/issues/161
+[#159]: https://github.com/posthtml/htmlnano/issues/159
+[#158]: https://github.com/posthtml/htmlnano/issues/158
+[#157]: https://github.com/posthtml/htmlnano/issues/157
+[#156]: https://github.com/posthtml/htmlnano/issues/156
 [#154]: https://github.com/posthtml/htmlnano/issues/154
 [#153]: https://github.com/posthtml/htmlnano/issues/153
+[#145]: https://github.com/posthtml/htmlnano/issues/145
 [#135]: https://github.com/posthtml/htmlnano/issues/135
 [#129]: https://github.com/posthtml/htmlnano/issues/129
 [#125]: https://github.com/posthtml/htmlnano/issues/125
@@ -243,10 +265,10 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 [#112]: https://github.com/posthtml/htmlnano/issues/112
 [#111]: https://github.com/posthtml/htmlnano/issues/111
 [#110]: https://github.com/posthtml/htmlnano/issues/110
-[#107]: https://github.com/posthtml/htmlnano/issues/107
 [#108]: https://github.com/posthtml/htmlnano/issues/108
-[#102]: https://github.com/posthtml/htmlnano/issues/102
+[#107]: https://github.com/posthtml/htmlnano/issues/107
 [#104]: https://github.com/posthtml/htmlnano/issues/104
+[#102]: https://github.com/posthtml/htmlnano/issues/102
 [#98]: https://github.com/posthtml/htmlnano/issues/98
 [#95]: https://github.com/posthtml/htmlnano/issues/95
 [#94]: https://github.com/posthtml/htmlnano/issues/94
