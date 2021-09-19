@@ -1,5 +1,5 @@
 import terser from 'terser';
-import { isEventHandler } from '../helpers.es6';
+import { isEventHandler } from '../helpers';
 import { redundantScriptTypes } from './removeRedundantAttributes';
 
 
