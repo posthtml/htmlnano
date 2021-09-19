@@ -3,7 +3,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.1.1] - 2021-09-19
+This version fixes fatal errors introduced in [1.1.0].
+
+
 ## [1.1.0] - 2021-09-19
+*This version contains fatal errors. Please use [1.1.1] instead.*
+
 ### Added
 - Collapse missing value default attribute in `removeRedundantAttributes` [#158].
 - New `normalizeAttributeValues` module to normalize casing of attribute values [#163].
@@ -219,6 +225,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 - Remove attributes that contains only white spaces.
 
 
+[1.1.1]: https://github.com/posthtml/htmlnano/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/posthtml/htmlnano/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/posthtml/htmlnano/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/posthtml/htmlnano/compare/0.2.9...1.0.0
