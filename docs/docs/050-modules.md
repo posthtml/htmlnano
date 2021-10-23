@@ -198,32 +198,7 @@ posthtml([
 
 ### removeUnusedCss
 
-Removes unused CSS inside `<style>` tags with either [uncss](https://github.com/uncss/uncss)
-or [PurgeCSS](https://github.com/FullHuman/purgecss).
-
-#### With uncss
-
-##### Options
-See [the documentation of uncss](https://github.com/uncss/uncss) for all supported options.
-
-uncss options can be passed directly to the `removeUnusedCss` module:
-```js
-htmlnano.process(html, {
-    removeUnusedCss: {
-        ignore: ['.do-not-remove']
-    }
-});
-```
-
-The following uncss options are ignored if passed to the module:
-
--   `stylesheets`
--   `ignoreSheets`
--   `raw`
-
-#### With PurgeCSS
-
-Use PurgeCSS instead of uncss by adding `tool: 'purgeCSS'` to the options.
+Removes unused CSS inside `<style>` tags with [PurgeCSS](https://github.com/FullHuman/purgecss).
 
 ##### Options
 
@@ -233,7 +208,6 @@ PurgeCSS options can be passed directly to the `removeUnusedCss` module:
 ```js
 htmlnano.process(html, {
     removeUnusedCss: {
-        tool: 'purgeCSS',
         safelist: ['.do-not-remove']
     }
 });

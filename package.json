@@ -48,8 +48,7 @@
     "srcset": "^4.0.0",
     "svgo": "^2.6.1",
     "terser": "^5.8.0",
-    "timsort": "^0.3.0",
-    "uncss": "^0.17.3"
+    "timsort": "^0.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
