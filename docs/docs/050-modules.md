@@ -276,7 +276,7 @@ Optimized:
 Minifies CSS with [cssnano](http://cssnano.co/) inside `<style>` tags and `style` attributes.
 
 #### Options
-See [the documentation of cssnano](http://cssnano.co/optimisations/) for all supported optimizations.
+See [the documentation of cssnano](http://cssnano.co/docs/optimisations/) for all supported optimizations.
 By default CSS is minified with preset `default`, which shouldn't have any side-effects.
 
 To use another preset or disabled some optimizations pass options to `minifyCss` module:
