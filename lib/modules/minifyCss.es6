@@ -1,6 +1,7 @@
-import { isStyleNode, extractCssFromStyleNode } from '../helpers';
-import postcss from 'postcss';
-import cssnano from 'cssnano';
+import { isStyleNode, extractCssFromStyleNode, optionalRequire } from '../helpers';
+
+const cssnano = optionalRequire('cssnano');
+const postcss = optionalRequire('postcss');
 
 const postcssOptions = {
     // Prevent the following warning from being shown:
@@ -11,6 +12,10 @@ const postcssOptions = {
 
 /** Minify CSS with cssnano */
 export default function minifyCss(tree, options, cssnanoOptions) {
+    if (!cssnano || !postcss) {
+        return tree;
+    }
+
     let promises = [];
     tree.walk(node => {
         if (isStyleNode(node)) {

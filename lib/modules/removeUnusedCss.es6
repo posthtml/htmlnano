@@ -1,6 +1,7 @@
-import { isStyleNode, extractCssFromStyleNode } from '../helpers';
-import uncss from 'uncss';
-import Purgecss from 'purgecss';
+import { isStyleNode, extractCssFromStyleNode, optionalRequire } from '../helpers';
+
+const uncss = optionalRequire('uncss');
+const purgecss = optionalRequire('purgecss');
 
 // These options must be set and shouldn't be overriden to ensure uncss doesn't look at linked stylesheets.
 const uncssOptions = {
@@ -90,7 +91,7 @@ function runPurgecss(tree, css, userOptions) {
         }]
     };
 
-    return new Purgecss()
+    return new purgecss.PurgeCSS()
         .purge(options)
         .then((result) => {
             return result[0].css;
@@ -105,9 +106,13 @@ export default function removeUnusedCss(tree, options, userOptions) {
     tree.walk(node => {
         if (isStyleNode(node)) {
             if (userOptions.tool === 'purgeCSS') {
-                promises.push(processStyleNodePurgeCSS(tree, node, userOptions));
+                if (purgecss) {
+                    promises.push(processStyleNodePurgeCSS(tree, node, userOptions));
+                }
             } else {
-                promises.push(processStyleNodeUnCSS(html, node, userOptions));
+                if (uncss) {
+                    promises.push(processStyleNodeUnCSS(html, node, userOptions));
+                }
             }
         }
         return node;

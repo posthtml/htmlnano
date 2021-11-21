@@ -203,6 +203,16 @@ or [PurgeCSS](https://github.com/FullHuman/purgecss).
 
 #### With uncss
 
+You have to install `uncss` in order to use this feature:
+
+```bash
+npm install --save-dev uncss
+# if you prefer yarn
+# yarn add --dev uncss
+# if you prefer pnpm
+# pnpm install --save-dev uncss
+```
+
 ##### Options
 See [the documentation of uncss](https://github.com/uncss/uncss) for all supported options.
 
@@ -224,6 +234,16 @@ The following uncss options are ignored if passed to the module:
 #### With PurgeCSS
 
 Use PurgeCSS instead of uncss by adding `tool: 'purgeCSS'` to the options.
+
+You have to install `purgecss` in order to use this feature:
+
+```bash
+npm install --save-dev purgecss
+# if you prefer yarn
+# yarn add --dev purgecss
+# if you prefer pnpm
+# pnpm install --save-dev purgecss
+```
 
 ##### Options
 
@@ -275,6 +295,16 @@ Optimized:
 ### minifyCss
 Minifies CSS with [cssnano](http://cssnano.co/) inside `<style>` tags and `style` attributes.
 
+You have to install `cssnano` and `postcss` in order to use this feature:
+
+```bash
+npm install --save-dev cssnano postcss
+# if you prefer yarn
+# yarn add --dev cssnano postcss
+# if you prefer pnpm
+# pnpm install --save-dev cssnano postcss
+```
+
 #### Options
 See [the documentation of cssnano](http://cssnano.co/docs/optimisations/) for all supported optimizations.
 By default CSS is minified with preset `default`, which shouldn't have any side-effects.
@@ -315,6 +345,16 @@ Minified:
 
 ### minifyJs
 Minifies JS using [Terser](https://github.com/fabiosantoscode/terser) inside `<script>` tags.
+
+You have to install `terser` in order to use this feature:
+
+```bash
+npm install --save-dev terser
+# if you prefer yarn
+# yarn add --dev terser
+# if you prefer pnpm
+# pnpm install --save-dev terser
+```
 
 #### Options
 See [the documentation of Terser](https://github.com/fabiosantoscode/terser#api-reference) for all supported options.
@@ -663,6 +703,16 @@ Processed:
 
 ### minifyUrls
 Convert absolute URL to relative URL using [relateurl](https://www.npmjs.com/package/relateurl).
+
+You have to install `relateurl`, `terser` and `srcset` in order to use this feature:
+
+```bash
+npm install --save-dev relateurl terser srcset
+# if you prefer yarn
+# yarn add --dev relateurl terser srcset
+# if you prefer pnpm
+# pnpm install --save-dev relateurl terser srcset
+```
 
 #### Options
 

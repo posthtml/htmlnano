@@ -24,6 +24,13 @@ describe('[htmlnano]', () => {
             expect(error.message).toBe('Module "notDefinedModule" is not defined');
         });
     });
+
+    it('getRequiredOptionalDependencies', () => {
+        expect(htmlnano.getRequiredOptionalDependencies({
+            minifyUrl: true,
+            minifyJs: {}
+        })).toStrictEqual(['relateurl', 'srcset', 'terser']);
+    });
 });
 
 
