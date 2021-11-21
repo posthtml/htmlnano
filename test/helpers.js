@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { isAmpBoilerplate, isComment, isConditionalComment, isStyleNode, extractCssFromStyleNode } from '../lib/helpers';
+import { isAmpBoilerplate, isComment, isConditionalComment, isStyleNode, extractCssFromStyleNode, optionalRequire } from '../lib/helpers';
 
 describe('[helpers]', () => {
     context('isAmpBoilerplate()', () => {
@@ -55,6 +55,16 @@ describe('[helpers]', () => {
                     'def',
                 ],
             })).toBe('abc def');
+        });
+    });
+
+    context('optionalRequire()', () => {
+        it('should return the dependency when resolved', () => {
+            expect(optionalRequire('expect')).toBe(expect);
+        });
+
+        it('should return null when module not found', () => {
+            expect(optionalRequire('null')).toBe(null);
         });
     });
 });

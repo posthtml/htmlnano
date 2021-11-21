@@ -1,6 +1,8 @@
-import RelateUrl from 'relateurl';
-import srcset from 'srcset';
-import terser from 'terser';
+import { optionalRequire } from '../helpers';
+
+const RelateUrl = optionalRequire('relateurl');
+const srcset = optionalRequire('srcset');
+const terser = optionalRequire('terser');
 
 // Adopts from https://github.com/kangax/html-minifier/blob/51ce10f4daedb1de483ffbcccecc41be1c873da2/src/htmlminifier.js#L209-L221
 const tagsHaveUriValuesForAttributes = new Set([
@@ -134,7 +136,9 @@ export default function minifyUrls(tree, options, moduleOptions) {
      * e.g. unit tests cases.
      */
     if (!relateUrlInstance || STORED_URL_BASE !== urlBase) {
-        relateUrlInstance = new RelateUrl(urlBase);
+        if (RelateUrl) {
+            relateUrlInstance = new RelateUrl(urlBase);
+        }
         STORED_URL_BASE = urlBase;
     }
 
@@ -156,29 +160,34 @@ export default function minifyUrls(tree, options, moduleOptions) {
                 if (isJavaScriptUrl(attrValue)) {
                     promises.push(minifyJavaScriptUrl(node, attrName));
                 } else {
-                    // FIXME!
-                    // relateurl@1.0.0-alpha only supports URL while stable version (0.2.7) only supports string
-                    // the WHATWG URL API is very strict while attrValue might not be a valid URL
-                    // new URL should be used, and relateUrl#relate should be wrapped in try...catch after relateurl@1 is stable
-                    node.attrs[attrName] = relateUrlInstance.relate(attrValue);
+                    if (relateUrlInstance) {
+                        // FIXME!
+                        // relateurl@1.0.0-alpha only supports URL while stable version (0.2.7) only supports string
+                        // the WHATWG URL API is very strict while attrValue might not be a valid URL
+                        // new URL should be used, and relateUrl#relate should be wrapped in try...catch after relateurl@1 is stable
+                        node.attrs[attrName] = relateUrlInstance.relate(attrValue);
+                    }
                 }
 
                 continue;
             }
 
             if (isSrcsetAttribute(node.tag, attrNameLower)) {
-                try {
-                    const parsedSrcset = srcset.parse(attrValue);
+                if (srcset) {
+                    try {
+                        const parsedSrcset = srcset.parse(attrValue);
 
-                    node.attrs[attrName] = srcset.stringify(parsedSrcset.map(srcset => {
-                        srcset.url = relateUrlInstance.relate(srcset.url);
+                        node.attrs[attrName] = srcset.stringify(parsedSrcset.map(srcset => {
+                            if (relateUrlInstance) {
+                                srcset.url = relateUrlInstance.relate(srcset.url);
+                            }
 
-                        return srcset;
-                    }));
-                } catch (e) {
-                    // srcset will throw an Error for invalid srcset.
+                            return srcset;
+                        }));
+                    } catch (e) {
+                        // srcset will throw an Error for invalid srcset.
+                    }
                 }
-
 
                 continue;
             }
@@ -196,6 +205,8 @@ function isJavaScriptUrl(url) {
 }
 
 function minifyJavaScriptUrl(node, attrName) {
+    if (!terser) return Promise.resolve();
+
     const jsWrapperStart = 'function a(){';
     const jsWrapperEnd = '}a();';
 

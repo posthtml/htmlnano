@@ -35,3 +35,14 @@ export function extractCssFromStyleNode(node) {
 export function isEventHandler(attributeName) {
     return attributeName && attributeName.slice && attributeName.slice(0, 2).toLowerCase() === 'on' && attributeName.length >= 5;
 }
+
+export function optionalRequire(moduleName) {
+    try {
+        return require(moduleName);
+    } catch (e) {
+        if (e.code === 'MODULE_NOT_FOUND') {
+            return null;
+        }
+        throw e;
+    }
+}

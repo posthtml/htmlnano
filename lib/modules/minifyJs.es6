@@ -1,10 +1,12 @@
-import terser from 'terser';
-import { isEventHandler } from '../helpers';
+import { isEventHandler, optionalRequire } from '../helpers';
 import { redundantScriptTypes } from './removeRedundantAttributes';
 
+const terser = optionalRequire('terser');
 
 /** Minify JS with Terser */
 export default function minifyJs(tree, options, terserOptions) {
+    if (!terser) return tree;
+
     let promises = [];
     tree.walk(node => {
         if (node.tag && node.tag === 'script') {
