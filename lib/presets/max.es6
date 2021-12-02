@@ -8,6 +8,8 @@ export default { ...safePreset,
     removeComments: 'all',
     removeAttributeQuotes: true,
     removeRedundantAttributes: true,
+    mergeScripts: true,
+    mergeStyles: true,
     removeUnusedCss: {},
     minifyCss: {
         preset: 'default',
