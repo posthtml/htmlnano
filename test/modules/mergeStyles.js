@@ -1,10 +1,10 @@
 import { init } from '../htmlnano';
-import safePreset from '../../lib/presets/safe';
+import maxPreset from '../../lib/presets/max';
 
 
 describe('mergeStyles', () => {
     const options = {
-        mergeStyles: safePreset.mergeStyles,
+        mergeStyles: maxPreset.mergeStyles,
     };
 
     it('should merge multiple <style> with the same "type" and "media" into one', () => {
