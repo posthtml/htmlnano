@@ -27,5 +27,6 @@ jobs:
         working-directory: docs
 
       - name: Test docs build
+        if: always()
         run: npm run build
         working-directory: docs
