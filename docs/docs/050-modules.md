@@ -213,6 +213,9 @@ npm install --save-dev uncss
 # pnpm install --save-dev uncss
 ```
 
+You can also use a mainted fork [@novaatwarren/uncss](https://www.npmjs.com/package/@novaatwarren/uncss) instead.
+
+
 ##### Options
 See [the documentation of uncss](https://github.com/uncss/uncss) for all supported options.
 
@@ -833,4 +836,3 @@ Minified:
 ```html
 <form method="get"></form>
 ```
-
