@@ -6,10 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [2.0.0] - 2022-01-12
 *The major version has to be released because of vulnerability in PostCSS (see [#165])*
 
-### Added
-- Support optional dependencies [#168].
-
 ### Changed
+- Support optional dependencies [#168] (`minifyUrl`, ` minifyJs`, `removeUnusedCss`, `minifyCss`). *This might be a breaking change for you*. Check the docs: https://github.com/posthtml/htmlnano/pull/168/files
 - Disable `mergeScripts` & `mergeStyles` in the safe preset [#170].
 
 
