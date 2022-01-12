@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [2.0.0] - 2022-01-12
+*The major version has to be released because of vulnerability in PostCSS (see [#165])*
+
+### Changed
+- Support optional dependencies [#168] (`minifyUrl`, ` minifyJs`, `removeUnusedCss`, `minifyCss`). *This might be a breaking change for you*. Check the docs: https://github.com/posthtml/htmlnano/pull/168/files
+- Disable `mergeScripts` & `mergeStyles` in the safe preset [#170].
+
+
 ## [1.1.1] - 2021-09-19
 This version fixes fatal errors introduced in [1.1.0].
 
@@ -225,6 +233,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 - Remove attributes that contains only white spaces.
 
 
+[2.0.0]: https://github.com/posthtml/htmlnano/compare/1.1.1...2.0.0
 [1.1.1]: https://github.com/posthtml/htmlnano/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/posthtml/htmlnano/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/posthtml/htmlnano/compare/1.0.0...1.0.1
@@ -250,6 +259,9 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 [0.1.2]: https://github.com/posthtml/htmlnano/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
+[#170]: https://github.com/posthtml/htmlnano/issues/170
+[#168]: https://github.com/posthtml/htmlnano/issues/168
+[#165]: https://github.com/posthtml/htmlnano/issues/165
 [#163]: https://github.com/posthtml/htmlnano/issues/163
 [#161]: https://github.com/posthtml/htmlnano/issues/161
 [#159]: https://github.com/posthtml/htmlnano/issues/159

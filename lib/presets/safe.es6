@@ -10,8 +10,8 @@ export default {
     collapseWhitespace: 'conservative',
     custom: [],
     deduplicateAttributeValues: true,
-    mergeScripts: true,
-    mergeStyles: true,
+    mergeScripts: false,
+    mergeStyles: false,
     removeUnusedCss: false,
     minifyCss: {
         preset: 'default',

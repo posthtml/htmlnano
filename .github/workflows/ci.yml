@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        node-version: ['12', '14', '16']
+        node-version: ['14', '16']
 
     steps:
       - uses: actions/checkout@v2
@@ -27,5 +27,6 @@ jobs:
         working-directory: docs
 
       - name: Test docs build
+        if: always()
         run: npm run build
         working-directory: docs
