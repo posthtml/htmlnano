@@ -48,6 +48,10 @@ function htmlnano(optionsRun, presetRun) {
     let [options, preset] = loadConfig(optionsRun, presetRun);
 
     return function minifier(tree) {
+        const nodeHandlers = [];
+        const attrsHandlers = [];
+        const contentsHandlers = [];
+
         options = { ...preset, ...options };
         let promise = Promise.resolve(tree);
 
@@ -73,11 +77,57 @@ function htmlnano(optionsRun, presetRun) {
                 }
             });
 
-            let module = require('./modules/' + moduleName);
-            promise = promise.then(tree => module.default(tree, options, moduleOptions));
+            const module = require('./modules/' + moduleName);
+
+            if (module.onAttrs) {
+                attrsHandlers.push(module.onAttrs(options, moduleOptions));
+            }
+            if (module.onContent) {
+                contentsHandlers.push(module.onContent(options, moduleOptions));
+            }
+            if (module.onNode) {
+                nodeHandlers.push(module.onNode(options, moduleOptions));
+            }
+            if (module.default) {
+                promise = promise.then(tree => module.default(tree, options, moduleOptions));
+            }
         }
 
-        return promise;
+        if (attrsHandlers.length + contentsHandlers.length + nodeHandlers.length === 0) {
+            return promise;
+        }
+
+        return promise.then(tree => {
+            tree.walk(node => {
+                if (node.attrs) {
+                    // Convert all attrs' key to lower case
+                    let newAttrsObj = {};
+                    Object.entries(node.attrs).forEach(([attrName, attrValue]) => {
+                        newAttrsObj[attrName.toLowerCase()] = attrValue;
+                    });
+
+                    for (const handler of attrsHandlers) {
+                        newAttrsObj = handler(newAttrsObj, node);
+                    }
+
+                    node.attrs = newAttrsObj;
+                }
+
+                if (node.content) {
+                    for (const handler of contentsHandlers) {
+                        node.content = handler(node.content, node);
+                    }
+                }
+
+                for (const handler of nodeHandlers) {
+                    node = handler(node, node);
+                }
+
+                return node;
+            });
+
+            return tree;
+        });
     };
 }
 
