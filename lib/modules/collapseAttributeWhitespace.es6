@@ -62,42 +62,33 @@ const attributesWithSingleValue = {
 };
 
 /** Collapse whitespaces inside list-like attributes (e.g. class, rel) */
-export default function collapseAttributeWhitespace(tree) {
-    tree.walk(node => {
-        if (!node.attrs) {
-            return node;
-        }
+export function onAttrs() {
+    return (attrs, node) => {
+        const newAttrs = attrs;
 
-        Object.entries(node.attrs).forEach(([attrName, attrValue]) => {
-            const attrNameLower = attrName.toLowerCase();
-
-            if (attributesWithLists.has(attrNameLower)) {
+        Object.entries(attrs).forEach(([attrName, attrValue]) => {
+            if (attributesWithLists.has(attrName)) {
                 const newAttrValue = attrValue.replace(/\s+/g, ' ').trim();
-                node.attrs[attrName] = newAttrValue;
-
-                return node;
+                newAttrs[attrName] = newAttrValue;
+                return;
             }
 
             if (
-                isEventHandler(attrNameLower)
+                isEventHandler(attrName)
                 || (
-                    Object.hasOwnProperty.call(attributesWithSingleValue, attrNameLower)
+                    Object.hasOwnProperty.call(attributesWithSingleValue, attrName)
                     && (
-                        attributesWithSingleValue[attrNameLower] === null
-                        || attributesWithSingleValue[attrNameLower].includes(node.tag)
+                        attributesWithSingleValue[attrName] === null
+                        || attributesWithSingleValue[attrName].includes(node.tag)
                     )
                 )
             ) {
-                node.attrs[attrName] = minifySingleAttributeValue(attrValue);
-
-                return node;
+                newAttrs[attrName] = minifySingleAttributeValue(attrValue);
             }
         });
 
-        return node;
-    });
-
-    return tree;
+        return newAttrs;
+    };
 }
 
 function minifySingleAttributeValue(value) {

@@ -102,43 +102,36 @@ const amphtmlBooleanAttributes = new Set([
     'subscriptions-dialog'
 ]);
 
+export function onAttrs(options, moduleOptions) {
+    return (attrs, node) => {
+        if (!node.tag) return attrs;
 
-export default function collapseBooleanAttributes(tree, options, moduleOptions) {
-    tree.walk(node => {
-        if (! node.attrs) {
-            return node;
-        }
+        const newAttrs = attrs;
 
-        if (! node.tag) {
-            return node;
-        }
-
-        for (const attrName of Object.keys(node.attrs)) {
+        for (const attrName of Object.keys(attrs)) {
             if (attrName === 'visible' && node.tag.startsWith('a-')) {
                 continue;
             }
 
             if (htmlBooleanAttributes.has(attrName)) {
-                node.attrs[attrName] = true;
+                newAttrs[attrName] = true;
             }
-            if (moduleOptions.amphtml && amphtmlBooleanAttributes.has(attrName) && node.attrs[attrName] === '') {
-                node.attrs[attrName] = true;
+            if (moduleOptions.amphtml && amphtmlBooleanAttributes.has(attrName) && attrs[attrName] === '') {
+                newAttrs[attrName] = true;
             }
 
             // collapse crossorigin attributes
             // Specification: https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attributes
             if (
                 attrName.toLowerCase() === 'crossorigin' && (
-                    node.attrs[attrName] === 'anonymous' ||
-                    node.attrs[attrName] === ''
+                    attrs[attrName] === 'anonymous' ||
+                    attrs[attrName] === ''
                 )
             ) {
-                node.attrs[attrName] = true;
+                newAttrs[attrName] = true;
             }
         }
 
-        return node;
-    });
-
-    return tree;
+        return newAttrs;
+    };
 }

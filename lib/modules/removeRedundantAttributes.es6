@@ -33,8 +33,8 @@ const redundantAttributes = {
 
     'script': {
         'language': 'javascript',
-        'type': node => {
-            for (const [attrName, attrValue] of Object.entries(node.attrs)) {
+        'type': attrs => {
+            for (const [attrName, attrValue] of Object.entries(attrs)) {
                 if (attrName.toLowerCase() !== 'type') {
                     continue;
                 }
@@ -45,10 +45,10 @@ const redundantAttributes = {
             return false;
         },
         // Remove attribute if the function returns false
-        'charset': node => {
+        'charset': attrs => {
             // The charset attribute only really makes sense on “external” SCRIPT elements:
             // http://perfectionkills.com/optimizing-html/#8_script_charset
-            return node.attrs && !node.attrs.src;
+            return !attrs.src;
         }
     },
 
@@ -59,13 +59,13 @@ const redundantAttributes = {
 
     'link': {
         'media': 'all',
-        'type': node => {
+        'type': attrs => {
             // https://html.spec.whatwg.org/multipage/links.html#link-type-stylesheet
             let isRelStyleSheet = false;
             let isTypeTextCSS = false;
 
-            if (node.attrs) {
-                for (const [attrName, attrValue] of Object.entries(node.attrs)) {
+            if (attrs) {
+                for (const [attrName, attrValue] of Object.entries(attrs)) {
                     if (attrName.toLowerCase() === 'rel' && attrValue === 'stylesheet') {
                         isRelStyleSheet = true;
                     }
@@ -139,13 +139,11 @@ const tagsHaveRedundantAttributes = new Set(Object.keys(redundantAttributes));
 const tagsHaveMissingValueDefaultAttributes = new Set(Object.keys(canBeReplacedWithEmptyStringAttributes));
 
 /** Removes redundant attributes */
-export default function removeRedundantAttributes(tree) {
-    tree.walk(node => {
-        if (!node.tag) {
-            return node;
-        }
+export function onAttrs() {
+    return (attrs, node) => {
+        if (!node.tag) return attrs;
 
-        node.attrs = node.attrs || {};
+        const newAttrs = attrs;
 
         if (tagsHaveRedundantAttributes.has(node.tag)) {
             const tagRedundantAttributes = redundantAttributes[node.tag];
@@ -155,13 +153,13 @@ export default function removeRedundantAttributes(tree) {
                 let isRemove = false;
 
                 if (typeof tagRedundantAttributeValue === 'function') {
-                    isRemove = tagRedundantAttributeValue(node);
-                } else if (node.attrs[redundantAttributeName] === tagRedundantAttributeValue) {
+                    isRemove = tagRedundantAttributeValue(attrs);
+                } else if (attrs[redundantAttributeName] === tagRedundantAttributeValue) {
                     isRemove = true;
                 }
 
                 if (isRemove) {
-                    delete node.attrs[redundantAttributeName];
+                    delete newAttrs[redundantAttributeName];
                 }
             }
         }
@@ -173,18 +171,16 @@ export default function removeRedundantAttributes(tree) {
                 let tagMissingValueDefaultAttribute = tagMissingValueDefaultAttributes[canBeReplacedWithEmptyStringAttributeName];
                 let isReplace = false;
 
-                if (node.attrs[canBeReplacedWithEmptyStringAttributeName] === tagMissingValueDefaultAttribute) {
+                if (attrs[canBeReplacedWithEmptyStringAttributeName] === tagMissingValueDefaultAttribute) {
                     isReplace = true;
                 }
 
                 if (isReplace) {
-                    node.attrs[canBeReplacedWithEmptyStringAttributeName] = '';
+                    newAttrs[canBeReplacedWithEmptyStringAttributeName] = '';
                 }
             }
         }
 
-        return node;
-    });
-
-    return tree;
+        return newAttrs;
+    };
 }

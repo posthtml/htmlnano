@@ -35,27 +35,22 @@ const caseInsensitiveAttributes = {
     wrap: ['textarea']
 };
 
-export default function normalizeAttributeValues(tree) {
-    tree.walk(node => {
-        if (!node.attrs) {
-            return node;
-        }
+export function onAttrs() {
+    return (attrs, node) => {
+        const newAttrs = attrs;
 
-        Object.entries(node.attrs).forEach(([attrName, attrValue]) => {
-            const attrNameLower = attrName.toLowerCase();
+        Object.entries(attrs).forEach(([attrName, attrValue]) => {
             if (
-                Object.hasOwnProperty.call(caseInsensitiveAttributes, attrNameLower)
+                Object.hasOwnProperty.call(caseInsensitiveAttributes, attrName)
                 && (
-                    caseInsensitiveAttributes[attrNameLower] === null
-                    || caseInsensitiveAttributes[attrNameLower].includes(node.tag)
+                    caseInsensitiveAttributes[attrName] === null
+                    || caseInsensitiveAttributes[attrName].includes(node.tag)
                 )
             ) {
-                node.attrs[attrName] = attrValue.toLowerCase ? attrValue.toLowerCase() : attrValue;
+                newAttrs[attrName] = attrValue.toLowerCase ? attrValue.toLowerCase() : attrValue;
             }
         });
 
-        return node;
-    });
-
-    return tree;
+        return newAttrs;
+    };
 }
