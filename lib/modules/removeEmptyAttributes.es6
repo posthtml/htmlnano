@@ -1,3 +1,5 @@
+import { isEventHandler } from '../helpers';
+
 const safeToRemoveAttrs = {
     id: null,
     class: null,
@@ -92,34 +94,26 @@ const safeToRemoveAttrs = {
     width: ['canvas', 'embed', 'iframe', 'img', 'input', 'object', 'video']
 };
 
-/** Removes empty attributes */
-export default function removeEmptyAttributes(tree) {
-    tree.walk(node => {
-        if (!node.attrs) {
-            return node;
-        }
-
-        Object.entries(node.attrs).forEach(([attrName, attrValue]) => {
-            const attrNameLower = attrName.toLowerCase();
-
+export function onAttrs() {
+    return (attrs, node) => {
+        const newAttrs = { ...attrs };
+        Object.entries(attrs).forEach(([attrName, attrValue]) => {
             if (
-                (attrNameLower.slice(0, 2).toLowerCase() === 'on' && attrName.length >= 5) // Event Handler
+                isEventHandler(attrName)
                 || (
-                    Object.hasOwnProperty.call(safeToRemoveAttrs, attrNameLower)
+                    Object.hasOwnProperty.call(safeToRemoveAttrs, attrName)
                     && (
-                        safeToRemoveAttrs[attrNameLower] === null
-                        || safeToRemoveAttrs[attrNameLower].includes(node.tag)
+                        safeToRemoveAttrs[attrName] === null
+                        || safeToRemoveAttrs[attrName].includes(node.tag)
                     )
                 )
             ) {
                 if (attrValue === '' || (attrValue || '').match(/^\s+$/)) {
-                    delete node.attrs[attrName];
+                    delete newAttrs[attrName];
                 }
             }
         });
 
-        return node;
-    });
-
-    return tree;
+        return newAttrs;
+    };
 }

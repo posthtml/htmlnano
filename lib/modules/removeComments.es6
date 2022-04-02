@@ -3,24 +3,26 @@ import { isComment, isConditionalComment } from '../helpers';
 const MATCH_EXCERPT_REGEXP = /<!-- ?more ?-->/i;
 
 /** Removes HTML comments */
-export default function removeComments(tree, options, removeType) {
+export function onNode(options, removeType) {
     if (removeType !== 'all' && removeType !== 'safe' && !isMatcher(removeType)) {
         removeType = 'safe';
     }
-
-    tree.walk(node => {
-        if (node.contents && node.contents.length) {
-            node.contents = node.contents.filter(content => ! isCommentToRemove(content, removeType));
-        } else if (isCommentToRemove(node, removeType)) {
-            node = '';
+    return (node) => {
+        if (isCommentToRemove(node, removeType)) {
+            return '';
         }
-
         return node;
-    });
-
-    return tree;
+    };
 }
 
+export function onContent(options, removeType) {
+    if (removeType !== 'all' && removeType !== 'safe' && !isMatcher(removeType)) {
+        removeType = 'safe';
+    }
+    return (contents) => {
+        return contents.filter(content => ! isCommentToRemove(content, removeType));
+    };
+}
 
 function isCommentToRemove(text, removeType) {
     if (typeof text !== 'string') {
