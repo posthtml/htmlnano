@@ -6,7 +6,13 @@ export const attributesWithLists = new Set([
     'rel', // a, area, link
     'ping', // a, area
     'sandbox', // iframe
-    'sizes', // link
+    /**
+     * https://github.com/posthtml/htmlnano/issues/180
+     * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-sizes
+     *
+     * "sizes" of <img> should not be modified, while "sizes" of <link> will only have one entry in most cases.
+     */
+    // 'sizes', // link
     'headers' // td, th
 ]);
 

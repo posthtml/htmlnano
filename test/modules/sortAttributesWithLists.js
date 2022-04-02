@@ -11,6 +11,16 @@ describe('sortAttributesWithLists', () => {
         );
     });
 
+    it('issue #180', () => {
+        return init(
+            '<img sizes="(min-width: 300px) 200px, 100px">',
+            '<img sizes="(min-width: 300px) 200px, 100px">',
+            {
+                sortAttributesWithLists: 'alphabetical',
+            }
+        );
+    });
+
     it('frequency', () => {
         return init(
             '<div class="foo baz bar"></div><div class="bar foo"></div>',
