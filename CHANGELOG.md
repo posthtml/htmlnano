@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.1] - 2022-04-04
+
+### Changed
+- Speed improvements [#127]
+- Fix `<img sizes>` [#180]
+
 
 ## [2.0.0] - 2022-01-12
 *The major version has to be released because of vulnerability in PostCSS (see [#165])*
@@ -233,6 +239,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 - Remove attributes that contains only white spaces.
 
 
+[2.0.1]: https://github.com/posthtml/htmlnano/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/posthtml/htmlnano/compare/1.1.1...2.0.0
 [1.1.1]: https://github.com/posthtml/htmlnano/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/posthtml/htmlnano/compare/1.0.1...1.1.0
@@ -259,6 +266,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 [0.1.2]: https://github.com/posthtml/htmlnano/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
+[#180]: https://github.com/posthtml/htmlnano/issues/180
 [#170]: https://github.com/posthtml/htmlnano/issues/170
 [#168]: https://github.com/posthtml/htmlnano/issues/168
 [#165]: https://github.com/posthtml/htmlnano/issues/165
@@ -273,6 +281,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 [#145]: https://github.com/posthtml/htmlnano/issues/145
 [#135]: https://github.com/posthtml/htmlnano/issues/135
 [#129]: https://github.com/posthtml/htmlnano/issues/129
+[#127]: https://github.com/posthtml/htmlnano/issues/127
 [#125]: https://github.com/posthtml/htmlnano/issues/125
 [#122]: https://github.com/posthtml/htmlnano/issues/122
 [#120]: https://github.com/posthtml/htmlnano/issues/120
