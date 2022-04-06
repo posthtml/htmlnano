@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.2] - 2022-04-06
+
+### Fixed
+- JSON-LD crash [#182]
+
+
 ## [2.0.1] - 2022-04-04
 **This version contains a critical bug [#182].**
 **Don't use it.**
@@ -241,6 +247,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 - Remove attributes that contains only white spaces.
 
 
+[2.0.2]: https://github.com/posthtml/htmlnano/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/posthtml/htmlnano/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/posthtml/htmlnano/compare/1.1.1...2.0.0
 [1.1.1]: https://github.com/posthtml/htmlnano/compare/1.1.0...1.1.1
@@ -268,6 +275,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 [0.1.2]: https://github.com/posthtml/htmlnano/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
+[#182]: https://github.com/posthtml/htmlnano/issues/182
 [#180]: https://github.com/posthtml/htmlnano/issues/180
 [#170]: https://github.com/posthtml/htmlnano/issues/170
 [#168]: https://github.com/posthtml/htmlnano/issues/168
