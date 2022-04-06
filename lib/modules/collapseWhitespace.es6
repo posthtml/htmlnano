@@ -78,7 +78,12 @@ function collapseRedundantWhitespaces(text, collapseType, shouldTrim = false, pa
     if (shouldTrim) {
         if (collapseType === 'aggressive') {
             if (!noTrimWhitespacesInsideElements.has(parent && parent.node && parent.node.tag)) {
-                if (!noTrimWhitespacesArroundElements.has(prevNode && prevNode.tag)) {
+                if (
+                    // It is the first child node of the parent
+                    !prevNode
+                    // It is not the first child node, and prevNode not a text node, and prevNode is safe to trim around
+                    || prevNode && prevNode.tag && !noTrimWhitespacesArroundElements.has(prevNode.tag)
+                ) {
                     text = text.trimStart();
                 } else {
                     // previous node is a "no trim whitespaces arround element"
@@ -99,7 +104,10 @@ function collapseRedundantWhitespaces(text, collapseType, shouldTrim = false, pa
                     }
                 }
 
-                if (!noTrimWhitespacesArroundElements.has(nextNode && nextNode.tag)) {
+                if (
+                    !nextNode
+                    || nextNode && nextNode.tag && !noTrimWhitespacesArroundElements.has(nextNode.tag)
+                ) {
                     text = text.trimEnd();
                 }
             } else {

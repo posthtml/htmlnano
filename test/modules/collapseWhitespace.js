@@ -145,6 +145,14 @@ describe('collapseWhitespace', () => {
             );
         });
 
+        it('handle whitespace along with comment', () => {
+            return init(
+                '<div>before<!-- --> <!-- --><a href="#link"></a>  <!-- -->  <!-- --> after</div>',
+                '<div>before<!-- --> <!-- --><a href="#link"></a> <!-- --> <!-- --> after</div>',
+                options
+            );
+        });
+
         it('renders the documentation example correctly', () => {
             return init(
                 documentationHtml,
