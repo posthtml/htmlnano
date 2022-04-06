@@ -11,7 +11,8 @@ export default function minifySvg(tree, options, svgoOptions = {}) {
         const result = svgo.optimize(svgStr, svgoOptions);
         node.tag = false;
         node.attrs = {};
-        node.content = result.data;
+        // result.data is a string, we need to cast it to an array
+        node.content = [result.data];
         return node;
     });
 

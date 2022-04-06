@@ -79,16 +79,16 @@ function htmlnano(optionsRun, presetRun) {
 
             const module = require('./modules/' + moduleName);
 
-            if (module.onAttrs) {
+            if (typeof module.onAttrs === 'function') {
                 attrsHandlers.push(module.onAttrs(options, moduleOptions));
             }
-            if (module.onContent) {
+            if (typeof module.onContent === 'function') {
                 contentsHandlers.push(module.onContent(options, moduleOptions));
             }
-            if (module.onNode) {
+            if (typeof module.onNode === 'function') {
                 nodeHandlers.push(module.onNode(options, moduleOptions));
             }
-            if (module.default) {
+            if (typeof module.default === 'function') {
                 promise = promise.then(tree => module.default(tree, options, moduleOptions));
             }
         }
@@ -99,28 +99,35 @@ function htmlnano(optionsRun, presetRun) {
 
         return promise.then(tree => {
             tree.walk(node => {
-                if (node.attrs) {
-                    // Convert all attrs' key to lower case
-                    let newAttrsObj = {};
-                    Object.entries(node.attrs).forEach(([attrName, attrValue]) => {
-                        newAttrsObj[attrName.toLowerCase()] = attrValue;
-                    });
+                if (node) {
+                    if (node.attrs && typeof node.attrs === 'object') {
+                        // Convert all attrs' key to lower case
+                        let newAttrsObj = {};
+                        Object.entries(node.attrs).forEach(([attrName, attrValue]) => {
+                            newAttrsObj[attrName.toLowerCase()] = attrValue;
+                        });
 
-                    for (const handler of attrsHandlers) {
-                        newAttrsObj = handler(newAttrsObj, node);
+                        for (const handler of attrsHandlers) {
+                            newAttrsObj = handler(newAttrsObj, node);
+                        }
+
+                        node.attrs = newAttrsObj;
                     }
 
-                    node.attrs = newAttrsObj;
-                }
+                    if (node.content) {
+                        node.content = typeof node.content === 'string' ? [node.content] : node.content;
 
-                if (node.content) {
-                    for (const handler of contentsHandlers) {
-                        node.content = handler(node.content, node);
+                        if (Array.isArray(node.content) && node.content.length > 0) {
+                            for (const handler of contentsHandlers) {
+                                const result = handler(node.content, node);
+                                node.content = typeof result === 'string' ? [result] : result;
+                            }
+                        }
                     }
-                }
 
-                for (const handler of nodeHandlers) {
-                    node = handler(node, node);
+                    for (const handler of nodeHandlers) {
+                        node = handler(node);
+                    }
                 }
 
                 return node;
