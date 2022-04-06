@@ -17,7 +17,10 @@ export function isAmpBoilerplate(node) {
 }
 
 export function isComment(content) {
-    return (content || '').trim().startsWith('<!--');
+    if (typeof content === 'string') {
+        return content.trim().startsWith('<!--');
+    }
+    return false;
 }
 
 export function isConditionalComment(content) {
