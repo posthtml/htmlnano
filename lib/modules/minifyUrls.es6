@@ -175,7 +175,7 @@ export default function minifyUrls(tree, options, moduleOptions) {
             if (isSrcsetAttribute(node.tag, attrNameLower)) {
                 if (srcset) {
                     try {
-                        const parsedSrcset = srcset.parse(attrValue);
+                        const parsedSrcset = srcset.parse(attrValue, { strict: true });
 
                         node.attrs[attrName] = srcset.stringify(parsedSrcset.map(srcset => {
                             if (relateUrlInstance) {
@@ -204,16 +204,15 @@ function isJavaScriptUrl(url) {
     return typeof url === 'string' && url.toLowerCase().startsWith(JAVASCRIPT_URL_PROTOCOL);
 }
 
+const jsWrapperStart = 'function a(){';
+const jsWrapperEnd = '}a();';
+
 function minifyJavaScriptUrl(node, attrName) {
     if (!terser) return Promise.resolve();
 
-    const jsWrapperStart = 'function a(){';
-    const jsWrapperEnd = '}a();';
-
     let result = node.attrs[attrName];
-
     if (result) {
-        result = result.slice(JAVASCRIPT_URL_PROTOCOL.length);
+        result = jsWrapperStart + result.slice(JAVASCRIPT_URL_PROTOCOL.length) + jsWrapperEnd;
 
         return terser
             .minify(result, {}) // Default Option is good enough
@@ -222,7 +221,7 @@ function minifyJavaScriptUrl(node, attrName) {
                     jsWrapperStart.length,
                     code.length - jsWrapperEnd.length
                 );
-                node.attrs[attrName] = minifiedJs;
+                node.attrs[attrName] = JAVASCRIPT_URL_PROTOCOL + minifiedJs;
             });
     }
 
