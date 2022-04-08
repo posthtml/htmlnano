@@ -75,3 +75,38 @@ posthtml(posthtmlPlugins)
         console.error(err);
     });
 ```
+
+## Webpack
+
+```sh
+npm install html-minimizer-webpack-plugin --save-dev
+npm install htmlnano --save-dev
+```
+
+```js
+// webpack.config.js
+const HtmlMinimizerWebpackPlugin = require('html-minimizer-webpack-plugin');
+const htmlnano = require('htmlnano');
+
+module.exports = {
+    optimization: {
+        minimize: true,
+        minimizer: [
+            // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
+            // `...`,
+            new HtmlMinimizerWebpackPlugin({
+                // Add HtmlMinimizerWebpackPlugin's option here, see https://webpack.js.org/plugins/html-minimizer-webpack-plugin/#options
+                // test: /\.html(\?.*)?$/i,
+
+                // Use htmlnano as HtmlMinimizerWebpackPlugin's minimizer
+                minify: htmlnano.htmlMinimizerWebpackPluginMinify,
+                minimizerOptions: {
+                    // Add htmlnano's option here
+                    removeComments: false, // Disable the module "removeComments"
+                    collapseWhitespace: 'conservative' // Pass options to the module "collapseWhitespace"
+                }
+            })
+        ]
+    }
+}
+```
