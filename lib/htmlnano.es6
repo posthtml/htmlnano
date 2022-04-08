@@ -150,6 +150,17 @@ htmlnano.process = function (html, options, preset, postHtmlOptions) {
         .process(html, postHtmlOptions);
 };
 
+// https://github.com/webpack-contrib/html-minimizer-webpack-plugin/blob/faca00f2219514bc671c5942685721f0b5dbaa70/src/utils.js#L74
+htmlnano.htmlMinimizerWebpackPluginMinify = function htmlNano(input, minimizerOptions = {}) {
+    const [[, code]] = Object.entries(input);
+    return htmlnano.process(code, minimizerOptions, presets.safe)
+        .then(result => {
+            return {
+                code: result.html
+            };
+        });
+};
+
 htmlnano.presets = presets;
 
 export default htmlnano;
