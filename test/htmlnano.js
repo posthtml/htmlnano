@@ -19,7 +19,7 @@ describe('[htmlnano]', () => {
         return init(
             '<div></div>',
             '<b></b>',
-            {notDefinedModule: true}
+            { notDefinedModule: true }
         ).catch(error => {
             expect(error.message).toBe('Module "notDefinedModule" is not defined');
         });
@@ -30,6 +30,15 @@ describe('[htmlnano]', () => {
             minifyUrl: true,
             minifyJs: {}
         })).toStrictEqual(['relateurl', 'srcset', 'terser']);
+    });
+
+    it('htmlMinimizerWebpackPluginMinify', () => {
+        return htmlnano.htmlMinimizerWebpackPluginMinify({
+            'index.html': '<div></div>'
+        }, {})
+            .then(result => expect(result).toStrictEqual({
+                code: '<div></div>'
+            }));
     });
 });
 
