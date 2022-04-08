@@ -1,26 +1,4 @@
 # Usage
-
-## Gulp
-```bash
-npm install --save-dev gulp-htmlnano
-```
-
-```js
-const gulp = require('gulp');
-const htmlnano = require('gulp-htmlnano');
-const options = {
-    removeComments: false
-};
-
-gulp.task('default', function() {
-    return gulp
-        .src('./index.html')
-        .pipe(htmlnano(options))
-        .pipe(gulp.dest('./build'));
-});
-```
-
-
 ## Javascript
 ```js
 const htmlnano = require('htmlnano');
@@ -76,6 +54,7 @@ posthtml(posthtmlPlugins)
     });
 ```
 
+
 ## Webpack
 
 ```sh
@@ -109,4 +88,30 @@ module.exports = {
         ]
     }
 }
+```
+
+
+
+## Gulp
+```bash
+npm i -D gulp-posthtml htmlnano
+```
+
+```js
+const gulp = require('gulp');
+const posthtml = require('gulp-posthtml');
+const htmlnano = require('htmlnano');
+const options = {
+    removeComments: false
+};
+
+gulp.task('default', function() {
+    return gulp
+        .src('./index.html')
+        .pipe(posthtml([
+            // Add `htmlnano` as a final plugin
+            htmlnano(options)
+        ]))
+        .pipe(gulp.dest('./build'));
+});
 ```
