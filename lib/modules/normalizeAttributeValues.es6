@@ -11,7 +11,7 @@ const caseInsensitiveAttributes = {
     kind: ['track'],
     method: ['form'],
     preload: ['audio', 'video'],
-    referrerpolicy: ['a', 'area', 'iframe', 'img', 'link'],
+    referrerpolicy: null,
     sandbox: ['iframe'],
     spellcheck: null,
     scope: ['th'],
@@ -35,11 +35,87 @@ const caseInsensitiveAttributes = {
     wrap: ['textarea']
 };
 
+// https://html.spec.whatwg.org/#invalid-value-default
+/** @typedef { [key: string]: { tag: null | string[], default: string, valid: string[] } } */
+const invalidValueDefault = {
+    crossorigin: {
+        tag: null,
+        default: 'anonymous',
+        valid: ['', 'anonymous', 'use-credentials']
+    },
+    // https://html.spec.whatwg.org/#referrer-policy-attributes
+    // The attribute's invalid value default and missing value default are both the empty string state.
+    referrerpolicy: {
+        tag: null,
+        default: '',
+        valid: ['', 'url', 'origin', 'no-referrer', 'no-referrer-when-downgrade', 'same-origin', 'origin-when-cross-origin', 'strict-origin-when-cross-origin', 'unsafe-url']
+    },
+    // https://html.spec.whatwg.org/#lazy-loading-attributes
+    loading: {
+        tag: ['img', 'iframe'],
+        default: 'eager',
+        valid: ['lazy', 'eager']
+    },
+    // https://html.spec.whatwg.org/#the-img-element
+    // https://html.spec.whatwg.org/#image-decoding-hint
+    decoding: {
+        tag: ['img'],
+        default: 'auto',
+        valid: ['auto', 'sync', 'async']
+    },
+    // https://html.spec.whatwg.org/#the-track-element
+    kind: {
+        tag: ['track'],
+        default: 'metadata',
+        valid: ['subtitles', 'captions', 'descriptions', 'chapters', 'metadata']
+    },
+    autocomplete: {
+        tag: null,
+        default: 'on',
+        valid: ['on', 'off']
+    },
+    type: {
+        tag: ['button'],
+        default: 'submit',
+        valid: ['submit', 'reset', 'button']
+    },
+    wrap: {
+        tag: ['textarea'],
+        default: 'soft',
+        valid: ['soft', 'hard']
+    },
+    // https://html.spec.whatwg.org/#the-hidden-attribute
+    hidden: {
+        tag: null,
+        default: 'hidden',
+        valid: ['hidden', 'until-found']
+    },
+    // https://html.spec.whatwg.org/#autocapitalization
+    autocapitalize: {
+        tag: null,
+        default: 'sentences',
+        valid: ['none', 'off', 'on', 'sentences', 'words', 'characters']
+    },
+    // https://html.spec.whatwg.org/#the-marquee-element
+    behavior: {
+        tag: ['marquee'],
+        default: 'scroll',
+        valid: ['scroll', 'slide', 'alternate']
+    },
+    direction: {
+        tag: ['marquee'],
+        default: 'left',
+        valid: ['left', 'right', 'up', 'down']
+    }
+};
+
 export function onAttrs() {
     return (attrs, node) => {
         const newAttrs = attrs;
 
         Object.entries(attrs).forEach(([attrName, attrValue]) => {
+            let newAttrValue = attrValue;
+
             if (
                 Object.hasOwnProperty.call(caseInsensitiveAttributes, attrName)
                 && (
@@ -47,8 +123,21 @@ export function onAttrs() {
                     || caseInsensitiveAttributes[attrName].includes(node.tag)
                 )
             ) {
-                newAttrs[attrName] = attrValue.toLowerCase ? attrValue.toLowerCase() : attrValue;
+                newAttrValue = attrValue.toLowerCase ? attrValue.toLowerCase() : attrValue;
             }
+
+            if (
+                Object.hasOwnProperty.call(invalidValueDefault, attrName)
+            ) {
+                const meta = invalidValueDefault[attrName];
+                if (meta.tag === null || (node && node.tag && meta.tag.includes(node.tag))) {
+                    if (!meta.valid.includes(newAttrValue)) {
+                        newAttrValue = meta.default;
+                    }
+                }
+            }
+
+            newAttrs[attrName] = newAttrValue;
         });
 
         return newAttrs;

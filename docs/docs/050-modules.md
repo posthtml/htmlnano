@@ -3,7 +3,47 @@
 By default the modules should only perform safe transforms, see the module documentation below for details.
 You can disable modules by passing `false` as option, and enable them by passing `true`.
 
+The order in which the modules are documented is also the order in which they are applied.
 
+### sortAttributes
+Sort attributes inside elements.
+
+The module won't impact the plain-text size of the output. However it will improve the compression ratio of gzip/brotli used in HTTP compression.
+
+#### Options
+
+- `alphabetical`: Default option. Sort attributes in alphabetical order.
+- `frequency`: Sort attributes by frequency.
+
+#### Example
+
+**alphabetical**
+
+Source:
+```html
+<input type="text" class="form-control" name="testInput" autofocus="" autocomplete="off" id="testId">
+```
+
+Processed:
+```html
+<input autocomplete="off" autofocus="" class="form-control" id="testId" name="testInput" type="text">
+```
+
+**frequency**
+
+Source:
+```html
+<input type="text" class="form-control" name="testInput" id="testId">
+<a id="testId" href="#" class="testClass"></a>
+<img width="20" src="../images/image.png" height="40" alt="image" class="cls" id="id2">
+```
+
+Processed:
+```html
+<input class="form-control" id="testId" type="text" name="testInput">
+<a class="testClass" id="testId" href="#"></a>
+<img class="cls" id="id2" width="20" src="../images/image.png" height="40" alt="image">
+```
 ### collapseAttributeWhitespace
 Collapse redundant white spaces in list-like attributes (`class`, `rel`, `ping`).
 
@@ -18,7 +58,63 @@ Minified:
 <a class="content page" style="display: block;" href="https://example.com"></a>
 ```
 
+### normalizeAttributeValues
 
+- Normalize casing of specific attribute values that are case-insensitive (like `form[method]`, `img[img]` and `input[type]`).
+- Apply [invalid value default](https://html.spec.whatwg.org/#invalid-value-default) attribute to invalid attribute values (like `<input type=foo>` to `<input type=text>`, which can then be minified to `<input>` by `removeRedundantAttributes` module).
+#### Example
+
+Source:
+
+```html
+<form method="GET"></form>
+```
+
+Minified:
+
+```html
+<form method="get"></form>
+```
+
+### collapseBooleanAttributes
+
+- Collapses boolean attributes (like `disabled`) to the minimized form.
+- Collapses empty string value attributes (like `href=""`) to the minimized form.
+- Collapses [missing value default](https://html.spec.whatwg.org/#missing-value-default) attributes that are empty strings (`audio[preload=auto]` and `video[preload=auto]`) to the minimized form.
+
+#### Options
+If your document uses [AMP](https://www.ampproject.org/), set the `amphtml` flag
+to collapse additonal, AMP-specific boolean attributes:
+```Json
+"collapseBooleanAttributes": {
+    "amphtml": true
+}
+```
+
+#### Side effects
+This module could break your styles or JS if you use selectors with attributes:
+```CSS
+button[disabled="disabled"] {
+    color: red;
+}
+```
+
+#### Example
+Source:
+```html
+<button disabled="disabled">click</button>
+<script defer=""></script>
+<a href=""></a>
+<video preload="auto"></video>
+```
+
+Minified:
+```html
+<button disabled>click</button>
+<script defer></script>
+<a href></a>
+<video preload></video>
+```
 
 ### collapseWhitespace
 Collapses redundant white spaces (including new lines). It doesn’t affect white spaces in the elements `<style>`, `<textarea>`, `<script>` and `<pre>`.
@@ -60,7 +156,6 @@ Minified (with `conservative`):
 <div> hello world! <a href="#">answer</a> <style>div  { color: red; }  </style> <main></main> </div>
 ```
 
-
 ### deduplicateAttributeValues
 Remove duplicate values from list-like attributes (`class`, `rel`, `ping`).
 
@@ -75,126 +170,53 @@ Minified:
 <div class="sidebar left"></div>
 ```
 
-
-### removeComments
-#### Options
-- `safe` – removes all HTML comments except the conditional comments and  [`<!--noindex--><!--/noindex-->`](https://yandex.com/support/webmaster/controlling-robot/html.xml) (default)
-- `all` — removes all HTML comments
-- A `RegExp` — only HTML comments matching the given regexp will be removed.
-- A `Function` that returns boolean — removes HTML comments that can make the given callback function returns truthy value.
+### mergeStyles
+Merges multiple `<style>` with the same `media` and `type` into one tag.
+`<style scoped>...</style>` are skipped.
 
 #### Example
-
 Source:
-
-```js
-{
-    removeComments: 'all'
-}
-```
-
 ```html
-<div><!-- test --></div>
+<style>h1 { color: red }</style>
+<style media="print">div { color: blue }</style>
+
+<style type="text/css" media="print">a {}</style>
+<style>div { font-size: 20px }</style>
 ```
 
 Minified:
-
 ```html
-<div></div>
-```
-
-Source:
-
-```js
-{
-    removeComments: /<!--(\/)?noindex-->/
-}
-```
-
-```html
-<div><!--noindex-->this text will not be indexed<!--/noindex-->Lorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet</div>
-```
-
-Minified:
-
-```html
-<div>this text will not be indexedLorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet</div>
-```
-
-Source:
-
-```js
-{
-    removeComments: (comments) => {
-        if (comments.includes('noindex')) return true;
-        return false;
-    }
-}
-```
-
-```html
-<div><!--noindex-->this text will not be indexed<!--/noindex-->Lorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet</div>
-```
-
-Minified:
-
-```html
-<div>this text will not be indexedLorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet</div>
+<style>h1 { color: red } div { font-size: 20px }</style>
+<style media="print">div { color: blue } a {}</style>
 ```
 
 
-### removeEmptyAttributes
-Removes empty [safe-to-remove](https://github.com/posthtml/htmlnano/blob/master/lib/modules/removeEmptyAttributes.es6) attributes.
+### mergeScripts
+Merge multiple `<script>` with the same attributes (`id, class, type, async, defer`) into one (last) tag.
 
 #### Side effects
-This module could break your styles or JS if you use selectors with attributes:
-```CSS
-img[style=""] {
-    margin: 10px;
-}
-```
+It could break your code if the tags with different attributes share the same variable scope.
+See the example below.
 
 #### Example
 Source:
 ```html
-<img src="foo.jpg" alt="" style="">
+<script>const foo = 'A:1';</script>
+<script class="test">foo = 'B:1';</script>
+<script type="text/javascript">foo = 'A:2';</script>
+<script defer>foo = 'C:1';</script>
+<script>foo = 'A:3';</script>
+<script defer="defer">foo = 'C:2';</script>
+<script class="test" type="text/javascript">foo = 'B:2';</script>
 ```
 
 Minified:
 ```html
-<img src="foo.jpg" alt="">
+<script>const foo = 'A:1'; foo = 'A:2'; foo = 'A:3';</script>
+<script defer="defer">foo = 'C:1'; foo = 'C:2';</script>
+<script class="test" type="text/javascript">foo = 'B:1'; foo = 'B:2';</script>
 ```
 
-### removeAttributeQuotes
-Remove quotes around attributes when possible, see [HTML Standard - 12.1.2.3 Attributes - Unquoted attribute value syntax](https://html.spec.whatwg.org/multipage/syntax.html#attributes-2).
-
-#### Example
-Source:
-```html
-<div class="foo" title="hello world"></div>
-```
-
-Minified:
-```html
-<div class=foo title="hello world"></div>
-```
-
-#### Notice
-The feature is implemented by [posthtml-render's `quoteAllAttributes`](https://github.com/posthtml/posthtml-render#options), which is one of the PostHTML's option. So `removeAttributeQuotes` could be overriden by other PostHTML's plugins and PostHTML's configuration.
-
-For example:
-
-```js
-posthtml([
-    htmlnano({
-        removeAttributeQuotes: true
-    })
-]).process(html, {
-    quoteAllAttributes: true
-})
-```
-
-`removeAttributeQuotes` will not work because PostHTML's `quoteAllAttributes` takes the priority.
 
 ### removeUnusedCss
 
@@ -477,7 +499,6 @@ Minified:
 ```html
 <!--[if lte IE 7]><style>.title{color:red}</style><![endif]-->
 ```
-
 ### removeRedundantAttributes
 Removes redundant attributes from tags if they contain default values:
 - `method="get"` from `<form>`
@@ -514,119 +535,125 @@ Minified:
 </form>
 ```
 
-
-### collapseBooleanAttributes
-Collapses boolean attributes (like `disabled`) to the minimized form.
-
-#### Options
-If your document uses [AMP](https://www.ampproject.org/), set the `amphtml` flag
-to collapse additonal, AMP-specific boolean attributes:
-```Json
-"collapseBooleanAttributes": {
-    "amphtml": true
-}
-```
+### removeEmptyAttributes
+Removes empty [safe-to-remove](https://github.com/posthtml/htmlnano/blob/master/lib/modules/removeEmptyAttributes.es6) attributes.
 
 #### Side effects
 This module could break your styles or JS if you use selectors with attributes:
 ```CSS
-button[disabled="disabled"] {
-    color: red;
+img[style=""] {
+    margin: 10px;
 }
 ```
 
 #### Example
 Source:
 ```html
-<button disabled="disabled">click</button>
-<script defer=""></script>
+<img src="foo.jpg" alt="" style="">
 ```
 
 Minified:
 ```html
-<button disabled>click</button>
-<script defer></script>
+<img src="foo.jpg" alt="">
 ```
 
 
-### mergeStyles
-Merges multiple `<style>` with the same `media` and `type` into one tag.
-`<style scoped>...</style>` are skipped.
+### removeComments
+#### Options
+- `safe` – removes all HTML comments except the conditional comments and  [`<!--noindex--><!--/noindex-->`](https://yandex.com/support/webmaster/controlling-robot/html.xml) (default)
+- `all` — removes all HTML comments
+- A `RegExp` — only HTML comments matching the given regexp will be removed.
+- A `Function` that returns boolean — removes HTML comments that can make the given callback function returns truthy value.
 
 #### Example
+
 Source:
-```html
-<style>h1 { color: red }</style>
-<style media="print">div { color: blue }</style>
 
-<style type="text/css" media="print">a {}</style>
-<style>div { font-size: 20px }</style>
-```
-
-Minified:
-```html
-<style>h1 { color: red } div { font-size: 20px }</style>
-<style media="print">div { color: blue } a {}</style>
-```
-
-
-### mergeScripts
-Merge multiple `<script>` with the same attributes (`id, class, type, async, defer`) into one (last) tag.
-
-#### Side effects
-It could break your code if the tags with different attributes share the same variable scope.
-See the example below.
-
-#### Example
-Source:
-```html
-<script>const foo = 'A:1';</script>
-<script class="test">foo = 'B:1';</script>
-<script type="text/javascript">foo = 'A:2';</script>
-<script defer>foo = 'C:1';</script>
-<script>foo = 'A:3';</script>
-<script defer="defer">foo = 'C:2';</script>
-<script class="test" type="text/javascript">foo = 'B:2';</script>
-```
-
-Minified:
-```html
-<script>const foo = 'A:1'; foo = 'A:2'; foo = 'A:3';</script>
-<script defer="defer">foo = 'C:1'; foo = 'C:2';</script>
-<script class="test" type="text/javascript">foo = 'B:1'; foo = 'B:2';</script>
-```
-
-
-### custom
-It's also possible to pass custom modules in the minifier.
-As a function:
 ```js
-const options = {
-    custom: function (tree, options) {
-        // Some minification
-        return tree;
+{
+    removeComments: 'all'
+}
+```
+
+```html
+<div><!-- test --></div>
+```
+
+Minified:
+
+```html
+<div></div>
+```
+
+Source:
+
+```js
+{
+    removeComments: /<!--(\/)?noindex-->/
+}
+```
+
+```html
+<div><!--noindex-->this text will not be indexed<!--/noindex-->Lorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet</div>
+```
+
+Minified:
+
+```html
+<div>this text will not be indexedLorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet</div>
+```
+
+Source:
+
+```js
+{
+    removeComments: (comments) => {
+        if (comments.includes('noindex')) return true;
+        return false;
     }
-};
+}
 ```
 
-Or as a list of functions:
+```html
+<div><!--noindex-->this text will not be indexed<!--/noindex-->Lorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet</div>
+```
+
+Minified:
+
+```html
+<div>this text will not be indexedLorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet</div>
+```
+
+### removeAttributeQuotes
+Remove quotes around attributes when possible, see [HTML Standard - 12.1.2.3 Attributes - Unquoted attribute value syntax](https://html.spec.whatwg.org/multipage/syntax.html#attributes-2).
+
+#### Example
+Source:
+```html
+<div class="foo" title="hello world"></div>
+```
+
+Minified:
+```html
+<div class=foo title="hello world"></div>
+```
+
+#### Notice
+The feature is implemented by [posthtml-render's `quoteAllAttributes`](https://github.com/posthtml/posthtml-render#options), which is one of the PostHTML's option. So `removeAttributeQuotes` could be overriden by other PostHTML's plugins and PostHTML's configuration.
+
+For example:
+
 ```js
-const options = {
-    custom: [
-        function (tree, options) {
-            // Some minification
-            return tree;
-        },
-
-        function (tree, options) {
-            // Some other minification
-            return tree;
-        }
-    ]
-};
+posthtml([
+    htmlnano({
+        removeAttributeQuotes: true
+    })
+]).process(html, {
+    quoteAllAttributes: true
+})
 ```
 
-`options` is an object with all options that were passed to the plugin.
+`removeAttributeQuotes` will not work because PostHTML's `quoteAllAttributes` takes the priority.
 
 ### sortAttributesWithLists
 Sort values in list-like attributes (`class`, `rel`, `ping`).
@@ -662,46 +689,6 @@ Source:
 Processed:
 ```html
 <div class="foo bar baz"></div><div class="foo bar"></div>
-```
-
-### sortAttributes
-Sort attributes inside elements.
-
-The module won't impact the plain-text size of the output. However it will improve the compression ratio of gzip/brotli used in HTTP compression.
-
-#### Options
-
-- `alphabetical`: Default option. Sort attributes in alphabetical order.
-- `frequency`: Sort attributes by frequency.
-
-#### Example
-
-**alphabetical**
-
-Source:
-```html
-<input type="text" class="form-control" name="testInput" autofocus="" autocomplete="off" id="testId">
-```
-
-Processed:
-```html
-<input autocomplete="off" autofocus="" class="form-control" id="testId" name="testInput" type="text">
-```
-
-**frequency**
-
-Source:
-```html
-<input type="text" class="form-control" name="testInput" id="testId">
-<a id="testId" href="#" class="testClass"></a>
-<img width="20" src="../images/image.png" height="40" alt="image" class="cls" id="id2">
-```
-
-Processed:
-```html
-<input class="form-control" id="testId" type="text" name="testInput">
-<a class="testClass" id="testId" href="#"></a>
-<img class="cls" id="id2" width="20" src="../images/image.png" height="40" alt="image">
 ```
 
 ### minifyUrls
@@ -817,22 +804,33 @@ Due to [the limitation of PostHTML](https://github.com/posthtml/htmlnano/issues/
 - `colgroup`
 - `tbody`
 
-### normalizeAttributeValues
-
-Normalize casing of attribute values.
-
-The module won't impact the plain-text size of the output. However it will improve the compression ratio of gzip/brotli used in HTTP compression.
-
-#### Example
-
-Source:
-
-```html
-<form method="GET"></form>
+### custom
+It's also possible to pass custom modules in the minifier.
+As a function:
+```js
+const options = {
+    custom: function (tree, options) {
+        // Some minification
+        return tree;
+    }
+};
 ```
 
-Minified:
+Or as a list of functions:
+```js
+const options = {
+    custom: [
+        function (tree, options) {
+            // Some minification
+            return tree;
+        },
 
-```html
-<form method="get"></form>
+        function (tree, options) {
+            // Some other minification
+            return tree;
+        }
+    ]
+};
 ```
+
+htmlnano's options are passed to your custom plugin by the second parameter `options`.

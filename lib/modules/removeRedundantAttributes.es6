@@ -18,17 +18,19 @@ export const redundantScriptTypes = new Set([
     'text/x-javascript'
 ]);
 
-const redundantAttributes = {
+// https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#missing-value-default
+const missingValueDefaultAttributes = {
     'form': {
         'method': 'get'
     },
 
-    'input': {
-        'type': 'text'
+    input: {
+        type: 'text'
     },
 
-    'button': {
-        'type': 'submit'
+    button: {
+        // https://html.spec.whatwg.org/multipage/form-elements.html#attr-button-type
+        type: 'submit'
     },
 
     'script': {
@@ -58,7 +60,7 @@ const redundantAttributes = {
     },
 
     'link': {
-        'media': 'all',
+        media: 'all',
         'type': attrs => {
             // https://html.spec.whatwg.org/multipage/links.html#link-type-stylesheet
             let isRelStyleSheet = false;
@@ -81,36 +83,17 @@ const redundantAttributes = {
     },
 
     // See: https://html.spec.whatwg.org/#lazy-loading-attributes
-    'img': {
-        'loading': 'eager'
-    },
-    'iframe': {
-        'loading': 'eager'
-    }
-};
-
-// See: https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#missing-value-default
-const canBeReplacedWithEmptyStringAttributes = {
-    audio: {
-        // https://html.spec.whatwg.org/#attr-media-preload
-        preload: 'auto'
-    },
-    video: {
-        preload: 'auto'
-    },
-
-    form: {
-        // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
-        autocomplete: 'on'
-    },
-
     img: {
+        'loading': 'eager',
         // https://html.spec.whatwg.org/multipage/embedded-content.html#dom-img-decoding
         decoding: 'auto'
     },
+    iframe: {
+        'loading': 'eager'
+    },
 
+    // https://html.spec.whatwg.org/multipage/media.html#htmltrackelement
     track: {
-        // https://html.spec.whatwg.org/multipage/media.html#htmltrackelement
         kind: 'subtitles'
     },
 
@@ -122,21 +105,10 @@ const canBeReplacedWithEmptyStringAttributes = {
     area: {
         // https://html.spec.whatwg.org/multipage/image-maps.html#attr-area-shape
         shape: 'rect'
-    },
-
-    button: {
-        // https://html.spec.whatwg.org/multipage/form-elements.html#attr-button-type
-        type: 'submit'
-    },
-
-    input: {
-        // https://html.spec.whatwg.org/multipage/input.html#states-of-the-type-attribute
-        type: 'text'
     }
 };
 
-const tagsHaveRedundantAttributes = new Set(Object.keys(redundantAttributes));
-const tagsHaveMissingValueDefaultAttributes = new Set(Object.keys(canBeReplacedWithEmptyStringAttributes));
+const tagsHaveMissingValueDefaultAttributes = new Set(Object.keys(missingValueDefaultAttributes));
 
 /** Removes redundant attributes */
 export function onAttrs() {
@@ -145,8 +117,8 @@ export function onAttrs() {
 
         const newAttrs = attrs;
 
-        if (tagsHaveRedundantAttributes.has(node.tag)) {
-            const tagRedundantAttributes = redundantAttributes[node.tag];
+        if (tagsHaveMissingValueDefaultAttributes.has(node.tag)) {
+            const tagRedundantAttributes = missingValueDefaultAttributes[node.tag];
 
             for (const redundantAttributeName of Object.keys(tagRedundantAttributes)) {
                 let tagRedundantAttributeValue = tagRedundantAttributes[redundantAttributeName];
@@ -160,23 +132,6 @@ export function onAttrs() {
 
                 if (isRemove) {
                     delete newAttrs[redundantAttributeName];
-                }
-            }
-        }
-
-        if (tagsHaveMissingValueDefaultAttributes.has(node.tag)) {
-            const tagMissingValueDefaultAttributes = canBeReplacedWithEmptyStringAttributes[node.tag];
-
-            for (const canBeReplacedWithEmptyStringAttributeName of Object.keys(tagMissingValueDefaultAttributes)) {
-                let tagMissingValueDefaultAttribute = tagMissingValueDefaultAttributes[canBeReplacedWithEmptyStringAttributeName];
-                let isReplace = false;
-
-                if (attrs[canBeReplacedWithEmptyStringAttributeName] === tagMissingValueDefaultAttribute) {
-                    isReplace = true;
-                }
-
-                if (isReplace) {
-                    newAttrs[canBeReplacedWithEmptyStringAttributeName] = '';
                 }
             }
         }

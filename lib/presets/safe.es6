@@ -4,11 +4,14 @@
 export default {
     sortAttributes: false,
     collapseAttributeWhitespace: true,
+    // normalizeAttributeValues will also normalize property value with invalid value default
+    // See https://html.spec.whatwg.org/#invalid-value-default
+    normalizeAttributeValues: true,
+    // collapseBooleanAttributes will also collapse those default state can be omitted
     collapseBooleanAttributes: {
         amphtml: false,
     },
     collapseWhitespace: 'conservative',
-    custom: [],
     deduplicateAttributeValues: true,
     mergeScripts: false,
     mergeStyles: false,
@@ -32,12 +35,14 @@ export default {
         ]
     },
     minifyConditionalComments: false,
+    // collapseBooleanAttributes will remove attributes when missing value default matches the attribute's value
+    // See https://html.spec.whatwg.org/#missing-value-default
     removeRedundantAttributes: false,
-    normalizeAttributeValues: true,
     removeEmptyAttributes: true,
     removeComments: 'safe',
     removeAttributeQuotes: false,
     sortAttributesWithLists: 'alphabetical',
     minifyUrls: false,
     removeOptionalTags: false,
+    custom: []
 };

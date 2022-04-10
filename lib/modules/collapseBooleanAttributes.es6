@@ -1,4 +1,6 @@
 // Source: https://github.com/kangax/html-minifier/issues/63
+// https://html.spec.whatwg.org/#boolean-attribute
+// https://html.spec.whatwg.org/#attributes-1
 const htmlBooleanAttributes = new Set([
     'allowfullscreen',
     'allowpaymentrequest',
@@ -27,12 +29,14 @@ const htmlBooleanAttributes = new Set([
     'multiple',
     'muted',
     'nohref',
+    'nomodule',
     'noresize',
     'noshade',
     'novalidate',
     'nowrap',
     'open',
     'pauseonexit',
+    'playsinline',
     'readonly',
     'required',
     'reversed',
@@ -102,11 +106,36 @@ const amphtmlBooleanAttributes = new Set([
     'subscriptions-dialog'
 ]);
 
+const missingValueDefaultEmptyStringAttributes = {
+    // https://html.spec.whatwg.org/#attr-media-preload
+    audio: {
+        preload: 'auto'
+    },
+    video: {
+        preload: 'auto'
+    }
+};
+
+const tagsHasMissingValueDefaultEmptyStringAttributes = new Set(Object.keys(missingValueDefaultEmptyStringAttributes));
+
 export function onAttrs(options, moduleOptions) {
     return (attrs, node) => {
         if (!node.tag) return attrs;
 
         const newAttrs = attrs;
+
+        if (tagsHasMissingValueDefaultEmptyStringAttributes.has(node.tag)) {
+            const tagAttributesCanBeReplacedWithEmptyString = missingValueDefaultEmptyStringAttributes[node.tag];
+
+            for (const attributesCanBeReplacedWithEmptyString of Object.keys(tagAttributesCanBeReplacedWithEmptyString)) {
+                if (
+                    Object.prototype.hasOwnProperty.call(attrs, attributesCanBeReplacedWithEmptyString)
+                    && attrs[attributesCanBeReplacedWithEmptyString] === tagAttributesCanBeReplacedWithEmptyString[attributesCanBeReplacedWithEmptyString]
+                ) {
+                    attrs[attributesCanBeReplacedWithEmptyString] = true;
+                }
+            }
+        }
 
         for (const attrName of Object.keys(attrs)) {
             if (attrName === 'visible' && node.tag.startsWith('a-')) {
@@ -116,7 +145,17 @@ export function onAttrs(options, moduleOptions) {
             if (htmlBooleanAttributes.has(attrName)) {
                 newAttrs[attrName] = true;
             }
+
+            // Fast path optimization.
+            // The rest of tranformations are only for string type attrValue.
+            if (typeof newAttrs[attrName] !== 'string') continue;
+
             if (moduleOptions.amphtml && amphtmlBooleanAttributes.has(attrName) && attrs[attrName] === '') {
+                newAttrs[attrName] = true;
+            }
+            // https://html.spec.whatwg.org/#a-quick-introduction-to-html
+            // The value, along with the "=" character, can be omitted altogether if the value is the empty string.
+            if (attrs[attrName] === '') {
                 newAttrs[attrName] = true;
             }
 
@@ -124,8 +163,7 @@ export function onAttrs(options, moduleOptions) {
             // Specification: https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attributes
             if (
                 attrName.toLowerCase() === 'crossorigin' && (
-                    attrs[attrName] === 'anonymous' ||
-                    attrs[attrName] === ''
+                    attrs[attrName] === 'anonymous'
                 )
             ) {
                 newAttrs[attrName] = true;
