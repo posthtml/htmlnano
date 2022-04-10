@@ -11,7 +11,7 @@ const caseInsensitiveAttributes = {
     kind: ['track'],
     method: ['form'],
     preload: ['audio', 'video'],
-    referrerpolicy: ['a', 'area', 'iframe', 'img', 'link'],
+    referrerpolicy: null,
     sandbox: ['iframe'],
     spellcheck: null,
     scope: ['th'],
@@ -114,6 +114,8 @@ export function onAttrs() {
         const newAttrs = attrs;
 
         Object.entries(attrs).forEach(([attrName, attrValue]) => {
+            let newAttrValue = attrValue;
+
             if (
                 Object.hasOwnProperty.call(caseInsensitiveAttributes, attrName)
                 && (
@@ -121,7 +123,7 @@ export function onAttrs() {
                     || caseInsensitiveAttributes[attrName].includes(node.tag)
                 )
             ) {
-                newAttrs[attrName] = attrValue.toLowerCase ? attrValue.toLowerCase() : attrValue;
+                newAttrValue = attrValue.toLowerCase ? attrValue.toLowerCase() : attrValue;
             }
 
             if (
@@ -129,11 +131,13 @@ export function onAttrs() {
             ) {
                 const meta = invalidValueDefault[attrName];
                 if (meta.tag === null || (node && node.tag && meta.tag.includes(node.tag))) {
-                    if (!meta.valid.includes(attrValue)) {
-                        newAttrs[attrName] = meta.default;
+                    if (!meta.valid.includes(newAttrValue)) {
+                        newAttrValue = meta.default;
                     }
                 }
             }
+
+            newAttrs[attrName] = newAttrValue;
         });
 
         return newAttrs;

@@ -29,7 +29,14 @@ describe('normalizeAttributeValues', () => {
                 // while input's invalid default value is ignored in out implementation
                 '<button type="submit"></button><input type="example">',
                 options
-            )
+            ),
+            // make sure case normalization is applied before invalid value default
+            init(
+                '<a referrerpolicy="uNSaFe-UrL"></a>',
+                // should be lower case instead of invalid value default
+                '<a referrerpolicy="unsafe-url"></a>',
+                options
+            ),
         ]);
     });
 });
