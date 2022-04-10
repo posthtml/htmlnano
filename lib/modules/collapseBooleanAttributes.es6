@@ -1,5 +1,6 @@
 // Source: https://github.com/kangax/html-minifier/issues/63
 // https://html.spec.whatwg.org/#boolean-attribute
+// https://html.spec.whatwg.org/#attributes-1
 const htmlBooleanAttributes = new Set([
     'allowfullscreen',
     'allowpaymentrequest',
@@ -28,12 +29,14 @@ const htmlBooleanAttributes = new Set([
     'multiple',
     'muted',
     'nohref',
+    'nomodule',
     'noresize',
     'noshade',
     'novalidate',
     'nowrap',
     'open',
     'pauseonexit',
+    'playsinline',
     'readonly',
     'required',
     'reversed',
