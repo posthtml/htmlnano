@@ -18,17 +18,19 @@ export const redundantScriptTypes = new Set([
     'text/x-javascript'
 ]);
 
+// https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#missing-value-default
 const redundantAttributes = {
     'form': {
         'method': 'get'
     },
 
-    'input': {
-        'type': 'text'
+    input: {
+        type: 'text'
     },
 
-    'button': {
-        'type': 'submit'
+    button: {
+        // https://html.spec.whatwg.org/multipage/form-elements.html#attr-button-type
+        type: 'submit'
     },
 
     'script': {
@@ -58,7 +60,7 @@ const redundantAttributes = {
     },
 
     'link': {
-        'media': 'all',
+        media: 'all',
         'type': attrs => {
             // https://html.spec.whatwg.org/multipage/links.html#link-type-stylesheet
             let isRelStyleSheet = false;
@@ -81,11 +83,28 @@ const redundantAttributes = {
     },
 
     // See: https://html.spec.whatwg.org/#lazy-loading-attributes
-    'img': {
+    img: {
+        'loading': 'eager',
+        // https://html.spec.whatwg.org/multipage/embedded-content.html#dom-img-decoding
+        decoding: 'auto'
+    },
+    iframe: {
         'loading': 'eager'
     },
-    'iframe': {
-        'loading': 'eager'
+
+    // https://html.spec.whatwg.org/multipage/media.html#htmltrackelement
+    track: {
+        kind: 'subtitles'
+    },
+
+    textarea: {
+        // https://html.spec.whatwg.org/multipage/form-elements.html#dom-textarea-wrap
+        wrap: 'soft'
+    },
+
+    area: {
+        // https://html.spec.whatwg.org/multipage/image-maps.html#attr-area-shape
+        shape: 'rect'
     }
 };
 
@@ -99,40 +118,11 @@ const canBeReplacedWithEmptyStringAttributes = {
         preload: 'auto'
     },
 
-    form: {
-        // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
-        autocomplete: 'on'
-    },
-
-    img: {
-        // https://html.spec.whatwg.org/multipage/embedded-content.html#dom-img-decoding
-        decoding: 'auto'
-    },
-
-    track: {
-        // https://html.spec.whatwg.org/multipage/media.html#htmltrackelement
-        kind: 'subtitles'
-    },
-
-    textarea: {
-        // https://html.spec.whatwg.org/multipage/form-elements.html#dom-textarea-wrap
-        wrap: 'soft'
-    },
-
-    area: {
-        // https://html.spec.whatwg.org/multipage/image-maps.html#attr-area-shape
-        shape: 'rect'
-    },
-
-    button: {
-        // https://html.spec.whatwg.org/multipage/form-elements.html#attr-button-type
-        type: 'submit'
-    },
-
-    input: {
-        // https://html.spec.whatwg.org/multipage/input.html#states-of-the-type-attribute
-        type: 'text'
-    }
+    // Form autocomplete doesn't have a missing value default any more
+    // form: {
+    //     // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
+    //     autocomplete: 'on'
+    // }
 };
 
 const tagsHaveRedundantAttributes = new Set(Object.keys(redundantAttributes));
