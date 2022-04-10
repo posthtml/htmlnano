@@ -19,7 +19,7 @@ export const redundantScriptTypes = new Set([
 ]);
 
 // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#missing-value-default
-const redundantAttributes = {
+const missingValueDefaultAttributes = {
     'form': {
         'method': 'get'
     },
@@ -108,25 +108,7 @@ const redundantAttributes = {
     }
 };
 
-// See: https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#missing-value-default
-const canBeReplacedWithEmptyStringAttributes = {
-    audio: {
-        // https://html.spec.whatwg.org/#attr-media-preload
-        preload: 'auto'
-    },
-    video: {
-        preload: 'auto'
-    },
-
-    // Form autocomplete doesn't have a missing value default any more
-    // form: {
-    //     // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
-    //     autocomplete: 'on'
-    // }
-};
-
-const tagsHaveRedundantAttributes = new Set(Object.keys(redundantAttributes));
-const tagsHaveMissingValueDefaultAttributes = new Set(Object.keys(canBeReplacedWithEmptyStringAttributes));
+const tagsHaveMissingValueDefaultAttributes = new Set(Object.keys(missingValueDefaultAttributes));
 
 /** Removes redundant attributes */
 export function onAttrs() {
@@ -135,8 +117,8 @@ export function onAttrs() {
 
         const newAttrs = attrs;
 
-        if (tagsHaveRedundantAttributes.has(node.tag)) {
-            const tagRedundantAttributes = redundantAttributes[node.tag];
+        if (tagsHaveMissingValueDefaultAttributes.has(node.tag)) {
+            const tagRedundantAttributes = missingValueDefaultAttributes[node.tag];
 
             for (const redundantAttributeName of Object.keys(tagRedundantAttributes)) {
                 let tagRedundantAttributeValue = tagRedundantAttributes[redundantAttributeName];
@@ -150,23 +132,6 @@ export function onAttrs() {
 
                 if (isRemove) {
                     delete newAttrs[redundantAttributeName];
-                }
-            }
-        }
-
-        if (tagsHaveMissingValueDefaultAttributes.has(node.tag)) {
-            const tagMissingValueDefaultAttributes = canBeReplacedWithEmptyStringAttributes[node.tag];
-
-            for (const canBeReplacedWithEmptyStringAttributeName of Object.keys(tagMissingValueDefaultAttributes)) {
-                let tagMissingValueDefaultAttribute = tagMissingValueDefaultAttributes[canBeReplacedWithEmptyStringAttributeName];
-                let isReplace = false;
-
-                if (attrs[canBeReplacedWithEmptyStringAttributeName] === tagMissingValueDefaultAttribute) {
-                    isReplace = true;
-                }
-
-                if (isReplace) {
-                    newAttrs[canBeReplacedWithEmptyStringAttributeName] = '';
                 }
             }
         }
