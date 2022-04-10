@@ -41,7 +41,7 @@ const invalidValueDefault = {
     crossorigin: {
         tag: null,
         default: 'anonymous',
-        valid: ['anonymous', 'use-credentials']
+        valid: ['', 'anonymous', 'use-credentials']
     },
     // https://html.spec.whatwg.org/#referrer-policy-attributes
     // The attribute's invalid value default and missing value default are both the empty string state.

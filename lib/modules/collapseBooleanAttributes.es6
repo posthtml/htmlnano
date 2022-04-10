@@ -1,4 +1,5 @@
 // Source: https://github.com/kangax/html-minifier/issues/63
+// https://html.spec.whatwg.org/#boolean-attribute
 const htmlBooleanAttributes = new Set([
     'allowfullscreen',
     'allowpaymentrequest',
@@ -141,6 +142,11 @@ export function onAttrs(options, moduleOptions) {
             if (htmlBooleanAttributes.has(attrName)) {
                 newAttrs[attrName] = true;
             }
+
+            // Fast path optimization.
+            // The rest of tranformations are only for string type attrValue.
+            if (typeof newAttrs[attrName] !== 'string') continue;
+
             if (moduleOptions.amphtml && amphtmlBooleanAttributes.has(attrName) && attrs[attrName] === '') {
                 newAttrs[attrName] = true;
             }
