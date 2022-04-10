@@ -12,7 +12,6 @@ export default {
         amphtml: false,
     },
     collapseWhitespace: 'conservative',
-    custom: [],
     deduplicateAttributeValues: true,
     mergeScripts: false,
     mergeStyles: false,
@@ -45,4 +44,5 @@ export default {
     sortAttributesWithLists: 'alphabetical',
     minifyUrls: false,
     removeOptionalTags: false,
+    custom: []
 };
