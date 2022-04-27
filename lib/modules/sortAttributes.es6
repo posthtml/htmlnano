@@ -47,7 +47,7 @@ class AttributeTokenChain {
 
         this.sortOrder.forEach(attrNameLower => {
             // The attrName inside "sortOrder" has been lowered
-            if (loweredNodeAttrs[attrNameLower]) {
+            if (loweredNodeAttrs[attrNameLower] != null) {
                 newAttrs[attrNameLower] = loweredNodeAttrs[attrNameLower];
             }
         });
