@@ -48,6 +48,15 @@ describe('removeComments', () => {
                 options
             );
         });
+
+        // https://github.com/posthtml/htmlnano/issues/137
+        it('issue #137', () => {
+            return init(
+                '<div id="baz">Some text which... <!-- a comment --> ...surrounds a comment.</div>',
+                '<div id="baz">Some text which...  ...surrounds a comment.</div>',
+                options
+            );
+        });
     });
 
 
