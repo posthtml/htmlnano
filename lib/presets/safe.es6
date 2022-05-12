@@ -2,20 +2,42 @@
  * Minify HTML in a safe way without breaking anything.
  */
 export default {
-    sortAttributes: false,
-    collapseAttributeWhitespace: true,
+    /* ----------------------------------------
+     * Attributes
+     * ---------------------------------------- */
+    // normalize the case of attribute names and values
     // normalizeAttributeValues will also normalize property value with invalid value default
     // See https://html.spec.whatwg.org/#invalid-value-default
     normalizeAttributeValues: true,
+    removeEmptyAttributes: true,
+    collapseAttributeWhitespace: true,
+    // removeRedundantAttributes will remove attributes when missing value default matches the attribute's value
+    // See https://html.spec.whatwg.org/#missing-value-default
+    removeRedundantAttributes: false,
     // collapseBooleanAttributes will also collapse those default state can be omitted
     collapseBooleanAttributes: {
         amphtml: false,
     },
-    collapseWhitespace: 'conservative',
     deduplicateAttributeValues: true,
-    mergeScripts: false,
+
+    minifyUrls: false,
+
+    sortAttributes: false,
+    sortAttributesWithLists: 'alphabetical',
+
+    /* ----------------------------------------
+     * Minify HTML content
+     * ---------------------------------------- */
+    collapseWhitespace: 'conservative',
+    removeComments: 'safe',
+    minifyConditionalComments: false,
+    removeOptionalTags: false,
+    removeAttributeQuotes: false,
+    /* ----------------------------------------
+     * Minify inline <style>, <script> and <svg> tag
+     * ---------------------------------------- */
     mergeStyles: false,
-    removeUnusedCss: false,
+    mergeScripts: false,
     minifyCss: {
         preset: 'default',
     },
@@ -34,15 +56,10 @@ export default {
             },
         ]
     },
-    minifyConditionalComments: false,
-    // collapseBooleanAttributes will remove attributes when missing value default matches the attribute's value
-    // See https://html.spec.whatwg.org/#missing-value-default
-    removeRedundantAttributes: false,
-    removeEmptyAttributes: true,
-    removeComments: 'safe',
-    removeAttributeQuotes: false,
-    sortAttributesWithLists: 'alphabetical',
-    minifyUrls: false,
-    removeOptionalTags: false,
+    removeUnusedCss: false,
+
+    /* ----------------------------------------
+     * Miscellaneous
+     * ---------------------------------------- */
     custom: []
 };
