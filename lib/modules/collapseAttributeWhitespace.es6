@@ -73,6 +73,8 @@ export function onAttrs() {
         const newAttrs = attrs;
 
         Object.entries(attrs).forEach(([attrName, attrValue]) => {
+            if (typeof attrValue !== 'string') return;
+
             if (attributesWithLists.has(attrName)) {
                 const newAttrValue = attrValue.replace(/\s+/g, ' ').trim();
                 newAttrs[attrName] = newAttrValue;
@@ -82,7 +84,7 @@ export function onAttrs() {
             if (
                 isEventHandler(attrName)
                 || (
-                    Object.hasOwnProperty.call(attributesWithSingleValue, attrName)
+                    Object.prototype.hasOwnProperty.call(attributesWithSingleValue, attrName)
                     && (
                         attributesWithSingleValue[attrName] === null
                         || attributesWithSingleValue[attrName].includes(node.tag)
@@ -98,5 +100,5 @@ export function onAttrs() {
 }
 
 function minifySingleAttributeValue(value) {
-    return typeof value === 'string' ? String(value).trim() : value;
+    return typeof value === 'string' ? value.trim() : value;
 }

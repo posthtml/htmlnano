@@ -123,7 +123,7 @@ export function onAttrs() {
                     || caseInsensitiveAttributes[attrName].includes(node.tag)
                 )
             ) {
-                newAttrValue = attrValue.toLowerCase ? attrValue.toLowerCase() : attrValue;
+                newAttrValue = typeof attrValue.toLowerCase === 'function' ? attrValue.toLowerCase() : attrValue;
             }
 
             if (

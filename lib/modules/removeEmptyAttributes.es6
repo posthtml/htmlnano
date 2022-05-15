@@ -108,8 +108,10 @@ export function onAttrs() {
                     )
                 )
             ) {
-                if (attrValue === '' || (attrValue || '').match(/^\s+$/)) {
-                    delete newAttrs[attrName];
+                if (typeof attrValue === 'string') {
+                    if (attrValue === '' || attrValue.trim() === '') {
+                        delete newAttrs[attrName];
+                    }
                 }
             }
         });

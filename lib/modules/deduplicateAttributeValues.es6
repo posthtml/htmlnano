@@ -9,6 +9,10 @@ export function onAttrs() {
                 return;
             }
 
+            if (typeof attrs[attrName] !== 'string') {
+                return;
+            }
+
             const attrValues = attrs[attrName].split(/\s/);
             const uniqeAttrValues = new Set();
             const deduplicatedAttrValues = [];
