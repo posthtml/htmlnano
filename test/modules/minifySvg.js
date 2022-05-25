@@ -110,4 +110,21 @@ describe('minifySvg', () => {
             options
         );
     });
+
+    // https://github.com/posthtml/htmlnano/issues/197
+    it('shouldn\'t choke on svg errors', () => {
+        const input = `
+        <!doctype html>
+        <svg viewBox="0 0 100 100">
+            <text x="20" y="20" style="fill: black;">&cross;</text>
+        </svg>
+        `;
+        return init(
+            input,
+            input,
+            {
+                minifySvg: {}
+            }
+        );
+    });
 });
