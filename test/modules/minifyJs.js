@@ -47,6 +47,22 @@ describe('minifyJs', () => {
         );
     });
 
+    it('should minify JS with `this` inside on* attributes ', () => {
+        return init(
+            '<video oncanplay="this.currentTime = 1.2; this.oncanplay=null;"></video>',
+            '<video oncanplay="this.currentTime=1.2,this.oncanplay=null"></video>',
+            options
+        );
+    });
+
+    it('should minify JS with `this` inside on* attributes with `module` option', () => {
+        return init(
+            '<video oncanplay="this.currentTime = 1.2; this.oncanplay=null;"></video>',
+            '<video oncanplay="this.currentTime=1.2,this.oncanplay=null"></video>',
+            {minifyJs: { module: true }}
+        );
+    });
+
     it('should not minify JS inside HTML comments', () => {
         return init(
             '<div><!-- <script> var foob = function () {}; </script> --></div>',
