@@ -38,7 +38,7 @@ interface Presets {
   max: HtmlnanoPreset;
 }
 
-type Preset = Presets["safe" | "ampSafe" | "max"];
+type Preset = Presets[keyof Presets];
 
 export function loadConfig(
   options?: HtmlnanoOptions,
