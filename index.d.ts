@@ -1,4 +1,5 @@
 import type PostHTML from "posthtml";
+import type terser from "terser";
 
 interface HtmlnanoOptions {
   skipConfigLoading?: boolean;
@@ -16,7 +17,7 @@ interface HtmlnanoOptions {
     preset?: any;
   };
   minifyConditionalComments?: boolean;
-  minifyJs?: any;
+  minifyJs?: terser.FormatOptions;
   minifyJson?: any;
   minifySvg?: any;
   normalizeAttributeValues?: boolean;
