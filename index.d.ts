@@ -1,7 +1,9 @@
 import type PostHTML from "posthtml";
 import type terser from "terser";
+import type { Options as CssNanoOptions } from "cssnano";
+import type { OptimizeOptions as SvgoOptimizeOptions } from "svgo";
 
-interface HtmlnanoOptions {
+export interface HtmlnanoOptions {
   skipConfigLoading?: boolean;
   collapseAttributeWhitespace?: boolean;
   collapseBooleanAttributes?: {
@@ -10,30 +12,28 @@ interface HtmlnanoOptions {
   collapseWhitespace?: "conservative" | "all" | "aggressive";
   custom?: (tree: PostHTML.Node, options?: any) => PostHTML.Node;
   deduplicateAttributeValues?: boolean;
-  minifyUrls?: boolean;
+  minifyUrls?: URL | string | false;
   mergeStyles?: boolean;
   mergeScripts?: boolean;
-  minifyCss?: {
-    preset?: any;
-  };
+  minifyCss?: CssNanoOptions | boolean;
   minifyConditionalComments?: boolean;
-  minifyJs?: terser.FormatOptions;
-  minifyJson?: any;
-  minifySvg?: any;
+  minifyJs?: terser.FormatOptions | boolean;
+  minifyJson?: boolean;
+  minifySvg?: SvgoOptimizeOptions | boolean;
   normalizeAttributeValues?: boolean;
   removeAttributeQuotes?: boolean;
-  removeComments?: boolean | "safe" | "all" | RegExp | (() => void);
+  removeComments?: boolean | "safe" | "all" | RegExp | (() => boolean);
   removeEmptyAttributes?: boolean;
   removeRedundantAttributes?: boolean;
   removeOptionalTags?: boolean;
   removeUnusedCss?: boolean;
-  sortAttributes?: boolean;
-  sortAttributesWithLists?: "alphabetical" | "frequency";
+  sortAttributes?: boolean | "alphabetical" | "frequency";
+  sortAttributesWithLists?: boolean | "alphabetical" | "frequency";
 }
 
-interface HtmlnanoPreset extends Omit<HtmlnanoOptions, "skipConfigLoading"> {}
+export interface HtmlnanoPreset extends Omit<HtmlnanoOptions, "skipConfigLoading"> {}
 
-interface Presets {
+export interface Presets {
   safe: HtmlnanoPreset;
   ampSafe: HtmlnanoPreset;
   max: HtmlnanoPreset;

@@ -50,7 +50,7 @@
     "@babel/eslint-parser": "^7.17.0",
     "@babel/preset-env": "^7.15.6",
     "@babel/register": "^7.15.3",
-    "cssnano": "^5.0.11",
+    "cssnano": "^5.1.12",
     "eslint": "^8.12.0",
     "expect": "^27.2.0",
     "mocha": "^9.1.0",
