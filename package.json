@@ -12,13 +12,7 @@
     "pretest": "npm run lint && npm run compile",
     "test": ":",
     "posttest": "mocha --timeout 5000 --require @babel/register --recursive --check-leaks --globals addresses",
-    "prepare": "npm run compile",
-    "release:patch": "release-it patch -n"
-  },
-  "release-it": {
-    "hooks": {
-      "before:init": "npm test"
-    }
+    "prepare": "npm run compile"
   },
   "keywords": [
     "posthtml",
@@ -57,7 +51,6 @@
     "postcss": "^8.3.11",
     "purgecss": "^4.0.3",
     "relateurl": "^0.2.7",
-    "release-it": "^14.11.5",
     "rimraf": "^3.0.2",
     "srcset": "4.0.0",
     "svgo": "^2.8.0",
