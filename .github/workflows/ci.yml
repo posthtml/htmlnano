@@ -22,11 +22,25 @@ jobs:
       - run: npm install
       - run: npm test
 
+  test-docs:
+    name: Run tests for docs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['16']
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
       - name: Install docs dependencies
         run: npm install
         working-directory: docs
 
       - name: Test docs build
-        if: always()
-        run: NODE_OPTIONS=--openssl-legacy-provider npm run build
+        run: npm run build
         working-directory: docs
