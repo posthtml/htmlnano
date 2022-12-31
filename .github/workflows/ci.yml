@@ -28,5 +28,5 @@ jobs:
 
       - name: Test docs build
         if: always()
-        run: npm run build
+        run: NODE_OPTIONS=--openssl-legacy-provider npm run build
         working-directory: docs
