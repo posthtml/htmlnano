@@ -9,24 +9,38 @@ jobs:
     strategy:
       matrix:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        node-version: ['14', '16']
+        node-version: ['16', '18', '19']
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
       - run: npm install
       - run: npm test
 
+  test-docs:
+    name: Run tests for docs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['16']
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
       - name: Install docs dependencies
         run: npm install
         working-directory: docs
 
       - name: Test docs build
-        if: always()
         run: npm run build
         working-directory: docs
