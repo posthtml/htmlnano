@@ -4,13 +4,30 @@ import { redundantScriptTypes } from './removeRedundantAttributes';
 const terser = optionalRequire('terser');
 
 /** Minify JS with Terser */
-export default function minifyJs(tree, options, terserOptions) {
+export default function minifyJs (tree, options, terserOptions) {
     if (!terser) return tree;
 
     let promises = [];
     tree.walk(node => {
+        const nodeAttrs = node.attrs || {};
+
+        /**
+         * Skip SRI
+         *
+         * If the input <script /> has an SRI attribute, it means that the original <script /> could be trusted,
+         * and should not be altered anymore.
+         *
+         * htmlnano is exactly an MITM that SRI is designed to protect from. If htmlnano or its dependencies get
+         * compromised and introduces malicious code, then it is up to the original SRI to protect the end user.
+         *
+         * So htmlnano will simply skip <script /> that has SRI.
+         * If developers do trust htmlnano, they should generate SRI after htmlnano modify the <script />.
+         */
+        if ('integrity' in nodeAttrs) {
+            return node;
+        }
+
         if (node.tag && node.tag === 'script') {
-            const nodeAttrs = node.attrs || {};
             const mimeType = nodeAttrs.type || 'text/javascript';
             if (redundantScriptTypes.has(mimeType) || mimeType === 'module') {
                 promises.push(processScriptNode(node, terserOptions));
@@ -28,7 +45,7 @@ export default function minifyJs(tree, options, terserOptions) {
 }
 
 
-function stripCdata(js) {
+function stripCdata (js) {
     const leftStrippedJs = js.replace(/\/\/\s*<!\[CDATA\[/, '').replace(/\/\*\s*<!\[CDATA\[\s*\*\//, '');
     if (leftStrippedJs === js) {
         return js;
@@ -39,7 +56,7 @@ function stripCdata(js) {
 }
 
 
-function processScriptNode(scriptNode, terserOptions) {
+function processScriptNode (scriptNode, terserOptions) {
     let js = (scriptNode.content || []).join('').trim();
     if (!js) {
         return scriptNode;
@@ -73,7 +90,7 @@ function processScriptNode(scriptNode, terserOptions) {
 }
 
 
-function processNodeWithOnAttrs(node, terserOptions) {
+function processNodeWithOnAttrs (node, terserOptions) {
     const jsWrapperStart = 'a=function(){';
     const jsWrapperEnd = '};a();';
 

@@ -8,7 +8,9 @@ export default function mergeStyles(tree) {
         const nodeAttrs = node.attrs || {};
         // Skip <style scoped></style>
         // https://developer.mozilla.org/en/docs/Web/HTML/Element/style
-        if (nodeAttrs.scoped !== undefined) {
+        //
+        // Also skip SRI, reasons are documented in "minifyJs" module
+        if ('scoped' in nodeAttrs || 'integrity' in nodeAttrs) {
             return node;
         }
 

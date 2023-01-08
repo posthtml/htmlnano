@@ -33,6 +33,15 @@ describe('mergeStyles', () => {
         );
     });
 
+    it('should skip <style> with SRI', () => {
+        const html = `<style>h1 { color: red }</style>
+                      <div></div>
+                      <style integrity="example">div { color: blue }</style>`;
+        return init(
+            html, html, options
+        );
+    });
+
 
     it('should preserve amp-custom', () => {
         return init(

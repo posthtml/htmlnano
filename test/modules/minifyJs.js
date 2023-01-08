@@ -28,6 +28,25 @@ describe('minifyJs', () => {
         );
     });
 
+    it('should not minify JS with <script> + SRI', () => {
+        return init(
+            `<div>
+                <script integrity="example"> /* test */ var foob = function () {}; </script>
+                <script integrity="example" type="module"> /* test */ var foob = function () {}; </script>
+                <script integrity="example" type="text/javascript"> /* test */ var foob = function () {}; </script>
+                <script integrity="example" type="application/javascript"> /* test */ var foob = function () {}; </script>
+             </div>`,
+            `<div>
+                <script integrity="example"> /* test */ var foob = function () {}; </script>
+                <script integrity="example" type="module"> /* test */ var foob = function () {}; </script>
+                <script integrity="example" type="text/javascript"> /* test */ var foob = function () {}; </script>
+                <script integrity="example" type="application/javascript"> /* test */ var foob = function () {}; </script>
+             </div>`,
+            options
+        );
+    });
+
+
     it('should minify ES6 inside <script>', () => {
         return init(
             `<script>
