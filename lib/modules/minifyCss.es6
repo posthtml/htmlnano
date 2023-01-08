@@ -18,6 +18,10 @@ export default function minifyCss(tree, options, cssnanoOptions) {
 
     let promises = [];
     tree.walk(node => {
+        if (node.attrs && 'integrity' in node.attrs) {
+            return node;
+        }
+
         if (isStyleNode(node)) {
             promises.push(processStyleNode(node, cssnanoOptions));
         } else if (node.attrs && node.attrs.style) {

@@ -36,6 +36,23 @@ describe('minifyCss', function () {
         );
     });
 
+    it('should not minify CSS inside <style> + SRI', () => {
+        const html = `<div><style integrity="example">
+        h1 {
+            margin: 10px 10px 10px 10px;
+            color: #ff0000;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+        }
+    </style></div>`;
+        return init(
+            html,
+            html,
+            options
+        );
+    });
+
+
 
     it('should minify CSS inside style attribute', () => {
         return init(
