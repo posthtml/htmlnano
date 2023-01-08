@@ -2,6 +2,11 @@ const rNodeAttrsTypeJson = /(\/|\+)json/;
 
 export function onContent() {
     return (content, node) => {
+        // Skip SRI
+        if (node.attrs && 'integrity' in node.attrs) {
+            return content;
+        }
+
         if (node.attrs && node.attrs.type && rNodeAttrsTypeJson.test(node.attrs.type)) {
             try {
                 // cast minified JSON to an array

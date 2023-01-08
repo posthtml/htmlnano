@@ -26,6 +26,25 @@ describe('minifyJson', () => {
         );
     });
 
+    it('should skip JSON inside <script> tags with SRI', () => {
+        const fixtures = `<script type="application/json" integrity="example">
+                {
+                    "test": 5
+                }
+             </script>
+             <script type="application/ld+json" integrity="example">
+                {
+                    "test": 6
+                }
+             </script>`;
+
+        return init(
+            fixtures,
+            fixtures,
+            options
+        );
+    });
+
     it('should skip <script> tags with non-JSON mime type', () => {
         return init(
             '<script>{"test": 5}</script>',
