@@ -2,7 +2,7 @@ const rNodeAttrsTypeJson = /(\/|\+)json/;
 
 export function onContent() {
     return (content, node) => {
-        // Skip SRI
+        // Skip SRI, reasons are documented in "minifyJs" module
         if (node.attrs && 'integrity' in node.attrs) {
             return content;
         }

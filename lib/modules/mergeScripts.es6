@@ -7,7 +7,7 @@ export default function mergeScripts (tree) {
         const nodeAttrs = node.attrs || {};
         if (
             'src' in nodeAttrs
-            // Skip SRI
+            // Skip SRI, reasons are documented in "minifyJs" module
             || 'integrity' in nodeAttrs
         ) {
             scriptSrcIndex++;

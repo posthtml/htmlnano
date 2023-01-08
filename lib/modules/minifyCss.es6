@@ -18,6 +18,7 @@ export default function minifyCss(tree, options, cssnanoOptions) {
 
     let promises = [];
     tree.walk(node => {
+        // Skip SRI, reasons are documented in "minifyJs" module
         if (node.attrs && 'integrity' in node.attrs) {
             return node;
         }

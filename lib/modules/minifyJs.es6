@@ -10,6 +10,19 @@ export default function minifyJs (tree, options, terserOptions) {
     let promises = [];
     tree.walk(node => {
         const nodeAttrs = node.attrs || {};
+
+        /**
+         * Skip SRI
+         *
+         * If the input <script /> has an SRI attribute, it means that the original <script /> could be trusted,
+         * and should not be altered anymore.
+         *
+         * htmlnano is exactly an MITM that SRI is designed to protect from. If htmlnano or its dependencies get
+         * compromised and introduces malicious code, then it is up to the original SRI to protect the end user.
+         *
+         * So htmlnano will simply skip <script /> that has SRI.
+         * If developers do trust htmlnano, they should generate SRI after htmlnano modify the <script />.
+         */
         if ('integrity' in nodeAttrs) {
             return node;
         }
