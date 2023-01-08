@@ -1,11 +1,15 @@
 /* Merge multiple <script> into one */
-export default function mergeScripts(tree) {
+export default function mergeScripts (tree) {
     let scriptNodesIndex = {};
     let scriptSrcIndex = 1;
 
-    tree.match({tag: 'script'}, node => {
+    tree.match({ tag: 'script' }, node => {
         const nodeAttrs = node.attrs || {};
-        if (nodeAttrs.src) {
+        if (
+            'src' in nodeAttrs
+            // Skip SRI
+            || 'integrity' in nodeAttrs
+        ) {
             scriptSrcIndex++;
             return node;
         }
@@ -23,7 +27,7 @@ export default function mergeScripts(tree) {
             async: nodeAttrs.async !== undefined,
             index: scriptSrcIndex,
         });
-        if (! scriptNodesIndex[scriptKey]) {
+        if (!scriptNodesIndex[scriptKey]) {
             scriptNodesIndex[scriptKey] = [];
         }
 
