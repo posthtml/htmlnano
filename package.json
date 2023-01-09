@@ -34,7 +34,7 @@
     ]
   },
   "dependencies": {
-    "cosmiconfig": "^7.0.1",
+    "cosmiconfig": "^8.0.0",
     "posthtml": "^0.16.5",
     "timsort": "^0.3.0"
   },
