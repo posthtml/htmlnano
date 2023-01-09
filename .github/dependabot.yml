@@ -6,3 +6,15 @@ updates:
     schedule:
       interval: "weekly"
       time: "01:00"
+  - package-ecosystem: 'npm'
+    directory: "/"
+    open-pull-requests-limit: 5
+    schedule:
+      interval: "daily"
+      time: "02:00"
+  - package-ecosystem: 'npm'
+    open-pull-requests-limit: 5
+    directory: "/docs"
+    schedule:
+      interval: "weekly"
+      time: "03:00"
