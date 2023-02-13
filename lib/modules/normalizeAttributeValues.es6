@@ -69,11 +69,6 @@ const invalidValueDefault = {
         default: 'metadata',
         valid: ['subtitles', 'captions', 'descriptions', 'chapters', 'metadata']
     },
-    autocomplete: {
-        tag: null,
-        default: 'on',
-        valid: ['on', 'off']
-    },
     type: {
         tag: ['button'],
         default: 'submit',
