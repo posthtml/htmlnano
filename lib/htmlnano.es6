@@ -31,6 +31,8 @@ export function loadConfig(options, preset, configPath) {
         }
     }
 
+    delete options?.skipConfigLoading;
+
     return [
         options || {},
         preset || safePreset,
