@@ -40,6 +40,10 @@ describe('[htmlnano]', () => {
                 code: '<div></div>'
             }));
     });
+
+    it('should not treat skipConfigLoading as a module name', () => {
+        return init('<div></div>', '<div></div>', { skipConfigLoading: true });
+    });
 });
 
 
@@ -66,10 +70,11 @@ describe('loadConfig()', () => {
     });
 
     it('should not load options and preset from RC files if skipConfigLoading is true', () => {
-        expect(loadConfig({ skipConfigLoading: true }, undefined, './test/testrc.json')).toEqual([
-            {},
-            safePreset
-        ]);
+        const options = { skipConfigLoading: true };
+        const loaded = loadConfig(options, undefined, './test/testrc.json');
+
+        expect(loaded).toEqual([{}, safePreset]);
+        expect(options).toEqual({ skipConfigLoading: true });
     });
 });
 
