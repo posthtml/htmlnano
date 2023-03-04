@@ -12,7 +12,9 @@ const presets = {
 };
 
 export function loadConfig(options, preset, configPath) {
-    if (!options?.skipConfigLoading) {
+    let { skipConfigLoading = false, ...rest } = options || {};
+
+    if (!skipConfigLoading) {
         const explorer = cosmiconfigSync(packageJson.name);
         const rc = configPath ? explorer.load(configPath) : explorer.search();
         if (rc) {
@@ -26,13 +28,13 @@ export function loadConfig(options, preset, configPath) {
             }
 
             if (!options) {
-                options = rc.config;
+                rest = rc.config;
             }
         }
     }
 
     return [
-        options || {},
+        rest || {},
         preset || safePreset,
     ];
 }
