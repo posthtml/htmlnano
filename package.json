@@ -51,7 +51,7 @@
     "postcss": "^8.3.11",
     "purgecss": "^5.0.0",
     "relateurl": "^0.2.7",
-    "rimraf": "^4.0.4",
+    "rimraf": "^5.0.0",
     "srcset": "4.0.0",
     "svgo": "^3.0.2",
     "terser": "^5.10.0",
