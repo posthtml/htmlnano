@@ -2,9 +2,23 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
 ## [2.0.3] - 2022-11-13
-_To be added._
-Meanwhile you can check [the diff](https://github.com/posthtml/htmlnano/compare/2.0.2...2.0.3).
+
+### Added
+- Minify function for `HtmlMinimizerWebpackPlugin`
+
+### Fixed
+- `collapseWhitespace`: handle textNode when comment is preserved [#184]
+- `minifyUrls`: srcset & javascript: url [#185]
+- Correct missing value default usage
+- `collapseBooleanAttributes`: empty string attributes
+- Guard type of attributes' value [#195]
+- Do not choke on svg error [#197]
+
+### Changed
+- Minify based on invalid value default
+- Avoid hardcoding preset keys
 
 
 ## [2.0.2] - 2022-04-06
@@ -252,7 +266,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 - Remove attributes that contains only white spaces.
 
 
-[2.0.2]: https://github.com/posthtml/htmlnano/compare/2.0.2...2.0.3
+[2.0.3]: https://github.com/posthtml/htmlnano/compare/2.0.2...2.0.3
 [2.0.2]: https://github.com/posthtml/htmlnano/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/posthtml/htmlnano/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/posthtml/htmlnano/compare/1.1.1...2.0.0
@@ -281,6 +295,10 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 [0.1.2]: https://github.com/posthtml/htmlnano/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
+[#197]: https://github.com/posthtml/htmlnano/issues/197
+[#195]: https://github.com/posthtml/htmlnano/issues/195
+[#185]: https://github.com/posthtml/htmlnano/issues/185
+[#184]: https://github.com/posthtml/htmlnano/issues/184
 [#182]: https://github.com/posthtml/htmlnano/issues/182
 [#180]: https://github.com/posthtml/htmlnano/issues/180
 [#170]: https://github.com/posthtml/htmlnano/issues/170
