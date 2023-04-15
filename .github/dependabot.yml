@@ -10,8 +10,3 @@ updates:
     schedule:
       interval: "daily"
       time: "02:00"
-  - package-ecosystem: 'npm'
-    directory: "/docs"
-    schedule:
-      interval: "weekly"
-      time: "03:00"
