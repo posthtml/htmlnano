@@ -41,7 +41,8 @@ export function isEventHandler(attributeName) {
 
 export function optionalRequire(moduleName) {
     try {
-        return require(moduleName);
+        const module = require(moduleName);
+        return module.default || module;
     } catch (e) {
         if (e.code === 'MODULE_NOT_FOUND') {
             return null;
