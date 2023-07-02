@@ -13,6 +13,7 @@ module.exports = {
     organizationName: 'posthtml',
     projectName: 'htmlnano',
     trailingSlash: false,
+    plugins: ['docusaurus-plugin-goatcounter'],
     themeConfig: {
         navbar: {
             title: 'htmlnano',
@@ -32,6 +33,9 @@ module.exports = {
         prism: {
             theme: lightCodeTheme,
             darkTheme: darkCodeTheme,
+        },
+        goatcounter: {
+            code: 'htmlnano',
         },
     },
     presets: [
