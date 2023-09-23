@@ -22,7 +22,7 @@ const noTrimWhitespacesInsideElements = new Set([
 const startsWithWhitespacePattern = /^\s/;
 const endsWithWhitespacePattern = /\s$/;
 // See https://infra.spec.whatwg.org/#strip-and-collapse-ascii-whitespace and https://infra.spec.whatwg.org/#ascii-whitespace
-const multipleWhitespacePattern = /[\t\n\f\r ]{2,}/g;
+const multipleWhitespacePattern = /[\t\n\f\r ]+/g;
 const NONE = '';
 const SINGLE_SPACE = ' ';
 const validOptions = ['all', 'aggressive', 'conservative'];
