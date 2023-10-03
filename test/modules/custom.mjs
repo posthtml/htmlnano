@@ -1,4 +1,4 @@
-import expect from 'expect';
+import { expect } from 'expect';
 import { init } from '../htmlnano.mjs';
 
 describe('custom', () => {

@@ -1,4 +1,4 @@
-import expect from 'expect';
+import { expect } from 'expect';
 import posthtml from 'posthtml';
 import htmlnano from '../index.mjs';
 import safePreset from '../lib/presets/safe.mjs';

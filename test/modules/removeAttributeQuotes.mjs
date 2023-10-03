@@ -3,7 +3,7 @@ import safePreset from '../../lib/presets/safe.mjs';
 
 import posthtml from 'posthtml';
 import htmlnano from '../../index.mjs';
-import expect from 'expect';
+import { expect } from 'expect';
 
 describe('removeAttributeQuotes', () => {
     const options = { ...safePreset, removeAttributeQuotes: true };
