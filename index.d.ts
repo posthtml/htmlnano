@@ -1,7 +1,7 @@
 import type PostHTML from "posthtml";
 import type terser from "terser";
 import type { Options as CssNanoOptions } from "cssnano";
-import type { OptimizeOptions as SvgoOptimizeOptions } from "svgo";
+import type { Config as SvgoOptimizeOptions } from "svgo";
 
 export interface HtmlnanoOptions {
   skipConfigLoading?: boolean;

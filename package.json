@@ -9,6 +9,12 @@
     ".": {
       "require": "./index.cjs",
       "import": "./index.mjs"
+    },
+    "./index.mjs": {
+      "import": "./index.mjs"
+    },
+    "./index.cjs": {
+      "require": "./index.cjs"
     }
   },
   "types": "index.d.ts",
