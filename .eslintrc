@@ -6,7 +6,9 @@
         "linebreak-style": [2, "unix"],
         "semi": [2, "always"],
         "camelcase": [2, {"properties": "always"}],
-        "brace-style": [2, "1tbs", {"allowSingleLine": true}]
+        "brace-style": [2, "1tbs", {"allowSingleLine": true}],
+        "import/no-commonjs": "error",
+        "import/no-dynamic-require": "error"
     },
     "env": {
         "es6": true,
@@ -14,5 +16,19 @@
         "browser": false,
         "mocha": true
     },
-    "extends": "eslint:recommended"
+    "extends": [
+        "eslint:recommended",
+        "plugin:path-import-extension/recommended"
+    ],
+    "plugins": [
+        "eslint-plugin-path-import-extension",
+        "eslint-plugin-import"
+    ],
+    "settings": {
+        "import/extensions": [
+            ".js",
+            ".cjs",
+            ".mjs"
+        ]
+    }
 }
