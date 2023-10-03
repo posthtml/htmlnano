@@ -2,10 +2,7 @@
 .eslintrc
 node_modules/
 npm-debug.log
-/lib/*.es6
-/lib/modules/*.es6
 /lib/modules/example.js
-/lib/presets/*.es6
 /test/
 /.github/
 /docs/.docusaurus
