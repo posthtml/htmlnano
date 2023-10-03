@@ -1,1 +1,2 @@
-module.exports = require('./lib/htmlnano').default;
+import htmlnano from './lib/htmlnano.mjs';
+export default htmlnano;

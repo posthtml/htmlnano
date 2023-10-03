@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { isAmpBoilerplate, isComment, isConditionalComment, isStyleNode, extractCssFromStyleNode, optionalRequire } from '../lib/helpers.mjs';
+import { isAmpBoilerplate, isComment, isConditionalComment, isStyleNode, extractCssFromStyleNode, optionalImport } from '../lib/helpers.mjs';
 
 describe('[helpers]', () => {
     context('isAmpBoilerplate()', () => {
@@ -58,13 +58,13 @@ describe('[helpers]', () => {
         });
     });
 
-    context('optionalRequire()', () => {
+    context('optionalImport()', () => {
         it('should return the dependency when resolved', () => {
-            expect(optionalRequire('expect')).toBe(expect);
+            expect(optionalImport('expect')).toBe(expect);
         });
 
         it('should return null when module not found', () => {
-            expect(optionalRequire('null')).toBe(null);
+            expect(optionalImport('null')).toBe(null);
         });
     });
 });
