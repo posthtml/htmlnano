@@ -2,12 +2,12 @@
   "name": "htmlnano",
   "version": "2.0.4",
   "description": "Modular HTML minifier, built on top of the PostHTML",
-  "main": "index.js",
+  "main": "index.cjs",
   "module": "index.mjs",
   "source": "index.mjs",
   "exports": {
     ".": {
-      "require": "./index.js",
+      "require": "./index.cjs",
       "import": "./index.mjs"
     }
   },
@@ -15,8 +15,8 @@
   "author": "Kirill Maltsev <maltsevkirill@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf lib/*.js lib/**/*.js",
-    "compile": "npm run clean && babel -d lib/ lib/ && babel -d ./ ./*.mjs",
+    "clean": "rimraf lib/*.cjs lib/**/*.cjs",
+    "compile": "npm run clean && babel -d lib/ lib/ --out-file-extension .cjs && babel -d ./ ./*.mjs --out-file-extension .cjs",
     "lint": "eslint --fix *.mjs lib/*.mjs lib/**/*.mjs test/*.mjs test/**/*.mjs",
     "pretest": "npm run lint && npm run compile",
     "test": ":",
@@ -40,6 +40,16 @@
           }
         }
       ]
+    ],
+    "plugins": [
+      [
+        "replace-import-extension",
+        {
+          "extMapping": {
+            ".mjs": ".cjs"
+          }
+        }
+      ]
     ]
   },
   "dependencies": {
@@ -53,6 +63,7 @@
     "@babel/eslint-parser": "^7.17.0",
     "@babel/preset-env": "^7.15.6",
     "@babel/register": "^7.15.3",
+    "babel-plugin-replace-import-extension": "^1.1.3",
     "cssnano": "^6.0.0",
     "eslint": "^8.12.0",
     "eslint-plugin-import": "^2.28.1",

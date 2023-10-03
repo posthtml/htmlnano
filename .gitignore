@@ -39,11 +39,12 @@ node_modules
 yarn.lock
 
 # Custom
-/lib/*.js
-/lib/modules/*.js
-/lib/presets/*.js
+/lib/*.cjs
+/lib/modules/*.cjs
+/lib/presets/*.cjs
+/test.cjs
 /test.js
-/index.js
+/index.cjs
 
 # Docs
 /docs/build/
