@@ -16,7 +16,7 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf lib/*.cjs lib/**/*.cjs",
-    "compile": "npm run clean && babel -d lib/ lib/ --out-file-extension .cjs && babel -d ./ ./*.mjs --out-file-extension .cjs",
+    "compile": "npm run clean && babel -d lib/ lib/ --out-file-extension .cjs",
     "lint": "eslint --fix *.mjs lib/*.mjs lib/**/*.mjs test/*.mjs test/**/*.mjs",
     "pretest": "npm run lint && npm run compile",
     "test": ":",
