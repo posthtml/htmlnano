@@ -2,13 +2,21 @@
   "name": "htmlnano",
   "version": "2.0.4",
   "description": "Modular HTML minifier, built on top of the PostHTML",
-  "main": "index.mjs",
+  "main": "index.js",
+  "module": "index.mjs",
+  "source": "index.mjs",
+  "exports": {
+    ".": {
+      "require": "./index.js",
+      "import": "./index.mjs"
+    }
+  },
   "types": "index.d.ts",
   "author": "Kirill Maltsev <maltsevkirill@gmail.com>",
   "license": "MIT",
   "scripts": {
     "clean": "rimraf lib/*.js lib/**/*.js",
-    "compile": "npm run clean && babel -d lib/ lib/",
+    "compile": "npm run clean && babel -d lib/ lib/ && babel -d ./ ./*.mjs",
     "lint": "eslint --fix *.mjs lib/*.mjs lib/**/*.mjs test/*.mjs test/**/*.mjs",
     "pretest": "npm run lint && npm run compile",
     "test": ":",
