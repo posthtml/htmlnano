@@ -82,7 +82,7 @@
     "rimraf": "^5.0.0",
     "srcset": "4.0.0",
     "svgo": "^3.0.2",
-    "terser": "^5.10.0",
+    "terser": "^5.21.0",
     "uncss": "^0.17.3"
   },
   "peerDependencies": {

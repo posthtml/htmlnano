@@ -1,5 +1,5 @@
 import type PostHTML from "posthtml";
-import type terser from "terser";
+import type { MinifyOptions } from "terser";
 import type { Options as CssNanoOptions } from "cssnano";
 import type { Config as SvgoOptimizeOptions } from "svgo";
 
@@ -17,7 +17,7 @@ export interface HtmlnanoOptions {
   mergeScripts?: boolean;
   minifyCss?: CssNanoOptions | boolean;
   minifyConditionalComments?: boolean;
-  minifyJs?: terser.FormatOptions | boolean;
+  minifyJs?: MinifyOptions | boolean;
   minifyJson?: boolean;
   minifySvg?: SvgoOptimizeOptions | boolean;
   normalizeAttributeValues?: boolean;
