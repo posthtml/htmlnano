@@ -1,2 +1,3 @@
-lib/modules/example.es6
-test.js
+lib/modules/example.mjs
+test.mjs
+**/*.cjs
