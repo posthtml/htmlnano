@@ -40,8 +40,11 @@ yarn.lock
 
 # Custom
 /lib/*.cjs
+/lib/*.js
 /lib/modules/*.cjs
+/lib/modules/*.js
 /lib/presets/*.cjs
+/lib/presets/*.js
 /test.cjs
 /test.js
 
