@@ -59,7 +59,7 @@
     ]
   },
   "dependencies": {
-    "cosmiconfig": "^8.0.0",
+    "cosmiconfig": "^9.0.0",
     "posthtml": "^0.16.5",
     "timsort": "^0.3.0"
   },
