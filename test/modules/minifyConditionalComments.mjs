@@ -41,7 +41,7 @@ describe('minifyConditionalComments', () => {
     <div class="w3c">
     </div>
 <!--<![endif]-->`,
-        multipleConditionalCommentMinified: '<!--[if lt IE 7 ]><div class="ie6"> </div><![endif]--><!--[if IE 7 ]><div class="ie7"> </div><![endif]--><!--[if IE 8 ]><div class="ie8"> </div><![endif]--><!--[if IE 9 ]><div class="ie9"> </div><![endif]--><!--[if (gt IE 9)|!(IE)]><!--><div class="w3c"> </div>',
+        multipleConditionalCommentMinified: '<!--[if lt IE 7 ]><div class="ie6"> </div><![endif]--><!--[if IE 7 ]><div class="ie7"> </div><![endif]--><!--[if IE 8 ]><div class="ie8"> </div><![endif]--><!--[if IE 9 ]><div class="ie9"> </div><![endif]--><!--[if (gt IE 9)|!(IE)]><!--><div class="w3c"> </div><!--<![endif]-->',
         singleLineMultipleConditionalComment: `
 <!--[if lt IE 7 ]><div class="ie6"></div><![endif]--><!--[if IE 7 ]><div class="ie7"></div><![endif]--><!--[if IE 8 ]><div class="ie8"></div><![endif]--><!--[if IE 9 ]><div class="ie9"></div><![endif]--><!--[if (gt IE 9)|!(IE)]><!--><div class="w3c"></div><!--<![endif]-->`,
         htmlTagIncludedConditionalComment: `
