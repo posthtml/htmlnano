@@ -33,6 +33,14 @@ describe('removeComments', () => {
             );
         });
 
+        it('should not remove conditional comments <!--[if expression]><!-->..<!--<![endif]-->', () => {
+            return init(
+                '<!--[if !mso]><!--><meta http-equiv="X-UA-Compatible" content="IE=edge"><!--<![endif]-->',
+                '<!--[if !mso]><!--><meta http-equiv="X-UA-Compatible" content="IE=edge"><!--<![endif]-->',
+                options
+            );
+        });
+
         it('should not remove conditional comments <!--[if expression]>..<![endif]-->', () => {
             return init(
                 '<!--[if IE 8]><link href="ie8only.css" rel="stylesheet"><![endif]-->',
