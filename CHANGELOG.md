@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.1.1] - 2024-04-28
+
+### Fixed
+- Downlevel-revealed closing comment being deleted in safe mode [#278]
+
+
 ## [2.1.0] - 2023-10-19
 
 ### Added
@@ -282,6 +288,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 - Remove attributes that contains only white spaces.
 
 
+[2.1.1]: https://github.com/posthtml/htmlnano/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/posthtml/htmlnano/compare/2.0.4...2.1.0
 [2.0.4]: https://github.com/posthtml/htmlnano/compare/2.0.3...2.0.4
 [2.0.3]: https://github.com/posthtml/htmlnano/compare/2.0.2...2.0.3
@@ -314,6 +321,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
 
+[#278]: https://github.com/posthtml/htmlnano/issues/278
 [#260]: https://github.com/posthtml/htmlnano/issues/260
 [#257]: https://github.com/posthtml/htmlnano/issues/257
 [#220]: https://github.com/posthtml/htmlnano/issues/220
