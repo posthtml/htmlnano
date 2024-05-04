@@ -414,8 +414,8 @@ Source:
 
 ```js
 {
-    removeComments: (comments) => {
-        if (comments.includes('noindex')) return true;
+    removeComments: (comment) => {
+        if (comment.includes('noindex')) return true;
         return false;
     }
 }

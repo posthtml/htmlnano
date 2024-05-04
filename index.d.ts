@@ -22,7 +22,7 @@ export interface HtmlnanoOptions {
   minifySvg?: SvgoOptimizeOptions | boolean;
   normalizeAttributeValues?: boolean;
   removeAttributeQuotes?: boolean;
-  removeComments?: boolean | "safe" | "all" | RegExp | (() => boolean);
+  removeComments?: boolean | "safe" | "all" | RegExp | ((comment: string) => boolean);
   removeEmptyAttributes?: boolean;
   removeRedundantAttributes?: boolean;
   removeOptionalTags?: boolean;
