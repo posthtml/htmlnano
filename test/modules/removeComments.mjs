@@ -122,8 +122,8 @@ describe('removeComments', () => {
                 '<!--noindex-->this text will not be indexed<!--/noindex-->Lorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet',
                 'this text will not be indexedLorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet',
                 {
-                    removeComments: (comments) => {
-                        if (comments.includes('noindex')) return true;
+                    removeComments: (comment) => {
+                        if (comment.includes('noindex')) return true;
                         return false;
                     },
                 }
