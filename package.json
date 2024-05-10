@@ -7,13 +7,16 @@
   "source": "index.mjs",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "require": "./index.cjs",
       "import": "./index.mjs"
     },
     "./index.mjs": {
+      "types": "./index.d.mts",
       "import": "./index.mjs"
     },
     "./index.cjs": {
+      "types": "./index.d.cts",
       "require": "./index.cjs"
     }
   },
