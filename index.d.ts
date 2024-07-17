@@ -5,6 +5,7 @@ import type { Config as SvgoOptimizeOptions } from "svgo";
 
 export interface HtmlnanoOptions {
   skipConfigLoading?: boolean;
+  skipInternalWarnings?: boolean;
   collapseAttributeWhitespace?: boolean;
   collapseBooleanAttributes?: {
     amphtml?: boolean;
