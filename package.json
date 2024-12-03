@@ -78,7 +78,7 @@
     "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-path-import-extension": "^0.9.0",
     "expect": "^29.0.0",
-    "mocha": "^10.1.0",
+    "mocha": "^11.0.1",
     "postcss": "^8.3.11",
     "purgecss": "^7.0.2",
     "relateurl": "^0.2.7",
