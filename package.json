@@ -63,8 +63,7 @@
   },
   "dependencies": {
     "cosmiconfig": "^9.0.0",
-    "posthtml": "^0.16.5",
-    "timsort": "^0.3.0"
+    "posthtml": "^0.16.5"
   },
   "devDependencies": {
     "@aminya/babel-plugin-replace-import-extension": "1.2.0",
