@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        node-version: ['16', '18', '19']
+        node-version: ['20', '22', '23', 'current']
 
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['16']
+        node-version: ['lts/*']
 
     steps:
       - uses: actions/checkout@v4
