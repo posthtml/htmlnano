@@ -1,7 +1,6 @@
 {
   "name": "htmlnano",
   "version": "2.1.1",
-  "type": "module",
   "description": "Modular HTML minifier, built on top of the PostHTML",
   "main": "index.cjs",
   "module": "index.mjs",
@@ -27,7 +26,7 @@
   "scripts": {
     "clean": "rimraf lib/*.cjs lib/**/*.cjs",
     "compile": "npm run clean && babel -d lib/ lib/ --out-file-extension .cjs",
-    "lint": "eslint --config eslint.config.js --fix *.mjs lib/*.mjs lib/**/*.mjs test/*.mjs test/**/*.mjs",
+    "lint": "eslint --config eslint.config.mjs --fix *.mjs lib/*.mjs lib/**/*.mjs test/*.mjs test/**/*.mjs",
     "pretest": "npm run lint && npm run compile",
     "test": ":",
     "posttest": "mocha --timeout 5000 --require @babel/register --recursive --check-leaks --globals addresses",
