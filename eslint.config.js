@@ -4,6 +4,11 @@ import eslintPluginPathImportExtension from 'eslint-plugin-path-import-extension
 export default [
     {
         files: ['*.mjs', 'lib/**/*.mjs', 'test/**/*.mjs'],
+        ignores: [
+            'lib/modules/example.mjs',
+            'test.mjs',
+            '**/*.cjs'
+        ],
         languageOptions: {
             ecmaVersion: 2022,
             sourceType: 'module',
