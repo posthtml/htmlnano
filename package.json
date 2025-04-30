@@ -1,6 +1,6 @@
 {
   "name": "htmlnano",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Modular HTML minifier, built on top of the PostHTML",
   "main": "index.cjs",
   "module": "index.mjs",

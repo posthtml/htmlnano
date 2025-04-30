@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.1.2] - 2025-04-30
+
+### Added
+- `skipInternalWarnings` flag to avoid `console.warn` output [#293]
+
+### Fixed
+- Use Node.js `sort` instead of `timsort` [#328]
+
+
 ## [2.1.1] - 2024-04-28
 
 ### Fixed
@@ -288,6 +297,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 - Remove attributes that contains only white spaces.
 
 
+[2.1.2]: https://github.com/posthtml/htmlnano/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/posthtml/htmlnano/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/posthtml/htmlnano/compare/2.0.4...2.1.0
 [2.0.4]: https://github.com/posthtml/htmlnano/compare/2.0.3...2.0.4
@@ -320,7 +330,8 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 [0.1.2]: https://github.com/posthtml/htmlnano/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
-
+[#328]: https://github.com/posthtml/htmlnano/issues/328
+[#293]: https://github.com/posthtml/htmlnano/issues/293
 [#278]: https://github.com/posthtml/htmlnano/issues/278
 [#260]: https://github.com/posthtml/htmlnano/issues/260
 [#257]: https://github.com/posthtml/htmlnano/issues/257
