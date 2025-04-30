@@ -1,5 +1,5 @@
 import eslintPluginImport from 'eslint-plugin-import';
-import eslintPluginPathImportExtension from 'eslint-plugin-path-import-extension';
+import * as eslintPluginPathImportExtension from 'eslint-plugin-path-import-extension';
 
 export default [
     {
