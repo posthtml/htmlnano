@@ -1,5 +1,5 @@
 import { init } from '../htmlnano.mjs';
-import safePreset from '../../lib/presets/safe.mjs';
+import safePreset from '../../dist/presets/safe.mjs';
 
 describe('normalizeAttributeValues', () => {
     const options = {

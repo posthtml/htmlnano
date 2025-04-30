@@ -1,6 +1,6 @@
 const { expect } = require('expect');
 const posthtml = require('posthtml');
-const htmlnano = require('../index.cjs');
+const htmlnano = require('../dist/index.js');
 
 
 describe('[commonjs usage]', () => {

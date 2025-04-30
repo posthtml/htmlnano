@@ -1,6 +1,6 @@
 import { init } from '../htmlnano.mjs';
-import safePreset from '../../lib/presets/safe.mjs';
-import maxPreset from '../../lib/presets/max.mjs';
+import safePreset from '../../dist/presets/safe.mjs';
+import maxPreset from '../../dist/presets/max.mjs';
 
 
 describe('collapseWhitespace', () => {
