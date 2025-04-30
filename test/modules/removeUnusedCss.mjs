@@ -1,5 +1,5 @@
-import { init } from '../htmlnano.mjs';
-import maxPreset from '../../lib/presets/max.mjs';
+import { init } from '../htmlnano';
+import maxPreset from '../../lib/presets/max';
 
 
 describe('removeUnusedCss (uncss)', function () {

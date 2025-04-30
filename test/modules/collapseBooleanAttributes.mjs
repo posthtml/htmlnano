@@ -1,6 +1,6 @@
-import { init } from '../htmlnano.mjs';
-import safePreset from '../../lib/presets/safe.mjs';
-import ampSafePreset from '../../lib/presets/ampSafe.mjs';
+import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
+import ampSafePreset from '../../lib/presets/ampSafe';
 
 
 describe('collapseBooleanAttributes', () => {

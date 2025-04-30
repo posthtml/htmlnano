@@ -1,8 +1,8 @@
-import { init } from '../htmlnano.mjs';
-import safePreset from '../../lib/presets/safe.mjs';
+import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
 
 import posthtml from 'posthtml';
-import htmlnano from '../../index.mjs';
+import htmlnano from '../../index';
 import { expect } from 'expect';
 
 describe('removeAttributeQuotes', () => {

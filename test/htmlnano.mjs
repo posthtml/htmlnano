@@ -1,10 +1,10 @@
 import { expect } from 'expect';
 import posthtml from 'posthtml';
-import htmlnano from '../index.mjs';
-import safePreset from '../lib/presets/safe.mjs';
-import ampSafePreset from '../lib/presets/ampSafe.mjs';
-import maxPreset from '../lib/presets/max.mjs';
-import { loadConfig } from '../lib/htmlnano.mjs';
+import htmlnano from '../index';
+import safePreset from '../lib/presets/safe';
+import ampSafePreset from '../lib/presets/ampSafe';
+import maxPreset from '../lib/presets/max';
+import { loadConfig } from '../lib/htmlnano';
 
 
 describe('[htmlnano]', () => {

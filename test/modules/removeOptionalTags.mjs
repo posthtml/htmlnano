@@ -1,6 +1,6 @@
 // this file has trailing whitespaces that should be kept
 
-import { init } from '../htmlnano.mjs';
+import { init } from '../htmlnano';
 
 describe('removeOptionalTags', () => {
     const options = {

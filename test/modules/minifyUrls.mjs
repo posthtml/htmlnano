@@ -1,7 +1,7 @@
-import { init } from '../htmlnano.mjs';
-import safePreset from '../../lib/presets/safe.mjs';
-import maxPreset from '../../lib/presets/max.mjs';
-import ampSafePreset from '../../lib/presets/ampSafe.mjs';
+import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
+import maxPreset from '../../lib/presets/max';
+import ampSafePreset from '../../lib/presets/ampSafe';
 
 describe('minifyUrls', () => {
     it('shouldn\'t be enabled with safe preset', () => {

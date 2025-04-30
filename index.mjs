@@ -1,2 +1,2 @@
-import htmlnano from './lib/htmlnano.mjs';
+import htmlnano from './lib/htmlnano';
 export default htmlnano;

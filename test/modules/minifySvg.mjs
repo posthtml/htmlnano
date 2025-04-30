@@ -1,6 +1,6 @@
-import { init } from '../htmlnano.mjs';
-import safePreset from '../../lib/presets/safe.mjs';
-import maxPreset from '../../lib/presets/max.mjs';
+import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
+import maxPreset from '../../lib/presets/max';
 
 
 describe('minifySvg', () => {

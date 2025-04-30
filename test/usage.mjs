@@ -1,6 +1,6 @@
 import { expect } from 'expect';
 import posthtml from 'posthtml';
-import htmlnano from '../index.mjs';
+import htmlnano from '../index';
 
 
 describe('[usage]', () => {

@@ -1,5 +1,5 @@
-import { init } from '../htmlnano.mjs';
-import safePreset from '../../lib/presets/safe.mjs';
+import { init } from '../htmlnano';
+import safePreset from '../../lib/presets/safe';
 
 
 describe('minifyJson', () => {
