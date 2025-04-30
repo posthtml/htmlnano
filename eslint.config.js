@@ -1,5 +1,6 @@
 import eslintPluginImport from 'eslint-plugin-import';
 import * as eslintPluginPathImportExtension from 'eslint-plugin-path-import-extension';
+import babelEslintParser from '@babel/eslint-parser';
 
 export default [
     {
@@ -12,7 +13,7 @@ export default [
         languageOptions: {
             ecmaVersion: 2022,
             sourceType: 'module',
-            parser: require('@babel/eslint-parser'),
+            parser: babelEslintParser,
             parserOptions: {
                 requireConfigFile: false
             },
