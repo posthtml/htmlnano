@@ -2,35 +2,47 @@
   "name": "htmlnano",
   "version": "2.1.2",
   "description": "Modular HTML minifier, built on top of the PostHTML",
-  "main": "index.cjs",
-  "module": "index.mjs",
-  "source": "index.mjs",
-  "exports": {
-    ".": {
-      "types": "./index.d.ts",
-      "require": "./index.cjs",
-      "import": "./index.mjs"
-    },
-    "./index.mjs": {
-      "types": "./index.d.mts",
-      "import": "./index.mjs"
-    },
-    "./index.cjs": {
-      "types": "./index.d.cts",
-      "require": "./index.cjs"
-    }
-  },
-  "types": "index.d.ts",
   "author": "Kirill Maltsev <maltsevkirill@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf lib/*.cjs lib/**/*.cjs",
-    "compile": "npm run clean && babel -d lib/ lib/ --out-file-extension .cjs",
+    "clean": "rimraf dist",
+    "compile": "npm run clean && bunchee",
     "lint": "eslint --fix *.mjs lib/*.mjs lib/**/*.mjs test/*.mjs test/**/*.mjs",
     "pretest": "npm run lint && npm run compile",
     "test": ":",
-    "posttest": "mocha --timeout 5000 --require @babel/register --recursive --check-leaks --globals addresses",
+    "posttest": "mocha --timeout 5000 --require @swc-node/register --recursive --check-leaks --globals addresses",
     "prepare": "npm run compile"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "exports": {
+    "./helpers": {
+      "import": "./dist/helpers.mjs",
+      "require": "./dist/helpers.js"
+    },
+    "./htmlnano": {
+      "import": "./dist/htmlnano.mjs",
+      "require": "./dist/htmlnano.js"
+    },
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./presets/ampSafe": {
+      "import": "./dist/presets/ampSafe.mjs",
+      "require": "./dist/presets/ampSafe.js"
+    },
+    "./presets/max": {
+      "import": "./dist/presets/max.mjs",
+      "require": "./dist/presets/max.js"
+    },
+    "./presets/safe": {
+      "import": "./dist/presets/safe.mjs",
+      "require": "./dist/presets/safe.js"
+    }
   },
   "keywords": [
     "posthtml",
@@ -39,40 +51,15 @@
     "postproccessor",
     "minifier"
   ],
-  "babel": {
-    "presets": [
-      [
-        "@babel/env",
-        {
-          "targets": {
-            "node": 10
-          }
-        }
-      ]
-    ],
-    "plugins": [
-      [
-        "@aminya/babel-plugin-replace-import-extension",
-        {
-          "extMapping": {
-            ".mjs": ".cjs"
-          }
-        }
-      ]
-    ]
-  },
   "dependencies": {
     "cosmiconfig": "^9.0.0",
     "posthtml": "^0.16.5"
   },
   "devDependencies": {
     "@aminya/babel-plugin-replace-import-extension": "1.2.0",
-    "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.5",
     "@babel/eslint-parser": "^7.17.0",
-    "@babel/preset-env": "^7.15.6",
-    "@babel/register": "^7.15.3",
-    "@types/node": "^22.15.3",
+    "@swc-node/register": "^1.10.10",
     "bunchee": "^6.5.1",
     "cssnano": "^7.0.0",
     "eslint": "^8.12.0",

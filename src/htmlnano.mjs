@@ -47,29 +47,29 @@ const optionalDependencies = {
 
 
 const modules = {
-    collapseAttributeWhitespace: () => import('./modules/collapseAttributeWhitespace.mjs'),
-    collapseBooleanAttributes: () => import('./modules/collapseBooleanAttributes.mjs'),
-    collapseWhitespace: () => import('./modules/collapseWhitespace.mjs'),
-    custom: () => import('./modules/custom.mjs'),
-    deduplicateAttributeValues: () => import('./modules/deduplicateAttributeValues.mjs'),
-    example: () => import('./modules/example.mjs'),
-    mergeScripts: () => import('./modules/mergeScripts.mjs'),
-    mergeStyles: () => import('./modules/mergeStyles.mjs'),
-    minifyConditionalComments: () => import('./modules/minifyConditionalComments.mjs'),
-    minifyCss: () => import('./modules/minifyCss.mjs'),
-    minifyJs: () => import('./modules/minifyJs.mjs'),
-    minifyJson: () => import('./modules/minifyJson.mjs'),
-    minifySvg: () => import('./modules/minifySvg.mjs'),
-    minifyUrls: () => import('./modules/minifyUrls.mjs'),
-    normalizeAttributeValues: () => import('./modules/normalizeAttributeValues.mjs'),
-    removeAttributeQuotes: () => import('./modules/removeAttributeQuotes.mjs'),
-    removeComments: () => import('./modules/removeComments.mjs'),
-    removeEmptyAttributes: () => import('./modules/removeEmptyAttributes.mjs'),
-    removeOptionalTags: () => import('./modules/removeOptionalTags.mjs'),
-    removeRedundantAttributes: () => import('./modules/removeRedundantAttributes.mjs'),
-    removeUnusedCss: () => import('./modules/removeUnusedCss.mjs'),
-    sortAttributes: () => import('./modules/sortAttributes.mjs'),
-    sortAttributesWithLists: () => import('./modules/sortAttributesWithLists.mjs'),
+    collapseAttributeWhitespace: () => import('./_modules/collapseAttributeWhitespace.mjs'),
+    collapseBooleanAttributes: () => import('./_modules/collapseBooleanAttributes.mjs'),
+    collapseWhitespace: () => import('./_modules/collapseWhitespace.mjs'),
+    custom: () => import('./_modules/custom.mjs'),
+    deduplicateAttributeValues: () => import('./_modules/deduplicateAttributeValues.mjs'),
+    example: () => import('./_modules/example.mjs'),
+    mergeScripts: () => import('./_modules/mergeScripts.mjs'),
+    mergeStyles: () => import('./_modules/mergeStyles.mjs'),
+    minifyConditionalComments: () => import('./_modules/minifyConditionalComments.mjs'),
+    minifyCss: () => import('./_modules/minifyCss.mjs'),
+    minifyJs: () => import('./_modules/minifyJs.mjs'),
+    minifyJson: () => import('./_modules/minifyJson.mjs'),
+    minifySvg: () => import('./_modules/minifySvg.mjs'),
+    minifyUrls: () => import('./_modules/minifyUrls.mjs'),
+    normalizeAttributeValues: () => import('./_modules/normalizeAttributeValues.mjs'),
+    removeAttributeQuotes: () => import('./_modules/removeAttributeQuotes.mjs'),
+    removeComments: () => import('./_modules/removeComments.mjs'),
+    removeEmptyAttributes: () => import('./_modules/removeEmptyAttributes.mjs'),
+    removeOptionalTags: () => import('./_modules/removeOptionalTags.mjs'),
+    removeRedundantAttributes: () => import('./_modules/removeRedundantAttributes.mjs'),
+    removeUnusedCss: () => import('./_modules/removeUnusedCss.mjs'),
+    sortAttributes: () => import('./_modules/sortAttributes.mjs'),
+    sortAttributesWithLists: () => import('./_modules/sortAttributesWithLists.mjs'),
 };
 
 function htmlnano(optionsRun, presetRun) {
@@ -109,7 +109,7 @@ function htmlnano(optionsRun, presetRun) {
 
             const module = moduleName in modules ?
                 await (modules[moduleName]()) :
-                await import(`./modules/${moduleName}.mjs`);
+                await import(`./_modules/${moduleName}.mjs`);
 
             if (typeof module.onAttrs === 'function') {
                 attrsHandlers.push(module.onAttrs(options, moduleOptions));

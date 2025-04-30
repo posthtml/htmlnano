@@ -51,3 +51,6 @@ yarn.lock
 # Docs
 /docs/build/
 /docs/.docusaurus/
+
+# Dist
+dist
