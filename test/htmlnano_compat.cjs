@@ -14,6 +14,8 @@ describe('[commonjs usage]', () => {
     });
 
     it('PostHTML plugin', () => {
+        console.log({ htmlnano })
+
         return posthtml([htmlnano()]).process(html).then((result) => {
             expect(result.html).toBe(minifiedHtml);
         });

@@ -1,4 +1,4 @@
-import htmlnano from '../htmlnano.mjs';
+import htmlnano from '../index.mjs';
 import { isConditionalComment } from '../helpers.mjs';
 
 // Spec: https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/ms537512(v=vs.85)

@@ -1,2 +1,206 @@
-import htmlnano from './htmlnano.mjs';
+import posthtml from 'posthtml';
+import { cosmiconfigSync } from 'cosmiconfig';
+import safePreset from './presets/safe.mjs';
+import ampSafePreset from './presets/ampSafe.mjs';
+import maxPreset from './presets/max.mjs';
+
+const presets = {
+    safe: safePreset,
+    ampSafe: ampSafePreset,
+    max: maxPreset,
+};
+
+export function loadConfig(options, preset, configPath) {
+    let { skipConfigLoading = false, ...rest } = options || {};
+
+    if (!skipConfigLoading) {
+        const explorer = cosmiconfigSync('htmlnano');
+        const rc = configPath ? explorer.load(configPath) : explorer.search();
+        if (rc) {
+            const { preset: presetName } = rc.config;
+            if (presetName) {
+                if (!preset && presets[presetName]) {
+                    preset = presets[presetName];
+                }
+
+                delete rc.config.preset;
+            }
+
+            if (!options) {
+                rest = rc.config;
+            }
+        }
+    }
+
+    return [
+        rest || {},
+        preset || safePreset,
+    ];
+}
+
+const optionalDependencies = {
+    minifyCss: ['cssnano', 'postcss'],
+    minifyJs: ['terser'],
+    minifyUrl: ['relateurl', 'srcset', 'terser'],
+    minifySvg: ['svgo'],
+};
+
+
+const modules = {
+    collapseAttributeWhitespace: () => import('./_modules/collapseAttributeWhitespace.mjs'),
+    collapseBooleanAttributes: () => import('./_modules/collapseBooleanAttributes.mjs'),
+    collapseWhitespace: () => import('./_modules/collapseWhitespace.mjs'),
+    custom: () => import('./_modules/custom.mjs'),
+    deduplicateAttributeValues: () => import('./_modules/deduplicateAttributeValues.mjs'),
+    example: () => import('./_modules/example.mjs'),
+    mergeScripts: () => import('./_modules/mergeScripts.mjs'),
+    mergeStyles: () => import('./_modules/mergeStyles.mjs'),
+    minifyConditionalComments: () => import('./_modules/minifyConditionalComments.mjs'),
+    minifyCss: () => import('./_modules/minifyCss.mjs'),
+    minifyJs: () => import('./_modules/minifyJs.mjs'),
+    minifyJson: () => import('./_modules/minifyJson.mjs'),
+    minifySvg: () => import('./_modules/minifySvg.mjs'),
+    minifyUrls: () => import('./_modules/minifyUrls.mjs'),
+    normalizeAttributeValues: () => import('./_modules/normalizeAttributeValues.mjs'),
+    removeAttributeQuotes: () => import('./_modules/removeAttributeQuotes.mjs'),
+    removeComments: () => import('./_modules/removeComments.mjs'),
+    removeEmptyAttributes: () => import('./_modules/removeEmptyAttributes.mjs'),
+    removeOptionalTags: () => import('./_modules/removeOptionalTags.mjs'),
+    removeRedundantAttributes: () => import('./_modules/removeRedundantAttributes.mjs'),
+    removeUnusedCss: () => import('./_modules/removeUnusedCss.mjs'),
+    sortAttributes: () => import('./_modules/sortAttributes.mjs'),
+    sortAttributesWithLists: () => import('./_modules/sortAttributesWithLists.mjs'),
+};
+
+export function htmlnano(optionsRun, presetRun) {
+    let [options, preset] = loadConfig(optionsRun, presetRun);
+
+    return async function minifier(tree) {
+        const nodeHandlers = [];
+        const attrsHandlers = [];
+        const contentsHandlers = [];
+
+        options = { ...preset, ...options };
+        let promise = Promise.resolve(tree);
+
+        for (const [moduleName, moduleOptions] of Object.entries(options)) {
+            if (!moduleOptions) {
+                // The module is disabled
+                continue;
+            }
+
+            if (safePreset[moduleName] === undefined) {
+                throw new Error('Module "' + moduleName + '" is not defined');
+            }
+
+            (optionalDependencies[moduleName] || []).forEach(async dependency => {
+                try {
+                    await import(dependency);
+                } catch (e) {
+                    if (e.code === 'MODULE_NOT_FOUND' || e.code === 'ERR_MODULE_NOT_FOUND') {
+                        if (!options.skipInternalWarnings){
+                            console.warn(`You have to install "${dependency}" in order to use htmlnano's "${moduleName}" module`);
+                        }
+                    } else {
+                        throw e;
+                    }
+                }
+            });
+
+            const module = moduleName in modules ?
+                await (modules[moduleName]()) :
+                await import(`./_modules/${moduleName}.mjs`);
+
+            if (typeof module.onAttrs === 'function') {
+                attrsHandlers.push(module.onAttrs(options, moduleOptions));
+            }
+            if (typeof module.onContent === 'function') {
+                contentsHandlers.push(module.onContent(options, moduleOptions));
+            }
+            if (typeof module.onNode === 'function') {
+                nodeHandlers.push(module.onNode(options, moduleOptions));
+            }
+            if (typeof module.default === 'function') {
+                promise = promise.then(async tree => await module.default(tree, options, moduleOptions));
+            }
+        }
+
+        if (attrsHandlers.length + contentsHandlers.length + nodeHandlers.length === 0) {
+            return promise;
+        }
+
+        return promise.then(tree => {
+            tree.walk(node => {
+                if (node) {
+                    if (node.attrs && typeof node.attrs === 'object') {
+                        // Convert all attrs' key to lower case
+                        let newAttrsObj = {};
+                        Object.entries(node.attrs).forEach(([attrName, attrValue]) => {
+                            newAttrsObj[attrName.toLowerCase()] = attrValue;
+                        });
+
+                        for (const handler of attrsHandlers) {
+                            newAttrsObj = handler(newAttrsObj, node);
+                        }
+
+                        node.attrs = newAttrsObj;
+                    }
+
+                    if (node.content) {
+                        node.content = typeof node.content === 'string' ? [node.content] : node.content;
+
+                        if (Array.isArray(node.content) && node.content.length > 0) {
+                            for (const handler of contentsHandlers) {
+                                const result = handler(node.content, node);
+                                node.content = typeof result === 'string' ? [result] : result;
+                            }
+                        }
+                    }
+
+                    for (const handler of nodeHandlers) {
+                        node = handler(node);
+                    }
+                }
+
+                return node;
+            });
+
+            return tree;
+        });
+    };
+}
+
+export function getRequiredOptionalDependencies (optionsRun, presetRun) {
+    const [options] = loadConfig(optionsRun, presetRun);
+
+    return [...new Set(Object.keys(options).filter(moduleName => options[moduleName]).map(moduleName => optionalDependencies[moduleName]).flat())];
+}
+
+
+export function process(html, options, preset, postHtmlOptions) {
+    return posthtml([htmlnano(options, preset)])
+        .process(html, postHtmlOptions);
+}
+
+// https://github.com/webpack-contrib/html-minimizer-webpack-plugin/blob/faca00f2219514bc671c5942685721f0b5dbaa70/src/utils.js#L74
+export function htmlMinimizerWebpackPluginMinify(input, minimizerOptions = {}) {
+    const [[, code]] = Object.entries(input);
+    return htmlnano.process(code, minimizerOptions, presets.safe)
+        .then(result => {
+            return {
+                code: result.html
+            };
+        });
+}
+
+htmlnano.presets = presets;
+htmlnano.getRequiredOptionalDependencies = getRequiredOptionalDependencies;
+htmlnano.process = process;
+htmlnano.htmlMinimizerWebpackPluginMinify = htmlMinimizerWebpackPluginMinify;
+
 export default htmlnano;
+
+if (typeof module !== 'undefined') {
+    // eslint-disable-next-line import/no-commonjs -- CJS compat, will remove once we fully migrated to TS
+    module.exports = htmlnano;
+}

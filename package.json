@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "compile": "npm run clean && bunchee",
-    "lint": "eslint --fix *.mjs lib/*.mjs lib/**/*.mjs test/*.mjs test/**/*.mjs",
+    "lint": "eslint --fix src/*.mjs src/**/*.mjs test/*.mjs test/**/*.mjs",
     "pretest": "npm run lint && npm run compile",
     "test": ":",
     "posttest": "mocha --timeout 5000 --require @swc-node/register --recursive --check-leaks --globals addresses",
@@ -22,10 +22,6 @@
     "./helpers": {
       "import": "./dist/helpers.mjs",
       "require": "./dist/helpers.js"
-    },
-    "./htmlnano": {
-      "import": "./dist/htmlnano.mjs",
-      "require": "./dist/htmlnano.js"
     },
     ".": {
       "import": "./dist/index.mjs",
@@ -44,6 +40,28 @@
       "require": "./dist/presets/safe.js"
     }
   },
+  "babel": {
+    "presets": [
+      [
+        "@babel/env",
+        {
+          "targets": {
+            "node": 10
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      [
+        "@aminya/babel-plugin-replace-import-extension",
+        {
+          "extMapping": {
+            ".mjs": ".cjs"
+          }
+        }
+      ]
+    ]
+  },
   "keywords": [
     "posthtml",
     "posthtml-plugin",
@@ -59,6 +77,7 @@
     "@aminya/babel-plugin-replace-import-extension": "1.2.0",
     "@babel/core": "^7.15.5",
     "@babel/eslint-parser": "^7.17.0",
+    "@babel/preset-env": "^7.27.1",
     "@swc-node/register": "^1.10.10",
     "bunchee": "^6.5.1",
     "cssnano": "^7.0.0",
