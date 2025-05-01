@@ -1,10 +1,9 @@
 import { init } from '../htmlnano.mjs';
 import safePreset from '../../dist/presets/safe.mjs';
 
-
 describe('removeEmptyAttributes', () => {
     const options = {
-        removeEmptyAttributes: safePreset.removeEmptyAttributes,
+        removeEmptyAttributes: safePreset.removeEmptyAttributes
     };
 
     it('should remove empty attributes', () => {
@@ -14,7 +13,6 @@ describe('removeEmptyAttributes', () => {
             options
         );
     });
-
 
     it('should remove attributes that contains only white spaces', () => {
         return init(

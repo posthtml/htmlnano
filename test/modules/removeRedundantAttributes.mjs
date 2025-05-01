@@ -1,10 +1,9 @@
 import { init } from '../htmlnano.mjs';
 import maxPreset from '../../dist/presets/max.mjs';
 
-
 describe('removeRedundantAttributes', () => {
     const options = {
-        removeRedundantAttributes: maxPreset.removeRedundantAttributes,
+        removeRedundantAttributes: maxPreset.removeRedundantAttributes
     };
 
     it('should remove method="get" from <form>', () => {

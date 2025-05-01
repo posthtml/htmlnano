@@ -1,12 +1,11 @@
 import { init } from '../htmlnano.mjs';
 import maxPreset from '../../dist/presets/max.mjs';
 
-
 describe('removeUnusedCss (uncss)', function () {
     this.timeout(3000);
 
     const options = {
-        removeUnusedCss: maxPreset.removeUnusedCss,
+        removeUnusedCss: maxPreset.removeUnusedCss
     };
     const html = `<div><style>
         div.b {
@@ -21,7 +20,6 @@ describe('removeUnusedCss (uncss)', function () {
         }
     </style></div><p class="b">hello</p><style>.d{margin:auto}</style>`;
 
-
     it('should remove unused CSS inside <style>', () => {
         return init(
             html,
@@ -33,7 +31,6 @@ describe('removeUnusedCss (uncss)', function () {
             options
         );
     });
-
 
     it('should pass options to uncss', () => {
         return init(
@@ -54,14 +51,13 @@ describe('removeUnusedCss (uncss)', function () {
         );
     });
 
-
     it('should work with minifyCss', () => {
         return init(
             html,
             '<div><style>.b{color:red}</style></div><p class="b">hello</p>',
             {
                 removeUnusedCss: maxPreset.removeUnusedCss,
-                minifyCss: {},
+                minifyCss: {}
             }
         );
     });
@@ -71,7 +67,7 @@ describe('removeUnusedCss (purgeCSS)', function () {
     const options = {
         removeUnusedCss: {
             tool: 'purgeCSS'
-        },
+        }
     };
     const html = `<div><style>
         div.r {
@@ -86,7 +82,6 @@ describe('removeUnusedCss (purgeCSS)', function () {
         }
     </style></div><p class="b">hello</p><style>.d{margin:auto}</style>`;
 
-
     it('should remove unused CSS inside <style>', () => {
         return init(
             html,
@@ -98,7 +93,6 @@ describe('removeUnusedCss (purgeCSS)', function () {
             options
         );
     });
-
 
     it('should pass options to purgeCSS', () => {
         return init(
@@ -120,14 +114,13 @@ describe('removeUnusedCss (purgeCSS)', function () {
         );
     });
 
-
     it('should work with minifyCss', () => {
         return init(
             html,
             '<div><style>.b{color:red}</style></div><p class="b">hello</p>',
             {
                 removeUnusedCss: maxPreset.removeUnusedCss,
-                minifyCss: {},
+                minifyCss: {}
             }
         );
     });

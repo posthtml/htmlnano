@@ -20,7 +20,7 @@ export function onContent(options, removeType) {
         removeType = 'safe';
     }
     return (contents) => {
-        return contents.filter(content => ! isCommentToRemove(content, removeType));
+        return contents.filter(content => !isCommentToRemove(content, removeType));
     };
 }
 
@@ -29,7 +29,7 @@ function isCommentToRemove(text, removeType) {
         return false;
     }
 
-    if (! isComment(text)) {
+    if (!isComment(text)) {
         // Not HTML comment
         return false;
     }

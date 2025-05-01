@@ -5,7 +5,7 @@ import safePreset from './safe.mjs';
  */
 export default { ...safePreset,
     collapseBooleanAttributes: {
-        amphtml: true,
+        amphtml: true
     },
-    minifyJs: false,
+    minifyJs: false
 };

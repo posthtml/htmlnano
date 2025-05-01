@@ -4,8 +4,8 @@ import { attributesWithLists } from './collapseAttributeWhitespace.mjs';
 export function onAttrs() {
     return (attrs) => {
         const newAttrs = attrs;
-        Object.keys(attrs).forEach(attrName => {
-            if (! attributesWithLists.has(attrName)) {
+        Object.keys(attrs).forEach((attrName) => {
+            if (!attributesWithLists.has(attrName)) {
                 return;
             }
 
@@ -18,7 +18,7 @@ export function onAttrs() {
             const deduplicatedAttrValues = [];
 
             attrValues.forEach((attrValue) => {
-                if (! attrValue) {
+                if (!attrValue) {
                     // Keep whitespaces
                     deduplicatedAttrValues.push('');
                     return;

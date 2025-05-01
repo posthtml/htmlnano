@@ -20,7 +20,7 @@ const tagsHaveUriValuesForAttributes = new Set([
     'img',
     'script',
     'track',
-    'video',
+    'video'
 ]);
 
 const tagsHasHrefAttributes = new Set([
@@ -70,27 +70,27 @@ const tagsHasSrcAttributes = new Set([
 
 const isUriTypeAttribute = (tag, attr) => {
     return (
-        tagsHasHrefAttributes.has(tag) && attr === 'href' ||
-        tag === 'img' && attributesOfImgTagHasUriValues.has(attr) ||
-        tag === 'object' && attributesOfObjectTagHasUriValues.has(attr) ||
-        tagsHasCiteAttributes.has(tag) && attr === 'cite' ||
-        tag === 'form' && attr === 'action' ||
-        tag === 'input' && attr === 'usemap' ||
-        tag === 'head' && attr === 'profile' ||
-        tag === 'script' && attr === 'for' ||
-        tagsHasSrcAttributes.has(tag) && attr === 'src'
+        tagsHasHrefAttributes.has(tag) && attr === 'href'
+        || tag === 'img' && attributesOfImgTagHasUriValues.has(attr)
+        || tag === 'object' && attributesOfObjectTagHasUriValues.has(attr)
+        || tagsHasCiteAttributes.has(tag) && attr === 'cite'
+        || tag === 'form' && attr === 'action'
+        || tag === 'input' && attr === 'usemap'
+        || tag === 'head' && attr === 'profile'
+        || tag === 'script' && attr === 'for'
+        || tagsHasSrcAttributes.has(tag) && attr === 'src'
     );
 };
 
 const isSrcsetAttribute = (tag, attr) => {
     return (
-        tag === 'source' && attr === 'srcset' ||
-        tag === 'img' && attr === 'srcset' ||
-        tag === 'link' && attr === 'imagesrcset'
+        tag === 'source' && attr === 'srcset'
+        || tag === 'img' && attr === 'srcset'
+        || tag === 'link' && attr === 'imagesrcset'
     );
 };
 
-const processModuleOptions = options => {
+const processModuleOptions = (options) => {
     // FIXME!
     // relateurl@1.0.0-alpha only supports URL while stable version (0.2.7) only supports string
     // should convert input into URL instance after relateurl@1 is stable
@@ -142,7 +142,7 @@ export default async function minifyUrls(tree, options, moduleOptions) {
         STORED_URL_BASE = urlBase;
     }
 
-    tree.walk(node => {
+    tree.walk((node) => {
         if (!node.attrs) return node;
 
         if (!node.tag) return node;
@@ -177,14 +177,14 @@ export default async function minifyUrls(tree, options, moduleOptions) {
                     try {
                         const parsedSrcset = srcset.parseSrcset(attrValue, { strict: true });
 
-                        node.attrs[attrName] = srcset.stringifySrcset(parsedSrcset.map(item => {
+                        node.attrs[attrName] = srcset.stringifySrcset(parsedSrcset.map((item) => {
                             if (relateUrlInstance) {
                                 item.url = relateUrlInstance.relate(item.url);
                             }
 
                             return item;
                         }));
-                    } catch (e) {
+                    } catch {
                         // srcset will throw an Error for invalid srcset.
                     }
                 }

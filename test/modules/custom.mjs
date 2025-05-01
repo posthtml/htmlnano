@@ -6,7 +6,7 @@ describe('custom', () => {
         return init(
             '<div><span>hello</span></div>',
             '<div>hello</div>',
-            {custom: getRemoveTagFunction('span')}
+            { custom: getRemoveTagFunction('span') }
         );
     });
 
@@ -14,17 +14,16 @@ describe('custom', () => {
         return init(
             '<div><span>hello</span></div>',
             '<div>hello</div>',
-            {custom: [getRemoveTagFunction('span'), getRemoveTagFunction('span')]}
+            { custom: [getRemoveTagFunction('span'), getRemoveTagFunction('span')] }
         );
     });
 });
-
 
 function getRemoveTagFunction(tag) {
     return (tree, options) => {
         expect(options.custom).toBeTruthy();
 
-        tree.match({ tag }, node => {
+        tree.match({ tag }, (node) => {
             node.tag = false;
             return node;
         });

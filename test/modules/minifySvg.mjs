@@ -2,10 +2,9 @@ import { init } from '../htmlnano.mjs';
 import safePreset from '../../dist/presets/safe.mjs';
 import maxPreset from '../../dist/presets/max.mjs';
 
-
 describe('minifySvg', () => {
     const options = {
-        minifySvg: safePreset.minifySvg,
+        minifySvg: safePreset.minifySvg
     };
     const svg = `<svg version="1.1" baseProfile="full" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
         <g>
@@ -64,10 +63,10 @@ describe('minifySvg', () => {
                             name: 'preset-default',
                             params: {
                                 overrides: {
-                                    convertColors: false,
-                                },
-                            },
-                        },
+                                    convertColors: false
+                                }
+                            }
+                        }
                     ]
                 }
             }
@@ -80,7 +79,7 @@ describe('minifySvg', () => {
 
             '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" baseProfile="full"><rect width="100%" height="100%" fill="red"/><circle cx="150" cy="100" r="80" fill="green"/><text id="a" x="150" y="125" fill="#fff" font-size="60" text-anchor="middle">SVG</text><use x="2" y="2" href="#a"/></svg>',
 
-            {minifySvg: maxPreset.minifySvg}
+            { minifySvg: maxPreset.minifySvg }
         );
     });
 
@@ -93,14 +92,13 @@ describe('minifySvg', () => {
 
             {
                 minifyCss: {
-                    preset: 'default',
+                    preset: 'default'
                 },
                 minifyJs: {},
                 minifySvg: maxPreset.minifySvg
             }
         );
     });
-
 
     // https://github.com/posthtml/htmlnano/issues/129
     it('should work with <foreignObject>', () => {

@@ -6,7 +6,7 @@ describe('[helpers]', () => {
         it('should detect AMP boilerplate', () => {
             expect(isAmpBoilerplate({
                 tag: 'style',
-                attrs: { 'amp-boilerplate': '' },
+                attrs: { 'amp-boilerplate': '' }
             })).toBe(true);
             expect(isAmpBoilerplate({ tag: 'style' })).toBe(false);
         });
@@ -37,7 +37,7 @@ describe('[helpers]', () => {
             expect(isStyleNode({
                 tag: 'style',
                 content: 'abc',
-                attrs: { 'amp-boilerplate': '' },
+                attrs: { 'amp-boilerplate': '' }
             })).toBe(false);
         });
     });
@@ -46,14 +46,14 @@ describe('[helpers]', () => {
         it('should extract CSS from <style> node', () => {
             expect(extractCssFromStyleNode({
                 tag: 'style',
-                content: 'abc',
+                content: 'abc'
             })).toBe('abc');
             expect(extractCssFromStyleNode({
                 tag: 'style',
                 content: [
                     'abc',
-                    'def',
-                ],
+                    'def'
+                ]
             })).toBe('abc def');
         });
     });

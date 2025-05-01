@@ -1,9 +1,9 @@
 /* Merge multiple <script> into one */
-export default function mergeScripts (tree) {
+export default function mergeScripts(tree) {
     let scriptNodesIndex = {};
     let scriptSrcIndex = 1;
 
-    tree.match({ tag: 'script' }, node => {
+    tree.match({ tag: 'script' }, (node) => {
         const nodeAttrs = node.attrs || {};
         if (
             'src' in nodeAttrs
@@ -25,7 +25,7 @@ export default function mergeScripts (tree) {
             type: scriptType,
             defer: nodeAttrs.defer !== undefined,
             async: nodeAttrs.async !== undefined,
-            index: scriptSrcIndex,
+            index: scriptSrcIndex
         });
         if (!scriptNodesIndex[scriptKey]) {
             scriptNodesIndex[scriptKey] = [];
@@ -37,7 +37,7 @@ export default function mergeScripts (tree) {
 
     for (const scriptNodes of Object.values(scriptNodesIndex)) {
         let lastScriptNode = scriptNodes.pop();
-        scriptNodes.reverse().forEach(scriptNode => {
+        scriptNodes.reverse().forEach((scriptNode) => {
             let scriptContent = (scriptNode.content || []).join(' ');
             scriptContent = scriptContent.trim();
             if (scriptContent.slice(-1) !== ';') {

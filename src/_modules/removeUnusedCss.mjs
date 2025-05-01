@@ -3,13 +3,13 @@ import { isStyleNode, extractCssFromStyleNode, optionalImport } from '../helpers
 // These options must be set and shouldn't be overriden to ensure uncss doesn't look at linked stylesheets.
 const uncssOptions = {
     ignoreSheets: [/\s*/],
-    stylesheets: [],
+    stylesheets: []
 };
 
 function processStyleNodeUnCSS(html, styleNode, uncssOptions, uncss) {
     const css = extractCssFromStyleNode(styleNode);
 
-    return runUncss(html, css, uncssOptions, uncss).then(css => {
+    return runUncss(html, css, uncssOptions, uncss).then((css) => {
         // uncss may have left some style tags empty
         if (css.trim().length === 0) {
             styleNode.tag = false;
@@ -43,7 +43,7 @@ const purgeFromHtml = function (tree) {
     // making the process faster
     const selectors = [];
 
-    tree.walk(node => {
+    tree.walk((node) => {
         const classes = node.attrs && node.attrs.class && node.attrs.class.split(' ') || [];
         const ids = node.attrs && node.attrs.id && node.attrs.id.split(' ') || [];
         selectors.push(...classes, ...ids);
@@ -57,7 +57,7 @@ const purgeFromHtml = function (tree) {
 function processStyleNodePurgeCSS(tree, styleNode, purgecssOptions, purgecss) {
     const css = extractCssFromStyleNode(styleNode);
     return runPurgecss(tree, css, purgecssOptions, purgecss)
-        .then(css => {
+        .then((css) => {
             if (css.trim().length === 0) {
                 styleNode.tag = false;
                 styleNode.content = [];
@@ -103,7 +103,7 @@ export default async function removeUnusedCss(tree, options, userOptions) {
     const purgecss = await optionalImport('purgecss');
     const uncss = await optionalImport('uncss');
 
-    tree.walk(node => {
+    tree.walk((node) => {
         if (isStyleNode(node)) {
             if (userOptions.tool === 'purgeCSS') {
                 if (purgecss) {

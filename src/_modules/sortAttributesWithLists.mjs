@@ -2,7 +2,7 @@
 import { attributesWithLists } from './collapseAttributeWhitespace.mjs';
 
 const validOptions = new Set(['frequency', 'alphabetical']);
-const processModuleOptions = options => {
+const processModuleOptions = (options) => {
     if (options === true) return 'alphabetical';
 
     return validOptions.has(options) ? options : false;
@@ -14,7 +14,7 @@ class AttributeTokenChain {
     }
 
     addFromNodeAttrsArray(attrValuesArray) {
-        attrValuesArray.forEach(attrValue => {
+        attrValuesArray.forEach((attrValue) => {
             if (this.freqData.has(attrValue)) {
                 this.freqData.set(attrValue, this.freqData.get(attrValue) + 1);
             } else {
@@ -37,7 +37,7 @@ class AttributeTokenChain {
             this.createSortOrder();
         }
 
-        this.sortOrder.forEach(k => {
+        this.sortOrder.forEach((k) => {
             if (attrValuesArray.includes(k)) {
                 resultArray.push(k);
             }
@@ -64,12 +64,12 @@ export default function collapseAttributeWhitespace(tree, options, moduleOptions
 }
 
 function sortAttributesWithListsInAlphabeticalOrder(tree) {
-    tree.walk(node => {
+    tree.walk((node) => {
         if (!node.attrs) {
             return node;
         }
 
-        Object.keys(node.attrs).forEach(attrName => {
+        Object.keys(node.attrs).forEach((attrName) => {
             const attrNameLower = attrName.toLowerCase();
             if (!attributesWithLists.has(attrNameLower)) {
                 return;
@@ -92,7 +92,7 @@ function sortAttributesWithListsByFrequency(tree) {
     const tokenChainObj = {}; // <attrNameLower: AttributeTokenChain>[]
 
     // Traverse through tree to get frequency
-    tree.walk(node => {
+    tree.walk((node) => {
         if (!node.attrs) {
             return node;
         }
@@ -112,7 +112,7 @@ function sortAttributesWithListsByFrequency(tree) {
     });
 
     // Traverse through tree again, this time sort the attribute values
-    tree.walk(node => {
+    tree.walk((node) => {
         if (!node.attrs) {
             return node;
         }

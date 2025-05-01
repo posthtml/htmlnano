@@ -2,10 +2,9 @@ import { init } from '../htmlnano.mjs';
 import safePreset from '../../dist/presets/safe.mjs';
 import ampSafePreset from '../../dist/presets/ampSafe.mjs';
 
-
 describe('collapseBooleanAttributes', () => {
     const options = {
-        collapseBooleanAttributes: safePreset.collapseBooleanAttributes,
+        collapseBooleanAttributes: safePreset.collapseBooleanAttributes
     };
 
     it('should collapse a boolean attribute with value', () => {
@@ -15,7 +14,6 @@ describe('collapseBooleanAttributes', () => {
             options
         );
     });
-
 
     it('should collapse a boolean attribute with empty value', () => {
         return init(
@@ -35,25 +33,23 @@ describe('collapseBooleanAttributes', () => {
     //     );
     // });
 
-
     it('should collapse AMP boolean attributes with empty value', () => {
         const optionsWithAmp = {
-            collapseBooleanAttributes: ampSafePreset.collapseBooleanAttributes,
+            collapseBooleanAttributes: ampSafePreset.collapseBooleanAttributes
         };
 
         return init(
-            '<script defer=""></script>' +
-            '<style amp-custom=""></style>' +
-            '<amp-video preload="metadata"></amp-video>',
+            '<script defer=""></script>'
+            + '<style amp-custom=""></style>'
+            + '<amp-video preload="metadata"></amp-video>',
 
-            '<script defer></script>' +
-            '<style amp-custom></style>' +
-            '<amp-video preload="metadata"></amp-video>',
+            '<script defer></script>'
+            + '<style amp-custom></style>'
+            + '<amp-video preload="metadata"></amp-video>',
 
             optionsWithAmp
         );
     });
-
 
     it('should not collapse A-Frame visible attribute', () => {
         return init(

@@ -20,8 +20,8 @@ export const redundantScriptTypes = new Set([
 
 // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#missing-value-default
 const missingValueDefaultAttributes = {
-    'form': {
-        'method': 'get'
+    form: {
+        method: 'get'
     },
 
     input: {
@@ -33,9 +33,9 @@ const missingValueDefaultAttributes = {
         type: 'submit'
     },
 
-    'script': {
-        'language': 'javascript',
-        'type': attrs => {
+    script: {
+        language: 'javascript',
+        type: (attrs) => {
             for (const [attrName, attrValue] of Object.entries(attrs)) {
                 if (attrName.toLowerCase() !== 'type') {
                     continue;
@@ -47,21 +47,21 @@ const missingValueDefaultAttributes = {
             return false;
         },
         // Remove attribute if the function returns false
-        'charset': attrs => {
+        charset: (attrs) => {
             // The charset attribute only really makes sense on “external” SCRIPT elements:
             // http://perfectionkills.com/optimizing-html/#8_script_charset
             return !attrs.src;
         }
     },
 
-    'style': {
-        'media': 'all',
-        'type': 'text/css'
+    style: {
+        media: 'all',
+        type: 'text/css'
     },
 
-    'link': {
+    link: {
         media: 'all',
-        'type': attrs => {
+        type: (attrs) => {
             // https://html.spec.whatwg.org/multipage/links.html#link-type-stylesheet
             let isRelStyleSheet = false;
             let isTypeTextCSS = false;
@@ -84,12 +84,12 @@ const missingValueDefaultAttributes = {
 
     // See: https://html.spec.whatwg.org/#lazy-loading-attributes
     img: {
-        'loading': 'eager',
+        loading: 'eager',
         // https://html.spec.whatwg.org/multipage/embedded-content.html#dom-img-decoding
         decoding: 'auto'
     },
     iframe: {
-        'loading': 'eager'
+        loading: 'eager'
     },
 
     // https://html.spec.whatwg.org/multipage/media.html#htmltrackelement

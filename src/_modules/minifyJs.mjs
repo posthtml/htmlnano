@@ -2,13 +2,13 @@ import { isEventHandler, optionalImport } from '../helpers.mjs';
 import { redundantScriptTypes } from './removeRedundantAttributes.mjs';
 
 /** Minify JS with Terser */
-export default async function minifyJs (tree, options, terserOptions) {
+export default async function minifyJs(tree, options, terserOptions) {
     const terser = await optionalImport('terser');
 
     if (!terser) return tree;
 
     let promises = [];
-    tree.walk(node => {
+    tree.walk((node) => {
         const nodeAttrs = node.attrs || {};
 
         /**
@@ -44,8 +44,7 @@ export default async function minifyJs (tree, options, terserOptions) {
     return Promise.all(promises).then(() => tree);
 }
 
-
-function stripCdata (js) {
+function stripCdata(js) {
     const leftStrippedJs = js.replace(/\/\/\s*<!\[CDATA\[/, '').replace(/\/\*\s*<!\[CDATA\[\s*\*\//, '');
     if (leftStrippedJs === js) {
         return js;
@@ -55,8 +54,7 @@ function stripCdata (js) {
     return leftStrippedJs === strippedJs ? js : strippedJs;
 }
 
-
-function processScriptNode (scriptNode, terserOptions, terser) {
+function processScriptNode(scriptNode, terserOptions, terser) {
     let js = (scriptNode.content || []).join('').trim();
     if (!js) {
         return scriptNode;
@@ -72,7 +70,7 @@ function processScriptNode (scriptNode, terserOptions, terser) {
 
     return terser
         .minify(js, terserOptions)
-        .then(result => {
+        .then((result) => {
             if (result.error) {
                 throw new Error(result.error);
             }
@@ -89,8 +87,7 @@ function processScriptNode (scriptNode, terserOptions, terser) {
         });
 }
 
-
-function processNodeWithOnAttrs (node, terserOptions, terser) {
+function processNodeWithOnAttrs(node, terserOptions, terser) {
     const jsWrapperStart = 'a=function(){';
     const jsWrapperEnd = '};a();';
 

@@ -12,9 +12,9 @@ export default { ...safePreset,
     mergeStyles: true,
     removeUnusedCss: {},
     minifyCss: {
-        preset: 'default',
+        preset: 'default'
     },
     minifySvg: {},
     minifyConditionalComments: true,
-    removeOptionalTags: true,
+    removeOptionalTags: true
 };

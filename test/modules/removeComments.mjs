@@ -2,11 +2,10 @@ import { init } from '../htmlnano.mjs';
 import safePreset from '../../dist/presets/safe.mjs';
 import maxPreset from '../../dist/presets/max.mjs';
 
-
 describe('removeComments', () => {
     context('safe (default)', () => {
         const options = {
-            removeComments: safePreset.removeComments,
+            removeComments: safePreset.removeComments
         };
 
         it('should remove HTML comments', () => {
@@ -67,10 +66,9 @@ describe('removeComments', () => {
         });
     });
 
-
     context('all', () => {
         const options = {
-            removeComments: maxPreset.removeComments,
+            removeComments: maxPreset.removeComments
         };
 
         it('should remove <!--noindex--> and <!--/noindex-->', () => {
@@ -112,7 +110,7 @@ describe('removeComments', () => {
                 '<!--noindex-->this text will not be indexed<!--/noindex-->Lorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet',
                 'this text will not be indexedLorem ipsum dolor sit amet<!--more-->Lorem ipsum dolor sit amet',
                 {
-                    removeComments: /<!--(\/)?noindex-->/,
+                    removeComments: /<!--(\/)?noindex-->/
                 }
             );
         });
@@ -125,7 +123,7 @@ describe('removeComments', () => {
                     removeComments: (comment) => {
                         if (comment.includes('noindex')) return true;
                         return false;
-                    },
+                    }
                 }
             );
         });

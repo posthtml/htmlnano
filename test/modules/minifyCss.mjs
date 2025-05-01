@@ -1,12 +1,11 @@
 import { init } from '../htmlnano.mjs';
 import safePreset from '../../dist/presets/safe.mjs';
 
-
 describe('minifyCss', function () {
     this.timeout(3000);
 
     const options = {
-        minifyCss: safePreset.minifyCss,
+        minifyCss: safePreset.minifyCss
     };
     const html = `<div><style>
         h1 {
@@ -26,7 +25,6 @@ describe('minifyCss', function () {
             }
         ]]>
     </style></svg>`;
-
 
     it('should minify CSS inside <style>', () => {
         return init(
@@ -52,8 +50,6 @@ describe('minifyCss', function () {
         );
     });
 
-
-
     it('should minify CSS inside style attribute', () => {
         return init(
             '<div style="color: #ff0000; margin: 10px 10px 10px 10px"></div>',
@@ -61,7 +57,6 @@ describe('minifyCss', function () {
             options
         );
     });
-
 
     it('should do nothing if style attribute is empty', () => {
         return init(
@@ -71,7 +66,6 @@ describe('minifyCss', function () {
         );
     });
 
-
     it('should pass options to cssnano', () => {
         return init(
             html,
@@ -79,13 +73,12 @@ describe('minifyCss', function () {
             {
                 minifyCss: {
                     preset: ['default', {
-                        colormin: false,
-                    }],
+                        colormin: false
+                    }]
                 }
             }
         );
     });
-
 
     it('should not minify CSS inside HTML comments', () => {
         return init(
@@ -94,7 +87,6 @@ describe('minifyCss', function () {
             options
         );
     });
-
 
     it('should ignore AMP boilerplate', () => {
         const amphtml = '<style amp-boilerplate="">\nh1{color:red}</style>';

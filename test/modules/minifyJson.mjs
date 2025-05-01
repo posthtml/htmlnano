@@ -1,10 +1,9 @@
 import { init } from '../htmlnano.mjs';
 import safePreset from '../../dist/presets/safe.mjs';
 
-
 describe('minifyJson', () => {
     const options = {
-        minifyJson: safePreset.minifyJson,
+        minifyJson: safePreset.minifyJson
     };
 
     it('should minify JSON inside <script> tags with JSON mime type', () => {
