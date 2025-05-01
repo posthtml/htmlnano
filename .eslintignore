@@ -1,3 +1,3 @@
-lib/modules/example.mjs
+src/_modules/example.mjs
 test.mjs
 **/*.cjs

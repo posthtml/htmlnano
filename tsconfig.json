@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist",
+    "target": "es2018",
+    "module": "CommonJS",
+    "lib": ["ES2018"],
+    "allowJs": true,
+    "moduleResolution": "node",
+    "removeComments": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    // TODO: turn this back on once we have migrated all JS files
+    "isolatedDeclarations": false,
+    "forceConsistentCasingInFileNames": true,
+  },
+  "include": [
+    "src"
+  ],
+}

@@ -1,6 +1,6 @@
 import { init } from '../htmlnano.mjs';
-import safePreset from '../../lib/presets/safe.mjs';
-import ampSafePreset from '../../lib/presets/ampSafe.mjs';
+import safePreset from '../../dist/presets/safe.mjs';
+import ampSafePreset from '../../dist/presets/ampSafe.mjs';
 
 
 describe('minifyJs', () => {

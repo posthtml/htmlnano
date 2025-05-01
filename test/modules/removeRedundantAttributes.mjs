@@ -1,5 +1,5 @@
 import { init } from '../htmlnano.mjs';
-import maxPreset from '../../lib/presets/max.mjs';
+import maxPreset from '../../dist/presets/max.mjs';
 
 
 describe('removeRedundantAttributes', () => {
