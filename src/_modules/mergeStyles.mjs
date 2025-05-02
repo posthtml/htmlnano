@@ -4,7 +4,7 @@ import { isAmpBoilerplate } from '../helpers.mjs';
 export default function mergeStyles(tree) {
     const styleNodes = {};
 
-    tree.match({tag: 'style'}, node => {
+    tree.match({ tag: 'style' }, (node) => {
         const nodeAttrs = node.attrs || {};
         // Skip <style scoped></style>
         // https://developer.mozilla.org/en/docs/Web/HTML/Element/style

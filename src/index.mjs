@@ -7,7 +7,7 @@ import maxPreset from './presets/max.mjs';
 const presets = {
     safe: safePreset,
     ampSafe: ampSafePreset,
-    max: maxPreset,
+    max: maxPreset
 };
 
 export function loadConfig(options, preset, configPath) {
@@ -34,7 +34,7 @@ export function loadConfig(options, preset, configPath) {
 
     return [
         rest || {},
-        preset || safePreset,
+        preset || safePreset
     ];
 }
 
@@ -42,9 +42,8 @@ const optionalDependencies = {
     minifyCss: ['cssnano', 'postcss'],
     minifyJs: ['terser'],
     minifyUrl: ['relateurl', 'srcset', 'terser'],
-    minifySvg: ['svgo'],
+    minifySvg: ['svgo']
 };
-
 
 const modules = {
     collapseAttributeWhitespace: () => import('./_modules/collapseAttributeWhitespace.mjs'),
@@ -69,7 +68,7 @@ const modules = {
     removeRedundantAttributes: () => import('./_modules/removeRedundantAttributes.mjs'),
     removeUnusedCss: () => import('./_modules/removeUnusedCss.mjs'),
     sortAttributes: () => import('./_modules/sortAttributes.mjs'),
-    sortAttributesWithLists: () => import('./_modules/sortAttributesWithLists.mjs'),
+    sortAttributesWithLists: () => import('./_modules/sortAttributesWithLists.mjs')
 };
 
 export function htmlnano(optionsRun, presetRun) {
@@ -93,12 +92,12 @@ export function htmlnano(optionsRun, presetRun) {
                 throw new Error('Module "' + moduleName + '" is not defined');
             }
 
-            (optionalDependencies[moduleName] || []).forEach(async dependency => {
+            (optionalDependencies[moduleName] || []).forEach(async (dependency) => {
                 try {
                     await import(dependency);
                 } catch (e) {
                     if (e.code === 'MODULE_NOT_FOUND' || e.code === 'ERR_MODULE_NOT_FOUND') {
-                        if (!options.skipInternalWarnings){
+                        if (!options.skipInternalWarnings) {
                             console.warn(`You have to install "${dependency}" in order to use htmlnano's "${moduleName}" module`);
                         }
                     } else {
@@ -107,9 +106,9 @@ export function htmlnano(optionsRun, presetRun) {
                 }
             });
 
-            const module = moduleName in modules ?
-                await (modules[moduleName]()) :
-                await import(`./_modules/${moduleName}.mjs`);
+            const module = moduleName in modules
+                ? await (modules[moduleName]())
+                : await import(`./_modules/${moduleName}.mjs`);
 
             if (typeof module.onAttrs === 'function') {
                 attrsHandlers.push(module.onAttrs(options, moduleOptions));
@@ -129,8 +128,8 @@ export function htmlnano(optionsRun, presetRun) {
             return promise;
         }
 
-        return promise.then(tree => {
-            tree.walk(node => {
+        return promise.then((tree) => {
+            tree.walk((node) => {
                 if (node) {
                     if (node.attrs && typeof node.attrs === 'object') {
                         // Convert all attrs' key to lower case
@@ -170,12 +169,11 @@ export function htmlnano(optionsRun, presetRun) {
     };
 }
 
-export function getRequiredOptionalDependencies (optionsRun, presetRun) {
+export function getRequiredOptionalDependencies(optionsRun, presetRun) {
     const [options] = loadConfig(optionsRun, presetRun);
 
     return [...new Set(Object.keys(options).filter(moduleName => options[moduleName]).map(moduleName => optionalDependencies[moduleName]).flat())];
 }
-
 
 export function process(html, options, preset, postHtmlOptions) {
     return posthtml([htmlnano(options, preset)])
@@ -186,7 +184,7 @@ export function process(html, options, preset, postHtmlOptions) {
 export function htmlMinimizerWebpackPluginMinify(input, minimizerOptions = {}) {
     const [[, code]] = Object.entries(input);
     return htmlnano.process(code, minimizerOptions, presets.safe)
-        .then(result => {
+        .then((result) => {
             return {
                 code: result.html
             };
@@ -201,6 +199,5 @@ htmlnano.htmlMinimizerWebpackPluginMinify = htmlMinimizerWebpackPluginMinify;
 export default htmlnano;
 
 if (typeof module !== 'undefined') {
-    // eslint-disable-next-line import/no-commonjs -- CJS compat, will remove once we fully migrated to TS
     module.exports = htmlnano;
 }

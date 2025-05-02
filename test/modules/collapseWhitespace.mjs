@@ -2,7 +2,6 @@ import { init } from '../htmlnano.mjs';
 import safePreset from '../../dist/presets/safe.mjs';
 import maxPreset from '../../dist/presets/max.mjs';
 
-
 describe('collapseWhitespace', () => {
     const html = ` <div>
     <p>      Hello world	</p>
@@ -52,7 +51,7 @@ describe('collapseWhitespace', () => {
 
     context('all', () => {
         const options = {
-            collapseWhitespace: maxPreset.collapseWhitespace,
+            collapseWhitespace: maxPreset.collapseWhitespace
         };
 
         it('should collapse redundant whitespaces', () => {
@@ -66,8 +65,8 @@ describe('collapseWhitespace', () => {
         it('should not collapse whitespaces inside ' + inviolateTags, () => {
             return init(
                 inviolateTagsHtml,
-                '<script> alert() </script><style>.foo  {}</style><pre> hello <b> , </b> </pre>' +
-                '<div><!--  hello   world  --></div><textarea> world! </textarea>',
+                '<script> alert() </script><style>.foo  {}</style><pre> hello <b> , </b> </pre>'
+                + '<div><!--  hello   world  --></div><textarea> world! </textarea>',
                 options
             );
         });
@@ -97,10 +96,9 @@ describe('collapseWhitespace', () => {
         });
     });
 
-
     context('aggressive', () => {
         const options = {
-            collapseWhitespace: 'aggressive',
+            collapseWhitespace: 'aggressive'
         };
 
         it('should collapse redundant whitespaces and eliminate indentation (tabs, newlines, etc)', () => {
@@ -114,8 +112,8 @@ describe('collapseWhitespace', () => {
         it('should not collapse whitespaces inside ' + inviolateTags, () => {
             return init(
                 inviolateTagsHtml,
-                '<script> alert() </script><style>.foo  {}</style><pre> hello <b> , </b> </pre>' +
-                '<div><!--  hello   world  --></div><textarea> world! </textarea>',
+                '<script> alert() </script><style>.foo  {}</style><pre> hello <b> , </b> </pre>'
+                + '<div><!--  hello   world  --></div><textarea> world! </textarea>',
                 options
             );
         });
@@ -162,10 +160,9 @@ describe('collapseWhitespace', () => {
         });
     });
 
-
     context('conservative (default)', () => {
         const options = {
-            collapseWhitespace: safePreset.collapseWhitespace,
+            collapseWhitespace: safePreset.collapseWhitespace
         };
 
         it('should collapse to 1 space', () => {
@@ -187,8 +184,8 @@ describe('collapseWhitespace', () => {
         it('should not collapse whitespaces inside ' + inviolateTags, () => {
             return init(
                 inviolateTagsHtml,
-                '<script> alert() </script><style>.foo  {}</style><pre> hello <b> , </b> </pre>' +
-                '<div> <!--  hello   world  --> </div><textarea> world! </textarea>',
+                '<script> alert() </script><style>.foo  {}</style><pre> hello <b> , </b> </pre>'
+                + '<div> <!--  hello   world  --> </div><textarea> world! </textarea>',
                 options
             );
         });

@@ -16,7 +16,7 @@ export default {
     removeRedundantAttributes: false,
     // collapseBooleanAttributes will also collapse those default state can be omitted
     collapseBooleanAttributes: {
-        amphtml: false,
+        amphtml: false
     },
     deduplicateAttributeValues: true,
 
@@ -39,7 +39,7 @@ export default {
     mergeStyles: false,
     mergeScripts: false,
     minifyCss: {
-        preset: 'default',
+        preset: 'default'
     },
     minifyJs: {},
     minifyJson: {},
@@ -50,10 +50,10 @@ export default {
                 params: {
                     overrides: {
                         collapseGroups: false,
-                        convertShapeToPath: false,
-                    },
-                },
-            },
+                        convertShapeToPath: false
+                    }
+                }
+            }
         ]
     },
     removeUnusedCss: false,

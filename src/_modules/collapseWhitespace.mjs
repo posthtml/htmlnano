@@ -39,13 +39,13 @@ export default function collapseWhitespace(tree, options, collapseType, parent) 
             const parentNodeTag = parent && parent.node && parent.node.tag;
             const isTopLevel = !parentNodeTag || parentNodeTag === 'html' || parentNodeTag === 'head';
             const shouldTrim = (
-                collapseType === 'all' ||
-                isTopLevel ||
+                collapseType === 'all'
+                || isTopLevel
                 /*
                  * When collapseType is set to 'aggressive', and the tag is not inside 'noTrimWhitespacesInsideElements'.
                  * the first & last space inside the tag will be trimmed
                  */
-                collapseType === 'aggressive'
+                || collapseType === 'aggressive'
             );
 
             node = collapseRedundantWhitespaces(node, collapseType, shouldTrim, parent, prevNode, nextNode);
@@ -65,7 +65,6 @@ export default function collapseWhitespace(tree, options, collapseType, parent) 
 
     return tree;
 }
-
 
 function collapseRedundantWhitespaces(text, collapseType, shouldTrim = false, parent, prevNode, nextNode) {
     if (!text || text.length === 0) {

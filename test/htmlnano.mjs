@@ -5,7 +5,6 @@ import safePreset from '../dist/presets/safe.mjs';
 import ampSafePreset from '../dist/presets/ampSafe.mjs';
 import maxPreset from '../dist/presets/max.mjs';
 
-
 describe('[htmlnano]', () => {
     it('should do nothing if all modules are disabled', () => {
         return init(
@@ -19,7 +18,7 @@ describe('[htmlnano]', () => {
             '<div></div>',
             '<b></b>',
             { notDefinedModule: true }
-        ).catch(error => {
+        ).catch((error) => {
             expect(error.message).toBe('Module "notDefinedModule" is not defined');
         });
     });
@@ -44,7 +43,6 @@ describe('[htmlnano]', () => {
         return init('<div></div>', '<div></div>', { skipConfigLoading: true });
     });
 });
-
 
 describe('loadConfig()', () => {
     it('should return empty options and safe preset if nothing set', () => {
@@ -76,7 +74,6 @@ describe('loadConfig()', () => {
         expect(options).toEqual({ skipConfigLoading: true });
     });
 });
-
 
 export function init(html, minifiedHtml, options) {
     return posthtml([htmlnano(options, {})]).process(html).then((result) => {

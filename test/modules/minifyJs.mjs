@@ -2,10 +2,9 @@ import { init } from '../htmlnano.mjs';
 import safePreset from '../../dist/presets/safe.mjs';
 import ampSafePreset from '../../dist/presets/ampSafe.mjs';
 
-
 describe('minifyJs', () => {
     const options = {
-        minifyJs: safePreset.minifyJs,
+        minifyJs: safePreset.minifyJs
     };
 
     it('should minify JS inside <script>', () => {
@@ -46,7 +45,6 @@ describe('minifyJs', () => {
         );
     });
 
-
     it('should minify ES6 inside <script>', () => {
         return init(
             `<script>
@@ -54,7 +52,7 @@ describe('minifyJs', () => {
                 let a = (b) => { return b * 5; };
             </script>`,
             '<script>const f=15;let a=t=>5*t;</script>',
-            options,
+            options
         );
     });
 
@@ -78,7 +76,7 @@ describe('minifyJs', () => {
         return init(
             '<video oncanplay="this.currentTime = 1.2; this.oncanplay=null;"></video>',
             '<video oncanplay="this.currentTime=1.2,this.oncanplay=null"></video>',
-            {minifyJs: { module: true }}
+            { minifyJs: { module: true } }
         );
     });
 
@@ -105,8 +103,8 @@ describe('minifyJs', () => {
             Object.assign({}, options, {
                 minifyJs: {
                     compress: {
-                        properties: false,
-                    },
+                        properties: false
+                    }
                 }
             })
         );
@@ -125,12 +123,11 @@ describe('minifyJs', () => {
         );
     });
 
-
     it('should not minify inline JS on AMP pages', () => {
         return init(
             '<button on="tap:something">Click</button>',
             '<button on="tap:something">Click</button>',
-            {minifyJs: ampSafePreset.minifyJs}
+            { minifyJs: ampSafePreset.minifyJs }
         );
     });
 

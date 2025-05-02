@@ -6,7 +6,7 @@ export default async function minifySvg(tree, options, svgoOptions = {}) {
 
     if (!svgo) return tree;
 
-    tree.match({tag: 'svg'}, node => {
+    tree.match({ tag: 'svg' }, (node) => {
         let svgStr = tree.render(node, { closingSingleTag: 'slash', quoteAllAttributes: true });
         try {
             const result = svgo.optimize(svgStr, svgoOptions);

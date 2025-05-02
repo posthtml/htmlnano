@@ -114,15 +114,15 @@ export default function removeOptionalTags(tree) {
             let isHeadEndTagCanBeOmitted = true;
 
             if (
-                isEmptyNode(node) ||
-                firstNonEmptyChildNode && firstNonEmptyChildNode.tag
+                isEmptyNode(node)
+                || firstNonEmptyChildNode && firstNonEmptyChildNode.tag
             ) {
                 isHeadStartTagCanBeOmitted = true;
             }
 
             if (
-                (nextNode && typeof nextNode === 'string' && startWithWhitespacePattern.test(nextNode)) ||
-                (nextNonEmptyNode && typeof nextNonEmptyNode === 'string' && isComment(nextNode))
+                (nextNode && typeof nextNode === 'string' && startWithWhitespacePattern.test(nextNode))
+                || (nextNonEmptyNode && typeof nextNonEmptyNode === 'string' && isComment(nextNode))
             ) {
                 isHeadEndTagCanBeOmitted = false;
             }
@@ -131,7 +131,6 @@ export default function removeOptionalTags(tree) {
                 node.tag = false;
             }
         }
-
 
         /**
          * A "body" element's start tag may be omitted if the element is empty, or if the first thing inside the "body" element is not ASCII whitespace or a comment, except if the first thing inside the "body" element is a "meta", "link", "script", "style", or "template" element.
@@ -142,8 +141,8 @@ export default function removeOptionalTags(tree) {
             let isBodyEndTagCanBeOmitted = true;
 
             if (
-                (typeof firstChildNode === 'string' && startWithWhitespacePattern.test(firstChildNode)) ||
-                (typeof firstNonEmptyChildNode === 'string' && isComment(firstNonEmptyChildNode))
+                (typeof firstChildNode === 'string' && startWithWhitespacePattern.test(firstChildNode))
+                || (typeof firstNonEmptyChildNode === 'string' && isComment(firstNonEmptyChildNode))
             ) {
                 isBodyStartTagCanBeOmitted = false;
             }
@@ -178,8 +177,8 @@ export default function removeOptionalTags(tree) {
             }
 
             if (
-                (nextNode && typeof nextNode === 'string' && startWithWhitespacePattern.test(nextNode)) ||
-                (nextNonEmptyNode && typeof nextNonEmptyNode === 'string' && isComment(nextNonEmptyNode))
+                (nextNode && typeof nextNode === 'string' && startWithWhitespacePattern.test(nextNode))
+                || (nextNonEmptyNode && typeof nextNonEmptyNode === 'string' && isComment(nextNonEmptyNode))
             ) {
                 isColgroupEndTagCanBeOmitted = false;
             }

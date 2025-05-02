@@ -1,14 +1,14 @@
 /** Meta-module that runs custom modules  */
 export default function custom(tree, options, customModules) {
-    if (! customModules) {
+    if (!customModules) {
         return tree;
     }
 
-    if (! Array.isArray(customModules)) {
+    if (!Array.isArray(customModules)) {
         customModules = [customModules];
     }
 
-    customModules.forEach(customModule => {
+    customModules.forEach((customModule) => {
         tree = customModule(tree, options);
     });
 

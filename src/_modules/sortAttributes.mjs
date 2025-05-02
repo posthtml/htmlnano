@@ -1,6 +1,6 @@
 const validOptions = new Set(['frequency', 'alphabetical']);
 
-const processModuleOptions = options => {
+const processModuleOptions = (options) => {
     if (options === true) return 'alphabetical';
 
     return validOptions.has(options) ? options : false;
@@ -12,7 +12,7 @@ class AttributeTokenChain {
     }
 
     addFromNodeAttrs(nodeAttrs) {
-        Object.keys(nodeAttrs).forEach(attrName => {
+        Object.keys(nodeAttrs).forEach((attrName) => {
             const attrNameLower = attrName.toLowerCase();
 
             if (this.freqData.has(attrNameLower)) {
@@ -43,7 +43,7 @@ class AttributeTokenChain {
             this.createSortOrder();
         }
 
-        this.sortOrder.forEach(attrNameLower => {
+        this.sortOrder.forEach((attrNameLower) => {
             // The attrName inside "sortOrder" has been lowered
             if (loweredNodeAttrs[attrNameLower] != null) {
                 newAttrs[attrNameLower] = loweredNodeAttrs[attrNameLower];
@@ -71,7 +71,7 @@ export default function sortAttributes(tree, options, moduleOptions) {
 }
 
 function sortAttributesInAlphabeticalOrder(tree) {
-    tree.walk(node => {
+    tree.walk((node) => {
         if (!node.attrs) {
             return node;
         }
@@ -94,7 +94,7 @@ function sortAttributesByFrequency(tree) {
     const tokenchain = new AttributeTokenChain();
 
     // Traverse through tree to get frequency
-    tree.walk(node => {
+    tree.walk((node) => {
         if (!node.attrs) {
             return node;
         }
@@ -105,7 +105,7 @@ function sortAttributesByFrequency(tree) {
     });
 
     // Traverse through tree again, this time sort the attributes
-    tree.walk(node => {
+    tree.walk((node) => {
         if (!node.attrs) {
             return node;
         }

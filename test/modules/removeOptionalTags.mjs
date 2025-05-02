@@ -4,7 +4,7 @@ import { init } from '../htmlnano.mjs';
 
 describe('removeOptionalTags', () => {
     const options = {
-        removeOptionalTags: true,
+        removeOptionalTags: true
     };
 
     it('shouldn\'t omit optional tag if has attributes', () => {

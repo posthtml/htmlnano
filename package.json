@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "compile": "npm run clean && bunchee",
-    "lint": "eslint --fix src/*.mjs src/**/*.mjs test/*.mjs test/**/*.mjs",
+    "lint": "eslint --fix .",
     "pretest": "npm run lint && npm run compile",
     "test": ":",
     "posttest": "mocha --timeout 5000 --require @swc-node/register --recursive --check-leaks --globals addresses",
@@ -40,28 +40,6 @@
       "require": "./dist/presets/safe.js"
     }
   },
-  "babel": {
-    "presets": [
-      [
-        "@babel/env",
-        {
-          "targets": {
-            "node": 10
-          }
-        }
-      ]
-    ],
-    "plugins": [
-      [
-        "@aminya/babel-plugin-replace-import-extension",
-        {
-          "extMapping": {
-            ".mjs": ".cjs"
-          }
-        }
-      ]
-    ]
-  },
   "keywords": [
     "posthtml",
     "posthtml-plugin",
@@ -74,17 +52,17 @@
     "posthtml": "^0.16.5"
   },
   "devDependencies": {
-    "@aminya/babel-plugin-replace-import-extension": "1.2.0",
-    "@babel/core": "^7.15.5",
-    "@babel/eslint-parser": "^7.17.0",
-    "@babel/preset-env": "^7.27.1",
+    "@stylistic/eslint-plugin": "^4.2.0",
     "@swc-node/register": "^1.10.10",
     "bunchee": "^6.5.1",
     "cssnano": "^7.0.0",
-    "eslint": "^8.12.0",
+    "eslint": "^9.25.1",
+    "eslint-config-flat-gitignore": "^2.1.0",
     "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-path-import-extension": "^0.9.0",
+    "eslint-plugin-import-x": "^4.11.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "expect": "^29.0.0",
+    "globals": "^16.0.0",
     "mocha": "^11.0.1",
     "postcss": "^8.3.11",
     "purgecss": "^7.0.2",
@@ -94,6 +72,7 @@
     "svgo": "^3.0.2",
     "terser": "^5.21.0",
     "typescript": "^5.8.3",
+    "typescript-eslint": "^8.31.1",
     "uncss": "^0.17.3"
   },
   "peerDependencies": {
@@ -139,5 +118,6 @@
   "bugs": {
     "url": "https://github.com/posthtml/htmlnano/issues"
   },
-  "homepage": "https://github.com/posthtml/htmlnano"
+  "homepage": "https://github.com/posthtml/htmlnano",
+  "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39"
 }

@@ -11,7 +11,7 @@ export function onContent() {
             try {
                 // cast minified JSON to an array
                 return [JSON.stringify(JSON.parse((content || []).join('')))];
-            } catch (error) {
+            } catch {
                 // Invalid JSON
             }
         }

@@ -36,7 +36,7 @@ describe('normalizeAttributeValues', () => {
                 // should be lower case instead of invalid value default
                 '<a referrerpolicy="unsafe-url"></a>',
                 options
-            ),
+            )
         ]);
     });
 });

@@ -4,7 +4,7 @@ const postcssOptions = {
     // Prevent the following warning from being shown:
     // > Without `from` option PostCSS could generate wrong source map and will not find Browserslist config.
     // > Set it to CSS file path or to `undefined` to prevent this warning.
-    from: undefined,
+    from: undefined
 };
 
 /** Minify CSS with cssnano */
@@ -17,7 +17,7 @@ export default async function minifyCss(tree, options, cssnanoOptions) {
     }
 
     let promises = [];
-    tree.walk(node => {
+    tree.walk((node) => {
         // Skip SRI, reasons are documented in "minifyJs" module
         if (node.attrs && 'integrity' in node.attrs) {
             return node;
@@ -35,7 +35,6 @@ export default async function minifyCss(tree, options, cssnanoOptions) {
     return Promise.all(promises).then(() => tree);
 }
 
-
 function processStyleNode(styleNode, cssnanoOptions, cssnano, postcss) {
     let css = extractCssFromStyleNode(styleNode);
 
@@ -49,14 +48,13 @@ function processStyleNode(styleNode, cssnanoOptions, cssnano, postcss) {
 
     return postcss([cssnano(cssnanoOptions)])
         .process(css, postcssOptions)
-        .then(result => {
+        .then((result) => {
             if (isCdataWrapped) {
                 return styleNode.content = ['<![CDATA[' + result + ']]>'];
             }
             return styleNode.content = [result.css];
         });
 }
-
 
 function processStyleAttr(node, cssnanoOptions, cssnano, postcss) {
     // CSS "color: red;" is invalid. Therefore it should be wrapped inside some selector:
@@ -67,7 +65,7 @@ function processStyleAttr(node, cssnanoOptions, cssnano, postcss) {
 
     return postcss([cssnano(cssnanoOptions)])
         .process(wrappedStyle, postcssOptions)
-        .then(result => {
+        .then((result) => {
             const minifiedCss = result.css;
             // Remove wrapperStart at the start and wrapperEnd at the end of minifiedCss
             node.attrs.style = minifiedCss.substring(

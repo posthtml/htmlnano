@@ -1,7 +1,6 @@
 import { init } from '../htmlnano.mjs';
 import safePreset from '../../dist/presets/safe.mjs';
 
-
 describe('minifyConditionalComments', () => {
     const fixture = {
         fullHtml: `

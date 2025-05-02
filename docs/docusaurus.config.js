@@ -21,22 +21,22 @@ module.exports = {
                 {
                     type: 'docsVersionDropdown',
                     position: 'right',
-                    dropdownActiveClassDisabled: true,
+                    dropdownActiveClassDisabled: true
                 },
                 {
                     href: 'https://github.com/posthtml/htmlnano',
                     label: 'GitHub',
-                    position: 'right',
-                },
-            ],
+                    position: 'right'
+                }
+            ]
         },
         prism: {
             theme: lightCodeTheme,
-            darkTheme: darkCodeTheme,
+            darkTheme: darkCodeTheme
         },
         goatcounter: {
-            code: 'htmlnano',
-        },
+            code: 'htmlnano'
+        }
     },
     presets: [
         [
@@ -45,19 +45,18 @@ module.exports = {
                 docs: {
                     sidebarPath: require.resolve('./sidebars.js'),
                     routeBasePath: '/',
-                    editUrl: 'https://github.com/posthtml/htmlnano/edit/master/docs/',
-                },
-            },
-        ],
-    ],
+                    editUrl: 'https://github.com/posthtml/htmlnano/edit/master/docs/'
+                }
+            }
+        ]
+    ]
 };
-
 
 const algoliaConfig = {
     appId: process.env.ALGOLIA_APP_ID,
     apiKey: process.env.ALGOLIA_API_KEY,
     indexName: 'htmlnano',
-    contextualSearch: true,
+    contextualSearch: true
 };
 
 if (algoliaConfig.apiKey) {

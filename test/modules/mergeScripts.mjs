@@ -1,10 +1,9 @@
 import { init } from '../htmlnano.mjs';
 import maxPreset from '../../dist/presets/max.mjs';
 
-
 describe('mergeScripts', () => {
     const options = {
-        mergeScripts: maxPreset.mergeScripts,
+        mergeScripts: maxPreset.mergeScripts
     };
 
     it('should merge <script> with the same attributes', () => {
@@ -18,8 +17,8 @@ describe('mergeScripts', () => {
             <script defer="defer">foo = 6;</script>
             <script class="test" type="text/javascript">foo = 7;</script>`,
 
-            '\n            \n            \n            \n            \n            ' +
-            `<script>var foo = 1;foo = 3;foo = 5;</script>
+            '\n            \n            \n            \n            \n            '
+            + `<script>var foo = 1;foo = 3;foo = 5;</script>
             <script defer="defer">foo = 4;foo = 6;</script>
             <script class="test" type="text/javascript">foo = 2;foo = 7;</script>`,
 
@@ -58,7 +57,6 @@ describe('mergeScripts', () => {
             options
         );
     });
-
 
     it('should not change order of JS code', () => {
         return init(
