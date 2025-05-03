@@ -25,7 +25,7 @@ describe('[htmlnano]', () => {
 
     it('getRequiredOptionalDependencies', () => {
         expect(htmlnano.getRequiredOptionalDependencies({
-            minifyUrl: true,
+            minifyUrls: true,
             minifyJs: {}
         })).toStrictEqual(['relateurl', 'srcset', 'terser']);
     });

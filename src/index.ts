@@ -148,7 +148,7 @@ export function htmlnano(optionsRun: HtmlnanoOptions = {}, presetRun?: HtmlnanoP
             tree.walk((node) => {
                 if (node) {
                     if (node.attrs && typeof node.attrs === 'object') {
-                    // Convert all attrs' key to lower case
+                        // Convert all attrs' key to lower case
                         let newAttrsObj: Record<string, string | void> = {};
                         Object.entries(node.attrs).forEach(([attrName, attrValue]) => {
                             newAttrsObj[attrName.toLowerCase()] = attrValue;
@@ -192,12 +192,17 @@ export function htmlnano(optionsRun: HtmlnanoOptions = {}, presetRun?: HtmlnanoP
 export function getRequiredOptionalDependencies(optionsRun: HtmlnanoOptions, presetRun: HtmlnanoPreset) {
     const [options] = loadConfig(optionsRun, presetRun);
 
-    return [...new Set(
-        Object.keys(options)
-            .filter(moduleName => moduleName in options)
-            .map(moduleName => optionalDependencies[moduleName as keyof typeof optionalDependencies])
-            .flat()
-    )];
+    return Array.from(Object.keys(options).reduce<Set<string>>(
+        (acc, moduleName) => {
+            if (moduleName in optionalDependencies) {
+                const dependencies = optionalDependencies[moduleName as keyof typeof optionalDependencies];
+                // eslint-disable-next-line @typescript-eslint/unbound-method -- thisArg provided by forEach
+                dependencies.forEach(acc.add, acc);
+            }
+            return acc;
+        },
+        new Set()
+    ));
 }
 
 export function process(
