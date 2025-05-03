@@ -1,3 +1,5 @@
+import type { HtmlnanoPreset } from '../types';
+
 /**
  * Minify HTML in a safe way without breaking anything.
  */
@@ -61,5 +63,5 @@ export default {
     /* ----------------------------------------
      * Miscellaneous
      * ---------------------------------------- */
-    custom: []
-};
+    custom: (tree, _options) => tree
+} as HtmlnanoPreset;

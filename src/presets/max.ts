@@ -1,4 +1,5 @@
-import safePreset from './safe.mjs';
+import type { HtmlnanoPreset } from '../types.js';
+import safePreset from './safe';
 
 /**
  * Maximal minification (might break some pages)
@@ -17,4 +18,4 @@ export default { ...safePreset,
     minifySvg: {},
     minifyConditionalComments: true,
     removeOptionalTags: true
-};
+} as HtmlnanoPreset;

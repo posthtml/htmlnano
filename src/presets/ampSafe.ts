@@ -1,4 +1,5 @@
-import safePreset from './safe.mjs';
+import type { HtmlnanoPreset } from '../types';
+import safePreset from './safe';
 
 /**
  * A safe preset for AMP pages (https://www.ampproject.org)
@@ -8,4 +9,4 @@ export default { ...safePreset,
         amphtml: true
     },
     minifyJs: false
-};
+} as HtmlnanoPreset;
