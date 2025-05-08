@@ -1,4 +1,4 @@
-import { isStyleNode, extractCssFromStyleNode, optionalImport } from '../helpers.mjs';
+import { isStyleNode, extractCssFromStyleNode, optionalImport } from '../helpers';
 
 // These options must be set and shouldn't be overriden to ensure uncss doesn't look at linked stylesheets.
 const uncssOptions = {

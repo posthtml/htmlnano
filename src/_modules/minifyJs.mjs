@@ -1,4 +1,4 @@
-import { isEventHandler, optionalImport } from '../helpers.mjs';
+import { isEventHandler, optionalImport } from '../helpers';
 import { redundantScriptTypes } from './removeRedundantAttributes.mjs';
 
 /** Minify JS with Terser */
