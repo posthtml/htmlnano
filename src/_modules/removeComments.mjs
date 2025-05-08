@@ -1,4 +1,4 @@
-import { isComment, isConditionalComment } from '../helpers.mjs';
+import { isComment, isConditionalComment } from '../helpers';
 
 const MATCH_EXCERPT_REGEXP = /<!-- ?more ?-->/i;
 

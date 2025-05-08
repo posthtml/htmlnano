@@ -1,4 +1,4 @@
-import { isEventHandler } from '../helpers.mjs';
+import { isEventHandler } from '../helpers';
 
 export const attributesWithLists = new Set([
     'class',

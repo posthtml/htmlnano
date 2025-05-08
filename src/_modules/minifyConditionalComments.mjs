@@ -1,5 +1,5 @@
 import htmlnano from '../index.mjs';
-import { isConditionalComment } from '../helpers.mjs';
+import { isConditionalComment } from '../helpers';
 
 // Spec: https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/compatibility/ms537512(v=vs.85)
 const CONDITIONAL_COMMENT_REGEXP = /(<!--\[if\s+?[^<>[\]]+?]>)([\s\S]+?)(<!\[endif\]-->)/gm;

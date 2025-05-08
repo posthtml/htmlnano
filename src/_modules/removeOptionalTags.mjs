@@ -1,4 +1,4 @@
-import { isComment } from '../helpers.mjs';
+import { isComment } from '../helpers';
 
 const startWithWhitespacePattern = /^\s+/;
 

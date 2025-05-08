@@ -1,4 +1,4 @@
-import { isStyleNode, extractCssFromStyleNode, optionalImport } from '../helpers.mjs';
+import { isStyleNode, extractCssFromStyleNode, optionalImport } from '../helpers';
 
 const postcssOptions = {
     // Prevent the following warning from being shown:

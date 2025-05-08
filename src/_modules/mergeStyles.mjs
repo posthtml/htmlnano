@@ -1,4 +1,4 @@
-import { isAmpBoilerplate } from '../helpers.mjs';
+import { isAmpBoilerplate } from '../helpers';
 
 /* Merge multiple <style> into one */
 export default function mergeStyles(tree) {
