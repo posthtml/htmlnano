@@ -3,6 +3,8 @@ import type { MinifyOptions } from 'terser';
 import type { Options as CssNanoOptions } from 'cssnano';
 import type { Config as SvgoOptimizeOptions } from 'svgo';
 
+export type PostHTMLTreeLike = [PostHTML.Node] & PostHTML.NodeAPI;
+
 export interface HtmlnanoOptions {
     skipConfigLoading?: boolean;
     skipInternalWarnings?: boolean;
@@ -11,7 +13,7 @@ export interface HtmlnanoOptions {
         amphtml?: boolean;
     };
     collapseWhitespace?: 'conservative' | 'all' | 'aggressive';
-    custom?: (tree: PostHTML.Node, options?: any) => PostHTML.Node;
+    custom?: (tree: PostHTMLTreeLike, options?: any) => PostHTML.Node | PostHTMLTreeLike;
     deduplicateAttributeValues?: boolean;
     minifyUrls?: URL | string | false;
     mergeStyles?: boolean;
@@ -45,13 +47,13 @@ export type HtmlnanoModuleAttrsHandler = (attrs: Record<string, string | boolean
 export type HtmlnanoModuleContentHandler = (content: Array<string | PostHTML.Node>, node: PostHTML.Node) => string | string[] | PostHTML.Node | PostHTML.Node[];
 export type HtmlnanoModuleNodeHandler = (node: PostHTML.Node) => PostHTML.Node;
 
-export type HtmlnanoModule<Options = any> = Partial<{
-    onAttrs: (options: Partial<HtmlnanoOptions>, moduleOptions: Partial<Options>) => HtmlnanoModuleAttrsHandler;
-    onContent: (options: Partial<HtmlnanoOptions>, moduleOptions: Partial<Options>) => HtmlnanoModuleContentHandler;
-    onNode: (options: Partial<HtmlnanoOptions>, moduleOptions: Partial<Options>) => HtmlnanoModuleNodeHandler;
-    default: (
-        tree: PostHTML.Node<string | void, PostHTML.NodeAttributes | void>,
+export type HtmlnanoModule<Options = any> = {
+    onAttrs?: (options: Partial<HtmlnanoOptions>, moduleOptions: Partial<Options>) => HtmlnanoModuleAttrsHandler;
+    onContent?: (options: Partial<HtmlnanoOptions>, moduleOptions: Partial<Options>) => HtmlnanoModuleContentHandler;
+    onNode?: (options: Partial<HtmlnanoOptions>, moduleOptions: Partial<Options>) => HtmlnanoModuleNodeHandler;
+    default?: (
+        tree: PostHTMLTreeLike,
         options: Partial<HtmlnanoOptions>,
         moduleOptions: Partial<Options>,
-    ) => Promise<PostHTML.Node<string | void, PostHTML.NodeAttributes | void>>;
-}>;
+    ) => PostHTMLTreeLike | Promise<PostHTMLTreeLike>;
+};

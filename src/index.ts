@@ -3,7 +3,7 @@ import { cosmiconfigSync } from 'cosmiconfig';
 import safePreset from './presets/safe.js';
 import ampSafePreset from './presets/ampSafe.js';
 import maxPreset from './presets/max.js';
-import type { HtmlnanoModule, HtmlnanoModuleAttrsHandler, HtmlnanoModuleContentHandler, HtmlnanoModuleNodeHandler, HtmlnanoOptions, HtmlnanoOptionsConfigFile, HtmlnanoPredefinedPresets, HtmlnanoPreset } from './types';
+import type { HtmlnanoModule, HtmlnanoModuleAttrsHandler, HtmlnanoModuleContentHandler, HtmlnanoModuleNodeHandler, HtmlnanoOptions, HtmlnanoOptionsConfigFile, HtmlnanoPredefinedPresets, HtmlnanoPreset, PostHTMLTreeLike } from './types';
 import type PostHTML from 'posthtml';
 
 export type * from './types';
@@ -59,7 +59,7 @@ const interop = <T>(imported: Promise<{ default: T }>) => imported.then(mod => m
 const modules = {
     collapseAttributeWhitespace: () => interop(import('./_modules/collapseAttributeWhitespace')),
     collapseBooleanAttributes: () => interop(import('./_modules/collapseBooleanAttributes.js')),
-    collapseWhitespace: () => import('./_modules/collapseWhitespace.mjs'),
+    collapseWhitespace: () => interop(import('./_modules/collapseWhitespace.js')),
     custom: () => import('./_modules/custom.mjs'),
     deduplicateAttributeValues: () => import('./_modules/deduplicateAttributeValues.mjs'),
     // example: () => import('./_modules/example.mjs'),
@@ -86,7 +86,9 @@ export function htmlnano(optionsRun: HtmlnanoOptions = {}, presetRun?: HtmlnanoP
     // eslint-disable-next-line prefer-const -- re-assign options
     let [options, preset] = loadConfig(optionsRun, presetRun);
 
-    const minifier: PostHTML.Plugin<never> = async (tree: PostHTML.Node) => {
+    const minifier: PostHTML.Plugin<never> = async (_tree) => {
+        const tree = (_tree as unknown) as PostHTMLTreeLike;
+
         const nodeHandlers: HtmlnanoModuleNodeHandler[] = [];
         const attrsHandlers: HtmlnanoModuleAttrsHandler[] = [];
         const contentsHandlers: HtmlnanoModuleContentHandler[] = [];
