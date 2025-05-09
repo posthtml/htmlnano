@@ -54,9 +54,11 @@ const optionalDependencies = {
     minifySvg: ['svgo']
 } satisfies Partial<Record<keyof HtmlnanoOptions, string[]>>;
 
+const interop = <T>(imported: Promise<{ default: T }>) => imported.then(mod => mod.default);
+
 const modules = {
-    collapseAttributeWhitespace: () => import('./_modules/collapseAttributeWhitespace.mjs'),
-    collapseBooleanAttributes: () => import('./_modules/collapseBooleanAttributes.mjs'),
+    collapseAttributeWhitespace: () => interop(import('./_modules/collapseAttributeWhitespace')),
+    collapseBooleanAttributes: () => interop(import('./_modules/collapseBooleanAttributes.js')),
     collapseWhitespace: () => import('./_modules/collapseWhitespace.mjs'),
     custom: () => import('./_modules/custom.mjs'),
     deduplicateAttributeValues: () => import('./_modules/deduplicateAttributeValues.mjs'),
@@ -127,16 +129,16 @@ export function htmlnano(optionsRun: HtmlnanoOptions = {}, presetRun?: HtmlnanoP
                 : (await import(`./_modules/${moduleName}.mjs`)) as HtmlnanoModule;
 
             if (typeof mod.onAttrs === 'function') {
-                attrsHandlers.push(mod.onAttrs(options, moduleOptions));
+                attrsHandlers.push(mod.onAttrs(options, moduleOptions as Partial<any>));
             }
             if (typeof mod.onContent === 'function') {
-                contentsHandlers.push(mod.onContent(options, moduleOptions));
+                contentsHandlers.push(mod.onContent(options, moduleOptions as Partial<any>));
             }
             if (typeof mod.onNode === 'function') {
-                nodeHandlers.push(mod.onNode(options, moduleOptions));
+                nodeHandlers.push(mod.onNode(options, moduleOptions as Partial<any>));
             }
             if (typeof mod.default === 'function') {
-                promise = promise.then(async tree => await mod.default!(tree, options, moduleOptions));
+                promise = promise.then(async tree => await mod.default!(tree, options, moduleOptions as Partial<any>));
             }
         }
 
@@ -149,7 +151,7 @@ export function htmlnano(optionsRun: HtmlnanoOptions = {}, presetRun?: HtmlnanoP
                 if (node) {
                     if (node.attrs && typeof node.attrs === 'object') {
                         // Convert all attrs' key to lower case
-                        let newAttrsObj: Record<string, string | void> = {};
+                        let newAttrsObj: Record<string, string | boolean | void> = {};
                         Object.entries(node.attrs).forEach(([attrName, attrValue]) => {
                             newAttrsObj[attrName.toLowerCase()] = attrValue;
                         });
@@ -158,7 +160,7 @@ export function htmlnano(optionsRun: HtmlnanoOptions = {}, presetRun?: HtmlnanoP
                             newAttrsObj = handler(newAttrsObj, node);
                         }
 
-                        node.attrs = newAttrsObj;
+                        node.attrs = newAttrsObj as PostHTML.NodeAttributes;
                     }
 
                     if (node.content) {

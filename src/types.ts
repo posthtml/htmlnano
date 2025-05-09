@@ -41,17 +41,17 @@ export type HtmlnanoOptionsConfigFile = Omit<HtmlnanoOptions, 'skipConfigLoading
     preset?: HtmlnanoPredefinedPreset;
 };
 
-export type HtmlnanoModuleAttrsHandler = (attrs: Record<string, string | void>, node: PostHTML.Node) => Record<string, string | void>;
+export type HtmlnanoModuleAttrsHandler = (attrs: Record<string, string | boolean | void>, node: PostHTML.Node) => Record<string, string | boolean | void>;
 export type HtmlnanoModuleContentHandler = (content: Array<string | PostHTML.Node>, node: PostHTML.Node) => string | string[] | PostHTML.Node | PostHTML.Node[];
 export type HtmlnanoModuleNodeHandler = (node: PostHTML.Node) => PostHTML.Node;
 
 export type HtmlnanoModule<Options = any> = Partial<{
-    onAttrs: (options: Partial<HtmlnanoOptions>, moduleOptions: Options) => HtmlnanoModuleAttrsHandler;
-    onContent: (options: Partial<HtmlnanoOptions>, moduleOptions: Options) => HtmlnanoModuleContentHandler;
-    onNode: (options: Partial<HtmlnanoOptions>, moduleOptions: Options) => HtmlnanoModuleNodeHandler;
+    onAttrs: (options: Partial<HtmlnanoOptions>, moduleOptions: Partial<Options>) => HtmlnanoModuleAttrsHandler;
+    onContent: (options: Partial<HtmlnanoOptions>, moduleOptions: Partial<Options>) => HtmlnanoModuleContentHandler;
+    onNode: (options: Partial<HtmlnanoOptions>, moduleOptions: Partial<Options>) => HtmlnanoModuleNodeHandler;
     default: (
         tree: PostHTML.Node<string | void, PostHTML.NodeAttributes | void>,
         options: Partial<HtmlnanoOptions>,
-        moduleOptions: Options,
+        moduleOptions: Partial<Options>,
     ) => Promise<PostHTML.Node<string | void, PostHTML.NodeAttributes | void>>;
 }>;

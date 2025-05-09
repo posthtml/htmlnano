@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf dist",
-    "compile": "npm run clean && bunchee",
+    "build": "npm run clean && bunchee",
+    "compile": "npm run build",
     "lint": "eslint --fix .",
     "pretest": "npm run lint && npm run compile",
     "test": ":",
