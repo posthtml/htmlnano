@@ -1,4 +1,4 @@
-import { attributesWithLists } from './collapseAttributeWhitespace.mjs';
+import { attributesWithLists } from './collapseAttributeWhitespace.js';
 
 /** Deduplicate values inside list-like attributes (e.g. class, rel) */
 export function onAttrs() {

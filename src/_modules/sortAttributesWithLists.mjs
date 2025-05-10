@@ -1,5 +1,5 @@
 // class, rel, ping
-import { attributesWithLists } from './collapseAttributeWhitespace.mjs';
+import { attributesWithLists } from './collapseAttributeWhitespace.js';
 
 const validOptions = new Set(['frequency', 'alphabetical']);
 const processModuleOptions = (options) => {
