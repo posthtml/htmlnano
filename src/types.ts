@@ -7,6 +7,8 @@ export type PostHTMLTreeLike = [PostHTML.Node] & PostHTML.NodeAPI & {
     render(tree?: PostHTMLTreeLike): string;
 };
 
+type MaybeArray<T> = T | Array<T>;
+
 export interface HtmlnanoOptions {
     skipConfigLoading?: boolean;
     skipInternalWarnings?: boolean;
@@ -15,7 +17,7 @@ export interface HtmlnanoOptions {
         amphtml?: boolean;
     };
     collapseWhitespace?: 'conservative' | 'all' | 'aggressive';
-    custom?: (tree: PostHTMLTreeLike, options?: any) => PostHTML.Node | PostHTMLTreeLike;
+    custom?: MaybeArray<(tree: PostHTMLTreeLike, options?: any) => (PostHTML.Node | PostHTMLTreeLike)>;
     deduplicateAttributeValues?: boolean;
     minifyUrls?: URL | string | false;
     mergeStyles?: boolean;
