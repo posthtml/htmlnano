@@ -3,7 +3,9 @@ import type { MinifyOptions } from 'terser';
 import type { Options as CssNanoOptions } from 'cssnano';
 import type { Config as SvgoOptimizeOptions } from 'svgo';
 
-export type PostHTMLTreeLike = [PostHTML.Node] & PostHTML.NodeAPI;
+export type PostHTMLTreeLike = [PostHTML.Node] & PostHTML.NodeAPI & {
+    render(tree?: PostHTMLTreeLike): string;
+};
 
 export interface HtmlnanoOptions {
     skipConfigLoading?: boolean;
