@@ -4,6 +4,9 @@ import type { Options as CssNanoOptions } from 'cssnano';
 import type { Config as SvgoOptimizeOptions } from 'svgo';
 
 export type PostHTMLTreeLike = [PostHTML.Node] & PostHTML.NodeAPI & {
+    options?: {
+        quoteAllAttributes?: boolean | undefined;
+    } | undefined;
     render(tree?: PostHTMLTreeLike): string;
 };
 

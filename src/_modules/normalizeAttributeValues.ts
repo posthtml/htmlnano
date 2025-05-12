@@ -1,4 +1,6 @@
-const caseInsensitiveAttributes = {
+import type { HtmlnanoModule } from '../types';
+
+const caseInsensitiveAttributes: Record<string, null | string[]> = {
     autocomplete: ['form'],
     charset: ['meta', 'script'],
     contenteditable: null,
@@ -36,8 +38,7 @@ const caseInsensitiveAttributes = {
 };
 
 // https://html.spec.whatwg.org/#invalid-value-default
-/** @typedef { [key: string]: { tag: null | string[], default: string, valid: string[] } } */
-const invalidValueDefault = {
+const invalidValueDefault: Record<string, { tag: null | string[]; default: string; valid: string[] }> = {
     crossorigin: {
         tag: null,
         default: 'anonymous',
@@ -104,37 +105,41 @@ const invalidValueDefault = {
     }
 };
 
-export function onAttrs() {
-    return (attrs, node) => {
-        const newAttrs = attrs;
+const mod: HtmlnanoModule = {
+    onAttrs() {
+        return (attrs, node) => {
+            const newAttrs = attrs;
 
-        Object.entries(attrs).forEach(([attrName, attrValue]) => {
-            let newAttrValue = attrValue;
+            Object.entries(attrs).forEach(([attrName, attrValue]) => {
+                let newAttrValue = attrValue;
 
-            if (
-                Object.hasOwnProperty.call(caseInsensitiveAttributes, attrName)
-                && (
-                    caseInsensitiveAttributes[attrName] === null
-                    || caseInsensitiveAttributes[attrName].includes(node.tag)
-                )
-            ) {
-                newAttrValue = typeof attrValue.toLowerCase === 'function' ? attrValue.toLowerCase() : attrValue;
-            }
+                if (
+                    Object.hasOwnProperty.call(caseInsensitiveAttributes, attrName)
+                    && (
+                        caseInsensitiveAttributes[attrName] === null
+                        || (node.tag && caseInsensitiveAttributes[attrName].includes(node.tag))
+                    )
+                ) {
+                    newAttrValue = typeof attrValue === 'string' ? attrValue.toLowerCase() : attrValue;
+                }
 
-            if (
-                Object.hasOwnProperty.call(invalidValueDefault, attrName)
-            ) {
-                const meta = invalidValueDefault[attrName];
-                if (meta.tag === null || (node && node.tag && meta.tag.includes(node.tag))) {
-                    if (!meta.valid.includes(newAttrValue)) {
-                        newAttrValue = meta.default;
+                if (
+                    Object.hasOwnProperty.call(invalidValueDefault, attrName)
+                ) {
+                    const meta = invalidValueDefault[attrName];
+                    if (meta.tag === null || (node && node.tag && meta.tag.includes(node.tag))) {
+                        if (typeof newAttrValue !== 'string' || !meta.valid.includes(newAttrValue)) {
+                            newAttrValue = meta.default;
+                        }
                     }
                 }
-            }
 
-            newAttrs[attrName] = newAttrValue;
-        });
+                newAttrs[attrName] = newAttrValue;
+            });
 
-        return newAttrs;
-    };
-}
+            return newAttrs;
+        };
+    }
+};
+
+export default mod;

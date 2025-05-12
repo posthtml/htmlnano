@@ -1,5 +1,5 @@
 import { isEventHandler, optionalImport } from '../helpers';
-import { redundantScriptTypes } from './removeRedundantAttributes.mjs';
+import { redundantScriptTypes } from './removeRedundantAttributes.js';
 
 /** Minify JS with Terser */
 export default async function minifyJs(tree, options, terserOptions) {

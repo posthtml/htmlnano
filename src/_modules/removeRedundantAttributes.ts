@@ -1,3 +1,5 @@
+import type { HtmlnanoModule } from '../types';
+
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#JavaScript_types
 export const redundantScriptTypes = new Set([
     'application/javascript',
@@ -19,7 +21,7 @@ export const redundantScriptTypes = new Set([
 ]);
 
 // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#missing-value-default
-const missingValueDefaultAttributes = {
+const missingValueDefaultAttributes: Record<string, Record<string, string | ((attrs: Record<string, void | boolean | string>) => boolean)>> = {
     form: {
         method: 'get'
     },
@@ -41,7 +43,11 @@ const missingValueDefaultAttributes = {
                     continue;
                 }
 
-                return redundantScriptTypes.has(attrValue);
+                if (typeof attrValue === 'string') {
+                    return redundantScriptTypes.has(attrValue);
+                }
+
+                return false;
             }
 
             return false;
@@ -111,31 +117,34 @@ const missingValueDefaultAttributes = {
 const tagsHaveMissingValueDefaultAttributes = new Set(Object.keys(missingValueDefaultAttributes));
 
 /** Removes redundant attributes */
-export function onAttrs() {
-    return (attrs, node) => {
-        if (!node.tag) return attrs;
+const mod: HtmlnanoModule = {
+    onAttrs() {
+        return (attrs, node) => {
+            if (!node.tag) return attrs;
 
-        const newAttrs = attrs;
+            const newAttrs = attrs;
 
-        if (tagsHaveMissingValueDefaultAttributes.has(node.tag)) {
-            const tagRedundantAttributes = missingValueDefaultAttributes[node.tag];
+            if (tagsHaveMissingValueDefaultAttributes.has(node.tag)) {
+                const tagRedundantAttributes = missingValueDefaultAttributes[node.tag];
 
-            for (const redundantAttributeName of Object.keys(tagRedundantAttributes)) {
-                let tagRedundantAttributeValue = tagRedundantAttributes[redundantAttributeName];
-                let isRemove = false;
+                for (const redundantAttributeName of Object.keys(tagRedundantAttributes)) {
+                    const tagRedundantAttributeValue = tagRedundantAttributes[redundantAttributeName];
+                    let isRemove = false;
 
-                if (typeof tagRedundantAttributeValue === 'function') {
-                    isRemove = tagRedundantAttributeValue(attrs);
-                } else if (attrs[redundantAttributeName] === tagRedundantAttributeValue) {
-                    isRemove = true;
-                }
+                    if (typeof tagRedundantAttributeValue === 'function') {
+                        isRemove = tagRedundantAttributeValue(attrs);
+                    } else if (attrs[redundantAttributeName] === tagRedundantAttributeValue) {
+                        isRemove = true;
+                    }
 
-                if (isRemove) {
-                    delete newAttrs[redundantAttributeName];
+                    if (isRemove) {
+                        delete newAttrs[redundantAttributeName];
+                    }
                 }
             }
-        }
 
-        return newAttrs;
-    };
-}
+            return newAttrs;
+        };
+    }
+};
+export default mod;

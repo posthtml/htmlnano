@@ -1,6 +1,7 @@
 import { isEventHandler } from '../helpers';
+import type { HtmlnanoModule } from '../types';
 
-const safeToRemoveAttrs = {
+const safeToRemoveAttrs: Record<string, string | null | string[]> = {
     id: null,
     class: null,
     style: null,
@@ -94,28 +95,31 @@ const safeToRemoveAttrs = {
     width: ['canvas', 'embed', 'iframe', 'img', 'input', 'object', 'video']
 };
 
-export function onAttrs() {
-    return (attrs, node) => {
-        const newAttrs = { ...attrs };
-        Object.entries(attrs).forEach(([attrName, attrValue]) => {
-            if (
-                isEventHandler(attrName)
-                || (
-                    Object.hasOwnProperty.call(safeToRemoveAttrs, attrName)
-                    && (
-                        safeToRemoveAttrs[attrName] === null
-                        || safeToRemoveAttrs[attrName].includes(node.tag)
+const mod: HtmlnanoModule = {
+    onAttrs() {
+        return (attrs, node) => {
+            const newAttrs = { ...attrs };
+            Object.entries(attrs).forEach(([attrName, attrValue]) => {
+                if (
+                    isEventHandler(attrName)
+                    || (
+                        Object.hasOwnProperty.call(safeToRemoveAttrs, attrName)
+                        && (
+                            safeToRemoveAttrs[attrName] === null
+                            || (typeof node.tag === 'string' && safeToRemoveAttrs[attrName].includes(node.tag))
+                        )
                     )
-                )
-            ) {
-                if (typeof attrValue === 'string') {
-                    if (attrValue === '' || attrValue.trim() === '') {
-                        delete newAttrs[attrName];
+                ) {
+                    if (typeof attrValue === 'string') {
+                        if (attrValue === '' || attrValue.trim() === '') {
+                            delete newAttrs[attrName];
+                        }
                     }
                 }
-            }
-        });
+            });
 
-        return newAttrs;
-    };
-}
+            return newAttrs;
+        };
+    }
+};
+export default mod;
