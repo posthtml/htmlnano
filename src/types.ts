@@ -12,6 +12,8 @@ export type PostHTMLTreeLike = [PostHTML.Node] & PostHTML.NodeAPI & {
 
 type MaybeArray<T> = T | Array<T>;
 
+export type PostHTMLNodeLike = PostHTML.Node | string;
+
 export interface HtmlnanoOptions {
     skipConfigLoading?: boolean;
     skipInternalWarnings?: boolean;
@@ -51,8 +53,8 @@ export type HtmlnanoOptionsConfigFile = Omit<HtmlnanoOptions, 'skipConfigLoading
 };
 
 export type HtmlnanoModuleAttrsHandler = (attrs: Record<string, string | boolean | void>, node: PostHTML.Node) => Record<string, string | boolean | void>;
-export type HtmlnanoModuleContentHandler = (content: Array<string | PostHTML.Node>, node: PostHTML.Node) => string | string[] | PostHTML.Node | PostHTML.Node[];
-export type HtmlnanoModuleNodeHandler = (node: PostHTML.Node) => PostHTML.Node;
+export type HtmlnanoModuleContentHandler = (content: Array<PostHTMLNodeLike>, node: PostHTML.Node) => MaybeArray<PostHTMLNodeLike>;
+export type HtmlnanoModuleNodeHandler = (node: PostHTMLNodeLike) => PostHTML.Node | string;
 
 export type HtmlnanoModule<Options = any> = {
     onAttrs?: (options: Partial<HtmlnanoOptions>, moduleOptions: Partial<Options>) => HtmlnanoModuleAttrsHandler;

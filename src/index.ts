@@ -73,7 +73,7 @@ const modules = {
     minifyUrls: () => import('./_modules/minifyUrls.mjs'),
     normalizeAttributeValues: () => interop(import('./_modules/normalizeAttributeValues')),
     removeAttributeQuotes: () => interop(import('./_modules/removeAttributeQuotes.js')),
-    removeComments: () => import('./_modules/removeComments.mjs'),
+    removeComments: () => interop(import('./_modules/removeComments.js')),
     removeEmptyAttributes: () => interop(import('./_modules/removeEmptyAttributes.js')),
     removeOptionalTags: () => import('./_modules/removeOptionalTags.mjs'),
     removeRedundantAttributes: () => interop(import('./_modules/removeRedundantAttributes.js')),
@@ -178,7 +178,7 @@ export function htmlnano(optionsRun: HtmlnanoOptions = {}, presetRun?: HtmlnanoP
 
                     for (const handler of nodeHandlers) {
                         if (handler) {
-                            node = handler(node);
+                            node = handler(node) as PostHTML.Node;
                         }
                     }
                 }
