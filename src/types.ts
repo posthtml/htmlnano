@@ -7,7 +7,9 @@ export type PostHTMLTreeLike = [PostHTML.Node] & PostHTML.NodeAPI & {
     options?: {
         quoteAllAttributes?: boolean | undefined;
     } | undefined;
-    render(tree?: PostHTMLTreeLike): string;
+
+    render(): string;
+    render(node: PostHTML.Node, renderOptions?: any): string;
 };
 
 type MaybeArray<T> = T | Array<T>;
