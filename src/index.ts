@@ -54,7 +54,7 @@ const optionalDependencies = {
     minifySvg: ['svgo']
 } satisfies Partial<Record<keyof HtmlnanoOptions, string[]>>;
 
-const interop = <T>(imported: Promise<{ default: T }>) => imported.then(mod => mod.default);
+const interop = <T>(imported: Promise<{ default: T }>): Promise<T> => imported.then(mod => mod.default);
 
 const modules = {
     collapseAttributeWhitespace: () => interop(import('./_modules/collapseAttributeWhitespace')),
@@ -68,7 +68,7 @@ const modules = {
     minifyConditionalComments: () => import('./_modules/minifyConditionalComments.mjs'),
     minifyCss: () => import('./_modules/minifyCss.mjs'),
     minifyJs: () => import('./_modules/minifyJs.mjs'),
-    minifyJson: () => import('./_modules/minifyJson.mjs'),
+    minifyJson: () => interop(import('./_modules/minifyJson.js')),
     minifySvg: () => import('./_modules/minifySvg.mjs'),
     minifyUrls: () => import('./_modules/minifyUrls.mjs'),
     normalizeAttributeValues: () => interop(import('./_modules/normalizeAttributeValues')),
