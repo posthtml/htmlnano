@@ -1,8 +1,9 @@
 import { optionalImport } from '../helpers';
 import type { HtmlnanoModule } from '../types';
+import type { Config as SvgoConfig } from 'svgo';
 
 /** Minify SVG with SVGO */
-const mod: HtmlnanoModule = {
+const mod: HtmlnanoModule<SvgoConfig> = {
     async default(tree, options, svgoOptions) {
         const svgo = await optionalImport<typeof import('svgo')>('svgo');
 
