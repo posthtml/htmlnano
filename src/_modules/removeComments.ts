@@ -1,30 +1,36 @@
 import { isComment, isConditionalComment } from '../helpers';
+import type { HtmlnanoModule, PostHTMLNodeLike } from '../types';
 
 const MATCH_EXCERPT_REGEXP = /<!-- ?more ?-->/i;
 
+export type RemoveCommentsOptions = boolean | 'safe' | 'all' | RegExp | ((comment: string) => boolean);
+
 /** Removes HTML comments */
-export function onNode(options, removeType) {
-    if (removeType !== 'all' && removeType !== 'safe' && !isMatcher(removeType)) {
-        removeType = 'safe';
-    }
-    return (node) => {
-        if (isCommentToRemove(node, removeType)) {
-            return '';
+const mod: HtmlnanoModule<RemoveCommentsOptions> = {
+    onNode(_, removeType) {
+        if (removeType !== 'all' && removeType !== 'safe' && !isMatcher(removeType)) {
+            removeType = 'safe';
         }
-        return node;
-    };
-}
-
-export function onContent(options, removeType) {
-    if (removeType !== 'all' && removeType !== 'safe' && !isMatcher(removeType)) {
-        removeType = 'safe';
+        return (node) => {
+            if (isCommentToRemove(node, removeType)) {
+                return '';
+            }
+            return node;
+        };
+    },
+    onContent(_, removeType) {
+        if (removeType !== 'all' && removeType !== 'safe' && !isMatcher(removeType)) {
+            removeType = 'safe';
+        }
+        return (contents) => {
+            return contents.filter(content => !isCommentToRemove(content, removeType));
+        };
     }
-    return (contents) => {
-        return contents.filter(content => !isCommentToRemove(content, removeType));
-    };
-}
+};
 
-function isCommentToRemove(text, removeType) {
+export default mod;
+
+function isCommentToRemove(text: PostHTMLNodeLike, removeType: Partial<RemoveCommentsOptions>): boolean {
     if (typeof text !== 'string') {
         return false;
     }
@@ -71,19 +77,20 @@ function isCommentToRemove(text, removeType) {
     return true;
 }
 
-function isMatch(input, matcher) {
+function isMatch(input: string, matcher: Partial<RemoveCommentsOptions>): boolean {
     if (matcher instanceof RegExp) {
         return matcher.test(input);
     }
 
     if (typeof matcher === 'function') {
-        return Boolean(matcher(input));
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call -- typescript incorrectly infers Partialled type
+        return !!matcher(input);
     }
 
     return false;
 }
 
-function isMatcher(matcher) {
+function isMatcher(matcher: Partial<RemoveCommentsOptions>) {
     if (matcher instanceof RegExp || typeof matcher === 'function') {
         return true;
     }
