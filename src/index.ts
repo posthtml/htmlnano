@@ -54,7 +54,7 @@ const optionalDependencies = {
     minifySvg: ['svgo']
 } satisfies Partial<Record<keyof HtmlnanoOptions, string[]>>;
 
-const interop = <T>(imported: Promise<{ default: T }>) => imported.then(mod => mod.default);
+const interop = <T>(imported: Promise<{ default: T }>): Promise<T> => imported.then(mod => mod.default);
 
 const modules = {
     collapseAttributeWhitespace: () => interop(import('./_modules/collapseAttributeWhitespace')),
@@ -65,15 +65,15 @@ const modules = {
     // example: () => import('./_modules/example.mjs'),
     mergeScripts: () => import('./_modules/mergeScripts.mjs'),
     mergeStyles: () => import('./_modules/mergeStyles.mjs'),
-    minifyConditionalComments: () => import('./_modules/minifyConditionalComments.mjs'),
+    minifyConditionalComments: () => interop(import('./_modules/minifyConditionalComments')),
     minifyCss: () => import('./_modules/minifyCss.mjs'),
     minifyJs: () => import('./_modules/minifyJs.mjs'),
-    minifyJson: () => import('./_modules/minifyJson.mjs'),
-    minifySvg: () => import('./_modules/minifySvg.mjs'),
+    minifyJson: () => interop(import('./_modules/minifyJson.js')),
+    minifySvg: () => interop(import('./_modules/minifySvg.js')),
     minifyUrls: () => import('./_modules/minifyUrls.mjs'),
     normalizeAttributeValues: () => interop(import('./_modules/normalizeAttributeValues')),
     removeAttributeQuotes: () => interop(import('./_modules/removeAttributeQuotes.js')),
-    removeComments: () => import('./_modules/removeComments.mjs'),
+    removeComments: () => interop(import('./_modules/removeComments.js')),
     removeEmptyAttributes: () => interop(import('./_modules/removeEmptyAttributes.js')),
     removeOptionalTags: () => import('./_modules/removeOptionalTags.mjs'),
     removeRedundantAttributes: () => interop(import('./_modules/removeRedundantAttributes.js')),
@@ -178,7 +178,7 @@ export function htmlnano(optionsRun: HtmlnanoOptions = {}, presetRun?: HtmlnanoP
 
                     for (const handler of nodeHandlers) {
                         if (handler) {
-                            node = handler(node);
+                            node = handler(node) as PostHTML.Node;
                         }
                     }
                 }

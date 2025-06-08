@@ -7,10 +7,14 @@ export type PostHTMLTreeLike = [PostHTML.Node] & PostHTML.NodeAPI & {
     options?: {
         quoteAllAttributes?: boolean | undefined;
     } | undefined;
-    render(tree?: PostHTMLTreeLike): string;
+
+    render(): string;
+    render(node: PostHTML.Node, renderOptions?: any): string;
 };
 
 type MaybeArray<T> = T | Array<T>;
+
+export type PostHTMLNodeLike = PostHTML.Node | string;
 
 export interface HtmlnanoOptions {
     skipConfigLoading?: boolean;
@@ -51,16 +55,22 @@ export type HtmlnanoOptionsConfigFile = Omit<HtmlnanoOptions, 'skipConfigLoading
 };
 
 export type HtmlnanoModuleAttrsHandler = (attrs: Record<string, string | boolean | void>, node: PostHTML.Node) => Record<string, string | boolean | void>;
-export type HtmlnanoModuleContentHandler = (content: Array<string | PostHTML.Node>, node: PostHTML.Node) => string | string[] | PostHTML.Node | PostHTML.Node[];
-export type HtmlnanoModuleNodeHandler = (node: PostHTML.Node) => PostHTML.Node;
+export type HtmlnanoModuleContentHandler = (content: Array<PostHTMLNodeLike>, node: PostHTML.Node) => MaybeArray<PostHTMLNodeLike>;
+export type HtmlnanoModuleNodeHandler = (node: PostHTMLNodeLike) => PostHTML.Node | string;
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type -- match any functions deliberately
+type OptionalOptions<T> = T extends boolean | string | Function | number | null | undefined
+    ? T
+    : T extends object
+        ? Partial<T>
+        : T;
 export type HtmlnanoModule<Options = any> = {
-    onAttrs?: (options: Partial<HtmlnanoOptions>, moduleOptions: Partial<Options>) => HtmlnanoModuleAttrsHandler;
-    onContent?: (options: Partial<HtmlnanoOptions>, moduleOptions: Partial<Options>) => HtmlnanoModuleContentHandler;
-    onNode?: (options: Partial<HtmlnanoOptions>, moduleOptions: Partial<Options>) => HtmlnanoModuleNodeHandler;
+    onAttrs?: (options: Partial<HtmlnanoOptions>, moduleOptions: OptionalOptions<Options>) => HtmlnanoModuleAttrsHandler;
+    onContent?: (options: Partial<HtmlnanoOptions>, moduleOptions: OptionalOptions<Options>) => HtmlnanoModuleContentHandler;
+    onNode?: (options: Partial<HtmlnanoOptions>, moduleOptions: OptionalOptions<Options>) => HtmlnanoModuleNodeHandler;
     default?: (
         tree: PostHTMLTreeLike,
         options: Partial<HtmlnanoOptions>,
-        moduleOptions: Partial<Options>,
+        moduleOptions: OptionalOptions<Options>,
     ) => PostHTMLTreeLike | Promise<PostHTMLTreeLike>;
 };
