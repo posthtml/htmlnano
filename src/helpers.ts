@@ -1,4 +1,5 @@
 import type PostHTML from 'posthtml';
+import type { PostHTMLNodeLike } from './types';
 
 const ampBoilerplateAttributes = [
     'amp-boilerplate',
@@ -18,7 +19,7 @@ export function isAmpBoilerplate(node: PostHTML.Node) {
     return false;
 }
 
-export function isComment(content: string) {
+export function isComment(content: PostHTMLNodeLike | null) {
     if (typeof content === 'string') {
         return content.trim().startsWith('<!--');
     }
@@ -44,7 +45,7 @@ export function isEventHandler(attributeName: string) {
 
 export async function optionalImport<Module = unknown, Default = Module>(moduleName: string) {
     try {
-        const module = await import(moduleName) as Module & { default?: Default };
+        const module = (await import(moduleName)) as Module & { default?: Default };
         return module.default || module;
     } catch (e) {
         if (typeof e === 'object' && e && 'code' in e && (e.code === 'MODULE_NOT_FOUND' || e.code === 'ERR_MODULE_NOT_FOUND')) {
