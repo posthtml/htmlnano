@@ -1,4 +1,5 @@
 import type PostHTML from 'posthtml';
+import type { PostHTMLNodeLike } from './types';
 
 const ampBoilerplateAttributes = [
     'amp-boilerplate',
@@ -18,7 +19,7 @@ export function isAmpBoilerplate(node: PostHTML.Node) {
     return false;
 }
 
-export function isComment(content: string) {
+export function isComment(content: PostHTMLNodeLike | null) {
     if (typeof content === 'string') {
         return content.trim().startsWith('<!--');
     }

@@ -1,4 +1,6 @@
+import type PostHTML from 'posthtml';
 import { isComment } from '../helpers';
+import type { HtmlnanoModule, PostHTMLNodeLike, PostHTMLTreeLike } from '../types';
 
 const startWithWhitespacePattern = /^\s+/;
 
@@ -6,7 +8,7 @@ const bodyStartTagCantBeOmittedWithFirstChildTags = new Set(['meta', 'link', 'sc
 const tbodyStartTagCantBeOmittedWithPrecededTags = new Set(['tbody', 'thead', 'tfoot']);
 const tbodyEndTagCantBeOmittedWithFollowedTags = new Set(['tbody', 'tfoot']);
 
-function isEmptyTextNode(node) {
+function isEmptyTextNode(node: PostHTMLNodeLike) {
     if (typeof node === 'string' && node.trim() === '') {
         return true;
     }
@@ -14,7 +16,7 @@ function isEmptyTextNode(node) {
     return false;
 }
 
-function isEmptyNode(node) {
+function isEmptyNode(node: PostHTML.Node) {
     if (!node.content) {
         return true;
     }
@@ -26,12 +28,12 @@ function isEmptyNode(node) {
     return true;
 }
 
-function getFirstChildTag(node, nonEmpty = true) {
+function getFirstChildTag(node: PostHTML.Node, nonEmpty = true) {
     if (node.content && node.content.length) {
         if (nonEmpty) {
             for (const childNode of node.content) {
-                if (childNode.tag) return childNode;
-                if (typeof childNode === 'string' && !isEmptyTextNode(childNode)) return childNode;
+                if (typeof childNode !== 'string') return childNode;
+                if (!isEmptyTextNode(childNode)) return childNode;
             }
         } else {
             return node.content[0] || null;
@@ -41,12 +43,12 @@ function getFirstChildTag(node, nonEmpty = true) {
     return null;
 }
 
-function getPrevNode(tree, currentNodeIndex, nonEmpty = false) {
+function getPrevNode(tree: PostHTMLTreeLike | PostHTMLNodeLike[], currentNodeIndex: number, nonEmpty = false) {
     if (nonEmpty) {
         for (let i = currentNodeIndex - 1; i >= 0; i--) {
             const node = tree[i];
-            if (node.tag) return node;
-            if (typeof node === 'string' && !isEmptyTextNode(node)) return node;
+            if (typeof node !== 'string' && node.tag) return node;
+            if (!isEmptyTextNode(node)) return node;
         }
     } else {
         return tree[currentNodeIndex - 1] || null;
@@ -55,12 +57,12 @@ function getPrevNode(tree, currentNodeIndex, nonEmpty = false) {
     return null;
 }
 
-function getNextNode(tree, currentNodeIndex, nonEmpty = false) {
+function getNextNode(tree: PostHTMLTreeLike | PostHTMLNodeLike[], currentNodeIndex: number, nonEmpty = false) {
     if (nonEmpty) {
         for (let i = currentNodeIndex + 1; i < tree.length; i++) {
             const node = tree[i];
-            if (node.tag) return node;
-            if (typeof node === 'string' && !isEmptyTextNode(node)) return node;
+            if (typeof node !== 'string') return node;
+            if (!isEmptyTextNode(node)) return node;
         }
     } else {
         return tree[currentNodeIndex + 1] || null;
@@ -69,10 +71,11 @@ function getNextNode(tree, currentNodeIndex, nonEmpty = false) {
     return null;
 }
 
-// Specification https://html.spec.whatwg.org/multipage/syntax.html#optional-tags
-/** Remove optional tag in the DOM */
-export default function removeOptionalTags(tree) {
+function removeOptionalTags(tree: PostHTMLTreeLike): PostHTMLTreeLike;
+function removeOptionalTags(tree: PostHTMLNodeLike[]): PostHTMLNodeLike[];
+function removeOptionalTags(tree: PostHTMLTreeLike | PostHTMLNodeLike[]) {
     tree.forEach((node, index) => {
+        if (typeof node === 'string') return node;
         if (!node.tag) return node;
 
         if (node.attrs && Object.keys(node.attrs).length) return node;
@@ -101,6 +104,7 @@ export default function removeOptionalTags(tree) {
             }
 
             if (isHtmlStartTagCanBeOmitted && isHtmlEndTagCanBeOmitted) {
+                // @ts-expect-error -- deliberately set tag to false
                 node.tag = false;
             }
         }
@@ -115,7 +119,7 @@ export default function removeOptionalTags(tree) {
 
             if (
                 isEmptyNode(node)
-                || firstNonEmptyChildNode && firstNonEmptyChildNode.tag
+                || (firstNonEmptyChildNode && typeof firstNonEmptyChildNode === 'object' && firstNonEmptyChildNode.tag)
             ) {
                 isHeadStartTagCanBeOmitted = true;
             }
@@ -128,6 +132,7 @@ export default function removeOptionalTags(tree) {
             }
 
             if (isHeadStartTagCanBeOmitted && isHeadEndTagCanBeOmitted) {
+                // @ts-expect-error -- deliberately set tag to false
                 node.tag = false;
             }
         }
@@ -147,7 +152,7 @@ export default function removeOptionalTags(tree) {
                 isBodyStartTagCanBeOmitted = false;
             }
 
-            if (firstNonEmptyChildNode && firstNonEmptyChildNode.tag && bodyStartTagCantBeOmittedWithFirstChildTags.has(firstNonEmptyChildNode.tag)) {
+            if (firstNonEmptyChildNode && typeof firstNonEmptyChildNode === 'object' && firstNonEmptyChildNode.tag && bodyStartTagCantBeOmittedWithFirstChildTags.has(firstNonEmptyChildNode.tag)) {
                 isBodyStartTagCanBeOmitted = false;
             }
 
@@ -156,6 +161,7 @@ export default function removeOptionalTags(tree) {
             }
 
             if (isBodyStartTagCanBeOmitted && isBodyEndTagCanBeOmitted) {
+                // @ts-expect-error -- deliberately set tag to false
                 node.tag = false;
             }
         }
@@ -168,11 +174,11 @@ export default function removeOptionalTags(tree) {
             let isColgroupStartTagCanBeOmitted = false;
             let isColgroupEndTagCanBeOmitted = true;
 
-            if (firstNonEmptyChildNode && firstNonEmptyChildNode.tag && firstNonEmptyChildNode.tag === 'col') {
+            if (firstNonEmptyChildNode && typeof firstNonEmptyChildNode === 'object' && firstNonEmptyChildNode.tag && firstNonEmptyChildNode.tag === 'col') {
                 isColgroupStartTagCanBeOmitted = true;
             }
 
-            if (prevNonEmptyNode && prevNonEmptyNode.tag && prevNonEmptyNode.tag === 'colgroup') {
+            if (prevNonEmptyNode && typeof prevNonEmptyNode === 'object' && prevNonEmptyNode.tag && prevNonEmptyNode.tag === 'colgroup') {
                 isColgroupStartTagCanBeOmitted = false;
             }
 
@@ -184,6 +190,7 @@ export default function removeOptionalTags(tree) {
             }
 
             if (isColgroupStartTagCanBeOmitted && isColgroupEndTagCanBeOmitted) {
+                // @ts-expect-error -- deliberately set tag to false
                 node.tag = false;
             }
         }
@@ -196,19 +203,20 @@ export default function removeOptionalTags(tree) {
             let isTbodyStartTagCanBeOmitted = false;
             let isTbodyEndTagCanBeOmitted = true;
 
-            if (firstNonEmptyChildNode && firstNonEmptyChildNode.tag && firstNonEmptyChildNode.tag === 'tr') {
+            if (firstNonEmptyChildNode && typeof firstNonEmptyChildNode === 'object' && firstNonEmptyChildNode.tag && firstNonEmptyChildNode.tag === 'tr') {
                 isTbodyStartTagCanBeOmitted = true;
             }
 
-            if (prevNonEmptyNode && prevNonEmptyNode.tag && tbodyStartTagCantBeOmittedWithPrecededTags.has(prevNonEmptyNode.tag)) {
+            if (prevNonEmptyNode && typeof prevNonEmptyNode === 'object' && prevNonEmptyNode.tag && tbodyStartTagCantBeOmittedWithPrecededTags.has(prevNonEmptyNode.tag)) {
                 isTbodyStartTagCanBeOmitted = false;
             }
 
-            if (nextNonEmptyNode && nextNonEmptyNode.tag && tbodyEndTagCantBeOmittedWithFollowedTags.has(nextNonEmptyNode.tag)) {
+            if (nextNonEmptyNode && typeof nextNonEmptyNode === 'object' && nextNonEmptyNode.tag && tbodyEndTagCantBeOmittedWithFollowedTags.has(nextNonEmptyNode.tag)) {
                 isTbodyEndTagCanBeOmitted = false;
             }
 
             if (isTbodyStartTagCanBeOmitted && isTbodyEndTagCanBeOmitted) {
+                // @ts-expect-error -- deliberately set tag to false
                 node.tag = false;
             }
         }
@@ -222,3 +230,11 @@ export default function removeOptionalTags(tree) {
 
     return tree;
 }
+
+// Specification https://html.spec.whatwg.org/multipage/syntax.html#optional-tags
+/** Remove optional tag in the DOM */
+const mod: HtmlnanoModule = {
+    default: removeOptionalTags
+};
+
+export default mod;
