@@ -78,7 +78,7 @@ const modules = {
     removeOptionalTags: () => interop(import('./_modules/removeOptionalTags.js')),
     removeRedundantAttributes: () => interop(import('./_modules/removeRedundantAttributes.js')),
     removeUnusedCss: () => import('./_modules/removeUnusedCss.mjs'),
-    sortAttributes: () => import('./_modules/sortAttributes.mjs'),
+    sortAttributes: () => interop(import('./_modules/sortAttributes.js')),
     sortAttributesWithLists: () => import('./_modules/sortAttributesWithLists.mjs')
 } satisfies Record<string, () => Promise<HtmlnanoModule<any>>>;
 
