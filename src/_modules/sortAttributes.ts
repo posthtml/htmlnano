@@ -59,7 +59,7 @@ class AttributeTokenChain {
 }
 
 /** Sort attibutes */
-const mod: HtmlnanoModule<boolean | 'alphabetical' | 'frequency'> = {
+const mod: HtmlnanoModule<boolean | ValidOptions> = {
     default(tree, options, moduleOptions) {
         const sortType = processModuleOptions(moduleOptions);
 

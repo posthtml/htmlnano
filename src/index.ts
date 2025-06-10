@@ -79,7 +79,7 @@ const modules = {
     removeRedundantAttributes: () => interop(import('./_modules/removeRedundantAttributes.js')),
     removeUnusedCss: () => import('./_modules/removeUnusedCss.mjs'),
     sortAttributes: () => interop(import('./_modules/sortAttributes.js')),
-    sortAttributesWithLists: () => import('./_modules/sortAttributesWithLists.mjs')
+    sortAttributesWithLists: () => interop(import('./_modules/sortAttributesWithLists.js'))
 } satisfies Record<string, () => Promise<HtmlnanoModule<any>>>;
 
 export function htmlnano(optionsRun: HtmlnanoOptions = {}, presetRun?: HtmlnanoPreset) {
