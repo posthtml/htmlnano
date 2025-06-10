@@ -49,6 +49,7 @@
     "minifier"
   ],
   "dependencies": {
+    "@types/relateurl": "^0.2.33",
     "cosmiconfig": "^9.0.0",
     "posthtml": "^0.16.5"
   },

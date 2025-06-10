@@ -44,7 +44,7 @@ export function isEventHandler(attributeName: string) {
 
 export async function optionalImport<Module = unknown, Default = Module>(moduleName: string) {
     try {
-        const module = await import(moduleName) as Module & { default?: Default };
+        const module = (await import(moduleName)) as Module & { default?: Default };
         return module.default || module;
     } catch (e) {
         if (typeof e === 'object' && e && 'code' in e && (e.code === 'MODULE_NOT_FOUND' || e.code === 'ERR_MODULE_NOT_FOUND')) {
