@@ -11,7 +11,7 @@ export default tseslint.config(
     {
         name: '.eslintignore', // migrated from .eslintignore
         ignores: [
-            'src/_modules/example.mjs',
+            'src/_modules/example.ts',
             'test.mjs',
             '**/*.cjs'
         ]
