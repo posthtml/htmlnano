@@ -1,4 +1,8 @@
 import { isStyleNode, extractCssFromStyleNode, optionalImport } from '../helpers';
+import type {} from 'postcss';
+import type { HtmlnanoModule } from '../types';
+import type PostHTML from 'posthtml';
+import type { Options as CssnanoOptions } from 'cssnano';
 
 const postcssOptions = {
     // Prevent the following warning from being shown:
@@ -8,35 +12,40 @@ const postcssOptions = {
 };
 
 /** Minify CSS with cssnano */
-export default async function minifyCss(tree, options, cssnanoOptions) {
-    const cssnano = await optionalImport('cssnano');
-    const postcss = await optionalImport('postcss');
+const mod: HtmlnanoModule<CssnanoOptions> = {
+    async default(tree, _, cssnanoOptions) {
+        const cssnano = await optionalImport<typeof import('cssnano')>('cssnano');
+        const postcss = await optionalImport<typeof import('postcss').default>('postcss');
 
-    if (!cssnano || !postcss) {
-        return tree;
-    }
+        if (!cssnano || !postcss) {
+            return tree;
+        }
 
-    let promises = [];
-    tree.walk((node) => {
+        const promises: (Promise<void> | undefined)[] = [];
+        tree.walk((node) => {
         // Skip SRI, reasons are documented in "minifyJs" module
-        if (node.attrs && 'integrity' in node.attrs) {
+            if (node.attrs && 'integrity' in node.attrs) {
+                return node;
+            }
+
+            if (isStyleNode(node)) {
+                promises.push(processStyleNode(node, cssnanoOptions, cssnano, postcss));
+            } else if (node.attrs && node.attrs.style) {
+                promises.push(processStyleAttr(node, cssnanoOptions, cssnano, postcss));
+            }
+
             return node;
-        }
+        });
 
-        if (isStyleNode(node)) {
-            promises.push(processStyleNode(node, cssnanoOptions, cssnano, postcss));
-        } else if (node.attrs && node.attrs.style) {
-            promises.push(processStyleAttr(node, cssnanoOptions, cssnano, postcss));
-        }
+        return Promise.all(promises).then(() => tree);
+    }
+};
 
-        return node;
-    });
+export default mod;
 
-    return Promise.all(promises).then(() => tree);
-}
-
-function processStyleNode(styleNode, cssnanoOptions, cssnano, postcss) {
+function processStyleNode(styleNode: PostHTML.Node, cssnanoOptions: CssnanoOptions, cssnano: typeof import('cssnano'), postcss: typeof import('postcss').default) {
     let css = extractCssFromStyleNode(styleNode);
+    if (!css) return;
 
     // Improve performance by avoiding calling stripCdata again and again
     let isCdataWrapped = false;
@@ -50,17 +59,23 @@ function processStyleNode(styleNode, cssnanoOptions, cssnano, postcss) {
         .process(css, postcssOptions)
         .then((result) => {
             if (isCdataWrapped) {
-                return styleNode.content = ['<![CDATA[' + result + ']]>'];
+                styleNode.content = ['<![CDATA[' + result.toString() + ']]>'];
+            } else {
+                styleNode.content = [result.css];
             }
-            return styleNode.content = [result.css];
         });
 }
 
-function processStyleAttr(node, cssnanoOptions, cssnano, postcss) {
+function processStyleAttr(node: PostHTML.Node, cssnanoOptions: CssnanoOptions, cssnano: typeof import('cssnano'), postcss: typeof import('postcss').default) {
     // CSS "color: red;" is invalid. Therefore it should be wrapped inside some selector:
     // a{color: red;}
     const wrapperStart = 'a{';
     const wrapperEnd = '}';
+
+    if (!node.attrs || !node.attrs.style) {
+        return;
+    }
+
     const wrappedStyle = wrapperStart + (node.attrs.style || '') + wrapperEnd;
 
     return postcss([cssnano(cssnanoOptions)])
@@ -68,14 +83,14 @@ function processStyleAttr(node, cssnanoOptions, cssnano, postcss) {
         .then((result) => {
             const minifiedCss = result.css;
             // Remove wrapperStart at the start and wrapperEnd at the end of minifiedCss
-            node.attrs.style = minifiedCss.substring(
+            node.attrs!.style = minifiedCss.substring(
                 wrapperStart.length,
                 minifiedCss.length - wrapperEnd.length
             );
         });
 }
 
-function stripCdata(css) {
+function stripCdata(css: string) {
     const leftStrippedCss = css.replace('<![CDATA[', '');
     if (leftStrippedCss === css) {
         return css;
