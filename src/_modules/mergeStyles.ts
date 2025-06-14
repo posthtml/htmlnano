@@ -1,5 +1,5 @@
 import type PostHTML from 'posthtml';
-import { isAmpBoilerplate } from '../helpers';
+import { extractTextContentFromNode, isAmpBoilerplate } from '../helpers';
 import type { HtmlnanoModule } from '../types';
 
 /* Merge multiple <style> into one */
@@ -27,15 +27,7 @@ const mod: HtmlnanoModule = {
             const styleMedia = nodeAttrs.media || 'all';
             const styleKey = styleType + '_' + styleMedia;
             if (styleKey in styleNodes) {
-                let styleContent = '';
-                if (Array.isArray(node.content)) {
-                    for (let i = 0, len = node.content.length; i < len; i++) {
-                        const childNode = node.content[i];
-                        if (typeof childNode === 'string') {
-                            styleContent += childNode;
-                        }
-                    }
-                }
+                const styleContent = extractTextContentFromNode(node);
 
                 styleNodes[styleKey].content ??= [];
                 styleNodes[styleKey].content.push(' ' + styleContent);

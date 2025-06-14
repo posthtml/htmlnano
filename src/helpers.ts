@@ -43,6 +43,24 @@ export function isEventHandler(attributeName: string) {
     return attributeName && attributeName.slice(0, 2).toLowerCase() === 'on' && attributeName.length >= 5;
 }
 
+export function extractTextContentFromNode(node: PostHTML.Node): string {
+    if (!node.content) {
+        return '';
+    }
+    if (!Array.isArray(node.content)) {
+        return '';
+    }
+
+    let content = '';
+    for (const child of node.content) {
+        if (typeof child === 'string') {
+            content += child;
+        }
+    }
+
+    return content;
+}
+
 export async function optionalImport<Module = unknown, Default = Module>(moduleName: string) {
     try {
         const module = (await import(moduleName)) as Module & { default?: Default };
