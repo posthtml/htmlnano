@@ -1,5 +1,6 @@
 import type PostHTML from 'posthtml';
 import type { HtmlnanoModule } from '../types';
+import { extractTextContentFromNode } from '../helpers';
 
 /* Merge multiple <script> into one */
 const mod: HtmlnanoModule = {
@@ -42,16 +43,8 @@ const mod: HtmlnanoModule = {
         for (const scriptNodes of Object.values(scriptNodesIndex)) {
             const lastScriptNode = scriptNodes.pop()!;
             scriptNodes.reverse().forEach((scriptNode) => {
-                let scriptContent = '';
-                if (Array.isArray(scriptNode.content)) {
-                    for (let i = 0, len = scriptNode.content.length; i < len; i++) {
-                        const childNode = scriptNode.content[i];
-                        if (typeof childNode === 'string') {
-                            scriptContent += childNode;
-                        }
-                    }
-                }
-                scriptContent = scriptContent.trim();
+                let scriptContent = extractTextContentFromNode(scriptNode).trim();
+
                 if (scriptContent.slice(-1) !== ';') {
                     scriptContent += ';';
                 }
