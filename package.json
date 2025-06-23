@@ -72,7 +72,7 @@
     "relateurl": "^0.2.7",
     "rimraf": "^6.0.0",
     "srcset": "5.0.1",
-    "svgo": "^3.0.2",
+    "svgo": "^4.0.0",
     "terser": "^5.21.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.1",
@@ -84,7 +84,7 @@
     "purgecss": "^7.0.2",
     "relateurl": "^0.2.7",
     "srcset": "5.0.1",
-    "svgo": "^3.0.2",
+    "svgo": "^4.0.0",
     "terser": "^5.10.0",
     "uncss": "^0.17.3"
   },
