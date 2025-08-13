@@ -119,7 +119,7 @@ export function htmlnano(optionsRun: HtmlnanoOptions = {}, presetRun?: HtmlnanoP
                                     return;
                                 }
                             }
-                            // eslint-disable-next-line @typescript-eslint/only-throw-error -- rethrow error
+
                             throw e;
                         }
                     }
