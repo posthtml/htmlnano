@@ -27,3 +27,33 @@ Latest benchmarks: https://github.com/maltsev/html-minifiers-benchmark (updated 
 
 ## Documentation
 https://htmlnano.netlify.app
+
+
+## Usage
+
+```js
+const htmlnano = require('htmlnano');
+const options = {
+    removeEmptyAttributes: false, // Disable the module "removeEmptyAttributes"
+    collapseWhitespace: 'conservative' // Pass options to the module "collapseWhitespace"
+};
+// posthtml, posthtml-render, and posthtml-parse options
+const postHtmlOptions = {
+    sync: true, // https://github.com/posthtml/posthtml#usage
+    lowerCaseTags: true, // https://github.com/posthtml/posthtml-parser#options
+    quoteAllAttributes: false, // https://github.com/posthtml/posthtml-render#options
+};
+
+htmlnano
+    // "preset" arg might be skipped (see "Presets" section below for more info)
+    // "postHtmlOptions" arg might be skipped
+    .process(html, options, preset, postHtmlOptions)
+    .then(function (result) {
+        // result.html is minified
+    })
+    .catch(function (err) {
+        console.error(err);
+    });
+```
+
+More usage examples (PostHTML, Gulp, Webpack): https://htmlnano.netlify.app/next/usage
