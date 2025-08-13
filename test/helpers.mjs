@@ -60,7 +60,16 @@ describe('[helpers]', () => {
 
     context('optionalImport()', () => {
         it('should return the dependency when resolved', async () => {
-            expect((await optionalImport('expect'))).toBe(expect);
+            const imported = await optionalImport('expect');
+            // In Node 20, expect module has both default and named exports
+            // In Node 21+, the structure might be different
+            // Check if we got the module object with expect property or the expect function directly
+            // TODO: Maybe there is a better way to handle that?
+            if (typeof imported === 'function' && imported.name === 'expect') {
+                expect(imported).toBe(expect);
+            } else {
+                expect(imported.expect).toBe(expect);
+            }
         });
 
         it('should return null when module not found', async () => {
