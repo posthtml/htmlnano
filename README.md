@@ -31,6 +31,10 @@ https://htmlnano.netlify.app
 
 ## Usage
 
+```bash
+npm install htmlnano
+```
+
 ```js
 const htmlnano = require('htmlnano');
 const options = {

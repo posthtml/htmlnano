@@ -1,4 +1,9 @@
 # Usage
+
+```bash
+npm install htmlnano
+```
+
 ## Javascript
 ```js
 const htmlnano = require('htmlnano');
@@ -59,7 +64,6 @@ posthtml(posthtmlPlugins)
 
 ```sh
 npm install html-minimizer-webpack-plugin --save-dev
-npm install htmlnano --save-dev
 ```
 
 ```js
@@ -94,7 +98,7 @@ module.exports = {
 
 ## Gulp
 ```bash
-npm i -D gulp-posthtml htmlnano
+npm i -D gulp-posthtml
 ```
 
 ```js

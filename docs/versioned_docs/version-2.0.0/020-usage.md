@@ -1,5 +1,9 @@
 # Usage
 
+```bash
+npm install htmlnano
+```
+
 ## Gulp
 ```bash
 npm install --save-dev gulp-htmlnano
