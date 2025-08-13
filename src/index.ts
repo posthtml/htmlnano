@@ -237,6 +237,7 @@ htmlnano.presets = presets;
 htmlnano.getRequiredOptionalDependencies = getRequiredOptionalDependencies;
 htmlnano.process = process;
 htmlnano.htmlMinimizerWebpackPluginMinify = htmlMinimizerWebpackPluginMinify;
+htmlnano.loadConfig = loadConfig;
 
 export default htmlnano;
 

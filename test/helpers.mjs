@@ -60,7 +60,7 @@ describe('[helpers]', () => {
 
     context('optionalImport()', () => {
         it('should return the dependency when resolved', async () => {
-            expect((await optionalImport('expect')).default).toBe(expect);
+            expect((await optionalImport('expect'))).toBe(expect);
         });
 
         it('should return null when module not found', async () => {
