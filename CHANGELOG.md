@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [2.1.3] - 2025-09-03
+
+### Changed
+
+* Migrate to TypeScript.
+* Remove `docs/` from the npm package.
+
+
 ## [2.1.2] - 2025-04-30
 
 ### Added
@@ -297,6 +306,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 - Remove attributes that contains only white spaces.
 
 
+[2.1.3]: https://github.com/posthtml/htmlnano/compare/2.1.2...2.1.3
 [2.1.2]: https://github.com/posthtml/htmlnano/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/posthtml/htmlnano/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/posthtml/htmlnano/compare/2.0.4...2.1.0
