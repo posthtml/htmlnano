@@ -21,22 +21,27 @@
   "module": "./dist/index.mjs",
   "exports": {
     "./helpers": {
+      "types": "./dist/helpers.d.ts",
       "import": "./dist/helpers.mjs",
       "require": "./dist/helpers.js"
     },
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./presets/ampSafe": {
+      "types": "./dist/presets/ampSafe.d.ts",
       "import": "./dist/presets/ampSafe.mjs",
       "require": "./dist/presets/ampSafe.js"
     },
     "./presets/max": {
+      "types": "./dist/presets/max.d.ts",
       "import": "./dist/presets/max.mjs",
       "require": "./dist/presets/max.js"
     },
     "./presets/safe": {
+      "types": "./dist/presets/safe.d.ts",
       "import": "./dist/presets/safe.mjs",
       "require": "./dist/presets/safe.js"
     }
