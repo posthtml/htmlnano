@@ -2,9 +2,9 @@
 
 Since the minifier is modular, it's very easy to add new modules:
 
-1. Create a ES6-file inside `lib/modules/` with a function that does some minification. For example you can check [`lib/modules/example.mjs`](https://github.com/posthtml/htmlnano/blob/master/lib/modules/example.mjs).
+1. Create a ES6-file inside `lib/modules/` with a function that does some minification. For example you can check [`src/_modules/example.ts`](https://github.com/posthtml/htmlnano/blob/master/src/_modules/example.ts).
 
-2. Add the module's name into one of those [presets](https://github.com/posthtml/htmlnano/tree/master/lib/presets). You can choose either `ampSafe`, `max`, or `safe`.
+2. Add the module's name into one of those [presets](https://github.com/posthtml/htmlnano/tree/master/src/presets). You can choose either `ampSafe`, `max`, or `safe`.
 
 3. Create a JS-file inside `test/modules/` with some unit-tests.
 

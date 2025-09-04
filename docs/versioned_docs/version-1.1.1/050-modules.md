@@ -144,7 +144,7 @@ Minified:
 
 
 ### removeEmptyAttributes
-Removes empty [safe-to-remove](https://github.com/posthtml/htmlnano/blob/master/lib/modules/removeEmptyAttributes.mjs) attributes.
+Removes empty [safe-to-remove](https://github.com/posthtml/htmlnano/blob/master/src/_modules/removeEmptyAttributes.ts) attributes.
 
 #### Side effects
 This module could break your styles or JS if you use selectors with attributes:

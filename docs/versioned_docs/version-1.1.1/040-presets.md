@@ -3,9 +3,9 @@
 A preset is just an object with modules config.
 
 Currently the following presets are available:
-- [safe](https://github.com/posthtml/htmlnano/blob/master/lib/presets/safe.mjs) — a default preset for minifying a regular HTML in a safe way (without breaking anything)
-- [ampSafe](https://github.com/posthtml/htmlnano/blob/master/lib/presets/ampSafe.mjs) - same as `safe` preset but for [AMP pages](https://www.ampproject.org/)
-- [max](https://github.com/posthtml/htmlnano/blob/master/lib/presets/max.mjs) - maximal minification (might break some pages)
+- [safe](https://github.com/posthtml/htmlnano/blob/master/src/presets/safe.ts) — a default preset for minifying a regular HTML in a safe way (without breaking anything)
+- [ampSafe](https://github.com/posthtml/htmlnano/blob/master/src/presets/ampSafe.ts) - same as `safe` preset but for [AMP pages](https://www.ampproject.org/)
+- [max](https://github.com/posthtml/htmlnano/blob/master/src/presets/max.ts) - maximal minification (might break some pages)
 
 
 You can use them the following way:
@@ -26,7 +26,7 @@ htmlnano
     });
 ```
 
-If you skip `preset` argument [`safe`](https://github.com/posthtml/htmlnano/blob/master/lib/presets/safe.mjs) preset would be used by default.
+If you skip `preset` argument [`safe`](https://github.com/posthtml/htmlnano/blob/master/src/presets/safe.ts) preset would be used by default.
 
 
 If you'd like to define your very own config without any presets pass an empty object as a preset:
