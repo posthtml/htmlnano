@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-* CommonJS import ([#373])
+* Fix broken import ([#342])
 
 
 ## [2.1.3] - 2025-09-03
@@ -347,7 +347,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 [0.1.2]: https://github.com/posthtml/htmlnano/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
-[#373]: https://github.com/posthtml/htmlnano/issues/373
+[#342]: https://github.com/posthtml/htmlnano/issues/342
 [#336]: https://github.com/posthtml/htmlnano/issues/336
 [#328]: https://github.com/posthtml/htmlnano/issues/328
 [#293]: https://github.com/posthtml/htmlnano/issues/293
