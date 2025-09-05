@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-* Migrate to TypeScript.
+* Migrate to TypeScript ([#336])
 * Remove `docs/` from the npm package.
 
 
@@ -340,6 +340,7 @@ Otherwise, you have to adapt the config according to the new [PurgeCSS@3](https:
 [0.1.2]: https://github.com/posthtml/htmlnano/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/posthtml/htmlnano/compare/0.1.0...0.1.1
 
+[#336]: https://github.com/posthtml/htmlnano/issues/336
 [#328]: https://github.com/posthtml/htmlnano/issues/328
 [#293]: https://github.com/posthtml/htmlnano/issues/293
 [#278]: https://github.com/posthtml/htmlnano/issues/278
