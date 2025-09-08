@@ -1,6 +1,6 @@
 const { expect } = require('expect') as typeof import('expect');
 const posthtml = require('posthtml') as typeof import('posthtml');
-const htmlnano = require('../dist/index.js') as typeof import('../src').htmlnano;
+const htmlnano = require('../dist/index.js') as typeof import('../src').default;
 
 describe('[commonjs usage]', () => {
     const html = ' <div><!-- foo --><i>Hello</i> <i>world!</i></div> ';
