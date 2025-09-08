@@ -1,4 +1,4 @@
-import { init } from '../htmlnano.mjs';
+import { init } from '../htmlnano.ts';
 import safePreset from '../../dist/presets/safe.mjs';
 
 import posthtml from 'posthtml';
@@ -22,6 +22,7 @@ describe('removeAttributeQuotes', () => {
             htmlnano(options, {})
         ]).process(
             html,
+            // @ts-expect-error unknown option
             { quoteAllAttributes: true }
         ).then((result) => {
             expect(result.html).toBe(html);

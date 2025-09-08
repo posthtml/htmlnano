@@ -4,6 +4,7 @@ import htmlnano, { loadConfig } from '../dist/index.mjs';
 import safePreset from '../dist/presets/safe.mjs';
 import ampSafePreset from '../dist/presets/ampSafe.mjs';
 import maxPreset from '../dist/presets/max.mjs';
+import { HtmlnanoOptions } from '../src';
 
 describe('[htmlnano]', () => {
     it('should do nothing if all modules are disabled', () => {
@@ -17,9 +18,10 @@ describe('[htmlnano]', () => {
         return init(
             '<div></div>',
             '<b></b>',
+            // @ts-expect-error invalid type
             { notDefinedModule: true }
-        ).catch((error) => {
-            expect(error.message).toBe('Module "notDefinedModule" is not defined');
+        ).catch((error: unknown) => {
+            expect((error as Error).message).toBe('Module "notDefinedModule" is not defined');
         });
     });
 
@@ -75,7 +77,7 @@ describe('loadConfig()', () => {
     });
 });
 
-export function init(html, minifiedHtml, options) {
+export function init(html: string, minifiedHtml: string, options?: HtmlnanoOptions): Promise<void> {
     return posthtml([htmlnano(options, {})]).process(html).then((result) => {
         expect(result.html).toBe(minifiedHtml);
     });

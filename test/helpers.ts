@@ -1,4 +1,4 @@
-import { expect } from 'expect';
+import { Expect, expect } from 'expect';
 import { isAmpBoilerplate, isComment, isConditionalComment, isStyleNode, extractCssFromStyleNode, optionalImport } from '../dist/helpers.mjs';
 
 describe('[helpers]', () => {
@@ -60,7 +60,7 @@ describe('[helpers]', () => {
 
     context('optionalImport()', () => {
         it('should return the dependency when resolved', async () => {
-            const imported = await optionalImport('expect');
+            const imported = await optionalImport('expect') as Expect | { expect: Expect };
             // In Node 20, expect module has both default and named exports
             // In Node 21+, the structure might be different
             // Check if we got the module object with expect property or the expect function directly
@@ -68,7 +68,7 @@ describe('[helpers]', () => {
             if (typeof imported === 'function' && imported.name === 'expect') {
                 expect(imported).toBe(expect);
             } else {
-                expect(imported.expect).toBe(expect);
+                expect((imported as { expect: Expect }).expect).toBe(expect);
             }
         });
 

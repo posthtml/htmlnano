@@ -4,7 +4,10 @@
     "outDir": "./dist",
     "target": "es2018",
     "module": "Preserve",
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "lib": ["ES2018"],
+    "allowImportingTsExtensions": true,
     "allowJs": true,
     "moduleResolution": "Bundler",
     "removeComments": true,
@@ -20,6 +23,7 @@
     "forceConsistentCasingInFileNames": true,
   },
   "include": [
-    "src"
+    "src",
+    "test"
   ],
 }

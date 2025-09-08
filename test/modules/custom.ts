@@ -1,5 +1,6 @@
 import { expect } from 'expect';
-import { init } from '../htmlnano.mjs';
+import { init } from '../htmlnano.ts';
+import type { PostHTMLTreeLike, HtmlnanoOptions } from '../../src/types.js';
 
 describe('custom', () => {
     it('should apply a custom minifier module', () => {
@@ -19,11 +20,12 @@ describe('custom', () => {
     });
 });
 
-function getRemoveTagFunction(tag) {
-    return (tree, options) => {
-        expect(options.custom).toBeTruthy();
+function getRemoveTagFunction(tag: string) {
+    return (tree: PostHTMLTreeLike, options?: HtmlnanoOptions): PostHTMLTreeLike => {
+        expect(options?.custom).toBeTruthy();
 
         tree.match({ tag }, (node) => {
+            // @ts-expect-error tag should be a string
             node.tag = false;
             return node;
         });
