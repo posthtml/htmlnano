@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-* Fix broken import ([#342])
+* Broken import ([#342])
 
 
 ## [2.1.3] - 2025-09-03
