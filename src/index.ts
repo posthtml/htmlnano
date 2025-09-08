@@ -82,7 +82,7 @@ const modules = {
     sortAttributesWithLists: () => interop(import('./_modules/sortAttributesWithLists.js'))
 } satisfies Record<string, () => Promise<HtmlnanoModule<any>>>;
 
-export function htmlnano(optionsRun: HtmlnanoOptions = {}, presetRun?: HtmlnanoPreset) {
+const htmlnano = Object.assign(function htmlnano(optionsRun: HtmlnanoOptions = {}, presetRun?: HtmlnanoPreset) {
     // eslint-disable-next-line prefer-const -- re-assign options
     let [options, preset] = loadConfig(optionsRun, presetRun);
 
@@ -191,7 +191,13 @@ export function htmlnano(optionsRun: HtmlnanoOptions = {}, presetRun?: HtmlnanoP
     };
 
     return minifier;
-}
+}, {
+    presets,
+    getRequiredOptionalDependencies,
+    process,
+    htmlMinimizerWebpackPluginMinify,
+    loadConfig
+});
 
 export function getRequiredOptionalDependencies(optionsRun: HtmlnanoOptions, presetRun: HtmlnanoPreset) {
     const [options] = loadConfig(optionsRun, presetRun);
@@ -225,19 +231,13 @@ export function htmlMinimizerWebpackPluginMinify(
     minimizerOptions?: HtmlnanoOptions
 ) {
     const [[, code]] = Object.entries(input);
-    return htmlnano.process(code, minimizerOptions, presets.safe)
+    return process(code, minimizerOptions, presets.safe)
         .then((result) => {
             return {
                 code: result.html
             };
         });
 }
-
-htmlnano.presets = presets;
-htmlnano.getRequiredOptionalDependencies = getRequiredOptionalDependencies;
-htmlnano.process = process;
-htmlnano.htmlMinimizerWebpackPluginMinify = htmlMinimizerWebpackPluginMinify;
-htmlnano.loadConfig = loadConfig;
 
 export default htmlnano;
 
