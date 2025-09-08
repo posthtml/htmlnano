@@ -11,7 +11,7 @@
     "lint": "eslint --fix .",
     "pretest": "npm run lint && npm run compile",
     "test": ":",
-    "posttest": "mocha --timeout 5000 --require @swc-node/register --recursive --check-leaks --globals addresses",
+    "posttest": "mocha --timeout 5000 --require @swc-node/register --recursive --check-leaks --globals addresses 'test/**/*.ts'",
     "prepare": "npm run compile"
   },
   "files": [
@@ -59,8 +59,10 @@
     "posthtml": "^0.16.5"
   },
   "devDependencies": {
+    "@eslint/js": "^9.35.0",
     "@stylistic/eslint-plugin": "^5.3.1",
     "@swc-node/register": "^1.10.10",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^24.0.0",
     "bunchee": "^6.5.1",
     "cssnano": "^7.0.0",

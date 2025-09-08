@@ -75,7 +75,7 @@ describe('loadConfig()', () => {
     });
 });
 
-export function init(html, minifiedHtml, options) {
+export function init(html: string, minifiedHtml: string, options?: any): Promise<void> {
     return posthtml([htmlnano(options, {})]).process(html).then((result) => {
         expect(result.html).toBe(minifiedHtml);
     });

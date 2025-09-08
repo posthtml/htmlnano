@@ -1,4 +1,5 @@
-import { init } from '../htmlnano.mjs';
+import { init } from '../htmlnano.ts';
+import { describe, it } from 'mocha'
 
 describe('sortAttributesWithLists', () => {
     it('alphabetical', () => {

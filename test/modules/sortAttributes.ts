@@ -1,4 +1,4 @@
-import { init } from '../htmlnano.mjs';
+import { init } from '../htmlnano.ts';
 
 describe('sortAttributes', () => {
     it('alphabetical', () => {
