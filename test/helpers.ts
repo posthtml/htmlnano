@@ -1,4 +1,5 @@
-import { Expect, expect } from 'expect';
+import { expect } from 'expect';
+import type { Expect } from 'expect';
 import { isAmpBoilerplate, isComment, isConditionalComment, isStyleNode, extractCssFromStyleNode, optionalImport } from '../dist/helpers.mjs';
 
 describe('[helpers]', () => {

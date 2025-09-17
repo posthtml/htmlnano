@@ -108,7 +108,8 @@ export default tseslint.config(
             '@typescript-eslint/switch-exhaustiveness-check': ['error', { allowDefaultCaseForExhaustiveSwitch: true, considerDefaultExhaustiveForUnions: true }],
             '@typescript-eslint/parameter-properties': ['warn', { prefer: 'parameter-property' }],
 
-            '@typescript-eslint/no-namespace': 'off'
+            '@typescript-eslint/no-namespace': 'off',
+            '@typescript-eslint/only-throw-error': ['error', { allowRethrowing: true, allowThrowingAny: true, allowThrowingUnknown: true }]
         }
     },
     {
