@@ -54,7 +54,63 @@ const optionalDependencies = {
     minifySvg: ['svgo']
 } satisfies Partial<Record<keyof HtmlnanoOptions, string[]>>;
 
-const interop = <T>(imported: Promise<{ default: T }>): Promise<T> => imported.then(mod => mod.default);
+/**
+ * And the old mixing named export and default export again.
+ *
+ * TL; DR: our bundler has bundled our mixed default/named export module into a "exports" object,
+ * and when dynamically importing a CommonJS module using "import" instead of "require", Node.js wraps
+ * another layer of default around the "exports" object.
+ *
+ * The longer version:
+ *
+ * The bundler we are using outputs:
+ *
+ * ESM: export { [named], xxx as default }
+ * CJS: exports.default = xxx; exports.[named] = ...; exports.__esModule = true;
+ *
+ * With ESM, the Module object looks like this:
+ *
+ * ```js
+ * Module {
+ *   default: xxx,
+ *   [named]: ...,
+ * }
+ * ```
+ *
+ * With CJS, Node.js handles dynamic import differently. Node.js doesn't respect `__esModule`,
+ * and will wrongly treat a CommonJS module as ESM, i.e. assign the "exports" object on its
+ * own "default" on the "Module" object.
+ *
+ * Now we have:
+ *
+ * ```js
+ * Module {
+ *   // this is actually the "exports" inside among "exports.__esModule", "exports.[named]", and "exports.default"
+ *   default: {
+ *     __esModule: true,
+ *     // This is the actual "exports.default"
+ *     default: xxx
+ *   }
+ * }
+ * ```
+ */
+const interop = <T>(imported: Promise<object>): Promise<HtmlnanoModule<T>> => imported.then((mod) => {
+    let htmlnanoModule;
+    while ('default' in mod) {
+        htmlnanoModule = mod;
+        mod = mod.default as object;
+        // If we find any htmlnano module hook methods, we know this object is a htmlnano module, return directly
+        if ('onAttrs' in mod || 'onContent' in mod || 'onNode' in mod) {
+            return mod as HtmlnanoModule<T>;
+        }
+    }
+
+    if (htmlnanoModule && typeof htmlnanoModule.default === 'function') {
+        return htmlnanoModule as HtmlnanoModule<T>;
+    }
+
+    throw new TypeError('The imported module is not a valid htmlnano module');
+});
 
 const modules = {
     collapseAttributeWhitespace: () => interop(import('./_modules/collapseAttributeWhitespace')),
@@ -63,23 +119,23 @@ const modules = {
     custom: () => interop(import('./_modules/custom')),
     deduplicateAttributeValues: () => interop(import('./_modules/deduplicateAttributeValues')),
     // example: () => import('./_modules/example.mjs'),
-    mergeScripts: () => interop(import('./_modules/mergeScripts.js')),
-    mergeStyles: () => interop(import('./_modules/mergeStyles.js')),
-    minifyConditionalComments: () => interop(import('./_modules/minifyConditionalComments.js')),
-    minifyCss: () => interop(import('./_modules/minifyCss.js')),
-    minifyJs: () => interop(import('./_modules/minifyJs.js')),
-    minifyJson: () => interop(import('./_modules/minifyJson.js')),
-    minifySvg: () => interop(import('./_modules/minifySvg.js')),
-    minifyUrls: () => interop(import('./_modules/minifyUrls.js')),
+    mergeScripts: () => interop(import('./_modules/mergeScripts')),
+    mergeStyles: () => interop(import('./_modules/mergeStyles')),
+    minifyConditionalComments: () => interop(import('./_modules/minifyConditionalComments')),
+    minifyCss: () => interop(import('./_modules/minifyCss')),
+    minifyJs: () => interop(import('./_modules/minifyJs')),
+    minifyJson: () => interop(import('./_modules/minifyJson')),
+    minifySvg: () => interop(import('./_modules/minifySvg')),
+    minifyUrls: () => interop(import('./_modules/minifyUrls')),
     normalizeAttributeValues: () => interop(import('./_modules/normalizeAttributeValues')),
-    removeAttributeQuotes: () => interop(import('./_modules/removeAttributeQuotes.js')),
-    removeComments: () => interop(import('./_modules/removeComments.js')),
-    removeEmptyAttributes: () => interop(import('./_modules/removeEmptyAttributes.js')),
-    removeOptionalTags: () => interop(import('./_modules/removeOptionalTags.js')),
-    removeRedundantAttributes: () => interop(import('./_modules/removeRedundantAttributes.js')),
-    removeUnusedCss: () => interop(import('./_modules/removeUnusedCss.js')),
-    sortAttributes: () => interop(import('./_modules/sortAttributes.js')),
-    sortAttributesWithLists: () => interop(import('./_modules/sortAttributesWithLists.js'))
+    removeAttributeQuotes: () => interop(import('./_modules/removeAttributeQuotes')),
+    removeComments: () => interop(import('./_modules/removeComments')),
+    removeEmptyAttributes: () => interop(import('./_modules/removeEmptyAttributes')),
+    removeOptionalTags: () => interop(import('./_modules/removeOptionalTags')),
+    removeRedundantAttributes: () => interop(import('./_modules/removeRedundantAttributes')),
+    removeUnusedCss: () => interop(import('./_modules/removeUnusedCss')),
+    sortAttributes: () => interop(import('./_modules/sortAttributes')),
+    sortAttributesWithLists: () => interop(import('./_modules/sortAttributesWithLists'))
 } satisfies Record<string, () => Promise<HtmlnanoModule<any>>>;
 
 const htmlnano = Object.assign(function htmlnano(optionsRun: HtmlnanoOptions = {}, presetRun?: HtmlnanoPreset) {
