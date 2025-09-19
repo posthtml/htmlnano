@@ -12,7 +12,10 @@ const mod: HtmlnanoModule<MinifyOptions> = {
 
         if (!terser) return tree;
 
-        const promises: (Promise<void> | void)[] = [];
+        const promises: Promise<void>[] = [];
+
+        let p: Promise<void> | undefined;
+
         tree.walk((node) => {
             const nodeAttrs = node.attrs || {};
 
@@ -35,7 +38,10 @@ const mod: HtmlnanoModule<MinifyOptions> = {
             if (node.tag && node.tag === 'script') {
                 const mimeType = nodeAttrs.type || 'text/javascript';
                 if (redundantScriptTypes.has(mimeType) || mimeType === 'module') {
-                    promises.push(processScriptNode(node, terserOptions, terser));
+                    p = processScriptNode(node, terserOptions, terser);
+                    if (p) {
+                        promises.push(p);
+                    }
                 }
             }
 

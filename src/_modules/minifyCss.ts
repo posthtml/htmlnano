@@ -21,7 +21,10 @@ const mod: HtmlnanoModule<CssnanoOptions> = {
             return tree;
         }
 
-        const promises: (Promise<void> | undefined)[] = [];
+        const promises: Promise<void>[] = [];
+
+        let p: Promise<void> | undefined;
+
         tree.walk((node) => {
         // Skip SRI, reasons are documented in "minifyJs" module
             if (node.attrs && 'integrity' in node.attrs) {
@@ -29,9 +32,15 @@ const mod: HtmlnanoModule<CssnanoOptions> = {
             }
 
             if (isStyleNode(node)) {
-                promises.push(processStyleNode(node, cssnanoOptions, cssnano, postcss));
+                p = processStyleNode(node, cssnanoOptions, cssnano, postcss);
+                if (p) {
+                    promises.push(p);
+                }
             } else if (node.attrs && node.attrs.style) {
-                promises.push(processStyleAttr(node, cssnanoOptions, cssnano, postcss));
+                p = processStyleAttr(node, cssnanoOptions, cssnano, postcss);
+                if (p) {
+                    promises.push(p);
+                }
             }
 
             return node;
